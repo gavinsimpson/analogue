@@ -1,0 +1,10 @@
+TODO
+====
+
+	* Written documentation in the form of a vignette.
+	
+	* A formula method for 'mat' - DONE in 0.3-4
+	
+	* Thorough code review, testing and consistency
+	  checking - this will be the first widely
+	  advertised release.

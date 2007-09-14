@@ -1,0 +1,14 @@
+citHeader("To cite package 'analogue' in publications use:")
+
+citEntry(entry="Manual",
+	title ="analogue: Analogue matching and Modern Analogue Technique transfer function models",
+	author = personList(as.person("G. L. Simpson")),
+	year = 2007,
+	note = paste("R package version", packageDescription("analogue")$Version),
+	textVersion =
+	paste("Simpson, G.L. (2007). ", 
+	"analogue: Analogue matching and Modern Analogue Technique transfer function models",
+	packageDescription("analogue")$Version, 
+ 	".", sep=" ")
+)
+
