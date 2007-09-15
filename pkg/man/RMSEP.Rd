@@ -25,8 +25,9 @@ RMSEP(object, \dots)
     RMSEP. May be missing. If missing, \code{k} is extracted from the
     model using \code{\link{getK}}.}
   \item{weighted}{logical; Return the RMSEP for the weighted or
-    unweighted model? Defaults is for the unweighted model.}
-  \item{type}{The type of RMSEP to return/calculate.}
+    unweighted model? The default is for an unweighted model.}
+  \item{type}{The type of RMSEP to return/calculate. See Details,
+          below.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
@@ -34,9 +35,9 @@ RMSEP(object, \dots)
   the RMSEP of Birks et al. (1990) is most familiar:
   \deqn{\mathrm{RMSEP} = \sqrt{s_1^2 + s_2^2}}{%
     RMSEP = sqrt(s[1]^2 + s[2]^2)}
-  where where \eqn{s_1}{s[1]} is the standard error of the out-of-bag
-  (OOB) residuals and \eqn{s_2}{s[2]} is the mean bias or the mean of
-  the OOB residuals.
+  where where \eqn{s_1}{s[1]} is the standard deviation of the
+  out-of-bag (OOB) residuals and \eqn{s_2}{s[2]} is the mean bias or the
+  mean of the OOB residuals.
 
   In the wider statistical literature, the following form of RMSEP is
   more commonly used:

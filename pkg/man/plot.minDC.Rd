@@ -1,7 +1,7 @@
 \name{plot.minDC}
 \alias{plot.minDC}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{A plot of minimum dissimilarity per sample}
+\title{Plot of minimum dissimilarity per sample}
 \description{
   Minimum dissimilarity is a useful indicator of reliability of
   reconstructions performed via MAT and other methods, and for analogue

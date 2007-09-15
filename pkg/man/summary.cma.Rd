@@ -1,7 +1,7 @@
 \name{summary.cma}
 \alias{summary.cma}
 \alias{print.summary.cma}
-\title{Summarising the extraction of close modern analogues}
+\title{Summarise the extraction of close modern analogues}
 \description{
   \code{\link{summary}} method for class \code{"cma"}.
 }

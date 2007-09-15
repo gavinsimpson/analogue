@@ -2,7 +2,7 @@
 \alias{summary.analog}
 \alias{print.summary.analog}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Summarising analogue matching results}
+\title{Summarise analogue matching results}
 \description{
   \code{\link{summary}} method for class \code{"analog"}.
 }

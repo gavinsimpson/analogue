@@ -5,7 +5,7 @@
 \alias{minDC.analog}
 \alias{print.minDC}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Functions to extract minimum dissimilarities}
+\title{Extract minimum dissimilarities}
 \description{
   Minimum dissimilarity is a useful indicator of reliability of
   reconstructions performed via MAT and other methods, and for analogue

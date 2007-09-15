@@ -1,7 +1,7 @@
 \name{plot.mcarlo}
 \alias{plot.mcarlo}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Plotting of Monte Carlo simulated dissimilarity distributions}
+\title{Plot Monte Carlo simulated dissimilarity distributions}
 \description{
   A \code{\link{plot.lm}}-like plotting function for objects of class
   \code{"mcarlo"} to visualise the simulated distribution of

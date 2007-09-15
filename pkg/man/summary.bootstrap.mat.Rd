@@ -5,7 +5,7 @@
 %\alias{summary.bootstrap}
 %\alias{print.summary.bootstrap}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Summarising bootstrap resampling for MAT models}
+\title{Summarise bootstrap resampling for MAT models}
 \description{
   \code{\link{summary}} method for class \code{"bootstrap.mat"}.
 }

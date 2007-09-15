@@ -33,21 +33,22 @@ analog(x, \dots)
 \details{
   \code{analog} implements analogue matching \emph{sensu} Flower et
   al (1997) and Simpson et al (2005), where the aim is to identify
-  suitable close analogues from a modern training set for fossil
-  samples. These results are generally used within ecological
-  restoration, but the identification of close modern analogues for
-  fossil samples is also used as a technique for assessing transfer
-  function reconstructions.
+  suitable close analogues of fossil samples from a modern training
+  set. These results are generally used within ecological restoration,
+  but the identification of close modern analogues for fossil samples is
+  also used as a technique for assessing transfer function
+  reconstructions.
 
   \code{analog} is a simple and very general function that generates a
   pairwise dissimilarity matrix for the modern training set, and a second
-  matrix containg the pairwise dissimilarities between each fossil
+  matrix containing the pairwise dissimilarities between each fossil
   sample and each sample in the training set. These results can then be
   assessed using other functions and to extract the close modern
-  analogues. See the See Also section below.
+  analogues using function \code{\link{cma}}. See the See Also section
+  below.
 
   Analysis of the pairwise dissimilarity matrix for the modern training
-  set can be used to help decide on a suitable dissimilarity threshold
+  set can be used to decide on a suitable dissimilarity threshold
   for defining close modern analogues. By default this matrix is
   returned as part of the output from the \code{analog} function.
 }

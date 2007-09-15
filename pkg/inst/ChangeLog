@@ -1,5 +1,9 @@
 analogue Change Log
 
+Version 0.4-3
+
+   * Documentation fixes.
+	
 Version 0.4-2
 
    * New fitted method for bootstrap.map. Returns the bootstrap

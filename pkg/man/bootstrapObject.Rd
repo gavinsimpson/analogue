@@ -1,6 +1,6 @@
 \name{bootstrapObject}
 \alias{bootstrapObject}
-\title{Bootstrap estimation and errors }
+\title{Bootstrap object description}
 \description{
   Objects of class \code{\link{bootstrap.mat}} are a complex containing
   many sub-components. This object is described here in more detail.

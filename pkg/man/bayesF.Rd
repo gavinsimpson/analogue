@@ -18,9 +18,9 @@ bayesF(x, prior = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{for \code{bayesF} an object of class \code{roc}, for the plot
-        method an object of class \code{bayesF}, usually the result of a
-        call to \code{baeysF}.}
+  \item{x}{for \code{bayesF} an object of class \code{roc}. For the plot
+        method, an object of class \code{bayesF}, usually the result of a
+        call to \code{bayesF}.}
   \item{prior}{numeric; the prior probabilities of analogue and
     no-analogue, provided as a vector of length 2 whose elements sum to
     1. If not provided, the function will use the relative occurences of
@@ -47,9 +47,9 @@ bayesF(x, prior = NULL)
   analogue, for given values of the dissimilarity, and is then converted
   to a  probability.
   
-  The plotting function is very simple that currently only draws the 
-  posterior probability of analogue based on the Bayes factor or
-  likelihood ratio of a positive event (analogue).
+  The plotting function currently only draws the posterior probability
+  of analogue based on the Bayes factor or likelihood ratio of a
+  positive event (analogue).
 }
 \value{
   For \code{plot.bayesF} a plot on the currently active device.
@@ -57,7 +57,7 @@ bayesF(x, prior = NULL)
   For \code{bayesF}, a list with the following components:
   \item{pos}{Bayes factor or likelihood ratio of a positive event
     (analogue).}
-  \item{neg}{Bayes factor or likelihood ratio of anegative event
+  \item{neg}{Bayes factor or likelihood ratio of a negative event
     (analogue).}
   \item{posterior}{list with components \code{pos} and \code{neg}
     containing the posterior probabilities of positive and negative

@@ -2,7 +2,7 @@
 \alias{summary.mat}
 \alias{print.summary.mat}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Summarising Modern Analogue Technique models}
+\title{Summarise Modern Analogue Technique models}
 \description{
   \code{\link{summary}} method for class \code{"mat"}.
 }

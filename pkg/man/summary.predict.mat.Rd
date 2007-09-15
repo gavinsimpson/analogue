@@ -2,7 +2,7 @@
 \alias{summary.predict.mat}
 \alias{print.summary.predict.mat}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Summarising MAT model predictions}
+\title{Summarise MAT model predictions}
 \description{
   \code{\link{summary}} method for objects of class \code{"predict.mat"}.
 }
