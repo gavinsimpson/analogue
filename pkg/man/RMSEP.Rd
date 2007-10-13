@@ -52,7 +52,7 @@ RMSEP(object, \dots)
 
   The RMSEP for objects of class \code{"mat"} is a leave-one-out
   cross-validated RMSEP, and is calculated as for \code{type =
-    "standard"}.}
+    "standard"}.
 }
 \value{
   A numeric vector of length 1 that is the RMSEP of \code{object}.

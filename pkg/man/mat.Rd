@@ -129,7 +129,7 @@ mat(x, \dots)
 
   Typical usages for \code{residuals.mat} are:
   \preformatted{
-    resid(object, k, weighted = FALSE, \dots)}
+    resid(object, k, weighted = FALSE, \dots)
   }
 }
 \value{
