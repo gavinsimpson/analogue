@@ -4,8 +4,8 @@
 ##                                                                       ##
 ## Created       : 17-Apr-2006                                           ##
 ## Author        : Gavin Simpson                                         ##
-## Version       : 0.0-1                                                 ##
-## Last modified : 19-Dec-2006                                           ##
+## Version       : 0.1                                                   ##
+## Last modified : 13-Oct-2007                                           ##
 ##                                                                       ##
 ## ARGUMENTS:                                                            ##
 ##                                                                       ##
@@ -88,7 +88,7 @@ distance <- function(x, y,
         }
         if(any(facs)) {
           factors <- ifelse(x[facs] == y[facs], 1, 0)
-        factors <- factors * weights[facs]
+          factors <- factors * weights[facs]
         }
         if(any(!facs)) {
           if(any(facs))
@@ -127,19 +127,32 @@ distance <- function(x, y,
     if(missing(method))
       method <- "euclidean"
     method <- match.arg(method)
+    y.miss <- FALSE
+    if(missing(y)) {
+      y.miss <- TRUE
+      y <- x
+    }
     if(method == "mixed") {
       ## sanity check: are same columns in x and y factors
       facs.x <- sapply(as.data.frame(x), is.factor)
+      facs.y <- sapply(as.data.frame(y), is.factor)
+      if(sum(facs.x - facs.y) > 0)
+        stop("Different columns (species) are coded as factors in 'x' and 'y'")
+      ## sanity check: levels of factors also need to be the same       
+      for(i in seq_along(facs.x)[facs.x]){
+        if(!identical(levels(x[,i]), levels(y[,i])))
+          stop("The levels of one or more factors in 'x' and 'y'\ndo not match.\nConsider using 'join(x, y)'. See '?join'")
+      }
     }
+    x.names <- rownames(x)
     x <- data.matrix(x)
     n.vars <- ncol(x)
-    x.names <- rownames(x)
     ## Do we want to remove NAs? Yes if gower, alt.gower and mixed,
     ## but fail for others
     NA.RM <- FALSE
     if(method %in% c("gower", "alt.gower", "mixed"))
       NA.RM <- TRUE
-    y.miss <- FALSE
+    #y.miss <- FALSE
     if(missing(y)) {
       #colsumx <- colSums(x, na.rm = NA.RM)
       #if(any(colsumx <= 0)) {
@@ -150,14 +163,19 @@ distance <- function(x, y,
       y <- x
       y.names <- x.names
     } else {
-      if(method == "mixed") {
+      #if(method == "mixed") {
         ## sanity check: are same columns in x and y factors
-        facs.y <- sapply(as.data.frame(y), is.factor)
-        if(sum(facs.x - facs.y) > 0)
-          stop("Different columns (species) are coded as factors in 'x' and 'y'")
-      }
-      y <- data.matrix(y)
+        #facs.y <- sapply(as.data.frame(y), is.factor)
+        #if(sum(facs.x - facs.y) > 0)
+        #  stop("Different columns (species) are coded as factors in 'x' and 'y'")
+        ## sanity check: levels of factors also need to be the same       
+        #for(i in seq_along(facs.x)[facs.x]){
+        #  if(!identical(levels(x[,i]), levels(y[,i])))
+        #    stop("The levels of one or more factors in 'x' and 'y' do not match.\nConsider using 'join(x, y)'. See '?join'")
+        #}
+      #}
       y.names <- rownames(y)
+      y <- data.matrix(y)
     }
     if(method == "chi.distance")
       colsum <- colSums(join(as.data.frame(x),as.data.frame(y), split = FALSE))
@@ -217,7 +235,11 @@ distance <- function(x, y,
     } else {
       res <- apply(y, 1, Dist, x, method)
     }
-    colnames(res) <- y.names
-    rownames(res) <- x.names
+    if(is.null(dim(res))) {
+      names(res) <- x.names
+    } else {
+      colnames(res) <- y.names
+      rownames(res) <- x.names
+    }
     return(res)
   }

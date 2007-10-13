@@ -2,6 +2,25 @@ analogue Change Log
 
 Version 0.4-3
 
+   * distance() would work even if factors in x and y had
+     different levels. This would result in incorrect 
+     dissimilarities for method = "mixed". distance() now
+     issues an error if one or more factors have different
+     levels in x and y. Use join() to get correct factors
+     and levels. Reported by Birgit Lemcke.
+
+   * join() was not correctly merging data frames with factors.
+     Factors were converted to internal values, not levels via
+     sapply(). Now uses data.frame(lapply(...)) to maintain
+     factors intact.
+     
+   * distance() was not setting the row / column names in the
+     case where both x and y were supplied.
+     
+   * distance() was incorrectly trying to set row / column
+     names in the case where a single dissimilarity was being
+     calculated.
+
    * Documentation fixes.
 	
 Version 0.4-2

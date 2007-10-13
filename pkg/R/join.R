@@ -29,6 +29,7 @@
 ##                             joined objects. FIXED                     ##
 ## 23-Jul-2007 - GLS - 0.2-0 * More user-friendly; will unsplit joined   ##
 ##                             datasets if split == TRUE                 ##
+## 13-Oct-2007 - GLS - 0.3-0 * join() now merges factors correctly       ##
 ##                                                                       ##
 ###########################################################################
 join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE)
@@ -52,7 +53,9 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE)
     ## End Sundar code
     if(na.replace) {
       dim.names <- dimnames(joined)
-      joined <- sapply(joined, function(x) {x[is.na(x)] <- 0; x})
+      ##joined <- sapply(joined, function(x) {x[is.na(x)] <- 0; x})
+      joined <- data.frame(lapply(joined,
+                                  function(x) {x[is.na(x)] <- 0; x}))
       dimnames(joined) <- dim.names
     }
     if(verbose)

@@ -135,6 +135,19 @@ distance(x, y, method = c("euclidean", "SQeuclidean",
   you would need to merge the two sets of samples, calculate the full
   dissimilarity matrix and then subset it to achieve similar results.
 }
+\section{warning}{
+  For \code{method = "mixed"} it is essential that a factor in \code{x}
+  and \code{y} have the same levels in the two data frames. Previous
+  versions of analogue would work even if this was not the case, which
+  will have generated incorrect dissimilarities for \code{method =
+  "mixed"} for cases where factors for a given species had different
+  levels in \code{x} to \code{y}. 
+
+  \code{distance} now checks for matching levels for each species
+  (column) recorded as a factor. If the factor for any individual
+  species has different levels in \code{x} and \code{y}, an error will
+  be issued.
+}
 \references{
 
   Faith, D.P., Minchin, P.R. and Belbin, L. (1987) Compositional
