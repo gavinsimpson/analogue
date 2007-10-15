@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.4-4 TO BE
+
+   * Updated the Version: field in DESCRIPTION to meet new
+     standards introduced in R 2.6.0 for licence files.
+     Reported by Kurt Hornik.
+     
+   * join() now returns a object of class "join" or 
+     c("join", "data.frame") depending on argument split.
+
 Version 0.4-3
 
    * distance() would work even if factors in x and y had

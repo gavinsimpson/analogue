@@ -29,10 +29,12 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE)
     (i.e. species)?}
 }
 \value{
-  If \code{split = TRUE}, a list of data frames, with as many components
-  as the number of data frames originally merged.
+  If \code{split = TRUE}, an object of class \code{"join"}, a list of
+  data frames, with as many components as the number of data frames
+  originally merged.
 
-  Otherwise, a data frame containing the merged data sets.
+  Otherwise, an object of class \code{c("join", "data.frame")}, a data
+  frame containing the merged data sets.
 }
 \author{Gavin L. Simpson}
 \seealso{\code{\link{merge}}}

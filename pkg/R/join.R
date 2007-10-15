@@ -77,8 +77,11 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE)
         retval[[i]] <- as.data.frame(joined[start[i]:ends[i], ])
         names(retval) <- as.character(match.call())[c(2, 2 + (n.joined-1))]
       }
+      class(retval) <- "join"
       return(retval)
     } else {
-      return(as.data.frame(joined, row.names = rownames(joined)))
+      retval <- as.data.frame(joined, row.names = rownames(joined))
+      class(retval) <- c("join", class(retval))
+      return(retval)
     }
   }
