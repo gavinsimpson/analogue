@@ -8,6 +8,9 @@ Version 0.4-4 TO BE
      
    * join() now returns a object of class "join" or 
      c("join", "data.frame") depending on argument split.
+     
+   * distance() is now generic and has a new method for
+     objects that inherit from class "join".
 
 Version 0.4-3
 

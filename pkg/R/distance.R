@@ -11,13 +11,28 @@
 ##                                                                       ##
 ###########################################################################
 ## x = training data, y = fossil data
-distance <- function(x, y,
-                     method = c("euclidean", "SQeuclidean", "chord",
-                       "SQchord", "bray", "chi.square", "SQchi.square",
-                       "information", "chi.distance", "manhattan",
-                       "kendall", "gower", "alt.gower", "mixed"),
-                     fast = TRUE,
-                     weights = NULL, R = NULL)
+distance <- function(x, ...) UseMethod("distance")
+
+distance.join <- function(x, ...)
+  {
+    if(!inherits(x, "join"))
+      stop("This method should only be used on objects of class 'join'")
+    if(inherits(x, "data.frame")) {
+      distance.default(x, ...)
+    } else {
+      if(length(x) != 2)
+        warning("Object contains more than 2 data sets.\n  Only the first 2 data sets used")
+      distance.default(x[[1]], x[[2]], ...)
+    }
+  }
+
+distance.default <- function(x, y,
+                             method = c("euclidean", "SQeuclidean", "chord",
+                               "SQchord", "bray", "chi.square", "SQchi.square",
+                               "information", "chi.distance", "manhattan",
+                               "kendall", "gower", "alt.gower", "mixed"),
+                             fast = TRUE,
+                             weights = NULL, R = NULL, ...)
   {
     euclidean <- function(x, y)
       {

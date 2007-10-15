@@ -1,5 +1,7 @@
 \name{distance}
 \alias{distance}
+\alias{distance.default}
+\alias{distance.join}
 \concept{dissimilarity}
 \concept{dissimilarity coefficient}
 \concept{similarity}
@@ -12,17 +14,23 @@
   samples in the training set, \code{"x"}, are calculated.
 }
 \usage{
-distance(x, y, method = c("euclidean", "SQeuclidean",
+
+distance(x, \dots)
+
+\method{distance}{default}(x, y, method = c("euclidean", "SQeuclidean",
          "chord", "SQchord", "bray", "chi.square",
          "SQchi.square", "information", "chi.distance",
          "manhattan", "kendall", "gower", "alt.gower",
          "mixed"),
          fast = TRUE,
-         weights = NULL, R = NULL)
+         weights = NULL, R = NULL, \dots)
+
+\method{distance}{join}(x, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{data frame or matrix containing the training set samples.}
+  \item{x}{data frame or matrix containing the training set samples, or
+    and object of class \code{\link{join}}.}
   \item{y}{data frame or matrix containing the fossil or test set
     samples.}
   \item{method}{character; which choice of dissimilarity coefficient to
@@ -31,6 +39,7 @@ distance(x, y, method = c("euclidean", "SQeuclidean",
     calculated? See details below.}
   \item{weights}{numeric; vector of weights for each descriptor.}
   \item{R}{numeric; vector of ranges for each descriptor.}
+  \item{\dots}{arguments passed to other methods}
 }
 \details{
   A range of dissimilarity coefficients can be used to calculate
@@ -202,6 +211,10 @@ test <- distance(train, fossil, method = "chi.distance")
 ## set samples
 test2 <- distance(train)
 
+## Using distance on an object of class join
+dists <- distance(join(train, fossil))
+str(dists)
+
 ## calculate Gower's general coefficient for mixed data
 ## first, make a couple of variables factors
 fossil[,4] <- factor(sample(rep(1:4, length = 10), 10))
@@ -220,7 +233,6 @@ distance(x1, x2, method = "mixed", R = Rj)
 ## Legendre & Legendre) as this is expressed as a
 ## distance whereas Legendre & Legendre describe the
 ## coefficient as similarity coefficient
-
 }
-
 \keyword{multivariate}% at least one, from doc/KEYWORDS
+\keyword{methods}

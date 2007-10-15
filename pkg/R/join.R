@@ -1,6 +1,6 @@
 ###########################################################################
 ##                                                                       ##
-## join() - Function to merge any nhumber of data frames                 ##
+## join() - Function to merge any number of data frames                  ##
 ##                                                                       ##
 ## Created       : 17-Apr-2006                                           ##
 ## Author        : Gavin Simpson                                         ##
@@ -30,6 +30,7 @@
 ## 23-Jul-2007 - GLS - 0.2-0 * More user-friendly; will unsplit joined   ##
 ##                             datasets if split == TRUE                 ##
 ## 13-Oct-2007 - GLS - 0.3-0 * join() now merges factors correctly       ##
+## 15-Oct-2207 - GLS - 0.4-0 * join() now returns a classed object       ##
 ##                                                                       ##
 ###########################################################################
 join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE)
