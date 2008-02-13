@@ -23,7 +23,7 @@
 ###########################################################################
 cumWmean <- function(weights, y, drop = TRUE)
   {
-    #if (length(weights) != length(y)) 
+    #if (length(weights) != length(y))
     #  stop("'y' and 'weights' must have the same length")
     nas <- is.na(weights)
     ord <- order(weights[!nas])
@@ -51,19 +51,31 @@ cumWmean <- function(weights, y, drop = TRUE)
 ## drop              - drop spurious zero distance                       ##
 ##                                                                       ##
 ###########################################################################
+#cummean <- function(dis, y, drop = TRUE)
+#  {
+#    nas <- is.na(dis)
+#    ord <- order(dis[!nas])
+#    if(drop) {
+#      dis <- dis[!nas][ord][-1]
+#      y <- y[!nas][ord][-1]
+#    } else {
+#      dis <- dis[!nas][ord]
+#      y <- y[!nas][ord]
+#    }
+#    cumsum(y) / 1:length(dis)
+#  }
 cummean <- function(dis, y, drop = TRUE)
-  {
+{
     nas <- is.na(dis)
     ord <- order(dis[!nas])
+    y <- y[!nas][ord]
+    len <- length(dis[!nas])
     if(drop) {
-      dis <- dis[!nas][ord][-1]
-      y <- y[!nas][ord][-1]
-    } else {
-      dis <- dis[!nas][ord]
-      y <- y[!nas][ord]
+        y <- y[-1]
+        len <- len - 1
     }
-    cumsum(y) / 1:length(dis)
-  }
+    cumsum(y) / 1:len
+}
 ###########################################################################
 ##                                                                       ##
 ## minDij - returns the non-zero minimum distance                        ##
