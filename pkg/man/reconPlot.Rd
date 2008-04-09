@@ -3,7 +3,6 @@
 \alias{reconPlot.default}
 \alias{reconPlot.predict.mat}
 \alias{reconPlot.predict.wa}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Stratigraphic plots of palaeoenvironmental reconstructions}
 \description{
   Draws a palaeoenvironmental reconstruction of predicted environmental
@@ -24,6 +23,10 @@ reconPlot(x, \dots)
 
 \method{reconPlot}{predict.mat}(x, depths, use.labels = FALSE,
           predictions = c("model", "bootstrap"),
+          display.error = c("none", "bars", "lines"),
+          sample.specific = TRUE, \dots)
+
+\method{reconPlot}{predict.wa}(x, depths, use.labels = FALSE,
           display.error = c("none", "bars", "lines"),
           sample.specific = TRUE, \dots)
 }
@@ -81,7 +84,9 @@ reconPlot(x, \dots)
   A plot on the currently active device.
 }
 \author{Gavin L. Simpson }
-\seealso{\code{\link{mat}}, and \code{\link{predict.mat}} }
+\seealso{\code{\link{mat}}, and \code{\link{predict.mat}} for MAT
+  transfer functions and \code{\link{wa}} and \code{\link{predict.wa}}
+  for WA models.}
 \examples{
 ## Continue example from ?join
 example(join)
@@ -97,6 +102,4 @@ rlgh.pH <- predict(swap.mat, rlgh)
 reconPlot(rlgh.pH, use.labels = TRUE, display.error = "bars",
           xlab = "Depth", ylab = "pH")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{hplot}

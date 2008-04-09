@@ -17,6 +17,9 @@ RMSEP(object, \dots)
 
 \method{RMSEP}{bootstrap.mat}(object, type = c("birks1990", "standard"),
           \dots)
+
+\method{RMSEP}{bootstrap.wa}(object, type = c("birks1990", "standard"),
+          \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,7 +68,8 @@ RMSEP(object, \dots)
   263--278.
 }
 \author{Gavin L. Simpson}
-\seealso{\code{\link{mat}}, \code{\link{bootstrap}}}
+\seealso{\code{\link{mat}}, \code{\link{bootstrap}}, \code{\link{wa}},
+  \code{\link{bootstrap.wa}}.}
 \examples{
 ## continue the RLGH and SWAP example from ?join
 example(join)
@@ -86,7 +90,5 @@ RMSEP(swap.boot)
 ## Calculate the alternative formulation
 RMSEP(swap.boot, type = "standard")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{methods}
-\keyword{utilities}% __ONLY ONE__ keyword per line
+\keyword{utilities}

@@ -3,6 +3,7 @@
 \alias{minDC.default}
 \alias{minDC.predict.mat}
 \alias{minDC.analog}
+\alias{minDC.wa}
 \alias{print.minDC}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Extract minimum dissimilarities}
@@ -13,19 +14,34 @@
   dissimilarity between it and the training set samples.
 }
 \usage{
-minDC(x, ...)
+minDC(x, \dots)
 
-\method{minDC}{default}(x, ...)
+\method{minDC}{default}(x, \dots)
 
-\method{minDC}{predict.mat}(x, ...)
+\method{minDC}{predict.mat}(x, \dots)
 
-\method{minDC}{analog}(x, probs = c(0.01, 0.02, 0.05, 0.1), ...)
+\method{minDC}{analog}(x, probs = c(0.01, 0.02, 0.05, 0.1), \dots)
+
+\method{minDC}{wa}(x, y,
+      method = c("euclidean", "SQeuclidean", "chord", "SQchord",
+                 "bray", "chi.square", "SQchi.square", "information",
+                 "chi.distance", "manhattan", "kendall", "gower",
+                 "alt.gower", "mixed"),
+      percent = FALSE, probs = c(0.01, 0.025, 0.05, 0.1), \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class \code{"predict.mat"}, \code{"analog"} or
     a object with a component named \code{"minDC"}.}
   \item{probs}{numeric; vector of probabilities with values in [0,1].}
+  \item{y}{an optional matrix-like object containing fossil samples for
+    which the minimum dissimilarities to training samples are to be
+    calculated.}
+  \item{method}{character; which choice of dissimilarity coefficient to
+    use. One of the listed options. See \code{\link{distance}}.}
+  \item{percent}{logical; Are the data percentages? If \code{TRUE},
+    the data (\code{x} and \code{y}) will be divided by 100 to convert
+    them to the proportions expected by \code{\link{distance}}.}
   \item{\dots}{other arguments to be passed to other methods. Currently
     ignored.}
 }
