@@ -2,42 +2,55 @@ analogue Change Log
 
 Version 0.5-0
 
+	* wa: new function wa() with default and formula interfaces
+	for fitting Weighted Averaging transfer function models. plot,
+	fitted, residuals, coef, minDC, performance (see below), 
+	predict and bootstrap methods are provided.
+
+	* performance: new extractor function to retrieve model
+	performance statistics. Currently, methods provided for 
+	wa, predict.wa, and bootstrap.wa objects.
+
+	* reconPlot: new method for predict.wa objects.
+
+	* RMSEP: new method for bootstrap.wa objects.
+
 	* plot.minDC: Bug in drawing the axis for the quantiles.
 	
 Version 0.4-4
 
-   * Updated the Version: field in DESCRIPTION to meet new
-     standards introduced in R 2.6.0 for licence files.
-     Reported by Kurt Hornik.
+	* Updated the Version: field in DESCRIPTION to meet new
+	standards introduced in R 2.6.0 for licence files.
+	Reported by Kurt Hornik.
      
-   * join() now returns a object of class "join" or 
-     c("join", "data.frame") depending on argument split.
+	* join() now returns a object of class "join" or 
+	c("join", "data.frame") depending on argument split.
      
-   * distance() is now generic and has a new method for
-     objects that inherit from class "join"..
+	* distance() is now generic and has a new method for
+	objects that inherit from class "join"..
 
 Version 0.4-3
 
-   * distance() would work even if factors in x and y had
-     different levels. This would result in incorrect 
-     dissimilarities for method = "mixed". distance() now
-     issues an error if one or more factors have different
-     levels in x and y. Use join() to get correct factors
-     and levels. Reported by Birgit Lemcke.
+	* distance() would work even if factors in x and y had
+	different levels. This would result in incorrect 
+	dissimilarities for method = "mixed". distance() now
+	issues an error if one or more factors have different
+	levels in x and y. Use join() to get correct factors
+	and levels. Reported by Birgit Lemcke.
 
-   * join() was not correctly merging data frames with factors.
-     Factors were converted to internal values, not levels via
-     sapply(). Now uses data.frame(lapply(...)) to maintain
-     factors intact.
+	* join() was not correctly merging data frames with factors.
+	Factors were converted to internal values, not levels via
+	sapply(). Now uses data.frame(lapply(...)) to maintain
+	factors intact.
      
-   * distance() was not setting the row / column names in the
-     case where both x and y were supplied.
+	* distance() was not setting the row / column names in the
+	case where both x and y were supplied.
      
-   * distance() was incorrectly trying to set row / column
-     names in the case where a single dissimilarity was being
-     calculated.
+	* distance() was incorrectly trying to set row / column
+	names in the case where a single dissimilarity was being
+	calculated.
 
-   * Documentation fixes.
+	* Documentation fixes.
 	
 Version 0.4-2
 
