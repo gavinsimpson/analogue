@@ -1,0 +1,655 @@
+\documentclass[article,shortnames]{Z}
+\usepackage{thumbpdf}
+
+%\VignetteIndexEntry{Analogue Methods in Palaeoecology}
+%\VignettePackage{analogue}
+%\VignetteDepends{vegan}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% almost as usual
+\author{Gavin L. Simpson\\Environmental Change Research Centre --- UCL}
+\title{Analogue Methods in Palaeoecology:\\ Using the \pkg{analogue} Package}
+
+%% for pretty printing and a nice hypersummary also set:
+\Plainauthor{Gavin L. Simpson} %% comma-separated
+\Plaintitle{Analogue Methods in Palaeoecology: Using the analogue Package} %% without formatting
+\Shorttitle{Analogue Methods in Palaeoecology} %% a short title (if necessary)
+
+%% an abstract and keywords
+\Abstract{
+  Palaeoecology is an important branch of ecology that uses the subfossil remains of organisms preserved in lake, ocean and bog sediments to inform on changes in ecosystems and the environment through time. The \pkg{analogue} package contains functions to perform modern analogue technique (MAT) transfer functions, which can be used to predict past changes in the environment, such as climate or lake-water pH from species data. A related technique is that of analogue matching, which is concerned with identifying modern sites that are floristically and faunistically similar to fossil samples. These techniques, and others, are increasingly being used to inform public policy on environmental pollution and conservation practices. These methods and other functionality in \pkg{analogue} are illustrated using the Surface Waters Acidification Project diatom:pH training set and diatom counts on samples of a sediment core from the Round Loch of Glenhead, Galloway, Scotland. The paper is aimed at palaeoecologists who are familiar with the techniques described but not with \proglang{R}.
+}
+\Keywords{analogue matching, palaeoecology, modern analogue technique, dissimilarity, \proglang{R}}
+\Plainkeywords{analogue matching, palaeoecology, modern analogue technique, dissimilarity, R} %% without formatting
+%% at least one keyword must be supplied
+
+%% publication information
+%% NOTE: This needs to filled out ONLY IF THE PAPER WAS ACCEPTED.
+%% If it was not (yet) accepted, leave them commented.
+%% \Volume{13}
+%% \Issue{9}
+%% \Month{September}
+%% \Year{2004}
+%% \Submitdate{2004-09-29}
+%% \Acceptdate{2004-09-29}
+
+%% The address of (at least) one author should be given
+%% in the following format:
+%\Address{
+%  Gavin L. Simpson\\
+%  Environmental Change Research Centre\\
+%  UCL Department of Geography\\
+%  Pearson Building\\
+%  Gower Street\\
+%  London, UK, WC1E 6BT\\
+%  E-mail: \email{gavin.simpson@ucl.ac.uk}\\
+%  URL: \url{http://www.homepages.ucl.ac.uk/~ucfagls/}
+%}
+%% It is also possible to add a telephone and fax number
+%% before the e-mail in the following format:
+%% Telephone: +43/1/31336-5053
+%% Fax: +43/1/31336-734
+
+%% for those who use Sweave please include the following line (with % symbols):
+%% need no \usepackage{Sweave.sty}
+
+%% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%% include your article here, just as usual
+%% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
+<<preliminary,results=hide,echo=false>>=
+options("prompt" = "R> ", "continue" = "+ ")
+@
+\section{Introduction}
+%% Note: If there is markup in \(sub)section, then it has to be escape as above.
+Palaeoecology is a small but increasingly important branch of ecology. Sub-fossil remains of a range of organisms are well preserved in a number of media, primarily lake and ocean sediments and peat bogs. Analysis of these remains can show how individual organisms through to whole ecosystems develop and evolve, and how they respond to external environmental pressures, such as climate change and anthropogenic pollution. In recent decades palaeoecology has progressed from a primarily descriptive science to one which today involves a wide range of quantitative analysis. This development has been required as palaeoecology has begun to be used to answer questions in areas relating to public policy on pollution impacts and in conservation biology.
+
+Two important quantitative applications of palaeoecology are palaeoenvironmental reconstructions and approaches to define reference conditions and restoration success.
+
+Quantitative palaeoecology has played a key role in identifying the problem and the causes of major environmental issues that have been at the centre of much public concern over the past 20 years or so, such as acid rain and surface water acidification, eutrophication and anthropogenic climate change. In each of these cases, the onset of change or pollution occurred long before environmental monitoring programs were around to detect any change. A key issue, therefore, is to be able to reconstruct past changes in the environment (e.g.~lake water pH or nutrient concentrations, air temperatures, and sea surface temperature and salinity) from the remains of organisms preserved in sediments, so that the extent and timing of the change can be determined. These may in turn suggest particular causative mechanisms.
+
+Acknowledging that many aquatic environments are today degraded as a result of anthropogenic activities major new pieces of legislation have been enacted in Europe (the European Council Water Framework Directive, WFD; \citealt{euwfd}) and the USA (Clean Water Act; \citealt{uscleanwater}), which at their heart contain the concept of change over a baseline state, the reference condition. In Europe for example, the WFD requires member states to restore all degraded fresh waters to at least good status by 2015. Good status is defined as very minor change compared to the reference condition. In many cases we simply do not know what the appropriate reference state should be as there are invariably few, if any, reliable records that predate the onset of change.
+
+Palaeoecology can also play a role here; palaeoenvironmental reconstructions can inform us as to the likely hydrochemical conditions in the past for certain key parameters, and the remains of various species groups preserved in lake sediments can tell us about the flora and fauna living in a lake prior to change. However, because only certain species groups preserve well in lake sediments, direct palaeoecological analysis of lake sediments can provide only part of the answer. Analogue matching can then be used to identify lakes that are today most similar to the reference conditions of the target lake, and the missing species information filled in from surveys of those species living in the identified sites \citep{simpson_envpol2005}.
+
+\subsection{Calibration}
+Palaeoenvironmental reconstruction is a multivariate calibration problem. Calibration methods (known as \emph{transfer functions} in the palaeoecological literature) can be classified into two main types; \emph{classical} and \emph{inverse} methods. In general, the species assemblages, $\mathbf{Y}$, in a training set are assumed to be some function $f$ of the environment at those sites, $\mathbf{X}$, plus an error term. This is commonly written as
+\begin{equation}
+ \mathbf{Y} = f(\mathbf{X}) + \epsilon
+\end{equation}
+where $\mathbf{Y}$ is an $n \times m$ matrix of counts on $m$ species and $\mathbf{Y}$ is an $n \times p$ matrix of $p$ environmental variables for $n$ samples or sites.
+
+In the classical approach to calibration, $f$ is estimated from a set of training data via regression of $\mathbf{Y}$ on $\mathbf{X}$. Given a sample of fossil species data, $y_0$, $f$ is inverted to yield an estimate of the environment, $x_0$, that gave rise to the fossil assemblage. In all but the simplest cases, however, the inverse of $f$ does not exist and must be estimated from the data, for example via numerical optimisation techniques.
+
+The inverse approach avoids the problem of inverting $f$ by directly estimating the inverse of $f$, denoted $g$, from the data by regressing $\mathbf{X}$ on $\mathbf{Y}$
+\begin{equation}
+ \mathbf{X} = g(\mathbf{Y}) + \epsilon.
+\end{equation}
+Note that we do not believe that the species ($\mathbf{Y}$) influence their environment ($\mathbf{X}$).
+
+Inverse approaches are known to perform slightly better in situations where the fossil samples are from the central part of the distribution of the training set, whereas classical approaches perform slightly better at the extremes of the training set and with a small amount of extrapolation \citep{1215}. The modern analogue technique, described below, is an inverse multivariate calibration approach.
+
+\subsection{The modern analogue technique (MAT)}
+The quantitative analysis of stratigraphic records from sediment archives is predicated on the concept of Uniformitarianism \citep{rymer1978}, which is summarised by the phrase \emph{the present is the key to the past}. Through knowledge of the present-day ecology of species, inferences about past environmental conditions can be made via analogy to that same set of conditions existing where those species are found living today. This is known as space-for-time substitution, or more commonly as the modern analogue technique (MAT). In MAT, the environment of samples from a modern set of lakes that are most similar in terms of their species composition to a fossil sample can be used as a direct prediction of the environment that existed at the time the fossil sample was deposited \citep{1482}. MAT is a \emph{k}-nearest neighbours (\emph{k}-NN) method.
+
+Defining how similar two samples are to one another is a critical consideration in MAT. Dissimilarity or distance coefficients are used, which measure the floristic or faunistic similarity between a fossil sample and each modern training set sample. One recommended dissimilarity coefficient for use with compositional data is the chord distance as it has good signal to noise properties \citep{904,1453}.
+
+The chord distance between samples $j$ and $k$, $d_{jk}$, is
+\begin{equation}
+ d_{jk} = \sqrt{\sum\limits_{k=1}^m\left(x_{ij}^{0.5}-x_{ik}^{0.5}\right)^2}
+\end{equation}
+where $x_{ij}$ is the proportion of taxon $i$ in sample $k$. For the chord distance, values for $d_{jk}$ range from 0 to $\sqrt{2}$. Another commonly used measure is the $\chi^2$ distance \citep{957, 122}. Often the squared forms of these coefficients have been used for no other reason than computational efficiency.
+
+Despite having some optimal properties for percentage compositional data, \citet{1527} have criticised the chord distance as a weak measure of compositional dissimilarity.
+
+A wide range of dissimilarity coefficients have been proposed, several of which have been implemented in the function \code{distance} (see Section \ref{dissims}), including several of the coefficients recommended by \citet{1527} as good measures of compositional dissimilarity.
+
+\subsection{Analogue matching}
+Analogue matching \citep{904, 361} is a palaeoecological technique used to identify the \emph{k}-closest sites from a modern set of lakes that are biologically most similar to the impacted lake prior to the onset of change. The \emph{k}-closest sites are selected on the basis of how similar they are to the target sample in those organisms that are preserved in lake sediments, and are known as modern analogues. The pre-impact or reference condition flora and fauna for the target lake from groups that do not preserve in lake sediments can then be inferred on the basis of the species found living in the modern analogues today \citep{simpson_envpol2005}.
+
+\subsection{Outline of the paper}
+Section \ref{using_analogue} contains a worked example providing an overview of the \pkg{analogue} package for \proglang{R} \citep{R}. In Section \ref{choose_k} we look at alternative ways of selecting the number of analogues, $k$, to retain in a MAT model. Section \ref{other_features} describes the wider functionality contained within \pkg{analogue}, including the dissimilarity coefficients available, an overview of the plotting functions provided, and how to produce sample specific error estimates for fossil samples and use an independent test set in MAT transfer functions. The paper concludes with a short description of future plans for the package (Section \ref{future_plans}).
+
+\section[Using analogue]{Using \pkg{analogue}}\label{using_analogue}
+This section contains a worked example of how to use the \pkg{analogue} package to fit MAT transfer function models and to perform analogue matching. The \pkg{analogue} package first has to be loaded before it can be used:
+
+<<>>=
+library("analogue")
+@
+
+The version of \pkg{analogue} installed is printed if the package has been successfully loaded.
+
+To illustrate \pkg{analogue}, the Surface Waters Acidification Project (SWAP) diatom:pH training set is used \citep{swapredbook}, along with diatom counts from a sediment core taken from the Round Loch of Glenhead, Galloway, Scotland \citep{604}. The data sets also need to be loaded before they can be used:
+\label{join}
+<<>>=
+data(swapdiat, swappH, rlgh, package = "analogue")
+@
+
+The \code{swapdiat} data set contains diatom\footnote{Diatoms are unicellular algae that possess a frustule (cell wall) composed of a form of silica. Diatoms live wherever there is water and light. Diatom frustules are highly resistant and as such preserve well in lake sediments. Individual diatom species are identified by different ornamentation of the frustule.} counts on \Sexpr{ncol(swapdiat)} species from \Sexpr{nrow(swapdiat)} lakes. Matching measurements of lake water pH (acidity) are available for each lake in \code{swappH}. These pH measurements are the average of four quarterly samples.
+
+The sediment core from the Round Loch of Glenhead (RLGH from now on) contains diatom counts on \Sexpr{ncol(rlgh)} species from \Sexpr{nrow(rlgh)} levels.
+
+In both datasets the diatom counts are expressed as percentage abundances.
+
+\subsection{MAT transfer functions}
+MAT transfer functions are built using the generic function \code{mat}. The default method for \code{mat} takes three arguments; \code{x} --- a data frame of diatom counts for the training set, \code{y} --- a numeric vector of observations of the environmental variable of interest, and \code{method} --- the dissimilarity coefficient to use.
+
+The data frame of diatom counts (\code{x}), must have the same columns (species) as the data frame of counts for the sediment core for which MAT reconstructions are required. To ensure that both data frames have the same set of columns, the \code{join} function is used to merge the two data sets.
+
+<<>>=
+dat <- join(swapdiat, rlgh, verbose = TRUE)
+@
+
+The \code{verbose = TRUE} argument instructs the function to print out summaries of the merged data sets. \code{dat} is a list containing two data frames. These are the original datasets but now with a common set of columns (species). The defaults for \code{join} also replace the missing values created when merging the two data sets with zeros. This behaviour can be controlled through the \code{na.replace} argument.
+
+An alternative to merging the two data sets would be to select only the intersect of the data sets, i.e.~select only those columns in common between the two datasets. This is a non-standard approach however, and is not consistent with implementations in other software packages. One potential problem with the merging approach employed by \code{join} is the additional zero values added to one or both of the training set or fossil samples, which may exacerbate the double-zero problem or have an unduly large effect on the values of the chosen dissimilarity coefficient. As such, care must be taken when forming training sets and fossil samples, as well as in the choice of dissimilarity coefficient.
+
+By convention, dissimilarity coefficients are defined for proportional data. As the data used in this example are percentages we need to convert them to proportions. We extract each of the merged data sets (the components of \code{dat}) back into the training set and the fossil set, converting the data into proportions as we do so.
+
+<<>>=
+swapdiat <- dat$swapdiat / 100
+rlgh <- dat$rlgh / 100
+@
+
+The data are now ready for analysis. We will fit a MAT model to the SWAP training set using the squared chord distance (SCD) coefficient:
+
+<<>>=
+swap.mat <- mat(swapdiat, swappH, method = "SQchord")
+@
+
+An overview of the fitted model is produced by printing the stored object:
+
+<<>>=
+swap.mat
+@
+
+The percentiles of the distribution of SCD values for the training set are displayed, along with model performance statistics for the training data of inferences for pH based on the mean and weighted mean of the \emph{k} closest analogues. The weights used are the inverse of the dissimilarity, $1 / d_{jk}$, for each of the $k$-closest analogues. It should be noted that this may give overly large weights to nearly identical analogues, which may be of concern in species poor oceanic data sets, but not generally in species rich limnological training sets. By default only statistics for $k = 1,\ldots,10$ closest analogues are shown. The RMSEP values shown are leave-one-out errors; the prediction for each sample in the training set is based on $k$-closest analogues excluding that sample. These values are not strongly biased, unlike the apparent (RMSE) errors from other methods such as the weighted averaging-based techniques. There is not much to choose between models that use the mean or weighted mean. For the rest of this example, we restrict ourselves to non-weighted versions of the models.
+
+A more detailed summary of the results may be displayed using the \code{summary} method:
+
+<<results=hide>>=
+summary(swap.mat)
+@
+
+\setkeys{Gin}{width=0.7\textwidth}
+\begin{figure}
+\centering
+<<plot_mat, fig=true, echo=false>>=
+opar <- par(mfrow = c(2,2))
+plot(swap.mat)
+par(opar)
+@
+\caption{\label{plot_mat}Summary diagram of the results of a MAT model applied to predict lake water pH from the SWAP diatom data set --- see text for details.}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+Before using this model to reconstruct pH for the RLGH core, the number of analogues, $k$, to use in the reconstructions must be determined. A simple way of choosing $k$ is to select $k$ from the model with lowest RMSEP. In the printed results shown above, the model with the lowest RMSEP was a model with $k = 10$ closest analogues for both the mean and weighted mean indices. We should check this number however, as the displayed lists were restricted to show only the $k = 1,\ldots,10$ closest analogues. Whenever $k$ is not specified, the functions in \pkg{analogue} automatically choose the model with lowest RMSEP. The simplest way to check this is to the use the \code{getK} extractor function:
+
+<<>>=
+getK(swap.mat)
+@
+
+This shows that the model with 10 closest analogues has the lowest RMSEP, and that this value was chosen automatically and not set by the user.
+
+\code{mat} has a \code{plot} method, which provides a \code{plot.lm}-like function to graphically summarise the fitted model. By default 4 different plots of the model are produced, so we split the plotting region in four before plotting and subsequently restore the original settings:
+
+<<fig=false>>=
+<<plot_mat>>
+@
+
+The resulting plot is displayed in Figure \ref{plot_mat}. The upper left panel of Figure \ref{plot_mat} shows a plot of the observed versus fitted values, whilst the upper right panel shows a plot of the observed values versus model residuals. The dashed blue line in the residuals plot shows the average bias in the model. In both plots, the solid red line is a LOWESS smoother (span = 2/3).
+
+The labels for the y-axes of both plots show the value of $k$ selected automatically by \code{mat} --- in this case $k = 10$ analogues. We can confirm this value by looking at the plot of the leave-one-out errors (RMSEP) in the lower left panel of Figure \ref{plot_mat}. This is a screeplot of the RMSEP values for models with various values of $k$ (by default this is restricted to be $\leq 20$ to avoid clutter). We can see that a model with 10 analogues has lowest RMSEP although there is not a lot of difference in the RMSEP of models with between 6 and 11 analogues. The lower right panel of Figure \ref{plot_mat} shows a screeplot, similar to the plot of leave-one-out errors, but which displays the maximum bias in models of various sizes.
+
+This choice of $k$ is generally not strongly biased despite being determined \textit{post hoc} from the training data. However, \citet{1461} demonstrate a worst case where this $k$ is badly biased. The use of an independent optimsation set, alongside the usual training and test sets, is recommended to avoid this bias \citep{1461}. Section \ref{test_set} shows how to use independent test or optimsation sets with \pkg{analogue}.
+
+This model can now be used to reconstruct past pH values for the RLGH core. The \code{predict} method of \code{mat} can be used for reconstructions:
+
+<<results=hide>>=
+rlgh.mat <- predict(swap.mat, rlgh, k = 10)
+rlgh.mat
+@
+
+The \code{reconPlot} method can be used to plot the reconstructed values as a time series-like plot --- the resulting plot is shown in Figure \ref{plot_recon}:
+
+<<plot_recon, fig=false>>=
+reconPlot(rlgh.mat, use.labels = TRUE, ylab = "pH", xlab = "Depth (cm.)")
+@
+
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 4>>=
+<<plot_recon>>
+@
+\caption{\label{plot_recon}Time series plot of the pH reconstruction for the RLGH core. Depth is a surrogate for time, with 0 being the most recent period represented by the core.}
+\end{figure}
+
+The argument \code{use.labels = TRUE} instructs the function to take the names component of the predicted values as the values for the x-axis. Here depth is a surrogate for time.
+
+If we are interested in how reliable our reconstructed values are, a useful descriptor is the minimum dissimilarity between a core sample and the training set samples (minDC). If there are no close modern analogues in the training set for certain fossil samples, we will have less faith in the MAT reconstructions for those fossil samples than for samples that do have close modern analogues. The \code{minDC} function can be used to extract the minimum dissimilarity for each fossil sample:
+
+<<>>=
+rlgh.mdc <- minDC(rlgh.mat)
+@
+
+Printing the resulting object (\code{rlgh.mdc}) doesn't yield very much information. It is easier to display the minDC values in a plot similar to the one produced by \code{reconPlot} above:
+
+<<plot_minDC, fig=false>>=
+plot(rlgh.mdc, use.labels = TRUE, xlab = "Depth (cm.)")
+@
+
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 4>>=
+<<plot_minDC>>
+@
+\caption{\label{plot_minDC}Time series plot of the minimum dissimilarity between each core (fossil) sample and the SWAP training set samples. The dotted, horizontal lines are drawn at various percentiles of the distribution of the pair-wise dissimilarities for the training set samples.}
+\end{figure}
+
+The resulting plot is shown in Figure \ref{plot_minDC}. The dotted horizontal lines are the probability quantiles of the distribution of dissimilarity values for the training samples. A useful rule of thumb is that a fossil sample has no close modern analogues where the minDC for the sample is greater than the 5th percentile of the distribution of dissimilarity values for the training samples. As Figure \ref{plot_minDC} shows, there are several periods of the RLGH core that have no close modern analogues.
+
+\subsection{Analogue matching}
+Analogue matching (AM) is a more general version of MAT and the two techniques are used for different purposes. As such, a different set of functions are provided in \pkg{analogue} to perform AM. The main function is \code{analog} and it is used in much the same way as \code{mat} was earlier, but now both \code{x} and \code{y} are data frames of species data.
+
+Returning to the RLGH example, in AM all we are interested in is identifying those samples from the modern training set that are close modern analogues for samples from the RLGH core. In particular, we define the reference condition or period for acidified lakes to be immediately prior to the onset of the industrial revolution, \emph{c.}~1800. We accept that this period is not the ``natural'' state of the RLGH as many UK surface waters have experienced several thousand years of human impact, but this reference condition is appropriate for assessing recovery from recent acidification resulting from the burning of fossil fuels for energy generation and industrial activities. We use \code{analog}, this time with the chord distance (CD) measure and select only those samples from the reference period of the RLGH (samples 25--37):
+
+<<>>=
+rlgh.ref <- rlgh[25:37, ]
+swap.ana <- analog(swapdiat, rlgh.ref, method = "chord")
+swap.ana
+@
+
+In the minimum dissimilarity section of the printed results, the upper row is the core sample label --- here these are numbers representing depth down the core. The lower row is the minimum dissimilarity between the fossil sample and a training set sample. A more detailed display of the \emph{k} best analogues ($k = 10$ by default) is given by the \code{summary} method.
+
+Having performed the main AM computations, we need to extract information from the resulting object, particularly those samples from the training set that are as close or closer than $c$ to each fossil sample, where $c$ is some critical threshold or cutoff. The \code{cma} function (\emph{c}lose \emph{m}odern \emph{a}nalogues) does this:
+
+<<cma>>=
+swap.cma <- cma(swap.ana)
+swap.cma
+@
+
+Notice that we do not need to specify a cutoff, $c$. By default, \code{cma} uses the 2.5th percentile of the distribution of dissimilarities for the modern training set as the value of $c$ if none is supplied. Argument \code{"cutoff"} is used if you want to supply a different cutoff value:
+
+<<results=hide>>=
+cma(swap.ana, cutoff = 0.5)
+@
+
+The close modern analogues can be displayed graphically using the \code{plot} method for \code{cma}. This is a wrapper for \code{stripchart}, and only displays samples that have one or more close modern analogues. Stripcharts are one dimensional scatter plots and are a good alternative to boxplots when sample sizes are small, as they generally are when selecting close modern analogues for fossil samples.
+
+<<plot_cma, fig=false>>=
+plot(swap.cma)
+@
+
+The stripchart is shown in Figure \ref{plot_cma}. The y-axis contains the samples of interest, and for each of these a point is drawn along the x-axis for each close modern analogue within the dissimilarity cutoff, $c$, chosen. Recall that the sample labels for the RLGH sediment core are just the depths from the core top, it is, therefore, only coincidental that the y-axis appears numeric and continuous.
+
+\setkeys{Gin}{width=0.7\textwidth}
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 6>>=
+<<plot_cma>>
+@
+\caption{\label{plot_cma}Plot of the number of close modern analogues from the SWAP training set and their dissimilarity to samples from the RLGH core (y-axis).}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+One problem with analogue methods is the need to decide what level of dissimilarity between two samples should accept before we consider the two samples as being truly dissimilar. We avoid this problem with MAT by selecting the number of analogues that minimises the RMSEP. We cannot do this in AM, however, as invariably we do not have known environmental data for the fossil samples we are comparing with the training set. Instead we must choose a suitable cutoff for the dissimilarity, as described above.
+
+One solution to this problem is to take a low percentile of the distribution of training set dissimilarities as the cutoff; often the 5th or 10th percentile \citep{41}. However, if the shape of the distribution of dissimilarities is strongly left skewed, taking the 5th or 10th percentile would lead to the use of an overly large cutoff, and if there is strong right skew, a smaller cutoff will be chosen. Depending on the shape distribution of training set dissimilarities one may decide to choose a lower or higher percentile to guide their choice of cutoff. We can examine the distribution of training set dissimilarities using the \code{dissim} extractor function and its plot method:
+
+<<plot_dissim, fig=false>>=
+plot(dissim(swap.ana))
+@
+
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 4>>=
+<<plot_dissim>>
+@
+\caption{\label{plot_dissim}Density plot of the distribution of the pair-wise dissimilarities for the SWAP training set samples and a reference normal distribution.}
+\end{figure}
+
+The resulting plot is shown in Figure \ref{plot_dissim}. A reference normal is overlaid with the same mean and standard deviation as the observed set of dissimilarities, with the same sample size. The two vertical, dotted lines are drawn at the 5th percentiles of the observed and reference distributions. The actual percentile drawn can be changed using argument \code{"prob"}. As Figure \ref{plot_dissim} shows, the observed distribution of dissimilarities for the training set is not too far from a normal distribution, though there is some slight skewness to the left. The 5th percentile would suggest a cutoff of $c \leq 0.758$ in this case.
+
+An alternative solution to the problem of deciding on a suitable cutoff is to use Monte Carlo simulation to determine a dissimilarity threshold that is unlikely to have occurred by chance \citep{1528}. At random, two samples are drawn from the training set and the dissimilarity between the two samples is recorded. This process is repeated many times to generate a randomisation distribution of dissimilarity values expected by random comparison of samples. A threshold value that occurred one time in a hundred would correspond to a significance level of 0.01. The dissimilarity value that achieves this level of significance can be determined by selecting the 0.01 probability quantile of the randomisation distribution (the 1st percentile).
+
+The \code{mcarlo} function provides this functionality and methods are available for \code{"mat"} and \code{"analog"} objects.
+
+<<mcarlo>>=
+swap.mc <- mcarlo(swap.ana)
+swap.mc
+@
+
+See Section \ref{roc} for details on how Receiver Operating Characteristic curves may be used to determine and optimal value for $c$.
+
+\section[Alternative methods for choosing k]{Alternative methods for choosing \emph{k}}\label{choose_k}
+A wide range of techniques have been described in the literature for choosing a value of $k$ that gives the best model predictions/reconstructions with the lowest error. Some of these techniques are available in \pkg{analogue}.
+
+\subsection{Bootstrapping}
+The most objective way of determining an optimal value for $k$ is to use some form of cross-validation (CV). \pkg{analogue} currently contains functions to implement bootstrapping \citep{122}. Repeated bootstrap samples are drawn from the training set and a MAT model fitted to the selected samples. These models are then used to predict for the out-of-bag (OOB) samples. A RMSEP measure is then calculated by averaging over the OOB predictions. This procedure is the same as bagging \citep{163}, but a different form of RMSEP than the normal definition is used \citep{122}. The $\mathrm{RMSEP_{boot}}$ of the training set is calculated as:
+\begin{equation}\label{rmsep_boot}
+\mathrm{RMSEP_{boot}} = \sqrt{s_1^2 + s_2^2} ,
+\end{equation} 
+where $s_1$ is the standard deviation of the OOB residuals and $s_2$ is the mean bias or the mean of the OOB residuals.
+
+The \code{bootstrap} function is used to bootstrap resample the training set from a MAT model. Continuing the RLGH MAT example from earlier, we take 100 bootstrap samples and examine the returned object:
+<<bootstrap>>=
+set.seed(1234)
+swap.boot <- bootstrap(swap.mat, n.boot = 100)
+swap.boot
+@
+The bootstrap procedure suggests that $k = 11$ analogues provides the lowest $\mathrm{RMSEP_{boot}}$.
+
+We cannot directly compare the RMSEP values shown, as a different method was used to calculate the two values. The leave-one-out RMSEP is calculated in the normal way: 
+\begin{equation}
+ \mathrm{RMSEP_{loo}} = \sqrt{\frac{\sum\limits^n_{i=1}(y_i - \hat{y_i})^2}{n}},
+\end{equation}
+where $i = 1,\ldots,n$ and $n$ is the number of samples, whilst the bootstrap RMSEP is calculated following (\ref{rmsep_boot}). We can compute a RMSEP that can be compared with the leave-one-out RMSEP as follows:
+
+<<rmsep>>=
+RMSEP(swap.boot, type = "standard")
+@
+
+It is felt that the RMSEP of \citet{122} gives a more reliable estimate of the real prediction error than the standard RMSEP definition. Furthermore, the alternate RMSEP formulation is used to produce bootstrap sample-specific errors (see Section \ref{sample_specific}).
+
+\subsection[Changing the stored value of k]{Changing the stored value of $k$}
+Having used \code{bootstrap} to select a value for $k$, it would be useful if this value could be stored in the MAT model so that functions that utilise the stored value of $k$ will use the new value automatically. The \code{getK} function can be used extract the stored value of $k$ from certain objects, whilst \code{setK} can be used to alter or set the stored value. To illustrate, we extract the bootstrap selected value of $k$ and store this in the \code{swap.mat} object created earlier:
+
+<<>>=
+getK(swap.boot)
+setK(swap.mat) <- getK(swap.boot)
+@
+
+\subsection{Receiver Operating Characteristic (ROC) curves}\label{roc}
+Recently \citet{1455} and \citet{1453} have presented a framework for identifying an optimal critical threshold, $c$, for dissimilarity, that best discriminates between known analogue and non-analogue samples. This framework is based on the use of Receiver Operating Characteristic (ROC) curves but is only applicable where training set samples can be \emph{a priori} assigned to groups or types of samples (e.g.~samples classified into vegetation types). A site is an analogue for another site if they belong to the same group, and not an analogue if they come from different groups.
+
+There are two types of error that arise when a cutoff value for the dissimilarity is used: i) \emph{false positive error}, which occurs when two samples that are not analogues are determined to be analogues on the basis of the chosen cutoff; and ii) \emph{false negative error}, when two samples that really are analogues are determined non-analogous. The optimal cutoff value is the one that jointly minimises these two types of error. ROC curve analysis allows us to compare the rates of these two different errors for various cutoff values and to determine the optimal cutoff.
+
+ROC curves are drawn using two measures of performance: i) \emph{sensitivity}, the proportion of true analogues out of all sites said to be analogues on the basis of the cutoff; and ii) \emph{sensitivity}, the proportion of true non-analogues out of all non-analogues. Sensitivity is drawn on the y-axis and $1-\mathrm{specificity}$ is drawn on x-axis. The point on the ROC curve closest to the top-left corner of the plot corresponds to the cutoff value that jointly minimises the two types of error. The so-called area under the ROC curve (AUC) is a measure of the ability of the community dissimilarity to discriminate between analogue samples and non-analogue ones, and is equivalent to the Mann-Whitney U.
+
+The general idea is that by using the ROC curve for your training set/model a critical threshold $c$ is determined. Instead of choosing the \emph{k}-closest analogues for each fossil sample, you now choose the \emph{m}-closest samples from the training set with a dissimilarity of $\leq c$. The implication being that a variable number of analogues is used for each fossil sample in the reconstruction because only those samples that really are analogues are used. Contrast this with the approach presented earlier, where a fixed number of \emph{k}-closest analogues is used for all fossil samples. In effect, by using a fixed value of $k$, the standard approach is employing a variable threshold $c$ in its predictions.
+
+\pkg{analogue} contains functions that implement a modified version of the ROC method of \citet{1455} and \citet{1453}. The major difference is that \pkg{analogue} considers all pair-wise comparisons in building the ROC curve, whereas the the methodology proposed by \citet{1455} and \citet{1453} uses only the \emph{k}-closest analogues.
+
+The \code{roc} function is used to produce ROC curves from \code{mat} and \code{analog} objects. We continue the worked example by calculating a ROC curve for the SWAP training set. As these data do not fall into natural groupings, we first need to cluster the lakes into groups of similar lake types, arbitrarily splitting the training set into 12 groups. Note that we do this only to illustrate the approach. In reality, the groups should have been determined \emph{a priori}, on the basis of a lake-typology (such as in the case of WFD assessments of standing waters) or vegetation types for example, and not via a clustering of the species data in the training set.
+
+<<clust_sites>>=
+clust <- hclust(as.dist(swap.mat$Dij), method = "ward") #$
+grps <- cutree(clust, k = 12)
+@
+
+<<roc>>=
+swap.roc <- roc(swap.mat, groups = grps)
+swap.roc
+@
+
+The printed results show the optimal dissimilarity $c$, the AUC statistic and its \emph{p}-value. The latter two are determined by the standard \proglang{R} function \code{wilcox.test}.
+
+The \code{plot} method for \code{roc} can display a number of different plots of the ROC results:
+
+<<plot_roc>>=
+opar <- par(mfrow = c(2,2))
+plot(swap.roc)
+par(opar)
+@
+
+\setkeys{Gin}{width=0.7\textwidth}
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 6>>=
+<<plot_roc>>
+@
+\caption{\label{plot_roc}Plot summarising the results of the ROC curve analysis of the SWAP MAT model --- see text for details.}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+The resulting plot is shown in Figure \ref{plot_roc}. The ROC curve itself is drawn in the upper-left panel. The upper-right panel displays density plots of the distributions of the dissimilarities between analogue and non-analogue samples. The point where the two curves cross is the optimal decision threshold. The vertical, dotted line is the optimal dissimilarity based on the ROC curve. This line may not always pass exactly through the optimal decision threshold as the ROC curve has been evaluated on a finite set of dissimilarities, but it is usually very close.
+
+The lower left panel of Figure \ref{plot_roc} is a plot of the difference between the true positive fraction (TPF) and the false positive fraction (FPF) as a function of dissimilarity. The vertical, dotted line is the optimal dissimilarity based on the ROC curve. The lower right panel of Figure \ref{plot_roc} is a plot of the posterior probability of two samples being analogues as a function of the dissimilarity, $d$. It is worth noting that the posterior probability of analogue is based on the slope of ROC curve, and that there are various definitions of the slope of a ROC curve in the literature. The slope used in \code{plot.roc} is different to that used by \citet{1453}, who use a measure of the instantaneous rate of change at points on the ROC curve\footnote{\citet{1453} used binned data from a histogram of dissimilarities for analogue and no-analogue comparisons to calculate the slope of the curve across each bin. It is not clear what advantage binning the data has over the method employed in \pkg{analogue} or whether it is even necessary.}, where as in \pkg{analogue}, the slope of the ROC curve is $\mathrm{TPF / FPF}$ \citep{1525}.
+
+The data plotted in the lower right panel of Figure \ref{plot_roc} is based on the likelihood ratio of a positive event (LR+), which is calculated as $\mathrm{LR(+) = TPF / FPF}$ \citep{1525}. This likelihood ratio is converted into a posterior odds:
+\begin{equation}
+O^{+}_{\mathrm{post.}} = \mathrm{LR(+)} \times O^{+}_{\mathrm{pri.}}
+\end{equation}
+where $O^{+}_{\mathrm{pri.}}$ is
+\begin{equation} 
+O^{+}_{\mathrm{pri.}} = \frac{\mathrm{Pr^{+}_{pri.}}}{1 - \mathrm{Pr^{+}_{pri.}}}
+\end{equation}
+and $\mathrm{Pr^{+}_{pri.}}$ is the prior probability of any two samples being analogous \citep{1526}. $\mathrm{Pr^{+}_{pri.}}$ may be set at 0.5 (i.e.~a 50\% probability of two samples being analogues) or may be determined from the observed probability of two samples being analogue (i.e.~in the same group) in the modern training set.
+
+The posterior odds of analogue $O^{+}_{\mathrm{post.}}$ are converted to a posterior probability of analogue via
+\begin{equation}
+\mathrm{Pr^{+}_{post.}} = \frac{O^{+}_{\mathrm{post.}}}{1 + O^{+}_{\mathrm{post.}}} .
+\end{equation}
+
+The workhorse function used by \code{plot.roc} to draw the posterior probability of any two samples being analogues is \code{bayesF}. The help page for \code{bayesF} contains additional details.
+
+\section[Other features of analogue]{Other features of \pkg{analogue}}\label{other_features}
+We briefly describe some of the other features of the \pkg{analogue} package.
+
+\subsection{Dissimilarity coefficients}\label{dissims}
+Analogue provides a wide range of dissimilarity coefficients via the \code{distance} function. A list of the coefficients provided is shown in Table \ref{dissim_tab}. All the dissimilarity coefficients are coded in pure \proglang{R} code. As such, \code{distance} will not be as quick as other similar functions available in \proglang{R}, such as \code{dist}, or \code{vegdist} in \pkg{vegan}, where the computations are done in compiled \proglang{C} code. Where there is overlap with coefficients available explicitly or indirectly (via transformation), in functions \code{dist} or \code{vegdist}, these faster functions are used by default, but only if no second argument \code{y} is supplied.
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\arraystretch}{1.25}
+\begin{table}
+\begin{center}
+\begin{tabular}{p{4.5cm}ll}\hline
+Distance metric & Method & Formula \\ \hline
+%\footnotesize
+Euclidean distance & \texttt{euclidean} & $d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}$ \\
+Squared Euclidean distance & \texttt{SQeuclidean} & $d_{jk} = \sum_i (x_{ij}-x_{ik})^2$ \\
+Chord distance & \texttt{chord} & $d_{jk} = \sqrt{\sum_i (\sqrt{x_{ij}}-\sqrt{x_{ik}})^2}$ \\
+Squared chord distance & \texttt{SQchord} & $d_{jk} = \sum_i (\sqrt{x_{ij}}-\sqrt{x_{ik}})^2$ \\
+Bray-Curtis dissimilarity & \texttt{bray} & $d_{jk} = \frac{\sum_i |x_{ij} - x_{ik}|}{\sum_i (x_{ij} + x_{ik})}$ \\
+$\chi^2$ distance & \texttt{chi.square} & $d_{jk} = \sqrt{\sum_i \frac{(x_{ij} - x_{ik})^2}{x_{ij} + x_{ik}}}$ \\
+Squared $\chi^2$ distance & \texttt{SQchi.square} & $d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2 / (x_{i+} / x_{++})}$ \\
+Information statistic & \texttt{information} & $d_{jk} = \sum_i (p_{ij}\log(\frac{2x_{ij}}{x_{ij} + x_{ik}}) + x_{ik}\log(\frac{2x_{ik}}{x_{ij} + x_{ik}}))$ \\
+$\chi^2$ distance & \texttt{chi.distance} & $d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2 / (x_{i+} / x_{++})}$ \\
+Manhattan distance & \texttt{manhattan} & $d_{jk} = \sum_i (|x_{ij}-x_{ik}|)$ \\
+Kendall's coefficient & \texttt{kendall} & $d_{jk} = \sum_i \mathrm{MAX_i} - \mathrm{minimum}(x_{ij}, x_{ik})$ \\
+Gower's coefficient\footnotemark[1] & \texttt{gower} & $d_{jk} = \sum_i\frac{|x_{ij} - x_{ik}|}{R_i}$ \\
+Alternative Gower's coefficient\footnotemark[1] & \texttt{alt.gower} & $d_{jk} = \sqrt{2\sum_i\frac{|x_{ij} - x_{ik}|}{R_i}}$ \\
+Gower's mixed coefficient\footnotemark[2]  & \texttt{mixed} & $d_{jk} = \frac{\sum_{i=1}^p w_{i}s_{jki}}{\sum_{i=1}^pw_{i}}$ \\ \hline
+%\normalsize
+\end{tabular}
+\end{center}
+\caption{\label{dissim_tab}List of the dissimilarity coefficients currently available in function \code{distance}.}
+\end{table}
+\footnotetext[1]{where $R_i$ is the range of proportions for descriptor (variable) $i$.}
+\footnotetext[2]{where $w_i$ is the weight for descriptor $i$ and $s_{jki}$ is the similarity between samples $j$ and $k$ for descriptor (variable) $i$.}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\arraystretch}{1}
+
+The existing implementation is sufficiently speedy for most problems that might be encountered with training sets of up to about 200 samples. Beyond this, a faster implementation may be desirable to save compute time. \proglang{C} versions of the dissimilarity coefficients already implemented in \code{distance} are currently being written and will be made available in a future version of \pkg{analogue}.
+
+The implementation in \code{distance} has one main advantage over other implementations. In many situations  we are interested in computing the dissimilarities between training set samples and fossil samples, not the pair-wise dissimilarities between samples in a single data set. With other \proglang{R} functions for computing dissimilarities, such as those mentioned above, this is not possible unless the two data sets are merged and the required dissimilarities subsequently extracted from the resulting object. \code{distance} was primarily designed to work with two separate data frames of species data and to calculate only the required dissimilarities between the two data frames. Pairwise dissimilarities for a single data frame can be calculated using \code{distance}, by providing the sole data frame as argument \code{x} and leaving argument \code{y} as missing, as the following snippet shows.
+
+<<results=hide>>=
+dists1 <- distance(swapdiat, method = "bray")
+dists2 <- distance(swapdiat, rlgh, method = "bray")
+@
+
+Object \code{dists1} contains the pairwise Bray-Curtis dissimilarities between samples in the SWAP diatom data set, where as \code{dists2} contains the Bray-Cutis dissimilarity between each sample in \code{rlgh} and each sample in \code{swapdiat}. The dissimilarity coefficient used is specified using the \code{method} argument. 
+
+\subsection{Advanced MAT usage}
+
+\subsubsection{Sample specific error estimates}\label{sample-specific}
+Using the bootstrap method described above, it is possible to derive sample specific errors of the reconstructed values for core samples. The sample specific RMSEP is calculated using:
+\begin{equation}
+\mathrm{RMSEP} = \sqrt{s_{1_{\mathrm{fossil}}}^2 + s_{2_{\mathrm{model}}}^2} ,
+\end{equation}
+where $s_{1_{\mathrm{fossil}}}$ is the standard deviation of the bootstrap estimates of the environment for an individual fossil sample and $s_{2_{\mathrm{model}}}$ is the average bias (mean of residuals) from the MAT model.
+
+We continue the RLGH example from above and generate sample specific RMSEPs for each of the RLGH core samples using the \code{predict} method for \code{mat} and 100 bootstraps:
+
+<<sample_specific>>=
+set.seed(1234)
+rlgh.boot <- predict(swap.mat, rlgh, bootstrap = TRUE, n.boot = 100)
+reconPlot(rlgh.boot, use.labels = TRUE, ylab = "pH", xlab = "Depth (cm.)",
+          display.error = "bars", predictions = "bootstrap")
+@
+
+The bootstrap predictions are plotted with error bars representing the sample specific RMSEP of the estimated value. The resulting plot is shown in Figure \ref{sample_specific}. The \code{display.errors} argument controls how the model errors are displayed; available options are \code{"none"}, \code{"bars"} or \code{"lines"}.
+
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 4>>=
+reconPlot(rlgh.boot, use.labels = TRUE, ylab = "pH", xlab = "Depth (cm.)",
+          display.error = "bars", predictions = "bootstrap")
+@
+\caption{\label{sample_specific}Time series plot of the pH reconstruction for the RLGH core, with bootstrap-derived sample specific errors. Depth is a surrogate for time, with 0 being the most recent period represented by the core.}
+\end{figure}
+
+\subsubsection{Using an independent test set}\label{test_set}
+The \code{bootstrap} function can also be used to provide a realistic RMSEP using an independent test set. A test set is one where both the predictor and the response variables have been observed, invariably by random splitting of the a full data set into a training and a test set.
+
+We begin by randomly splitting the SWAP data into a training set of 100 samples and a test set of 67 samples:
+
+<<>>=
+set.seed(1234)
+want <- sample(1:nrow(swapdiat), 67, replace = FALSE)
+train <- swapdiat[-want, ]
+train.env <- swappH[-want]
+test <- swapdiat[want, ]
+test.env <- swappH[want]
+@
+
+Now we draw 100 bootstrap samples from the training set and predict for the test set:
+
+<<testset_boot>>=
+train.mat <- mat(train, train.env, method = "SQchord")
+test.boot <- bootstrap(train.mat, newdata = test, 
+                       newenv = test.env, n.boot = 100)
+test.boot
+@
+
+The printed results now show two additional lines for the model and bootstrap summary statistics for the test set. The bootstrap RMSEP for the test set is $\sim0.07$ pH units higher than the standard bootstrap RMSEP for the training set, suggesting that simply bootstrapping a training set slightly underestimates the real error performance. It should be noted that, ideally, the test set samples should be taken as a random, stratified sample from the full data set, such that the test set samples cover the entire range of the full data set.
+
+\subsubsection{Using an optimisation set}\label{opti_set}
+\citet{1461} demonstrated that choosing $k$ \emph{post hoc} by selecting the $k$ with lowest RMSEP for the training set can be biased, and that in some cases this bias can be quite large. The solution to this problem is to use an optimisation set alongside the usual training and test sets \citep{1461}. The model is built on a subset of the training data, just as in the previous section, except that we split the test set into a small optimisation set as well as a test set. The optimisation set is used to select $k$, and is the number of analogues that produces the lowest RMSEP for the optimisation set samples. \pkg{analogue} provides both the model-based RMSEP as well as the bootstrap RMSEP for the optimisation test. This value of $k$ is then used to predict for the test set samples to produce an independent assessment of the RMSEP of the predictions.
+
+We illustrate this process, first by selecting out the optimisation set samples from the test set,
+<<>>=
+set.seed(9876)
+want <- sample(nrow(test), 40)
+opti <- test[-want, ]
+opti.env <- test.env[-want]
+test <- test[want, ]
+test.env <- test.env[want]
+@
+Using the test set created in the previous section, 40 of these samples are randomly selected for the new test set and the remaining 27 are allocated to the optimisation set. The training set is the same as that generated previously.
+
+Using \code{train.mat}, we bootstrap the training set to produce predictions for the optimisation set,
+
+<<opti>>=
+opti.boot <- bootstrap(train.mat, newdata = opti, newenv = opti.env, n.boot = 100)
+opti.boot
+@
+
+The number of analogues that gives the lowest RMSEP for the optimisation samples is \Sexpr{opti.boot$predictions$model$k} for the model-based predictions and \Sexpr{opti.boot$predictions$bootstrap$k} for the bootstrap-based predictions. We continue by selecting the value of $k$ for the model-based predictions and use this to produce predictions for the test set.
+
+<<>>=
+use.k <- getK(opti.boot, prediction = TRUE, which = "model")
+test.boot <- bootstrap(train.mat, newdata = test, newenv = test.env, k = use.k, n.boot = 100)
+test.boot
+@
+
+\code{getK} is used to select the appropriate $k$ from \code{opti.boot} and this is passed to \code{bootstrap} as its argument \code{k}. The printed results show the model- and bootstrap-based RMSEP in the lines labelled ``Test''.
+
+\subsubsection{The curse of dimensionality}
+The curse of dimensionality, a term coined by \citet{bellmanCurseDimensionality}, describes the problem of defining localness in high dimensions; neighbourhoods with a fixed number of samples become less local as the number of dimensions increases \citep{theGAMBook}. It is common for the dimensionality of palaeoecological data sets to be high, especially with diverse proxies such as diatoms. In the SWAP and RLGH example presented here, there are \Sexpr{ncol(swapdiat)} dimensions (species) and only \Sexpr{nrow(swapdiat)} sites in the modern training set. However, MAT and AM have been applied routinely in palaeoecology without any prior dimension reduction.
+
+Despite this, MAT and AM appear to defy the curse of dimensionality. This may be, as \citet{hardleNonParaRegBook} shows, because the relevant dimensionality is not $m$, the number of species, but $p$, the number of environmental variables \citep{1215}. \citet{1215} also suggests that this defiance of the curse is due to the dissimilarity just summing over dimensions, the species.
+
+A common method of dimension reduction in palaeoecology is to delete rare taxa from the training set. Various definitions of what is rare have been used, but taxa that are found in fewer than a set number of sites/samples or whose maximum abundance is less than some prescribed limit are often deleted. Commonly, taxa are retained if they are present in, say, at least 5 or 10 samples in the training set or are found at at least 2\% abundance in one or more sample. Often these two measures are combined. This deletion of rare taxa runs counter to ecology, especially in AM, where these rare taxa may be important indicators of particular environments and as yet our knowledge of the autecology of many of the taxa employed in transfer functions is not sufficiently developed to determine their worth. As such, rare taxa should be deleted with care.
+
+The following snippet illustrates how to subset the merged SWAP and RLGH data set to select only those species present in at least 5 sites and with a maximum abundance of at least 2\%. \code{max.abb} and \code{n.occ} are the maximum abundances and the number of occurrences for each taxon respectively.
+
+<<subsetting>>=
+dat <- join(swapdiat, rlgh, split = FALSE)
+max.abb <- apply(dat, 2, max)
+n.occ <- colSums(dat > 0)
+spp.want <- which(max.abb >= 0.02 & n.occ >= 5)
+swapdiat2 <- swapdiat[, spp.want]
+rlgh2 <- rlgh[, spp.want]
+@
+
+Note that we generate the maximum abundance and number of occurrences per taxon on the combined SWAP and RLGH data sets, by using \code{join}, but this time with the argument \code{split = FALSE} so that \code{dat} contains the full merged species data set rather than the two data sets split out (see page \pageref{join}). The process has considerably reduced the number of diatom taxa from \Sexpr{ncol(swapdiat)} to \Sexpr{length(spp.want)}. One can now proceed to refit the models described earlier, but this time using \code{swapdiat2} and \code{rlgh2}.
+
+\subsection{Generating plots}
+Several \pkg{analogue} functions produce a range of plots. In this section we take a brief look at some of the more important plot-types.
+
+The two main plots commonly used to illustrate palaeoecological transfer function models are i) a plot of inferred (fitted) model estimates versus observed values, and ii) a plot of residuals versus inferred (fitted) values. These are two of the plot-types that can be produced by the \code{plot} method for \code{mat}. We have seen how to use this function already, but here we illustrate how individual figures can be produced using \code{plot.mat}, firstly the inferred estimates versus observed values plot:
+
+<<mat_inferred>>=
+plot(swap.mat, which = 1)
+@
+
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 6>>=
+<<mat_inferred>>
+@
+\caption{\label{mat_inferred}Plot of the MAT-inferred and observed pH values for the SWAP training set --- see text for details.}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+The resulting plot is shown in Figure \ref{mat_inferred}. The grey line is a 1:1 line, and the red line is a LOWESS smoother. Whether the smoother is displayed is controlled by the global option \code{options("add.smooth")} or suppressed by specifying \code{panel = points} in the call to \code{plot}.
+
+The residuals versus observed plot is produced using \code{which = 2} in the call to \code{plot}:
+
+<<mat_resid>>=
+plot(swap.mat, which = 2)
+@
+
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 6>>=
+<<mat_resid>>
+@
+\caption{\label{mat_resid}Plot of the MAT model residuals and observed pH values for the swap training set --- see text for details.}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+The resulting plot is shown in Figure \ref{mat_resid}. By default, a number of additional features are drawn on this plot. The blue, dashed line is the mean bias in the model (the mean of the residuals). A related statistic is the maximum bias. Maximum bias is calculated by splitting the environmental gradient (the range of the response, \code{y}) into 10 sections, and calculating the mean of the residuals within these sections. The maximum bias statistic is taken as the maximum of the mean biases of the 10 sections. These sections, and the mean bias for each, are plotted as blue, error bar-like lines displayed in Figure \ref{mat_resid}. Display of these maximum bias markers is controlled by argument \code{max.bias} of \code{plot.mat}. The red line is again a LOWESS smoother.
+
+The main remaining plotting function not already covered is \code{screeplot}. This function produces the type of screeplots displayed in the lower row of Figure \ref{plot_mat}. \code{screeplot} methods for \code{mat} and \code{bootstrap} are currently available, and can draw screeplots of the RMSEP, average bias or maximum bias statistics for models of size $k$. The statistic displayed is controlled by the \code{display} argument, which defaults to RMSEP. The \code{bootstrap} method draws both the leave-one-out and bootstrap-derived statistics. We illustrate this by plotting RMSEP as a function of $k$ for the \code{swap.boot} object created earlier --- the resulting plot shown in Figure \ref{scree}:
+
+<<scree>>=
+screeplot(swap.boot)
+@
+
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{figure}
+\centering
+<<fig=true, echo=false, width = 6, height = 5>>=
+<<scree>>
+@
+\caption{\label{scree}Screeplot of leave-one-out (solid) and boostrap-derived (dashed) RMSEP as a function of $k$ for the SWAP training set.}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth}
+
+\subsection[Generic R functions]{Generic \proglang{R} functions}
+Several of the standard \proglang{R} model utility functions have methods for \code{mat} available in \pkg{analogue}. Currently, \code{fitted} and \code{resid} methods are provided to extract the fitted values and residuals from a MAT model respectively.
+
+\section{Final remarks and future development plans}\label{future_plans}
+The functionality of \proglang{R} package \pkg{analogue} has been demonstrated and explained using the SWAP diatom:pH data set and diatom counts from the RLGH sediment core. The SWAP dataset is a relatively large data set compared to those routinely produced in palaeoecological studies, and as such represents a real-world example of the type of data used in the field.
+
+\pkg{analogue} is still in the early stages of planned development. The main functionality for generating MAT transfer functions and reconstructions and for performing AM is already implemented, but several areas of development remain.
+
+As mentioned above, faster \proglang{C} versions of the dissimilarity calculations are planned to speed up the functions for use on large problems. Also, the package code has yet to receive any rigorous optimisation in terms of memory usage or computation time. Once the feature set has stabilised sufficiently, a code review will be performed to identify bottlenecks and to improve the implementation where possible.
+
+It will be noticeable that the functionality is more comprehensive for MAT transfer functions than for analogue matching. This is purely a function of legacy; MAT models have been used in palaeoecology for over 20 years, but analogue matching (in the sense presented in this paper) is a much newer topic and exactly how the results of AM are used in informing conservation policy is an area of ongoing research. As new developments are proposed, they will be added to future versions of \pkg{analogue}.
+
+\section*{Acknowledgements}
+Support, in part, for the development of this package was provided by the European Union Sixth Framework Programme integrated project Euro-limpacs (GOCE-CT-2003-505540). The author wishes to thank Viv Jones for permission to use the RLGH core data and to distribute these data with \pkg{analogue}. Two anonymous reviewers and the guest editors provided numerous comments and suggestions that have improved both the manuscript and the package.
+
+\bibliography{analogue_refs}
+\end{document}

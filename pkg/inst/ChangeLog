@@ -15,6 +15,12 @@ Version 0.5-0
 
 	* RMSEP: new method for bootstrap.wa objects.
 
+	* Vignette: analogue now has a vignette covering the analogue 
+	methods implemented in the package. This is based on the paper
+	Simpson G.L. (2007) Analogue Methods in Palaeoecology: Using 
+	the analogue Package. Journal of Statistical Software, 22(2),
+	1--29.
+
 	* plot.minDC: Bug in drawing the axis for the quantiles.
 	
 Version 0.4-4
