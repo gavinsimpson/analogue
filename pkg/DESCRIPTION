@@ -8,6 +8,5 @@ Author: Gavin L. Simpson.
 Maintainer: Gavin L. Simpson <gavin.simpson@ucl.ac.uk>
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
   	     function models for prediction of environmental data from species 
-	     data. Also performs analogue matching, a related technique used 
-	     in palaeo ecological restoration.
+	     data, and related methods used in palaeoecology.
 License: GPL-2
