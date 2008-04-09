@@ -1,6 +1,10 @@
 analogue Change Log
 
-Version 0.4-4 TO BE
+Version 0.5-0
+
+	* plot.minDC: Bug in drawing the axis for the quantiles.
+	
+Version 0.4-4
 
    * Updated the Version: field in DESCRIPTION to meet new
      standards introduced in R 2.6.0 for licence files.
@@ -10,9 +14,7 @@ Version 0.4-4 TO BE
      c("join", "data.frame") depending on argument split.
      
    * distance() is now generic and has a new method for
-     objects that inherit from class "join".
-
-   * plot.minDC: Bug in drawing the axis for the quantiles.
+     objects that inherit from class "join"..
 
 Version 0.4-3
 
