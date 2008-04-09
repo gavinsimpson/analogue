@@ -1,5 +1,6 @@
 \name{performance}
 \alias{performance}
+\alias{print.performance}
 \alias{performance.wa}
 \alias{performance.predict.wa}
 \alias{performance.bootstrap.wa}

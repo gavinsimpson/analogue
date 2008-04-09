@@ -1,5 +1,6 @@
 \name{bootstrap.wa}
 \alias{bootstrap.wa}
+\alias{print.bootstrap.wa}
 %\alias{print.bootstrap.wa}
 \title{Bootstrap estimation and errors for WA models}
 \description{

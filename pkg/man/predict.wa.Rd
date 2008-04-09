@@ -1,5 +1,6 @@
 \name{predict.wa}
 \alias{predict.wa}
+\alias{print.predict.wa}
 \title{Predict from a weighted average model}
 \description{
   Model predictions and cross-validation predictions for weighted
