@@ -84,7 +84,7 @@ plot.minDC <- function(x, depths, use.labels = FALSE,
        ylab = ylab, xlab = xlab, main = main, sub = sub, ...)
   if(quantiles & !is.null(x$quantile)) {
     abline(h = x$quantile, lty = "dotted", col = col.quantile)
-    axis(4, at = x$quantiles, labels = names(x$quantiles), las = 2)
+    axis(4, at = x$quantile, labels = names(x$quantile), las = 2)
   }
   lines(depths, x$minDC, type = type)
   invisible()

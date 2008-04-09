@@ -12,6 +12,8 @@ Version 0.4-4 TO BE
    * distance() is now generic and has a new method for
      objects that inherit from class "join".
 
+   * plot.minDC: Bug in drawing the axis for the quantiles.
+
 Version 0.4-3
 
    * distance() would work even if factors in x and y had
