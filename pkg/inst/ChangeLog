@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.5-1
+
+	* predict.wa: was not returning some attributes of the WA model
+	fitted. This was causing some print and other methods to fail.
+
 Version 0.5-0
 
 	* wa: new function wa() with default and formula interfaces

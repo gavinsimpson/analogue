@@ -172,6 +172,8 @@
     }
     retval$call = .call
     retval$CV.method <- CV
+    retval$deshrink <- deshrink
+    retval$tol.dw <- object$tol.dw
     class(retval) <- "predict.wa"
     retval
 }
