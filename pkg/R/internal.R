@@ -184,6 +184,17 @@ wmean <- function(spp, env) {
     return(list(coef = coef, env = pred))
 }
 
+## deshrinking to equal sd
+## A bit like in vegan:::wascores, but wascores uses weighted sd which
+## would need row and column sums in the function call, and this would
+## make the function API incompatible with other *.deshrink functions.
+`expand.deshrink` <- function(env, wa.env) {
+    b1 <- sd(env)/sd(wa.env)
+    b0 <- mean(env) - b1 * mean(wa.env)
+    pred <- b0 + b1 * wa.env
+    return(list(coef = c(b0, b1), env = pred))
+}
+
 ## fast rowSums and colSums functiosn without the checking
 `RowSums` <- function(x, na.rm = FALSE) {
     dn <- dim(x)

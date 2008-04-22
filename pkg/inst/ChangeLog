@@ -5,6 +5,21 @@ Version 0.5-1
 	* predict.wa: was not returning some attributes of the WA model
 	fitted. This was causing some print and other methods to fail.
 
+	* expand.deshrink: implemented simple expansion of variances as a
+	deshrinking method a bit like in vegan:::wascores.  The function
+	has similar API as other deshrinking functions: takes only WA and
+	obs values as input, and returns expanded scores and two linear
+	coefficients to perform the deshrinking.  Slope is given by the
+	expansion ratio and intercept is defined so that the line goes
+	through mean(x), mean(y) point.  The vegan function equalizes
+	weighted variances, but this function only uses simple variances:
+	incorporating weights would mean changing call API. At the moment
+	the function is not yet used anywhere, but just sits there waiting
+	for possible use.
+
+	* wa: residuals are now calculated as predicted - observed. This
+	reverses the sign from the previous version.
+
 Version 0.5-0
 
 	* wa: new function wa() with default and formula interfaces

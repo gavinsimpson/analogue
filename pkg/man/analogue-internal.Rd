@@ -8,6 +8,7 @@
 \alias{w.avg}
 \alias{inv.deshrink}
 \alias{class.deshrink}
+\alias{expand.deshrink}
 \alias{RowSums}
 \alias{ColSums}
 \alias{deshrink.pred}
