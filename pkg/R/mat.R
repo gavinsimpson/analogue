@@ -41,8 +41,8 @@ mat.default <- function(x, y,
     Wmeans <- apply(dis, 2, cumWmean, y, drop = FALSE) # Estimated values
     means <- apply(dis, 2, cummean, y, drop = FALSE)
     minDC <- apply(dis, 2, minDij, drop = FALSE) # minimum Dij per sample
-    Werror <- -sweep(Wmeans, 2, y, "-") # residuals for Wmeans
-    error <- -sweep(means, 2, y, "-") # residuals for mean
+    Werror <- sweep(Wmeans, 2, y, "-") # residuals for Wmeans
+    error <- sweep(means, 2, y, "-") # residuals for mean
     WRMSE <- sqrt(rowMeans(Werror^2))
     k.w <- which.min(WRMSE)
     RMSE <- sqrt(rowMeans(error^2))
@@ -95,7 +95,7 @@ mat.formula <- function(formula, data, subset, na.action,
   ## drop the intercept
   attr(attr(mf, "terms"), "intercept") <- 0
   ## 1) allow model.frame to update the terms object before saving it.
-  mt <- attr(mf, "terms") 
+  mt <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
   x <- model.matrix(mt, mf)
   res <- mat.default(x, y, method = method)

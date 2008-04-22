@@ -24,7 +24,7 @@
                        inverse = inv.deshrink(env, wa.env),
                        classical = class.deshrink(env, wa.env))
     wa.env <- expanded$env
-    coefficients<- expanded$coef
+    coefficients<- coef(expanded)
     ## site/sample names need to be reapplied
     names(wa.env) <- rownames(x)
     ## species names need to be reapplied

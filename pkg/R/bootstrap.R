@@ -80,7 +80,6 @@ bootstrap.mat <- function(object, newdata, newenv, k, weighted = FALSE,
               k.new.preds[, , i] <- apply(dis.boot, 2, cumWmean,
                                           y.boot, drop = FALSE)
             } else {
-              
               k.new.preds[, , i] <- apply(dis.boot, 2, cummean,
                                           y.boot, drop = FALSE)
             }
@@ -99,7 +98,7 @@ bootstrap.mat <- function(object, newdata, newenv, k, weighted = FALSE,
     temp <- rowMeans(k.preds, na.rm = TRUE, dims = 2)
     boot.train.est <- t(temp)
     ## s1.train == sd of the bootstrap predictions for a training
-    ## set sample when included in the bootstrap test set only 
+    ## set sample when included in the bootstrap test set only
     ns <- rowSums(!is.na(k.preds), dims = 2)
     mns <- as.vector(temp)
     boot.train.s1.train <- t(sqrt(rowSums((k.preds - mns)^2,
@@ -108,14 +107,15 @@ bootstrap.mat <- function(object, newdata, newenv, k, weighted = FALSE,
     ##sds[t(ns)==0] <- NA ## might be needed if a sample gets no bootstraps
     ## s2.train == RMSEP for individual samples across all bootstrap cycles
     ## this does diff between obs value of x_i and each
-    ## prediction x_{i,boot} 
+    ## prediction x_{i,boot}
     boot.train.s2.train <- sweep(k.preds, c(2,1), object$orig.y, "-")
     boot.train.s2.train <- sqrt(t(rowMeans(boot.train.s2.train^2,
                                            na.rm = TRUE, dims = 2)))
     ## overall s1 for the model
     boot.train.s1.model <- sqrt(colMeans(boot.train.s1.train^2))
     ## bootstrap residuals
-    boot.train.resid <- object$orig.y - boot.train.est
+    #boot.train.resid <- object$orig.y - boot.train.est
+    boot.train.resid <- boot.train.est - object$orig.y
     ## s2 for the model == RMS of the difference between the mean of the
     ## predictions for x_i when x_i in the test set - this is across all
     ## bootstraps
@@ -195,7 +195,8 @@ bootstrap.mat <- function(object, newdata, newenv, k, weighted = FALSE,
                                            na.rm = TRUE, dims = 2)))
           ##test.resid <- apply(predicted.boot, 2,
           ##                    function(x) newenv - x)
-          test.resid <- newenv - predicted.boot
+          #test.resid <- newenv - predicted.boot
+          test.resid <- predicted.boot - newenv
           test.avg.bias.boot <- colMeans(test.resid)#apply(test.resid, 2, mean)
           test.max.bias.boot <- apply(test.resid, 2, maxBias,
                                       newenv, n = 10)

@@ -30,8 +30,7 @@
         pred <- colSums(t(newdata[,want]) *
                         object$wa.optima[want]) /
                             rowSums(newdata[,want])
-        pred <- deshrink.pred(pred, coef(object),
-                              deshrink)
+        pred <- deshrink.pred(pred, coef(object))
     } else {
         ## CV wanted
         if(identical(CV, "LOO")) {
@@ -53,14 +52,13 @@
                 wa.env <- (X[-i,]%*% wa.optima) / rowsum
                 deshrink.mod <- deshrink.fun(ENV[-i], wa.env)
                 wa.env <- deshrink.mod$env
-                coefs <- deshrink.mod$coef
+                coefs <- coef(deshrink.mod) #$coef
                 ## LOO model predictions
                 rowsum <- X[i,,drop=FALSE] %*% ones
                 mod.pred[i] <- (X[i,,drop=FALSE] %*%
                                 wa.optima) /
                                     rowsum
-                mod.pred[i] <- deshrink.pred(mod.pred[i],
-                                             coefs, deshrink)
+                mod.pred[i] <- deshrink.pred(mod.pred[i], coefs)
                 ## newdata predictions
                 want <- names(wa.optima) %in% colnames(newdata)
                 want <- names(wa.optima)[want]
@@ -70,8 +68,7 @@
                 rowsum <- newdata[,want] %*% ones
                 pred <- (newdata[,want] %*% wa.optima[want]) /
                     rowsum
-                loo.pred[,i] <- deshrink.pred(pred, coefs,
-                                              deshrink)
+                loo.pred[,i] <- deshrink.pred(pred, coefs)
             }
             ## average the LOO predictions
             pred <- rowMeans(loo.pred)
@@ -96,13 +93,12 @@
                 wa.env <- (X[sel,] %*% wa.optima) / rowsum
                 deshrink.mod <- deshrink.fun(ENV[sel], wa.env)
                 wa.env <- deshrink.mod$env
-                coefs <- deshrink.mod$coef
+                coefs <- coef(deshrink.mod) #$coef
                 ## if we want sample specific errors or
                 ## model performance stats
                 rowsum <- X[-sel,] %*% ones
                 pred <- (X[-sel,] %*% wa.optima) / rowsum
-                oob.pred[-sel,i] <- deshrink.pred(pred, coefs,
-                                                  deshrink)
+                oob.pred[-sel,i] <- deshrink.pred(pred, coefs)
                 ## do the prediction step
                 want <- names(wa.optima) %in% colnames(newdata)
                 want <- names(wa.optima)[want]
@@ -112,8 +108,7 @@
                 rowsum <- newdata[,want] %*% ones
                 pred <- (newdata[,want] %*% wa.optima[want]) /
                     rowsum
-                boot.pred[,i] <- deshrink.pred(pred, coefs,
-                                               deshrink)
+                boot.pred[,i] <- deshrink.pred(pred, coefs)
             }
             pred <- rowMeans(boot.pred)
         }

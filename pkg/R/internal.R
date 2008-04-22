@@ -172,16 +172,17 @@ wmean <- function(spp, env) {
     QR <- qr(X)
     coef <- qr.coef(QR, env)
     pred <- qr.fitted(QR, env)
-    return(list(coef = coef, env = pred))
+    return(list(coefficients = coef, env = pred))
 }
 
 ## classical deshrinking
 `class.deshrink` <- function(env, wa.env) {
     X <- cbind(rep(1, length(env)), env)
     QR <- qr(X)
-    coef <- qr.coef(QR, wa.env)
+    coef <- drop(qr.coef(QR, wa.env))
+    coef <- c(-coef[1], 1)/coef[2]
     pred <- qr.fitted(QR, wa.env)
-    return(list(coef = coef, env = pred))
+    return(list(coefficients = coef, env = pred))
 }
 
 ## deshrinking to equal sd
@@ -192,7 +193,7 @@ wmean <- function(spp, env) {
     b1 <- sd(env)/sd(wa.env)
     b0 <- mean(env) - b1 * mean(wa.env)
     pred <- b0 + b1 * wa.env
-    return(list(coef = c(b0, b1), env = pred))
+    return(list(coefficients = c(b0, b1), env = pred))
 }
 
 ## fast rowSums and colSums functiosn without the checking
@@ -211,9 +212,6 @@ wmean <- function(spp, env) {
 }
 
 ## deshrinking function given deshrinking coefs and a method
-`deshrink.pred` <- function(x, coef, deshrink) {
-    switch(deshrink,
-           inverse = coef[1] + (x * coef[2]),
-           classical = (x - coef[1]) / coef[2]
-           )
+`deshrink.pred` <- function(x, coef) {
+    coef[1] + x * coef[2]
 }

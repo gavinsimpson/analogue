@@ -41,21 +41,21 @@ plot.mat <- function(x,
                      weighted = FALSE,
                      k,
                      caption = c("Inferred vs Observed", "Residuals vs Fitted",
-                       "Leave-one-out errors", "Average bias", "Maximum bias"), 
+                       "Leave-one-out errors", "Average bias", "Maximum bias"),
                      max.bias = TRUE,
                      n.bias = 10,
                      restrict = 20,
                      sub.caption = NULL,
                      main = "",
                      ask = prod(par("mfcol")) < length(which) && dev.interactive(),
-                     ..., 
+                     ...,
                      panel = if (add.smooth) panel.smooth else points,
                      add.smooth = getOption("add.smooth")
                      )
   {
-    if (!inherits(x, "mat")) 
+    if (!inherits(x, "mat"))
       stop("use only with \"mat\" objects")
-    if (!is.numeric(which) || any(which < 1) || any(which > 6)) 
+    if (!is.numeric(which) || any(which < 1) || any(which > 6))
       stop("'which' must be in 1:6")
     show <- rep(FALSE, 6)
     show[which] <- TRUE
@@ -73,7 +73,6 @@ plot.mat <- function(x,
       Est <- fitted(x, k, weighted = weighted)$estimated
       Obs <- x$orig.y
       Resi <- resid(x, k = k, weighted = weighted)$residuals#[, k]
-      
     }
     if (any(show[3:5])) {
       n.obs <- nrow(x$orig.x)
@@ -95,7 +94,7 @@ plot.mat <- function(x,
         cc <- deparse(cal, 80)
         nc <- nchar(cc[1])
         abbr <- length(cc) > 1 || nc > 75
-        sub.caption <- if (abbr) 
+        sub.caption <- if (abbr)
             paste(substr(cc[1], 1, min(75, nc)), "...")
         else cc[1]
     }
@@ -112,7 +111,7 @@ plot.mat <- function(x,
            ylab = ylabel, xlab = "Observed", ...)
       abline(0, 1, col = "grey", ...)
       panel(Obs, Est, ...)
-      if (one.fig) 
+      if (one.fig)
         title(sub = sub.caption, ...)
       mtext(caption[1], 3, 0.25)
     }
@@ -137,7 +136,7 @@ plot.mat <- function(x,
                col = "blue")
       }
       panel(Obs, Resi, ...)
-      if (one.fig) 
+      if (one.fig)
         title(sub = sub.caption, ...)
       mtext(caption[2], 3, 0.25)
     }
@@ -157,7 +156,7 @@ plot.mat <- function(x,
       } else {
         lines(1:n.analogs, dat, type = "b", ...)
       }
-      if (one.fig) 
+      if (one.fig)
         title(sub = sub.caption, ...)
       mtext(caption[3], 3, 0.25)
     }
@@ -167,6 +166,8 @@ plot.mat <- function(x,
       } else {
         dat <- x$standard$avg.bias[1:n.analogs]
       }
+      ## take absolute value of bias, makes plot easier
+      dat <- abs(dat)
       plot(1:n.analogs, dat, type = "n",
            ylab = paste("Average bias (weighted = ", weighted, ")", sep = ""),
            xlab = xlabel, ...)
@@ -177,7 +178,7 @@ plot.mat <- function(x,
       } else {
         lines(1:n.analogs, dat, type = "b", ...)
       }
-      if (one.fig) 
+      if (one.fig)
         title(sub = sub.caption, ...)
       mtext(caption[4], 3, 0.25)
     }
@@ -187,6 +188,8 @@ plot.mat <- function(x,
       } else {
         dat <- x$standard$max.bias[1:n.analogs]
       }
+      ## take absolute value of bias, makes plot easier
+      dat <- abs(dat)
       plot(1:n.analogs, dat, type = "n",
            ylab = paste("Maximum bias (weighted = ", weighted, ")", sep = ""),
            xlab = xlabel, ...)
@@ -197,11 +200,11 @@ plot.mat <- function(x,
       } else {
         lines(1:n.analogs, dat, type = "b", ...)
       }
-      if (one.fig) 
+      if (one.fig)
         title(sub = sub.caption, ...)
       mtext(caption[5], 3, 0.25)
     }
-    if (!one.fig && par("oma")[3] >= 1) 
+    if (!one.fig && par("oma")[3] >= 1)
         mtext(sub.caption, outer = TRUE, cex = 1.25)
     invisible()
   }
