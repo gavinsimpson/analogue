@@ -181,7 +181,7 @@ wmean <- function(spp, env) {
     QR <- qr(X)
     coef <- drop(qr.coef(QR, wa.env))
     coef <- c(-coef[1], 1)/coef[2]
-    pred <- qr.fitted(QR, wa.env)
+    pred <- deshrink.pred(wa.env, coef)
     return(list(coefficients = coef, env = pred))
 }
 
@@ -194,6 +194,11 @@ wmean <- function(spp, env) {
     b0 <- mean(env) - b1 * mean(wa.env)
     pred <- b0 + b1 * wa.env
     return(list(coefficients = c(b0, b1), env = pred))
+}
+
+# Do not deshrink: for those who think they know what they do
+`no.deshrink` <- function(env, wa.env) {
+    return(list(coefficients = c(0, 1), env = wa.env))
 }
 
 ## fast rowSums and colSums functiosn without the checking

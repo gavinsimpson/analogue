@@ -15,11 +15,12 @@ deshrinking are supported.
 \usage{
 wa(x, \dots)
 
-\method{wa}{default}(x, env, deshrink = c("inverse", "classical"),
+\method{wa}{default}(x, env, deshrink = c("inverse", "classical", "expanded", "none"),
    tol.dw = FALSE, ...)
 
 \method{wa}{formula}(formula, data, subset, na.action,
-   deshrink = c("inverse", "classical"), tol.dw = FALSE, model = FALSE, ...)
+   deshrink = c("inverse", "classical", "expanded", "none"),
+   tol.dw = FALSE, model = FALSE, ...)
 
 \method{fitted}{wa}(object, \dots)
 
@@ -32,7 +33,8 @@ wa(x, \dots)
   \item{x}{The species training set data}
   \item{env}{The response vector}
   \item{deshrink}{Which deshrinking method to use? One of
-    \code{"inverse"} or \code{"classical"}.}
+    \code{"inverse"} or \code{"classical"}, \code{"expanded"} or
+    \code{"none"}}
   \item{tol.dw}{logical; should species with wider tolerances be given
     lower weight?}
   \item{formula}{a model formula}
@@ -89,7 +91,7 @@ wa(x, \dots)
     \code{wa}.}
 }
 %\references{ }
-\author{Gavin L. Simpson}
+\author{Gavin L. Simpson and Jari Oksanen}
 \seealso{\code{\link{mat}} for an alternative transfer function method.}
 \examples{
 data(swapdiat)

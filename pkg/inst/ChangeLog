@@ -1,8 +1,19 @@
 analogue Change Log
 
+Version 0.5-2
+
+	* wa: classical deshrinking did not work, but returned the
+	original 'env' variable. Currently a bit inelegant
+	implementation. 
+	
+	* wa: implemented deshrink = "none" just for comparison and for
+	connoisseurs. 
+
+	* wa: deshrink = "expanded" is now public and user-callable.
+	
 Version 0.5-1
 
-    * New developer: Jari Oksanen has joined the analogue team!
+	* New developer: Jari Oksanen has joined the analogue team!
 
 	* predict.wa: was not returning some attributes of the WA model
 	fitted. This was causing some print and other methods to fail.
@@ -19,18 +30,18 @@ Version 0.5-1
 	the function is not yet used anywhere, but just sits there waiting
 	for possible use.
 
-	* wa, mat models: residuals are now calculated as predicted - observed.
-    This reverses the sign from the previous version. There was inconsistency
-    in the way residuals were being calculated in MAT models and help
-    functions. Now resolved.
+	* wa, mat models: residuals are now calculated as predicted -
+	observed.  This reverses the sign from the previous version. There
+	was inconsistency in the way residuals were being calculated in
+	MAT models and help functions. Now resolved.
 
-    * plot.mat: now plots the absolute value of the average or maximum
-    bias statistics, rather than the actual value. This ensures that
-    the "optimal" model is the one with the lowest value on the plot.
+	* plot.mat: now plots the absolute value of the average or maximum
+	bias statistics, rather than the actual value. This ensures that
+	the "optimal" model is the one with the lowest value on the plot.
 
-    * Internal: The way deshrinking was handled internally has been
-    substantially streamlined, via the *.deshrink and deshrink.pred
-    internal functions.
+	* Internal: The way deshrinking was handled internally has been
+	substantially streamlined, via the *.deshrink and deshrink.pred
+	internal functions.
 
 Version 0.5-0
 

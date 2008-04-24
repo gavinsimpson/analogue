@@ -1,5 +1,5 @@
 `wa.formula` <- function(formula, data, subset, na.action,
-                         deshrink = c("inverse", "classical"),
+                         deshrink = c("inverse", "classical", "expanded", "none"),
                          tol.dw = FALSE, model = FALSE, ...) {
     ## set default deshrinking to inverse if no supplied
     if(missing(deshrink))

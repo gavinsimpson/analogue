@@ -1,7 +1,7 @@
 `wa` <- function(x, ...) UseMethod("wa")
 
 `wa.default` <- function(x, env,
-                         deshrink = c("inverse", "classical"),
+                         deshrink = c("inverse", "classical", "expanded", "none"),
                          tol.dw = FALSE, ...) {
     ## x = species abundances (weights), env = response vector
     x <- as.matrix(x)
@@ -22,7 +22,9 @@
     ## taken averages twice so deshrink
     expanded <- switch(deshrink,
                        inverse = inv.deshrink(env, wa.env),
-                       classical = class.deshrink(env, wa.env))
+                       classical = class.deshrink(env, wa.env),
+                       expanded = expand.deshrink(env, wa.env),
+                       none = no.deshrink(env, wa.env))
     wa.env <- expanded$env
     coefficients<- coef(expanded)
     ## site/sample names need to be reapplied
