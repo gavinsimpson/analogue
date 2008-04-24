@@ -19,7 +19,9 @@
     deshrink <- object$deshrink
     deshrink.fun <- switch(deshrink,
                            inverse = inv.deshrink,
-                           classical = class.deshrink)
+                           classical = class.deshrink,
+                           expanded = expand.deshrink,
+                           none = no.deshrink)
     X <- object$orig.x
     ENV <- object$orig.env
     ## Doing CV?
