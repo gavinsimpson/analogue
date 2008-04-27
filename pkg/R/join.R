@@ -30,13 +30,18 @@
 ## 23-Jul-2007 - GLS - 0.2-0 * More user-friendly; will unsplit joined   ##
 ##                             datasets if split == TRUE                 ##
 ## 13-Oct-2007 - GLS - 0.3-0 * join() now merges factors correctly       ##
-## 15-Oct-2207 - GLS - 0.4-0 * join() now returns a classed object       ##
+## 15-Oct-2007 - GLS - 0.4-0 * join() now returns a classed object       ##
+## 27-Apr-2008 - GLS - 0.4-0 * join() now checks for inheritance from    ##
+##                             class data.frame, not that it is that     ##
+##                             class. This allows join to work with the  ##
+##                             results of join(..., split = FALSE        ##
 ##                                                                       ##
 ###########################################################################
 join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE)
   {
     x <- list(...)
-    if(any(sapply(x, class) != "data.frame"))
+    ##if(any(sapply(x, class) != "data.frame"))
+    if(any(!sapply(x, inherits, "data.frame")))
       stop("\nall objects to be merged must be data frames.")
     dims <- do.call(rbind, lapply(x, dim))
     n.joined <- nrow(dims)
