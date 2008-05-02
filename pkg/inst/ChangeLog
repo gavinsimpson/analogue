@@ -10,6 +10,11 @@ Version 0.5-2
 	connoisseurs. 
 
 	* wa: deshrink = "expanded" is now public and user-callable.
+
+	* join: now checks for inherits(foo, "data.frame") to confirm
+	if all objects to join are (or inherit from) data frames. This
+	allows join to work on objects of class "join" when split = FALSE
+	is used.
 	
 Version 0.5-1
 
