@@ -8,8 +8,8 @@
 }
 \usage{
 \method{predict}{wa}(object, newdata,
-        CV = c("none", "LOO", "bootstrap"),
-        verbose = FALSE, n.boot = 100, ...)
+        CV = c("none", "LOO", "bootstrap", "nfold"),
+        verbose = FALSE, n.boot = 100, nfold = 5, ...)
 }
 \arguments{
   \item{object}{an object of class \code{"wa"}, usually the result of a
@@ -17,15 +17,16 @@
   \item{newdata}{An optional data frame in which to look for variables
     with which to predict. If omitted, the fitted values are used.}
   \item{CV}{Should cross-validation be performed? Leave-one-out
-    (\code{"LOO"}) and bootstrap (\code{"bootstrap"}) CV are currently
-    available.}
+    (\code{"LOO"}), bootstrap (\code{"bootstrap"}) and \eqn{k}-fold
+    (\code{"nfold"}) CV are currently available.}
   \item{verbose}{Should CV progress be printed to the console?}
   \item{n.boot}{The number of bootstrap smaples to draw.}
+  \item{nfold}{Number of subsets in \eqn{k}-fold CV.}
   \item{\dots}{further arguments passed to or from other methods.}
 }
 \details{
-  Not all CV methods produce the same output. \code{CV = "bootstrap"} is
-  currently the only method that produces sample specific errors.
+  Not all CV methods produce the same output. \code{CV = "bootstrap"} and
+  \code{CV = "nfold"} produce sample specific errors.
 }
 \value{
   An object of class \code{"predict.wa"}, a list with the following

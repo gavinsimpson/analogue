@@ -1,7 +1,7 @@
 `predict.wa` <- function(object, newdata,
-                         CV = c("none","LOO","bootstrap"),
+                         CV = c("none","LOO","bootstrap", "nfold"),
                          verbose = FALSE,
-                         n.boot = 100,
+                         n.boot = 100, nfold = 5, 
                          ...) {
     if(missing(newdata))
         return(fitted(object))
@@ -113,6 +113,48 @@
                 boot.pred[,i] <- deshrink.pred(pred, coefs)
             }
             pred <- rowMeans(boot.pred)
+        } else if (identical(CV, "nfold")) {
+            boot.pred <- matrix(0, ncol = n.boot, nrow = n.fossil)
+            oob.pred <- matrix(NA, ncol = n.boot, nrow = n.train)
+            ind <- rep(1:nfold, length = n.train)
+            for(i in seq_len(n.boot)) {
+                if(verbose && ((i %% 100) == 0)) {
+                    cat(paste("n-fold sample", i, "\n"))
+                    flush.console()
+                }
+                ## n-fold sample
+                pind <- sample(ind)
+                for (k in seq_len(nfold)) {
+                    sel <- pind != k 
+                    wa.optima <- w.avg(X[sel,], ENV[sel])
+                    ## do the model bits
+                    ones <- rep(1, length = length(wa.optima))
+                    miss <- is.na(wa.optima)
+                    ones[miss] <- 0
+                    wa.optima[miss] <- 0
+                    rowsum <- X[sel,] %*% ones
+                    wa.env <- (X[sel,] %*% wa.optima) / rowsum
+                    deshrink.mod <- deshrink.fun(ENV[sel], wa.env)
+                    wa.env <- deshrink.mod$env
+                    coefs <- coef(deshrink.mod) #$coef
+                    ## if we want sample specific errors or
+                    ## model performance stats
+                    rowsum <- X[!sel,] %*% ones
+                    pred <- (X[!sel,] %*% wa.optima) / rowsum
+                    oob.pred[!sel,i] <- deshrink.pred(pred, coefs)
+                    ## do the prediction step
+                    want <- names(wa.optima) %in% colnames(newdata)
+                    want <- names(wa.optima)[want]
+                    ones <- rep(1, length = length(want))
+                    miss <- miss[want]
+                    ones[miss] <- 0
+                    rowsum <- newdata[,want] %*% ones
+                    pred <- (newdata[,want] %*% wa.optima[want]) /
+                        rowsum
+                    boot.pred[,i] <- deshrink.pred(pred, coefs)
+                }
+            }
+            pred <- rowMeans(boot.pred)
         }
     }
     .call <- match.call()
@@ -168,6 +210,8 @@
         retval$pred$rmsep <- test.rmsep
     }
     retval$call = .call
+    if (identical(CV, "nfold"))
+        CV <- paste(nfold, "fold", sep="-")
     retval$CV.method <- CV
     retval$deshrink <- deshrink
     retval$tol.dw <- object$tol.dw

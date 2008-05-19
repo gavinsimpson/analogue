@@ -5,6 +5,8 @@ Version 0.5-3
 	* tran: new function to apply common transformations and 
 	standardizations applicable to palaeoecolgical data.
 
+	* predict.wa: added k-fold ("nfold") cross-validation.
+
 Version 0.5-2
 
 	* wa: classical deshrinking did not work, but returned the
