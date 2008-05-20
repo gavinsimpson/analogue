@@ -20,7 +20,7 @@
     (\code{"LOO"}), bootstrap (\code{"bootstrap"}) and \eqn{k}-fold
     (\code{"nfold"}) CV are currently available.}
   \item{verbose}{Should CV progress be printed to the console?}
-  \item{n.boot}{The number of bootstrap smaples to draw.}
+  \item{n.boot}{The number of bootstrap samples or \eqn{k}-fold steps.}
   \item{nfold}{Number of subsets in \eqn{k}-fold CV.}
   \item{\dots}{further arguments passed to or from other methods.}
 }
@@ -47,12 +47,13 @@
   C.J.F. (1990). Diatoms and pH reconstruction. \emph{Philosophical
     Transactions of the Royal Society of London; Series B}, \strong{327};
   263--278.}
-\author{Gavin L. Simpson}
+\author{Gavin L. Simpson and Jari Oksanen (\eqn{k}-fold CV)}
 %\note{ ~~further notes~~ 
 %
 % ~Make other sections like Warning with \section{Warning }{....} ~
 %}
-\seealso{\code{\link{wa}}.}
+\seealso{\code{\link{wa}}, \code{\link{predict.mat}},
+    \code{\link{performance}}, \code{\link{reconPlot}}.}
 \examples{
 ## continue the example from ?wa
 example(wa)
