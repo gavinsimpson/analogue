@@ -20,7 +20,7 @@
                     cubert = x^(1/3),
                     log = {x <- sweep(x, 2, a, "*")
                            x <- sweep(x, 2, b, "+")
-                           log((a * x) + b, base = base)} ,
+                           log(x, base = base)} ,
                     reciprocal = 1 / x,
                     center = scale(x, scale = FALSE, center = TRUE),
                     percent = sweep(x, 1, rowSums(x), "/") * 100,
