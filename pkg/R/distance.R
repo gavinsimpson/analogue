@@ -153,7 +153,7 @@ distance.default <- function(x, y,
       facs.y <- sapply(as.data.frame(y), is.factor)
       if(sum(facs.x - facs.y) > 0)
         stop("Different columns (species) are coded as factors in 'x' and 'y'")
-      ## sanity check: levels of factors also need to be the same       
+      ## sanity check: levels of factors also need to be the same
       for(i in seq_along(facs.x)[facs.x]){
         if(!identical(levels(x[,i]), levels(y[,i])))
           stop("The levels of one or more factors in 'x' and 'y'\ndo not match.\nConsider using 'join(x, y)'. See '?join'")
@@ -183,7 +183,7 @@ distance.default <- function(x, y,
         #facs.y <- sapply(as.data.frame(y), is.factor)
         #if(sum(facs.x - facs.y) > 0)
         #  stop("Different columns (species) are coded as factors in 'x' and 'y'")
-        ## sanity check: levels of factors also need to be the same       
+        ## sanity check: levels of factors also need to be the same
         #for(i in seq_along(facs.x)[facs.x]){
         #  if(!identical(levels(x[,i]), levels(y[,i])))
         #    stop("The levels of one or more factors in 'x' and 'y' do not match.\nConsider using 'join(x, y)'. See '?join'")
@@ -205,23 +205,29 @@ distance.default <- function(x, y,
       }
     }
     if(method == "kendall") {
-      maxi <- apply(join(as.data.frame(x),as.data.frame(y),
-                         split = FALSE),
-                    2, max)
+        ##maxi <- apply(join(as.data.frame(x),as.data.frame(y),
+        ##                   split = FALSE),
+        ##              2, max)
+        maxi <- apply(rbind(apply(x, 2, max), apply(y, 2, max)),
+                      2, max)
     }
-    if(method %in% c("gower", "alt.gower", "mixed")){
-      ## gower & mixed can handle missing values though, so really,
-      ## want to use the na.rm argument
-      maxi <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
-                    max, na.rm = NA.RM)
-      mini <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
-                    min, na.rm = NA.RM)
-      if(is.null(R))
-        R <- maxi - mini
-      else {
-        if(length(R) != n.vars)
-          stop("'R' must be of length 'ncol(x)'")
-      }
+    if(method %in% c("gower", "alt.gower", "mixed")) {
+        ## gower & mixed can handle missing values though, so really,
+        ## want to use the na.rm argument
+        ##maxi <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
+        ##              max, na.rm = NA.RM)
+        maxi <- apply(rbind(apply(x, 2, max), apply(y, 2, max)),
+                      2, max, na.rm = TRUE)
+        ##mini <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
+        ##              min, na.rm = NA.RM)
+        mini <- apply(rbind(apply(x, 2, min), apply(y, 2, min)),
+                      2, min, na.rm = TRUE)
+        if(is.null(R))
+            R <- maxi - mini
+        else {
+            if(length(R) != n.vars)
+                stop("'R' must be of length 'ncol(x)'")
+        }
     }
     dimnames(x) <- dimnames(y) <- NULL
     if(method == "chi.distance") {
