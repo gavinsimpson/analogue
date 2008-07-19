@@ -1,5 +1,16 @@
 analogue Change Log
 
+Version 0.5-4
+
+	* fuse: new function to fuse (combine) two of more 
+	dissimilarity objects.
+
+	* .first.lib: package startup now uses packageStartupMessage() 
+	to display the startup message.
+
+	* distance: speed up in calculating range and maximum statistics
+	for those dissimilarity coefficients that incorporate these terms.
+
 Version 0.5-3
 
 	* tran: new function to apply common transformations and 
