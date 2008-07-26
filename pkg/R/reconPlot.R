@@ -67,32 +67,29 @@ reconPlot.predict.mat <- function(x, depths, use.labels = FALSE,
                                   display.error = c("none", "bars", "lines"),
                                   sample.specific = TRUE,
                                   ...) {
-  if(missing(display.error))
-    display.error <- "none"
-  display.error <- match.arg(display.error)
-  if(missing(predictions))
-    predictions <- "model"
-  predictions <- match.arg(predictions)
-  if(missing(depths))
-    {
-      if(use.labels) {
-        if(predictions == "model") {
-          depths <- as.numeric(colnames(x$predictions$model$predicted))
-          n.analogues <- x$predictions$model$k
-          preds <- x$predictions$model$predicted[n.analogues, ]
-          errors <- x$model$rmsep[n.analogues]
-        } else {
-          depths <- as.numeric(rownames(x$predictions$bootstrap$predicted))
-          n.analogues <- x$predictions$bootstrap$k
-          preds <- x$predictions$bootstrap$predicted[,n.analogues]
-          if(sample.specific)
-            errors <- x$predictions$sample.errors$rmsep[, n.analogues]
-          else
-            errors <- x$bootstrap$rmsep[n.analogues]
-        }
-      } else {
-        stop("If \"use.labels = FALSE\", then \"depths\" must be provided.")
-      }
+    if(missing(display.error))
+        display.error <- "none"
+    display.error <- match.arg(display.error)
+    if(missing(predictions))
+        predictions <- "model"
+    predictions <- match.arg(predictions)
+    if(missing(depths)) {
+        if(use.labels)
+            depths <- as.numeric(colnames(x$predictions$model$predicted))
+        else
+            stop("If \"use.labels = FALSE\", then \"depths\" must be provided.")
     }
-  reconPlot.default(preds, depths, errors, display.error = display.error, ...)
-  }
+    if(predictions == "model") {
+        n.analogues <- x$predictions$model$k
+        preds <- x$predictions$model$predicted[n.analogues, ]
+        errors <- x$model$rmsep[n.analogues]
+    } else {
+        n.analogues <- x$predictions$bootstrap$k
+        preds <- x$predictions$bootstrap$predicted[,n.analogues]
+        if(sample.specific)
+            errors <- x$predictions$sample.errors$rmsep[, n.analogues]
+        else
+            errors <- x$bootstrap$rmsep[n.analogues]
+    }
+    reconPlot.default(preds, depths, errors, display.error = display.error, ...)
+}
