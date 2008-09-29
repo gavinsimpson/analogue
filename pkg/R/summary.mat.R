@@ -46,13 +46,13 @@ summary.mat <- function(object, k = 10,
                      minResi = minResi, k = n.closest,
                      minW.Resi = minW.Resi, k.W = W.n.closest),
                    tbl = tbl, tbl.w = tbl.w, call = object$call,
-                   quantiles = quantile(as.dist(object$Dij),
+                   quantiles = quantile(object$Dij[lower.tri(object$Dij)],
                      probs = c(0.01, 0.02, 0.05, 0.1, 0.2))),
               class = "summary.mat",
               k = k)
   }
 
-print.summary.mat <- function(x, 
+print.summary.mat <- function(x,
                               digits = min(3, getOption("digits") - 4),
                               ...)
   {
