@@ -23,8 +23,6 @@ mat.default <- function(x, y,
   {
     dims <- dim(x) # the numbers of samples / species
     site.nams <- rownames(x) # store sample names for later
-    x <- as.matrix(x) # convert to matrix for speed (?)
-    dimnames(x) <- NULL # clear the dimnames for speed (?)
     .call <- match.call()
     ## need to reset due to method dispatch
     .call[[1]] <- as.name("mat")
@@ -34,6 +32,8 @@ mat.default <- function(x, y,
     dis <- distance(x, method = method) # calculate the distances
     ## new speed-ups might leave dimnames on dis
     dimnames(dis) <- NULL
+    x <- as.matrix(x) # convert to matrix for speed (?)
+    dimnames(x) <- NULL # clear the dimnames for speed (?)
     ## insure sample under test is not chosen as analogue for itself
     diag(dis) <- NA
     ## drop = FALSE in next calls as we now make sure sample cannot be
@@ -130,7 +130,8 @@ print.mat <- function(x, k = 10,
     colnames(tbl) <- colnames(tbl.w) <- c("k",
                                           "RMSEP","R2","Avg Bias","Max Bias")
     cat("\nPercentiles of the dissimilarities for the training set:\n\n")
-    print(quantile(as.dist(x$Dij), probs = c(0.01, 0.02, 0.05, 0.1, 0.2)),
+    print(quantile(x$Dij[lower.tri(x$Dij)],
+                   probs = c(0.01, 0.02, 0.05, 0.1, 0.2)),
           digits = digits)
     cat("\nInferences based on the mean of k-closest analogues:\n\n")
     print(tbl, quote = FALSE, right = TRUE)
