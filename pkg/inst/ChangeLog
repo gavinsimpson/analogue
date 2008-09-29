@@ -11,6 +11,12 @@ Version 0.5-4
 	* distance: speed up in calculating range and maximum statistics
 	for those dissimilarity coefficients that incorporate these terms.
 
+	* mat: was converting 'x' to matrix too early, which upset some of 
+	the DC methods.
+
+	* print.mat, summary.mat: quantiles of dissimilarities are now much
+	more efficiently calculated.
+
 Version 0.5-3
 
 	* tran: new function to apply common transformations and 
