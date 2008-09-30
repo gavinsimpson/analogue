@@ -4,6 +4,8 @@
 \alias{roc.mat}
 \alias{roc.analog}
 \alias{print.roc}
+\alias{summary.roc}
+\alias{print.summary.roc}
 \concept{ROC}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ROC curve analysis}
@@ -15,55 +17,62 @@
   error rate (FPF).
 }
 \usage{
-roc(object, groups, ...)
+roc(object, groups, k = 1, ...)
 
-\method{roc}{mat}(object, groups, ...)
+\method{roc}{mat}(object, groups, k = 1, ...)
 
-\method{roc}{analog}(object, groups, ...)
+\method{roc}{analog}(object, groups, k = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{an R object.}
-  \item{groups}{numeric; a vector of group memberships, one entry per
-    sample in the training set data.}
+  \item{groups}{a vector of group memberships, one entry per
+    sample in the training set data. Can be a factor, and will be
+    coerced to one if supplied vecvtor is not a factor.}
+  \item{k}{numeric; the \code{k} closest analogues to use to calculate
+    ROC curves.}
   \item{\dots}{arguments passed to/from other methods.}
 }
 \details{
   A ROC curve is generated from the within-group and between-group
   dissimilarities.
 
-  Within-group dissimilarities are the cells in the lower-triangle
-  dissimilarity matrix representing the pairwise dissimilarities for
-  samples amples in the same group, over all groups.
+  For each level of the grouping vector (\code{groups}) the
+  dissimilarity between each group member and it's k closest analogues
+  within that group are compared with the k closest dissimilarities
+  between the non-group member and group member samples.
 
-  The between-group dissimilarities are the cells in the lower-triangle
-  dissimilarity matrix between samples of in a group and all samples not
-  in that group, over all groups.
+  If one is able to discriminate between members of different group on
+  the basis of assemblage dissimilarity, then the dissimilarities
+  between samples within a group will be small compared to the
+  dissimilarities between group members and non group members.
 }
 \value{
-  A list, with the following components:
+  A list with two components; i, \code{statistics}, a summary of ROC
+  statistics for each level of \code{groups} and a combined ROC
+  analysis, and ii, \code{roc}, a list of ROC objects, one per level of
+  \code{groups}. For the later, each ROC object is a list, with the
+  following components: 
   
   \item{TPF}{The true positive fraction.}
   \item{FPE}{The false positive error}
-  \item{roc.points}{The unique dissimilarities at which the ROC curve
-    was evaluated}
-  \item{roc.values}{The difference between TPF and FPE at each evaluated
-    point of the ROC curve.}
-  \item{optimal}{The optimal dissimilarity value, asessed where
-    \code{roc.values} is maximal.}
-  \item{wilcox}{an object of class \code{"htest"}, the result of a call
-    to \code{\link{wilcox.test}}. Contains the results of a Wilcoxon
-    Rank Sum and Signed Rank test applied to the within and between
-    group dissimilarities.}
+  %\item{roc.points}{The unique dissimilarities at which the ROC curve
+  %  was evaluated}
+  %\item{roc.values}{The difference between TPF and FPE at each evaluated
+  %  point of the ROC curve.}
+  \item{optimal}{The optimal dissimilarity value, asessed where the
+  slope of the ROC curve is maximal.}
   \item{AUC}{The area under the ROC curve.}
-  \item{n.within}{numeric; the number of within group dissimilarities.}
-  \item{n.without}{numeric; the number of outside of group
-    dissimilarities.}
-  \item{groups}{numeric; the group membership}
-  \item{dissims}{numeric; vector of observed dissimilarities.}
-  \item{method}{character; the dissimilarity coefficient used. Taken
-    from \code{"object"}.}
-  \item{call}{the matched call.}
+  \item{se.fit}{Standard error of the AUC estimate.}
+  \item{n.in}{numeric; the number of samples within the current group.}
+  \item{n.out}{numeric; the number of samples not in the current group.}
+  \item{p.value}{The p-value of a Wilcoxon rank sum test on the two sets
+    of dissimilarities. This is also known as a Mann-Whitney test.}
+  %\item{groups}{numeric; the group membership}
+  %\item{dissims}{numeric; vector of observed dissimilarities.}
+  %\item{method}{character; the dissimilarity coefficient used. Taken
+  %  from \code{"object"}.}
+  %\item{call}{the matched call.}
 }
 \references{
   

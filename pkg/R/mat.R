@@ -59,18 +59,20 @@ mat.default <- function(x, y,
     rownames(Wmeans) <- rownames(means) <- 1:(dims[1] -1)
     rownames(Werror) <- rownames(error) <- 1:(dims[1] -1)
     ## return results
-    structure(list(standard = list(est = means, resid = error,
-                     rmsep = RMSE, avg.bias = bias, max.bias = max.bias,
-                     r.squared = r2.mean, k = k, auto = TRUE),
-                   weighted = list(est = Wmeans, resid = Werror,
-                     rmsep = WRMSE, avg.bias = Wbias, max.bias = Wmax.bias,
-                     r.squared = r2.Wmean, k = k.w, auto = TRUE),
-                   Dij = dis,
-                   orig.x = x,
-                   orig.y = y,
-                   call = .call,
-                   method = method),
-              class = "mat")
+    retval <- structure(list(standard = list(est = means, resid = error,
+                             rmsep = RMSE, avg.bias = bias, max.bias = max.bias,
+                             r.squared = r2.mean, k = k, auto = TRUE),
+                             weighted = list(est = Wmeans, resid = Werror,
+                             rmsep = WRMSE, avg.bias = Wbias, max.bias = Wmax.bias,
+                             r.squared = r2.Wmean, k = k.w, auto = TRUE),
+                             Dij = dis,
+                             orig.x = x,
+                             orig.y = y,
+                             call = .call,
+                             method = method),
+                        class = "mat")
+    attr(retval, "method") <- method
+    retval
   }
 
 mat.formula <- function(formula, data, subset, na.action,

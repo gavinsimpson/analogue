@@ -1,68 +1,62 @@
 ## compute Bayes factors (syn. likelihood ratios) of
 ## positive and negative events
-bayesF <- function(x, prior = NULL) {
-  if(class(x) != "roc")
-    stop("Likelihood ratios only for objects of class 'roc'")
-  ## only allow a single option to which
-  #if(length(which) > 1)
-  #  stop("'which' must be of a character string of length 1")
-  ## which can be one of "both","pos","neg", check which is it
-  #which <- pmatch(which, c("both","pos","neg"), nomatch = FALSE)
-  #if(!which)
-  #  stop(paste("Unknown option '", which, "' given for 'which'.",
-  #             "\nMust be one of 'both', 'pos', or 'neg'.",
-  #             sep = ""))
-  n.obs <- length(x$FPE)
-  #if(which == 1) {
-    pos <- x$TPF / x$FPE
-    neg <- (1 - x$TPF) / (1 - x$FPE)
-  #} else if(which == 2) {
-  #  pos <- x$TPF / x$FPE
-  #  neg <- NULL
-  #} else {
-  #  neg <- (1 - x$TPF) / (1 - x$FPE)
-  #  pos <- NULL
-  #}
-  tot.comp <- x$n.within + x$n.without
-  ## prior probs
-  if(is.null(prior)) {
-    prior.prob.pos <- x$n.within / tot.comp
-    prior.prob.neg <- x$n.without / tot.comp
-  } else {
-    prior.prob.pos <- prior[1]
-    prior.prob.neg <- prior[2]
-  }
-  ## prior odds
-  prior.odds.pos <- prior.prob.pos / (1 - prior.prob.pos)
-  prior.odds.neg <- prior.prob.neg / (1 - prior.prob.neg)
-  ## posterior odds
-  post.odds.pos <- pos * prior.odds.pos
-  post.odds.neg <- neg * prior.odds.neg
-  ## return object
-  retval <- list(pos = pos,
-                 neg = neg,
-                 posterior = list(pos = post.odds.pos,
-                   neg = post.odds.neg),
-                 prior = list(pos = prior.prob.pos,
-                   neg = prior.prob.neg),
-                 roc.points = x$roc.points,
-                 optimal = x$optimal,
-                 #method = x$method,
-                 object = deparse(substitute(x))
-                 )
-  class(retval) <- "bayesF"
-  return(retval)
+bayesF <- function(x, prior = rep(0.5, 2)) {
+    FUN <- function(x, prior) {
+        pos <- x$TPF / x$FPE
+        neg <- (1 - x$TPF) / (1 - x$FPE)
+        ## should we correct? if so what to?
+        ##pos[is.infinite(pos)] <- 1
+        ##neg[is.nan(neg)] <- 0
+        ## prior probs
+        prior.prob.pos <- prior[1]
+        prior.prob.neg <- prior[2]
+        ## prior odds
+        prior.odds.pos <- prior.prob.pos / (1 - prior.prob.pos)
+        prior.odds.neg <- prior.prob.neg / (1 - prior.prob.neg)
+        ## posterior odds
+        post.odds.pos <- pos * prior.odds.pos
+        post.odds.neg <- neg * prior.odds.neg
+        ## return object
+        retval <- list(bayesF = list(pos = pos, neg = neg),
+                       posterior.odds = list(pos = post.odds.pos,
+                       neg = post.odds.neg),
+                       prior.prob = list(pos = prior.prob.pos,
+                       neg = prior.prob.neg),
+                       roc.points = unique(x$roc.points),
+                       optimal = x$optimal)
+    }
+    if(is.null(prior))
+        prior <- rep(0.5, 2)
+    retval <- lapply(x$roc, FUN, prior = prior)
+    names(retval) <- names(x$roc)
+    retval$object <- deparse(substitute(x))
+    retval$prior <- prior
+    class(retval) <- "bayesF"
+    attr(retval, "method") <- attr(x, "method")
+    return(retval)
 }
 
 print.bayesF <- function(x, digits = min(3, getOption("digits") - 4),
                          ...) {
-  cat("\n")
-  writeLines(strwrap("Bayes factors (likelihood ratios)", prefix = "\t"))
-  cat("\n")
-  cat(paste("Object:", x$object, "\n"))
-  cat("\nPrior probabilities:\n")
-  cat(paste("Positive:", round(x$prior$pos, digits),
-            "  Negative:", round(x$prior$neg,digits), "\n"))
-  cat("\n")
-  invisible(x)
+    cat("\n")
+    writeLines(strwrap("Bayes factors (likelihood ratios)",
+                       prefix = "\t"))
+    cat("\n")
+    cat(paste("Object:", x$object, "\n"))
+    ## groups names
+    gnames <- names(x)
+    gnames <- gnames[!gnames %in% c("object","prior", "Combined")]
+    ##gnames <- matrix(gnames, nrow = 1)
+    ##names(gnames) <- paste("Group", seq_along(gnames))
+    cat("\n")
+    writeLines(strwrap(paste("Groups (N = ", length(gnames), "):",
+                             sep = "")))
+    writeLines(strwrap(paste(gnames, collapse = ", ", sep = ""),
+                       prefix = "  "))
+    cat("\n")
+    cat("\nPrior probabilities:\n")
+    cat(paste("Positive:", round(x$prior[1], digits),
+              "  Negative:", round(x$prior[2], digits), "\n"))
+    cat("\n")
+    invisible(x)
 }

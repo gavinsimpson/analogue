@@ -12,6 +12,7 @@
 \usage{
 \method{plot}{roc}(x,
      which = c(1:3,5),
+     group = "Combined",
      prior = NULL,
      show.stats = TRUE,
      abline.col = "grey",
@@ -19,7 +20,7 @@
      outGroup.col = "blue",
      caption = c("ROC curve", "Dissimilarity profiles",
                  "TPF - FPF vs Dissimilarity",
-                 "Likelihood ratios", "Pr (A+ | d)"),
+                 "Likelihood ratios"),
      legend = "topright",
      ask = prod(par("mfcol")) < length(which) && dev.interactive(),
      ...)
@@ -30,6 +31,8 @@
   \item{which}{numeric vector; which aspects of \code{"roc"} object to
     plot if a subset of the plots is required, specify a subset of the
     numbers \code{1:5}.}
+  \item{group}{character vector of length 1 giving the name of the group
+        to plot.}
   \item{prior}{numeric vector of length 2 (e.g. \code{c(0.5, 0.5)})
     specifiying the prior probabilities of analogue and
     no-analogue. Used to generate posterior probability of analogue

@@ -11,9 +11,9 @@
   no-analogue results.
 }
 \usage{
-bayesF(x, prior = NULL)
+bayesF(x, prior = rep(0.5, 2))
 
-\method{plot}{bayesF}(x, xlab = NULL, ylab = "Pr (A+ | d)",
+\method{plot}{bayesF}(x, group = "all", xlab = NULL, ylab = "Pr (A+ | d)",
         col = "red", abline.col = "lightgrey", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -25,6 +25,8 @@ bayesF(x, prior = NULL)
     no-analogue, provided as a vector of length 2 whose elements sum to
     1. If not provided, the function will use the relative occurences of
     analogue and no analogue situations used to evaluate the ROC curve.}
+  \item{group}{character vector of length 1 giving the name of the group
+        to plot, or \code{"all"} to plot all groups in \code{x}.}
   \item{xlab,ylab}{the x- and y-axis labels for the plot.}
   \item{col}{colour of the line used to draw the posterior probability.}
   \item{abline.col}{colour of the vertical line drawn to indicate the

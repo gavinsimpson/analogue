@@ -1,7 +1,27 @@
 analogue Change Log
 
-Version 0.5-4
+Version 0.6-0
 
+	* roc: new version of roc, which correctly computes the no-analogue
+	part of the ROC analysis. Now roc returns information on individual
+	grops as well as an overall or combined ROC curve for the data.
+
+	The number of close analogues to use in computing the ROC curve
+	can now also be specified.
+
+	These changes have altered bayesF() and the plot methods for bayesF
+	roc. bayesF now computes Bayes factors for all groups as well as
+	for the overall ROC analysis.
+
+	The plot method for bayesF will now plot the Bayes factors for all 
+	groups or for a single, named group. plot.roc has been updated to 
+	work with the new roc object, and by default, the plots refer to the 
+	overall ROC curve. Which group is plotted is controlled by new 
+	argument 'group'.
+
+	There is now a summary method for roc that displays summary data for
+	the individual ROC curves.
+	
 	* fuse: new function to fuse (combine) two of more 
 	dissimilarity objects.
 
