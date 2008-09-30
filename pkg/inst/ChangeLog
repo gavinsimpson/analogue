@@ -34,6 +34,10 @@ Version 0.6-0
 	* mat: was converting 'x' to matrix too early, which upset some of 
 	the DC methods.
 
+	mat also now passes arguments in '...' on to distance. This allows
+	additional options required for some dissimilarity coefficients to
+	be provided.
+
 	* print.mat, summary.mat: quantiles of dissimilarities are now much
 	more efficiently calculated.
 

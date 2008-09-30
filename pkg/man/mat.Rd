@@ -69,7 +69,8 @@ mat(x, \dots)
     the object.}
   \item{weighted}{logical; should weighted averages be used instead of
     simple averages?}
-  \item{\dots}{arguments to or from other methods.}
+  \item{\dots}{arguments can be passed to \code{\link{distance}} to
+    provide additional optios required for some dissimilarities.}
 }
 \details{
   The Modern Analogue Technique (MAT) is perhaps the simplest of the

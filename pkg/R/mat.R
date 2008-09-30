@@ -29,7 +29,7 @@ mat.default <- function(x, y,
     if(missing(method))
       method <- "euclidean"
     method <- match.arg(method)
-    dis <- distance(x, method = method) # calculate the distances
+    dis <- distance(x, method = method, ...) # calculate the distances
     ## new speed-ups might leave dimnames on dis
     dimnames(dis) <- NULL
     x <- as.matrix(x) # convert to matrix for speed (?)
@@ -100,7 +100,7 @@ mat.formula <- function(formula, data, subset, na.action,
   mt <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
   x <- model.matrix(mt, mf)
-  res <- mat.default(x, y, method = method)
+  res <- mat.default(x, y, method = method, ...)
   res$na.action <- attr(mf, "na.action")
   res$call <- .call
   if(model) {
