@@ -37,6 +37,8 @@ Version 0.6-0
 	* print.mat, summary.mat: quantiles of dissimilarities are now much
 	more efficiently calculated.
 
+	* plot.mcarlo: now works correctly for both types of plot.
+
 Version 0.5-3
 
 	* tran: new function to apply common transformations and 
