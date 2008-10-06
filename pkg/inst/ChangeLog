@@ -25,6 +25,8 @@ Version 0.6-0
 	* fuse: new function to fuse (combine) two of more 
 	dissimilarity objects.
 
+	* tran: tran was clobering dimnames. These are now preserved.
+
 	* .first.lib: package startup now uses packageStartupMessage() 
 	to display the startup message.
 

@@ -1,6 +1,7 @@
 `tran` <- function(x, method, a = 1, b = 0, base = exp(1),
                    na.rm = FALSE, na.value = 0, ...) {
     wasDF <- is.data.frame(x)
+    dim.nams <- dimnames(x)
     x <- as.matrix(x)
     METHOD <- c("sqrt", "cubert", "log", "reciprocal", "freq", "center",
                 "standardize", "range", "percent", "proportion", "pa",
@@ -34,6 +35,7 @@
     }
     if(wasDF)
         x <- as.data.frame(x)
+    dimnames(x) <- dim.nams
     attr(x, "tran") <- method
     return(x)
 }
