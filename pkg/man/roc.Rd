@@ -51,7 +51,7 @@ roc(object, groups, k = 1, ...)
   A list with two components; i, \code{statistics}, a summary of ROC
   statistics for each level of \code{groups} and a combined ROC
   analysis, and ii, \code{roc}, a list of ROC objects, one per level of
-  \code{groups}. For the later, each ROC object is a list, with the
+  \code{groups}. For the latter, each ROC object is a list, with the
   following components: 
   
   \item{TPF}{The true positive fraction.}
