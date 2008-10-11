@@ -25,7 +25,10 @@ Version 0.6-0
 	* fuse: new function to fuse (combine) two of more 
 	dissimilarity objects.
 
-	* tran: tran was clobering dimnames. These are now preserved.
+	* ImbrieKipp: New data sets containing the classic Imbrie and Kipp
+	(1971) training set.
+
+	* tran: tran was clobbering dimnames. These are now preserved.
 
 	* .first.lib: package startup now uses packageStartupMessage() 
 	to display the startup message.
