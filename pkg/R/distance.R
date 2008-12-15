@@ -262,5 +262,6 @@ distance.default <- function(x, y,
       colnames(res) <- y.names
       rownames(res) <- x.names
     }
+    attr(res, "method") <- method
     return(res)
   }

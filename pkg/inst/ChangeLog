@@ -22,7 +22,7 @@ Version 0.6-0
 	There is now a summary method for roc that displays summary data for
 	the individual ROC curves.
 	
-	* fuse: new function to fuse (combine) two of more 
+	* fuse: new function to fuse (combine) two or more 
 	dissimilarity objects.
 
 	* ImbrieKipp: New data sets containing the classic Imbrie and Kipp
@@ -35,6 +35,9 @@ Version 0.6-0
 
 	* distance: speed up in calculating range and maximum statistics
 	for those dissimilarity coefficients that incorporate these terms.
+
+	distance() now also returns the dissimilarity coefficient used as
+	attribute "method"
 
 	* mat: was converting 'x' to matrix too early, which upset some of 
 	the DC methods.
