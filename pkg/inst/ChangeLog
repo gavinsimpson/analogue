@@ -1,5 +1,19 @@
 analogue Change Log
 
+Version 0.6-1
+
+	* ImbrieKipp: made the training set environment and sediment core
+	data set names easier to manage. The three environmental variables
+	are now in seperate data sets ('SumSST', 'WinSST', and 'Salinity')
+	as named, numeric vectors of the same name as the data sets.
+
+	* mat: example now uses the ImbrieKipp data resulting in large
+	speed-up.
+
+	* Requires: package now depends on package 'brglm' for use in
+	modelling probability of analogue or not. For future 'logitReg()'
+	function.
+
 Version 0.6-0
 
 	* roc: new version of roc, which correctly computes the no-analogue
