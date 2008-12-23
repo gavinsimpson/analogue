@@ -26,7 +26,7 @@ plot.mcarlo <-
                         seq(from = 0, to = max(x, na.rm = TRUE), by = 0.01))
     if (show[1]) {
         range.dists <- max(evalDists)
-        h <- hist(x, freq = FALSE, plot = FALSE)
+        h <- hist(x, plot = FALSE)
         d <- density(x, adjust = 2, from = 0, to = range.dists)
         y.lim <- range(0, h$density, d$y)
         hist(x, freq = FALSE, ylim = y.lim, xlim = c(0, range.dists),
