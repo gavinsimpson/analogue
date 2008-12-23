@@ -1,7 +1,8 @@
 \name{ImbrieKipp}
-\alias{ImbrieKipp}
-\alias{ImbrieKippEnv}
-\alias{ImbrieKippCore}
+\alias{SumSST}
+\alias{WinSST}
+\alias{Salinity}
+\alias{V12.122}
 \docType{data}
 \title{Imbrie and Kipp foraminifera training set}
 \description{
@@ -14,11 +15,10 @@
   \code{ImbrieKippCore}.
 }
 \usage{
-data(ImbrieKipp)
-
-data(ImbrieKippEnv)
-
-data(ImbrieKippCore)
+data(SumSST)
+data(WinSST)
+data(Salinity)
+data(V12.122)
 }
 \format{
   \code{ImbrieKipp} is a data frame with 61 observations on the
@@ -52,8 +52,8 @@ data(ImbrieKippCore)
     \item{\code{G.quin}}{a numeric vector}
     \item{\code{G.hirsu}}{a numeric vector}
   }
-  \code{ImbrieKipp} is a data frame with 61 observations on the
-  following 27 species:
+  Summer and Winter sea-surface temperatures, and salinity values for
+  the 61 sites in the Imbrie and Kipp training set (\code{ImbrieKipp}):
   \describe{
     \item{\code{SumSST}}{a numeric vector of summer sea-surface water
       temperatures. Values are in degrees C.}
@@ -62,7 +62,7 @@ data(ImbrieKippCore)
     \item{\code{Salinity}}{a numeric vector of sea water salinity
       values.}
   }
-  \code{ImbrieKippCore} is a data frame with 110 observations from core
+  \code{V12.122} is a data frame with 110 observations from core
   V12-122 on the following 28 species:
   \describe{
     \item{\code{O.univ}}{a numeric vector}
