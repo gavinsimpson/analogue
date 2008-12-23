@@ -1,4 +1,5 @@
 \name{ImbrieKipp}
+\alias{ImbrieKipp}
 \alias{SumSST}
 \alias{WinSST}
 \alias{Salinity}
@@ -12,7 +13,7 @@
   and salinity at each location.
 
   110 sediment cores samples from core V12-122 are also supplied in
-  \code{ImbrieKippCore}.
+  \code{V12.122}.
 }
 \usage{
 data(SumSST)
@@ -111,9 +112,13 @@ data(V12.122)
 data(ImbrieKipp)
 head(ImbrieKipp)
 
-data(ImbrieKippEnv)
-plot(ImbrieKippEnv)
+data(SumSST)
+data(WinSST)
+data(Salinity)
 
-data(ImbrieKippCore)
+plot(cbind(SumSST, WinSST, Salinity))
+
+data(V12.122)
+head(V12.122)
 }
 \keyword{datasets}
