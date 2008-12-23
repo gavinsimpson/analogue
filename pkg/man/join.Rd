@@ -51,6 +51,18 @@ dat <- join(swapdiat, rlgh, verbose = TRUE)
 swapdiat <- dat[[1]] / 100
 rlgh <- dat[[2]] / 100
 
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
+
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{manip}% __ONLY ONE__ keyword per line

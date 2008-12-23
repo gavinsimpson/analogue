@@ -71,20 +71,18 @@ setK(object, weighted = FALSE) <- value
 example(join)
 
 ## fit a MAT model
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
+ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
 
 ## How many analogues gives lowest RMSE?
-getK(swap.mat)
+getK(ik.mat)
 ## note that this value was chosen automatically
 
 ## Now set k to be 10
-setK(swap.mat) <- 10
+setK(ik.mat) <- 10
 
 ## check
-getK(swap.mat)
+getK(ik.mat)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{utilities}
-\keyword{manip}% __ONLY ONE__ keyword per line
+\keyword{manip}

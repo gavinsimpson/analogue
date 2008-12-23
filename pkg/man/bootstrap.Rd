@@ -129,22 +129,24 @@ bootstrap(object, \dots)
 \seealso{\code{mat}, \code{plot.mat}, \code{summary.bootstrap.mat},
   \code{\link{residuals}}}
 \examples{
-## continue the RLGH and SWAP example from ?join
+## continue the ImbrieKipp example from ?join
 example(join)
 
+## Imbrie and Kipp foraminfera sea-surface temperature 
+
 ## fit the MAT model using the squared chord distance measure
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
+ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
 
 ## bootstrap training set
-swap.boot <- bootstrap(swap.mat, n.boot = 100)
-swap.boot
-summary(swap.boot)
+ik.boot <- bootstrap(ik.mat, n.boot = 100)
+ik.boot
+summary(ik.boot)
 
 ## Bootstrap fitted values for training set
-fitted(swap.boot)
+fitted(ik.boot)
 
 ## residuals
-resid(swap.boot) # uses abbreviated form
+resid(ik.boot) # uses abbreviated form
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{methods}

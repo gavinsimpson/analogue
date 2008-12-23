@@ -68,22 +68,22 @@ specific \code{minDC} method is written for a given class.
 \seealso{\code{\link{predict.mat}}, and \code{\link{plot.minDC}} for a
   plotting method.}
 \examples{
-## continue the RLGH example from ?join
+## continue the ImbrieKipp example from ?join
 example(join)
 
 ## fit the MAT model using the squared chord distance measure
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
-swap.mat
+ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
+ik.mat
 
-## reconstruct for the RLGH core data
-rlgh.mat <- predict(swap.mat, rlgh, k = 10)
+## reconstruct for the V12-122 core data
+v12.mat <- predict(ik.mat, V12.122, k = 10)
 
 ## extract the minimum DC values
-rlgh.mdc <- minDC(rlgh.mat)
-rlgh.mdc
+v12.mdc <- minDC(v12.mat)
+v12.mdc
 
 ## draw a plot of minimum DC by time
-plot(rlgh.mdc, use.labels = TRUE, xlab = "Depth (cm.)")
+plot(v12.mdc, use.labels = TRUE, xlab = "Depth (cm.)")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

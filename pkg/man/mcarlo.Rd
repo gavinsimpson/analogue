@@ -107,14 +107,13 @@ example(join)
 
 ## perform the modified method of Sawada (2004) - paired sampling,
 ## with replacement
-swap.mcarlo <- mcarlo(swapdiat, method = "SQchord", nsamp = 1000,
-                      type = "paired", replace = FALSE)
-swap.mcarlo
+ik.mcarlo <- mcarlo(ImbrieKipp, method = "SQchord", nsamp = 1000,
+                    type = "paired", replace = FALSE)
+ik.mcarlo
 
 ## plot the simulated distribution
-par(mfrow = c(2,1))
-plot(swap.mcarlo)
-par(mfrow = c(1,1))
+layout(matrix(1:2, ncol = 1))
+plot(ik.mcarlo)
+layout(1)
 }
 \keyword{multivariate}
-%\keyword{ ~kwd2 } % more keywords TO DO

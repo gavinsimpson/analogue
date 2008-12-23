@@ -77,18 +77,18 @@
 \author{Gavin L. Simpson. Code borrows heavily from \code{\link{plot.lm}}.}
 \seealso{\code{\link{mat}}}
 \examples{
-## continue the RLGH example from ?join
+## continue the ImbrieKipp example from ?join
 example(join)
 
 ## MAT
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
-swap.mat
-summary(swap.mat)
+ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
+ik.mat
+summary(ik.mat)
 
 ## summary plot of MAT model
-par(mfrow = c(2,2))
-plot(swap.mat)
-par(mfrow = c(1,1))
+layout(matrix(1:4, ncol = 2, byrow = TRUE))
+plot(ik.mat)
+layout(1)
 
 }
 \keyword{hplot}% at least one, from doc/KEYWORDS

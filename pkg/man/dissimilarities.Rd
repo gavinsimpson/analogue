@@ -34,18 +34,18 @@ dissim(object, ...)
 \author{Gavin L. Simpson}
 \seealso{\code{\link{analog}}, \code{\link{plot.dissimilarities}} }
 \examples{
-## continue the RLGH example from ?join
+## continue the ImbrieKipp example from ?join
 example(join)
 
 ## analog matching between SWAP and RLGH core
-swap.analog <- analog(swapdiat, rlgh, method = "chord")
-swap.analog
-summary(swap.analog)
+ik.analog <- analog(ImbrieKipp, V12.122, method = "chord")
+ik.analog
+summary(ik.analog)
 
 ## compare training set dissimilarities with normals
 ## and derive cut-offs
-swap.dissim <- dissim(swap.analog)
-plot(swap.dissim)
+ik.dissim <- dissim(ik.analog)
+plot(ik.dissim)
 
 }
 \keyword{methods}
