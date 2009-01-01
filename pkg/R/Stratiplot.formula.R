@@ -1,0 +1,26 @@
+`Stratiplot.formula` <- function(formula,
+                                 data,
+                                 subset,
+                                 na.action,
+                                 type = "l",
+                                 ylab = "",
+                                 xlab = "",
+                                 pages = 1,
+                                 ...) {
+    cl <- match.call()
+    mf <- match.call(expand.dots = FALSE)
+    m <- match(c("formula", "data", "subset", "na.action"),
+               names(mf), 0L)
+    mf <- mf[c(1L, m)]
+    mf$drop.unused.levels <- TRUE
+    mf[[1L]] <- as.name("model.frame")
+    mf <- eval(mf, parent.frame())
+    mt <- attr(mf, "terms")
+    y <- model.response(mf, "numeric")
+    data <- data.frame(model.matrix(mt, mf))[,-1]
+    n.vars <- ncol(data)
+    y <- rep(y, n.vars)
+    Stratiplot.default(x = data, y = y, type = type,
+                       ylab = ylab, xlab = xlab, pages = pages,
+                       ...)
+}

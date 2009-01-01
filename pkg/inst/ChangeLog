@@ -1,5 +1,17 @@
 analogue Change Log
 
+Version 0.6-2
+
+	* Stratiplot: new graphics function for plotting stratigraphic
+	diagrams, with 'default' and 'formula' methods. Uses the Lattice 
+	package for plotting.
+
+	* panel.Stratiplot: lattice panel function for drawing stratigraphic
+	diagrams.
+
+	* panel.Loess: modified version of standard lattice panel function
+	'panel.loess' for drawing LOESS smooths on stratigraphic diagrams.
+	
 Version 0.6-1
 
 	* ImbrieKipp: made the training set environment and sediment core
