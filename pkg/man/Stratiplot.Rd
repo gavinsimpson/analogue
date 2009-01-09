@@ -7,7 +7,8 @@
 \description{
   Draws palaeoecological stratigraphic diagrams of one or more variables
   as a function of depth/age, with the time dimension flowing from the
-  bottom to the top of the y-axis.
+  bottom to the top of the y-axis, using the \pkg{Lattice} graphics
+  package.
 }
 \usage{
 Stratiplot(x, \dots)
