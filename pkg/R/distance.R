@@ -257,5 +257,6 @@ distance.default <- function(x, y,
       rownames(res) <- x.names
     }
     attr(res, "method") <- method
+    class(res) <- c("distance","matrix")
     return(res)
   }

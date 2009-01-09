@@ -6,6 +6,9 @@ Version 0.6-3
 	calling distance(). This broke handling of factor variables in
 	'method = "mixed"' with distance().
 
+	* distance: objects created by distance() now have an explicit 
+	class "distance", and inherit from class "matrix".
+
 Version 0.6-2
 
 	* Stratiplot: new graphics function for plotting stratigraphic
