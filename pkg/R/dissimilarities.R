@@ -21,8 +21,8 @@ dissimilarities <- function(object, ...)
 dissimilarities.analog <- function(object, which = c("train", "analogs"), ...)
   {
     which <- match.arg(which)
-    if(which == "train")
-      retval <- as.vector(as.dist(object$train))
+    if(which == "train") ##as.vector(as.dist(object$train))
+      retval <- object$train[lower.tri(object$train)]
     else
       retval <- as.vector(object$analogs)
     class(retval) <- "dissimilarities"

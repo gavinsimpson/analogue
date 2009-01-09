@@ -205,22 +205,16 @@ distance.default <- function(x, y,
       }
     }
     if(method == "kendall") {
-        ##maxi <- apply(join(as.data.frame(x),as.data.frame(y),
-        ##                   split = FALSE),
-        ##              2, max)
         maxi <- apply(rbind(apply(x, 2, max), apply(y, 2, max)),
                       2, max)
     }
     if(method %in% c("gower", "alt.gower", "mixed")) {
-        ## gower & mixed can handle missing values though, so really,
-        ## want to use the na.rm argument
-        ##maxi <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
-        ##              max, na.rm = NA.RM)
-        maxi <- apply(rbind(apply(x, 2, max), apply(y, 2, max)),
+        maxi <- mini <- numeric(length = n.vars)
+        maxi <- apply(rbind(apply(x, 2, max),
+                            apply(y, 2, max)),
                       2, max, na.rm = TRUE)
-        ##mini <- apply(join(as.data.frame(x),as.data.frame(y), split = FALSE), 2,
-        ##              min, na.rm = NA.RM)
-        mini <- apply(rbind(apply(x, 2, min), apply(y, 2, min)),
+        mini <- apply(rbind(apply(x, 2, min),
+                            apply(y, 2, min)),
                       2, min, na.rm = TRUE)
         if(is.null(R))
             R <- maxi - mini

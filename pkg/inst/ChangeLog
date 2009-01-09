@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.6-3
+
+	* analog: was converting 'x' and 'y' objects to matrices before
+	calling distance(). This broke handling of factor variables in
+	'method = "mixed"' with distance().
+
 Version 0.6-2
 
 	* Stratiplot: new graphics function for plotting stratigraphic
@@ -11,6 +17,9 @@ Version 0.6-2
 
 	* panel.Loess: modified version of standard lattice panel function
 	'panel.loess' for drawing LOESS smooths on stratigraphic diagrams.
+
+	* Documentation: fixes and tweaks to several Rd files to fix parse
+	errors caught with the new Rd parser coming in R 2.9.0. 
 	
 Version 0.6-1
 

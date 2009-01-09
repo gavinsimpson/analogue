@@ -9,9 +9,9 @@
 \title{Flexibly calculate dissimilarity or distance measures }
 \description{
   Flexibly calculates distance or dissimilarity measures between a
-  training set \code{"x"} and a fossil or test set \code{"y"}. If
-  \code{"y"} is not supplied then the pairwise dissimilarities between
-  samples in the training set, \code{"x"}, are calculated.
+  training set \code{x} and a fossil or test set \code{y}. If
+  \code{y} is not supplied then the pairwise dissimilarities between
+  samples in the training set, \code{x}, are calculated.
 }
 \usage{
 
@@ -126,9 +126,9 @@ distance(x, \dots)
 }
 \value{
   A matrix of dissimilarities where columns are the samples in
-  \code{"y"} and the rows the samples in \code{"x"}. If \code{"y"} is
+  \code{y} and the rows the samples in \code{x}. If \code{y} is
   not provided then a square, symmetric matrix of pairwise sample
-  dissimilarities for the training set \code{"x"} is returned.
+  dissimilarities for the training set \code{x} is returned.
 
   The dissimilarity coefficient used (\code{method}) is returned as
   attribute \code{"method"}.
@@ -142,8 +142,8 @@ distance(x, \dots)
 
   The other advantage of \code{distance} over other implementations, is
   the simplicity of calculating only the required pairwise sample
-  dissimilarities between each fossil sample (\code{"y"}) and each
-  training set sample (\code{"x"}). To do this in other implementations,
+  dissimilarities between each fossil sample (\code{y}) and each
+  training set sample (\code{x}). To do this in other implementations,
   you would need to merge the two sets of samples, calculate the full
   dissimilarity matrix and then subset it to achieve similar results.
 }
@@ -189,11 +189,11 @@ distance(x, \dots)
  
 }
 \author{Gavin L. Simpson }
-\seealso{\code{\link[vegan]{vegdist}} in package \code{vegan},
-  \code{\link[cluster]{daisy}} in package \code{cluster}, and
+\seealso{\code{\link[vegan]{vegdist}} in package \pkg{vegan},
+  \code{\link[cluster]{daisy}} in package \pkg{cluster}, and
   \code{\link[stats]{dist}} provide comparable functionality for the
-  case of missing \code{"y"} and are implemented in compiled code, so
-  will be faster.} 
+  case of missing \code{y} and are implemented in compiled code, so
+  will be faster.}
 \examples{
 ## simple example using dummy data
 train <- data.frame(matrix(abs(runif(200)), ncol = 10))
