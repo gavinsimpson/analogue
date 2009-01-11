@@ -70,7 +70,7 @@ Stratiplot(x, \dots)
   \code{\link{xyplot}}. Instead, the formula is parsed and evaluated
   within \code{Stratiplot} and an appropriate data structure formed to
   facilitate plotting via \code{\link{xyplot}}. As such, the special
-  features of \code{\link[lattice]{Lattice}} formulae cannot be used.
+  features of \code{\link{Lattice}} formulae cannot be used.
 }
 \value{
   Returns a Lattice plot object of class \code{"trellis"}.
@@ -81,7 +81,7 @@ Stratiplot(x, \dots)
   interpret these as \sQuote{depths} instead. This will be fixed in a
   future version.
 }
-\seealso{\code{\link[lattice]{Lattice}}, \code{\link[lattice]{xyplot}}',
+\seealso{\code{\link{Lattice}}, \code{\link{xyplot}}',
 \code{\link{panel.Stratiplot}}, \code{\link{panel.Loess}}.}
 \examples{
 data(V12.122)
