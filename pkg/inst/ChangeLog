@@ -2,12 +2,21 @@ analogue Change Log
 
 Version 0.6-3
 
+	* logitreg: new function to evaluate the probability that two
+	samples are analogues conditional upon the dissimilarity between
+	the two samples. Essentially fits logistic regression models to
+	the data used to produce the statistics drawn on a ROC curve.
+
+	Methods for 'summary' and 'plot' are currently available.
+	
 	* analog: was converting 'x' and 'y' objects to matrices before
 	calling distance(). This broke handling of factor variables in
 	'method = "mixed"' with distance().
 
 	* distance: objects created by distance() now have an explicit 
 	class "distance", and inherit from class "matrix".
+
+	* Depends: No longer need dependency on brglm.
 
 Version 0.6-2
 
