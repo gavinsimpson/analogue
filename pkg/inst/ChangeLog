@@ -16,7 +16,8 @@ Version 0.6-3
 	* distance: objects created by distance() now have an explicit 
 	class "distance", and inherit from class "matrix".
 
-	* Depends: No longer need dependency on brglm.
+	* Depends: Package now depends on MASS. No longer need dependency 
+	on brglm.
 
 Version 0.6-2
 
