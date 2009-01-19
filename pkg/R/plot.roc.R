@@ -38,18 +38,19 @@ plot.roc <- function(x,
         plot(x$roc[[group]]$FPE, x$roc[[group]]$TPF, type = "n",
              ylab = "TPF (sensitivity)",
              xlab = "1 - TNF (1 - specificity)")
-        lines(x$roc[[group]]$FPE, x$roc[[group]]$TPF, ...)
         abline(0, 1, col = abline.col)
+        lines(x$roc[[group]]$FPE, x$roc[[group]]$TPF, ...)
         mtext(caption[1], side = 3, line = 1.7, font = 2)
         if(show.stats) {
             txt <- paste("AUC =", round(x$roc[[group]]$AUC, 3))
             legend("bottomright", legend = txt, pch = NA,
                    bty = "n", cex = 0.8)
         }
+        box()
     }
     if(show[2]) {
-        dens.in <- density(x$roc[[group]]$analogue$yes)
-        dens.out <- density(x$roc[[group]]$analogue$no)
+        dens.in <- density(x$roc[[group]]$analogue$yes, from = 0)
+        dens.out <- density(x$roc[[group]]$analogue$no, from = 0)
         xlims <- switch(method,
                         SQchord = c(0,2),
                         chord = c(0, sqrt(2)),
@@ -87,6 +88,7 @@ plot.roc <- function(x,
         abline(v = x$roc[[group]]$optimal, lty = "dotted",
                col = abline.col)
         mtext(caption[3], side = 3, line = 1.7, font = 2)
+        box()
     }
     if(show[4]) {
         pos <- l.ratios[[group]]$bayesF$pos
