@@ -45,7 +45,7 @@
     roc <- vector(mode = "list", length = length(lev) + 1)
     names(roc) <- c(lev, "Combined")
     statistics <- data.frame(matrix(NA, nrow = n.g+1, ncol = 6))
-    names(statistics) <- c("Opt. Dis.","AUC","SE","In","Out","p-value")
+    names(statistics) <- c("In","Out","Opt. Dis.","AUC","SE","p-value")
     rownames(statistics) <- c(lev, "Combined")
     k <- seq_len(k) + 1
     for(l in lev) {
@@ -57,15 +57,15 @@
         ROC <- calcROC(IN, OUT)
         within[[l]] <- IN
         without[[l]] <- OUT
-        statistics[l, ] <- with(ROC, data.frame(optimal, AUC, se.fit, n.in,
-                                          n.out, p.value))
+        statistics[l, ] <- with(ROC, data.frame(n.in, n.out, optimal, AUC,
+                                                se.fit, p.value))
         roc[[l]] <- ROC
     }
     IN <- do.call(c, within)
     OUT <- do.call(c, without)
     roc[["Combined"]] <- ROC <- calcROC(IN, OUT)
-    statistics["Combined", ] <- with(ROC, data.frame(optimal, AUC, se.fit, n.in,
-                                              n.out, p.value))
+    statistics["Combined", ] <- with(ROC, data.frame(n.in, n.out, optimal,
+                                                     AUC, se.fit, p.value))
     retval <- list(statistics = statistics, roc = roc)
     class(retval) <- "roc"
     if(!is.null(attr(object, "method")))
