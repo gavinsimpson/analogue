@@ -16,6 +16,10 @@ Version 0.6-3
 	* distance: objects created by distance() now have an explicit 
 	class "distance", and inherit from class "matrix".
 
+	* roc: component 'statistics' has reordered columns.
+
+	* plot.roc: superficial changes to ordering of plot components.
+
 	* Depends: Package now depends on MASS. No longer need dependency 
 	on brglm.
 
