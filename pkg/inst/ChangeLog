@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.6-4
+
+	* Datasets: Version 1.7 of the North American Modern Pollen 
+	Database has been added to 'analogue'. The data are contained
+	in four datasets: Pollen, Biome, Climate and Location, containing
+	the pollen counts on 134 taxa, vegetation classification, 32
+	climatic variables and location (latitude/longitude) respectively
+	on 4833 sampling locations in North America and Greenland.
+	
 Version 0.6-3
 
 	* logitreg: new function to evaluate the probability that two
