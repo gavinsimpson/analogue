@@ -20,7 +20,7 @@
         ilogit <- family(x)$linkinv
         pred <- predict(x, newdata = dat, type = "link", se.fit = TRUE)
         dat$pred <- ilogit(pred$fit)
-        crit.t <- qt(conf.int - ((1- conf.int) / 2), df = npred - 1)
+        crit.t <- qt(conf.int - ((1- conf.int) / 2), df = npred - 2)
         dat$upper <- ilogit(pred$fit + (crit.t * pred$se.fit))
         dat$lower <- ilogit(pred$fit - (crit.t * pred$se.fit))
         ## add a bit of extra space

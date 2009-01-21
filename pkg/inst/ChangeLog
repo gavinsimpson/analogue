@@ -8,6 +8,9 @@ Version 0.6-4
 	the pollen counts on 134 taxa, vegetation classification, 32
 	climatic variables and location (latitude/longitude) respectively
 	on 4833 sampling locations in North America and Greenland.
+
+	* plot.logitreg: adjusted the correction to the degrees of freedom
+	in the calculation of the confidence intervals.
 	
 Version 0.6-3
 
