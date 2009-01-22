@@ -18,7 +18,7 @@
         FPE <- cumsum(tab[, 1])/sum(tab[, 1])
         roc.values <- TPF - FPE
         roc.points <- rev(sort(c(IN, OUT)))
-        optimal <- as.numeric(names(which.max(roc.values)))
+        optimal <- as.numeric(names(max.roc <- which.max(roc.values)))
         names(FPE) <- names(TPF) <- names(roc.values) <- NULL
         wilcox <- wilcox.test(IN, OUT, conf.int = FALSE)
         AUC <- 1 - (wilcox$statistic / (n.OUT * n.OUT))
@@ -32,7 +32,7 @@
         retval <- list(TPF = TPF, FPE = FPE, optimal = optimal,
                        AUC = AUC, se.fit = se.fit, n.in = n.IN,
                        n.out = n.OUT, p.value = p.value,
-                       roc.points = roc.points,
+                       roc.points = roc.points, max.roc = max.roc,
                        analogue = list(yes = IN, no = OUT))
         retval
     }
