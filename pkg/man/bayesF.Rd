@@ -56,23 +56,27 @@ bayesF(x, prior = rep(0.5, 2))
 \value{
   For \code{plot.bayesF} a plot on the currently active device.
 
-  For \code{bayesF}, a list with the following components:
-  \item{pos}{Bayes factor or likelihood ratio of a positive event
-    (analogue).}
-  \item{neg}{Bayes factor or likelihood ratio of a negative event
-    (analogue).}
-  \item{posterior}{list with components \code{pos} and \code{neg}
-    containing the posterior probabilities of positive and negative
-    events, respectively.}
-  \item{prior}{list with components \code{pos} and \code{neg}
-    containing the prior probabilities of positive and negative
-    events, respectively.}
-  \item{roc.points}{vector of points at which the ROC curve was
-    evaluated and for which Bayes factors and prior and posterior
-    probabilities are available.}
-  \item{optimal}{numeric; the optimal dissimilarity, as assessed by the
+  For \code{bayesF}, a list containing the results of computing Bayes
+  factors for each group in \code{x}. Each component of this list is
+  itself a list with the following components:
+
+  \item{bayesF, posterior.odds, posterior.probs, prior.prob}{Bayes
+    factors, posterior odds and probabilities and prior probabilities of
+    true analogue and true non-analogue events. Each components is a list
+    with two components; \code{pos} (for true analogue events) and
+    \code{neg} (for true non-analogue events). The components of
+    \code{prior.prob} are vectors of length 1, whilst components of the
+    other lists are numeric vectors.}
+  \item{roc.points}{numeric; the points at which the ROC curve was
+    evaluated.}
+  \item{optimal}{numeric; the optimal dissimilarity as assessed by the
     ROC curve.}
-  \item{object}{name of the object passed as argument \code{x}.}
+  \item{max.roc}{numeric; the position along the ROC curve at which the
+    slope of the ROC curve is maximal. This is the index of this point
+    on the curve, and can be used to extract the element of
+    \code{bayesF}, \code{posterior.odds} and \code{posterior.probs} for
+    the optimal dissimilarity.}
+  %\item{object}{name of the object passed as argument \code{x}.}
 }
 \references{
   

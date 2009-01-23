@@ -56,8 +56,6 @@ roc(object, groups, k = 1, ...)
   
   \item{TPF}{The true positive fraction.}
   \item{FPE}{The false positive error}
-  %\item{roc.points}{The unique dissimilarities at which the ROC curve
-  %  was evaluated}
   %\item{roc.values}{The difference between TPF and FPE at each evaluated
   %  point of the ROC curve.}
   \item{optimal}{The optimal dissimilarity value, asessed where the
@@ -68,6 +66,16 @@ roc(object, groups, k = 1, ...)
   \item{n.out}{numeric; the number of samples not in the current group.}
   \item{p.value}{The p-value of a Wilcoxon rank sum test on the two sets
     of dissimilarities. This is also known as a Mann-Whitney test.}
+  \item{roc.points}{The unique dissimilarities at which the ROC curve
+    was evaluated}
+  \item{max.roc}{numeric; the position along the ROC curve at which the
+    slope of the ROC curve is maximal. This is the index of this point
+    on the curve.}
+  \item{prior}{numeric, length 2. Vector of observed prior probabilities
+    of true analogue and true non-analogues in the group.}
+  \item{analogue}{a list with components \code{yes} and \code{no}
+    containing the dissimilarities for true analogue and true
+    non-analogues in the group.}
   %\item{groups}{numeric; the group membership}
   %\item{dissims}{numeric; vector of observed dissimilarities.}
   %\item{method}{character; the dissimilarity coefficient used. Taken

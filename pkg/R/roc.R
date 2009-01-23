@@ -29,10 +29,12 @@
             ((n.OUT - 1) * (q2 - AUC2))
         se.fit <- sqrt(se.fit / (n.IN * n.OUT))
         p.value <- wilcox$p.value
+        prior <- c(n.IN, n.OUT) / sum(n.IN, n.OUT)
         retval <- list(TPF = TPF, FPE = FPE, optimal = optimal,
                        AUC = AUC, se.fit = se.fit, n.in = n.IN,
                        n.out = n.OUT, p.value = p.value,
                        roc.points = roc.points, max.roc = max.roc,
+                       prior = prior,
                        analogue = list(yes = IN, no = OUT))
         retval
     }

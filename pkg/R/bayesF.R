@@ -1,6 +1,9 @@
 ## compute Bayes factors (syn. likelihood ratios) of
 ## positive and negative events
 bayesF <- function(x, prior = rep(0.5, 2)) {
+    ## GLS: Need to get this to work with the priors stored in each
+    ## roc object, OR take a new prior, either a global one for all
+    ## groups, or individual priors. both supplied by the user here
     FUN <- function(x, prior) {
         pos <- x$TPF / x$FPE
         neg <- (1 - x$TPF) / (1 - x$FPE)
@@ -16,14 +19,20 @@ bayesF <- function(x, prior = rep(0.5, 2)) {
         ## posterior odds
         post.odds.pos <- pos * prior.odds.pos
         post.odds.neg <- neg * prior.odds.neg
+        ## posterior probabilities
+        post.probs.pos <- post.odds.pos / (1 + post.odds.pos)
+        post.probs.neg <- post.odds.neg / (1 + post.odds.neg)
         ## return object
         retval <- list(bayesF = list(pos = pos, neg = neg),
                        posterior.odds = list(pos = post.odds.pos,
                        neg = post.odds.neg),
+                       posterior.probs = list(pos = post.probs.pos,
+                       neg = post.probs.neg),
                        prior.prob = list(pos = prior.prob.pos,
                        neg = prior.prob.neg),
                        roc.points = unique(x$roc.points),
-                       optimal = x$optimal)
+                       optimal = x$optimal,
+                       max.roc = x$max.roc)
     }
     if(is.null(prior))
         prior <- rep(0.5, 2)
