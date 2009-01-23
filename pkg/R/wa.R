@@ -2,7 +2,11 @@
 
 `wa.default` <- function(x, env,
                          deshrink = c("inverse", "classical", "expanded", "none"),
-                         tol.dw = FALSE, ...) {
+                         tol.dw = FALSE, ...)
+{
+    ## tol.dw is not yet implemented
+    if (tol.dw)
+        .NotYetUsed("tol.dw", error = FALSE)
     ## x = species abundances (weights), env = response vector
     x <- as.matrix(x)
     env <- as.numeric(env)
