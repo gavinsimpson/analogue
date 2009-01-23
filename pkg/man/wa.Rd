@@ -36,7 +36,8 @@ wa(x, \dots)
     \code{"inverse"} or \code{"classical"}, \code{"expanded"} or
     \code{"none"}}
   \item{tol.dw}{logical; should species with wider tolerances be given
-    lower weight?}
+    lower weight? Currently ignored as tolerance down weighting is not
+    yet implemented.}
   \item{formula}{a model formula}
   \item{data}{an optional data frame, list or environment (or object
     coercible by \code{\link{as.data.frame}} to a data frame) containing

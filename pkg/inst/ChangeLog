@@ -11,6 +11,23 @@ Version 0.6-4
 
 	* plot.logitreg: adjusted the correction to the degrees of freedom
 	in the calculation of the confidence intervals.
+
+	* roc: now returns the observed prior probability that two samples 
+	are analogues for each group. Also returns the index of the point 
+	along the ROC curve where the slope of the curve is maximal (the 
+	point corresponding to the optimal dissimilarity).
+
+	* bayesF: now returns the posterior probabilities as well as 
+	posterior odds of true analogue and true non-analogues for points 
+	along the ROC curve.
+
+	Documentation of the object returned from 'bayesF' has been updated
+	to match the changes introduce in version 0.6-0.
+
+	* wa: documentation for wa did not state that the 'tol.dw' argument
+	was currently ignored. Tolerance down weighting is not currently
+	implemented in wa and the documentation now states this clearly.
+	Reported by Andreas Plank (R-Forge Bug ID 287).
 	
 Version 0.6-3
 
