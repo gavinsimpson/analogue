@@ -1,5 +1,18 @@
 analogue Change Log
 
+Version 0.6-5
+
+	* wa: now computes tolerances and can perform tolerance downweighting
+	in WA transfer functions. Contains several options to manage working
+	tolerances used in the WA computations, including how to deal with
+	species that have very small (narrow) tolerances.
+
+	The actual tolerances and working values are returned from wa().
+
+	* optima, tolerance: two new user visible functions to compute weighted
+	average optima and tolerance ranges from species abundances and 
+	associated environmental data.
+
 Version 0.6-4
 
 	* Datasets: Version 1.7 of the North American Modern Pollen 
