@@ -220,3 +220,31 @@ wmean <- function(spp, env) {
 `deshrink.pred` <- function(x, coef) {
     coef[1] + x * coef[2]
 }
+
+
+## w.tol --- computes weighted standard deviations AKA tolerances
+w.tol <- function(x, env, opt, useN2 = TRUE) {
+    ## x   = species abundances
+    ## env = vector of response var
+    ## opt = weighted average optima
+    tol <- sqrt(ColSums(x * outer(env, opt, "-")^2) / ColSums(x))
+    if(useN2)
+        tol <- tol / sqrt(1 - (1 / sppN2(x)))
+    names(tol) <- colnames(x)
+    tol
+}
+
+`sppN2` <- function(x) {
+    ## quickly compute Hill's N2 for species
+    ## x = species abundances
+    ## ONLY call within an existing function
+    tot <- ColSums(x)
+    x <- sweep(x, 2, tot, "/")
+    x <- x^2
+    H <- ColSums(x, na.rm = TRUE)
+    1/H
+}
+
+## data(ImbrieKipp)
+## data(SumSST)
+## mod <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE)
