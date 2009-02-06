@@ -1,6 +1,6 @@
 `wa.formula` <- function(formula, data, subset, na.action,
                          deshrink = c("inverse", "classical", "expanded", "none"),
-                         tol.dw = FALSE, model = FALSE, ...) {
+                         tol.dw = FALSE, ..., model = FALSE) {
     ## set default deshrinking to inverse if no supplied
     if(missing(deshrink))
         deshrink <- "inverse"
@@ -24,7 +24,7 @@
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
     x <- model.matrix(mt, mf)
-    res <- wa.default(x, y, deshrink = deshrink, tol.dw = tol.dw)
+    res <- wa.default(x, y, deshrink = deshrink, tol.dw = tol.dw, ...)
     res$na.action <- attr(mf, "na.action")
     res$call <- .call
     if(model) {

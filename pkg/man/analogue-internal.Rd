@@ -13,6 +13,8 @@
 \alias{RowSums}
 \alias{ColSums}
 \alias{deshrink.pred}
+\alias{sppN2}
+\alias{w.tol}
 \title{Internal analogue Functions}
 \description{
   Internal analogue functions

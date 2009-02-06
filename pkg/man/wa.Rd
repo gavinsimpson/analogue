@@ -16,11 +16,14 @@ deshrinking are supported.
 wa(x, \dots)
 
 \method{wa}{default}(x, env, deshrink = c("inverse", "classical", "expanded", "none"),
-   tol.dw = FALSE, ...)
+   tol.dw = FALSE, useN2 = TRUE,
+   na.tol = c("min","mean","max","wacalib"),
+   small.tol = c("min","fraction","absolute"),
+   min.tol = NULL, f = 0.1, ...)
 
 \method{wa}{formula}(formula, data, subset, na.action,
    deshrink = c("inverse", "classical", "expanded", "none"),
-   tol.dw = FALSE, model = FALSE, ...)
+   tol.dw = FALSE, ..., model = FALSE)
 
 \method{fitted}{wa}(object, \dots)
 
@@ -36,8 +39,20 @@ wa(x, \dots)
     \code{"inverse"} or \code{"classical"}, \code{"expanded"} or
     \code{"none"}}
   \item{tol.dw}{logical; should species with wider tolerances be given
-    lower weight? Currently ignored as tolerance down weighting is not
-    yet implemented.}
+    lower weight?}
+  \item{useN2}{logical; should Hill's N2 values be used to produce
+    un-biased tolerances?}
+  \item{na.tol}{character; method to use to replace missing (\code{NA})
+    tolerances in WA computations. Missing values are replaced with the
+    minimum, average or maximum tolerance observed that is not
+    missing. Option \code{"wacalib"} replicates the behaviour of the
+    WACALIB programme; currently not implemented.}
+  \item{small.tol}{character; method to replace small tolerances. See Details.}
+  \item{min.tol}{numeric; threshold below which tolerances are treated
+    as being \sQuote{small}.}
+  \item{f}{numeric, \eqn{0 < f < 1}; fraction of environmental gradient
+    \code{env} to replace small tolerances with if \code{small.tol =
+      "fraction"} is specified.}
   \item{formula}{a model formula}
   \item{data}{an optional data frame, list or environment (or object
     coercible by \code{\link{as.data.frame}} to a data frame) containing
@@ -67,11 +82,36 @@ wa(x, \dots)
   together with all the terms in \code{second} with duplicates
   removed. A specification of \code{.} is shorthand for all terms in
   \code{data} not already included in the model.
+
+  Species that have very small tolerances can dominate reconstructed
+  values if tolerance down-weighting is used. In \code{wa}, small
+  tolerances are defined as a tolerance that is \eqn{<}
+  \code{min.tol}. These small tolerances can be adjusted in several
+  ways:
+
+  \describe{
+    \item{\code{min} }{small tolerances are replaced by the smallest
+      observed tolerance that is greater than, or equal to,
+      \code{min.tol}. With this method, the replaced values will be no
+      smaller than any other observed tolerance. This is the default in
+      \pkg{analogue}.}
+    \item{\code{fraction} }{small tolerances are replaced by the
+      fraction, \code{f}, of the observed environmental gradient in the
+      training set, \code{env}.}
+    \item{\code{absolute} }{small tolerances are replaced by
+      \code{min.tol}.}
+  }
 }
 \value{
   An object of class \code{"wa"}, a list with the following components:
   
   \item{wa.optima}{The WA optima for each species in the model.}
+  \item{tolerances}{The actual tolerances calculated (these are weighted
+    standard deviations).}
+  \item{model.tol}{The tolerances used in the WA model
+    computations. These will be similar to \code{tol}, but will no
+    contain any \code{NA}s and any small tolerances will have been
+    replaced with the appropriate value.}
   \item{fitted.values}{The fitted values of the response for each of the
     training set samples.}
   \item{residuals}{Model residuals.}
@@ -116,6 +156,22 @@ coef(mod)
 par(mfrow = c(1,2))
 plot(mod)
 par(mfrow = c(1,1))
+
+## tolerance DW
+mod2 <- wa(swappH ~., data = swapdiat, tol.dw = TRUE)
+
+## tolerances
+with(mod2, tolerances)
+
+## Imbrie and Kipp
+data(ImbrieKipp)
+data(SumSST)
+ik.wa <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
+            min.tol = 2, small.tol = "min")
+ik.wa
+
+## compare actual tolerances to working values
+with(ik.wa, rbind(tolerances, model.tol))
 }
 \keyword{methods}
 \keyword{models}
