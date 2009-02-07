@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.6-6
+
+	* optima, tolerance: New print methods for both functions. Returned 
+	objects now have additional attributes.
+
 Version 0.6-5
 
 	* wa: now computes tolerances and can perform tolerance downweighting
