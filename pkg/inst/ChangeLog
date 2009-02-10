@@ -5,6 +5,10 @@ Version 0.6-6
 	* optima, tolerance: New print methods for both functions. Returned 
 	objects now have additional attributes.
 
+	* join: new methods for 'head' and 'tail' to return the first/last
+	few rows from each of the joined data sets. Handles cases where
+	'split = FALSE' by calling the 'data.frame' method.
+
 Version 0.6-5
 
 	* wa: now computes tolerances and can perform tolerance downweighting

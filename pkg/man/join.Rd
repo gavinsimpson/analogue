@@ -1,5 +1,7 @@
 \name{join}
 \alias{join}
+\alias{head.join}
+\alias{tail.join}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Merge species data sets on common columns (species)}
 \description{
@@ -10,10 +12,18 @@
 }
 \usage{
 join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE)
+
+\method{head}{join}(x, \dots)
+
+\method{tail}{join}(x, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{\dots}{data frames containing the data sets to be merged}
+  \item{\dots}{for \code{join}, data frames containing the data sets to
+    be merged. For the \code{\link{head}} and \code{\link{tail}}
+    methods, additional arguments to \code{\link{head}} and
+    \code{\link{tail}}, in particular \code{"n"} to control the
+    number of rows of each \code{join}ed data set to display.} 
   \item{verbose}{logical; if \code{TRUE}, the function prints out the
     dimensions of the data frames in \code{"\dots"}, as well as those of
     the returned, merged data frame.}
@@ -27,6 +37,8 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE)
   \item{split}{logical; should the merged data sets samples be split
     back into individual data frames, but now with common columns
     (i.e. species)?}
+  \item{x}{an object of class \code{"join"}, usually the result of a
+    call to \code{\link{join}}.}
 }
 \value{
   If \code{split = TRUE}, an object of class \code{"join"}, a list of
@@ -35,6 +47,10 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE)
 
   Otherwise, an object of class \code{c("join", "data.frame")}, a data
   frame containing the merged data sets.
+
+  \code{head.join} and \code{tail.join} return a list, each component of
+  which is the  result of a call to \code{\link{head}} or
+  \code{\link{tail}} on each data set compont of the joined object.
 }
 \author{Gavin L. Simpson}
 \seealso{\code{\link{merge}}}
@@ -63,6 +79,11 @@ dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
 ImbrieKipp <- dat[[1]] / 100
 V12.122 <- dat[[2]] / 100
 
+## show just the first few lines of each data set
+head(dat, n = 4)
+
+## show just the last few lines of each data set
+tail(dat, n = 4)
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{manip}% __ONLY ONE__ keyword per line
