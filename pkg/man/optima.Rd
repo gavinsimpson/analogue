@@ -1,7 +1,9 @@
 \name{optima}
 \alias{optima}
 \alias{optima.default}
+\alias{print.optima}
 \alias{tolerance}
+\alias{print.tolerance}
 \alias{tolerance.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Weighted averaging optima and tolerance ranges}
