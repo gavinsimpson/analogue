@@ -17,7 +17,7 @@ wa(x, \dots)
 
 \method{wa}{default}(x, env, deshrink = c("inverse", "classical", "expanded", "none"),
    tol.dw = FALSE, useN2 = TRUE,
-   na.tol = c("min","mean","max","wacalib"),
+   na.tol = c("min","mean","max"),
    small.tol = c("min","fraction","absolute"),
    min.tol = NULL, f = 0.1, ...)
 
@@ -45,8 +45,7 @@ wa(x, \dots)
   \item{na.tol}{character; method to use to replace missing (\code{NA})
     tolerances in WA computations. Missing values are replaced with the
     minimum, average or maximum tolerance observed that is not
-    missing. Option \code{"wacalib"} replicates the behaviour of the
-    WACALIB programme; currently not implemented.}
+    missing.}
   \item{small.tol}{character; method to replace small tolerances. See Details.}
   \item{min.tol}{numeric; threshold below which tolerances are treated
     as being \sQuote{small}.}

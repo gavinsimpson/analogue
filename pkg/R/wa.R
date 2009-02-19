@@ -3,13 +3,10 @@
 `wa.default` <- function(x, env,
                          deshrink = c("inverse", "classical", "expanded", "none"),
                          tol.dw = FALSE, useN2 = TRUE,
-                         na.tol = c("min","mean","max","wacalib"),
+                         na.tol = c("min","mean","max"),
                          small.tol = c("min","fraction","absolute"),
                          min.tol = NULL, f = 0.1, ...)
 {
-    ## tol.dw is not yet implemented
-    ##if (tol.dw)
-    ##    .NotYetUsed("tol.dw", error = FALSE)
     ## x = species abundances (weights), env = response vector
     x <- as.matrix(x)
     env <- as.numeric(env)
@@ -35,8 +32,7 @@
         tol[NA.TOL] <- switch(na.tol,
                               min = min(tol, na.rm = TRUE),
                               mean = mean(tol, na.rm = TRUE),
-                              max = max(tol, na.rm = TRUE),
-                              wacalib = .NotYetUsed("na.tol = \"wacalib\""))
+                              max = max(tol, na.rm = TRUE))
     }
     ## second, replace tol < min.tol
     if(!is.null(min.tol) && any(MIN.TOL <- tol < min.tol)) {
