@@ -5,13 +5,13 @@ citEntry(entry="Manual",
 	author = personList(as.person("G. L. Simpson"), as.person("J. Oksanen")),
 	year = "2009",
 	note = paste("R package version", packageDescription("analogue")$Version),
-   url = "http://CRAN.R-project.org/package=analogue",
+   url = "http://cran.r-project.org/package=analogue",
 
 	textVersion =
-	paste("Simpson, G.L. and Oksanen, J. (2008). ", 
-         "analogue: Analogue matching and Modern Analogue Technique transfer function models. (R package version ",
-	      packageDescription("analogue")$Version, ").", 
-	      "(http://CRAN.R-project.org/package=analogue).", sep="")
+	paste("Simpson, G.L. and Oksanen, J. (2009). ", 
+         "analogue: Analogue matching and Modern Analogue Technique transfer function models. (R package version",
+	      packageDescription("analogue")$Version,").", 
+	      "(http://cran.r-project.org/package=analogue).", sep=" ")
 )
 
 citEntry(entry="Article",
