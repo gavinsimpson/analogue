@@ -1,6 +1,6 @@
 analogue Change Log
 
-Version 0.6-6
+Version 0.6-6 (Released to CRAN: Wed 25th Feb 2009)
 
 	* optima, tolerance: New print methods for both functions. Returned 
 	objects now have additional attributes.
