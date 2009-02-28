@@ -37,18 +37,18 @@ panel.Stratiplot(x, y,
   
     For \code{type}s \code{"l"}, \code{"p"}, \code{"o"}, \code{"b"} and
     \code{"g"} the standard Lattice interpretation is observed. See
-    \code{\link{panel.xyplot}} for further details. Note that \code{type
-      "b"} is the same as \code{type "o"}.
+    \code{\link[lattice]{panel.xyplot}} for further details. Note that
+    \code{type "b"} is the same as \code{type "o"}.
 
     \code{"g"} adds a reference grid using \code{panel.grid} in the
     background.
     
     For \code{"h"}, histogram-like bars are plotted from the
     \strong{y-axis}, not from the x-axis with \code{\link{plot}} and
-    \code{\link{panel.loess}}.
+    \code{\link[lattice]{panel.loess}}.
   
     For \code{"smooth"} a loess fit is added to each panel using
-    \code{\link{panel.Loess}}.
+    \code{\link[lattice]{panel.Loess}}.
   
     For \code{"poly"}, a shaded polygon, or silhouette, is drawn for each
     panel.}
@@ -56,18 +56,21 @@ panel.Stratiplot(x, y,
     col.smooth}{colour parameters. For all but \code{col.smooth},
     default colours are obtained from \code{plot.symbol} and
     \code{plot.line} using
-    \code{\link{trellis.par.get}}. \code{col.refline} controls the
+    \code{\link[lattice]{trellis.par.get}}. \code{col.refline} controls the
     colour of the reference line drawn at value 0 on the x-axis.}
   \item{pch, cex, lty, lwd, fill}{other graphical parameters, defaults
     for which are obtained from \code{plot.symbol} and \code{plot.line}
-    using \code{\link{trellis.par.get}}.}
+    using \code{\link[lattice]{trellis.par.get}}.}
   \item{lty.smooth}{line type for the loess smoother. The default is
-    obtained from \code{plot.line} using \code{\link{trellis.par.get}}.}
+    obtained from \code{plot.line} using
+    \code{\link[lattice]{trellis.par.get}}.}
   \item{lwd.smooth}{The line width for the loess smoother.}
   \item{\dots}{extra arguments passed on to the underlying panel
-    functions; \code{\link{panel.points}}, \code{\link{panel.lines}},
-    \code{\link{panel.segments}}, \code{\link{panel.polygon}},
-    \code{\link{panel.Loess}} and \code{\link{panel.refline}}.}
+    functions; \code{\link[lattice]{panel.points}},
+    \code{\link[lattice]{panel.lines}},
+    \code{\link[lattice]{panel.segments}},
+    \code{\link[lattice]{panel.polygon}}, 
+    \code{\link{panel.Loess}} and \code{\link[lattice]{panel.refline}}.}
 }
 \details{
   Creates stratigraphic scatter plots of \code{x} and \code{y}, with
@@ -82,7 +85,7 @@ panel.Stratiplot(x, y,
 % ~Make other sections like Warning with \section{Warning }{....} ~
 %}
 \seealso{\code{\link{Stratiplot}}, \code{\link{panel.Loess}},
-    \code{\link{panel.xyplot}}.}
+    \code{\link[lattice]{panel.xyplot}}.}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{hplot}
