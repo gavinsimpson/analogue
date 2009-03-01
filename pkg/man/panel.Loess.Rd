@@ -2,7 +2,7 @@
 \alias{panel.Loess}
 \title{Loess smooths to stratigraphic diagrams}
 \description{
-  A modified version of \code{\link{panel.loess}}, for drawing Loess
+  A modified version of \code{\link[lattice]{panel.loess}}, for drawing Loess
   smooths on stratigraphic diagrams.
 }
 \usage{
