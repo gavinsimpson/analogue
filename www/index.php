@@ -1,24 +1,18 @@
 <?php
-
+    // constants to customise this pages headers
+    $DESCRIPTION = "analogue R package for quantiative palaeoecology, analogue methods and transfer functions";
+    $TITLE = "analogue &mdash; an R package for quantitative palaeoecology";
+    $AUTHOR = "Gavin L. Simpson";
+    $KEYWORDS = "analogue, R, modern analogue technique, analogue matching, transfer functions, palaeoecology, palaeolimnology";
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-
-<meta name="Description" content="analogue R package for quantiative palaeoecology, analogue methods and transfer functions." />
-<meta name="Keywords" content="analogue, R, modern analogue technique, analogue matching, transfer functions, palaeoecology, palaeolimnology" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<meta name="Distribution" content="Global" />
-<meta name="author" content="Gavin"/>
-<meta name="Robots" content="index,follow" />
-
-<link rel="stylesheet" href="images/Refresh.css" type="text/css" />
-
-<title>analogue &mdash; an R package for quantitative palaeoecology</title>
-
-</head>
+<!-- head tags here -->
+<?php
+    include_once("./include/head.inc");
+?>
 
 <body>
 <!-- wrap starts here -->
@@ -110,7 +104,7 @@
 		<!--footer starts here-->
 		<?php
             include_once("./include/side_bar.inc");
-      ?>
+        ?>
 
 <!-- wrap ends here -->
 </div>

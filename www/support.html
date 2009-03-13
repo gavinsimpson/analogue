@@ -1,21 +1,18 @@
+<?php
+    // constants to customise this pages headers
+    $DESCRIPTION = "Support details for the analogue project";
+    $TITLE = "analogue &mdash; Support Details";
+    $AUTHOR = "Gavin L. Simpson";
+    $KEYWORDS = "analogue, R, modern analogue technique, analogue matching, transfer functions, palaeoecology, palaeolimnology";
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-
-<meta name="Description" content="analogue R package for quantiative palaeoecology, analogue methods and transfer functions." />
-<meta name="Keywords" content="analogue, R, modern analogue technique, analogue matching, transfer functions, palaeoecology, palaeolimnology" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<meta name="Distribution" content="Global" />
-<meta name="author" content="Gavin"/>
-<meta name="Robots" content="index,follow" />
-
-<link rel="stylesheet" href="images/Refresh.css" type="text/css" />
-
-<title>analogue &mdash; getting help and support</title>
-
-	
-</head>
+<!-- head tags here -->
+<?php
+    include_once("./include/head.inc");
+?>
 
 <body>
 <!-- wrap starts here -->
@@ -28,52 +25,25 @@
 			<h2 id="slogan">a palaeoecological data analysis package for R</h2>
 		</div>
 		
-		<!-- menu -->	
-		<div  id="menu">
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><a href="news.html">Project News</a></li>
-				<li><a href="downloads.html">Downloads</a></li>
-				<li><a href="documentation.html">Documentation</a></li>
-				<li><a href="devel.html">Development</a></li>
-				<li id="current"><a href="support.html">Support</a></li>	
-			</ul>
-		</div>						
+		<!-- menu -->		
+		<?php
+            include_once("./include/menu.inc");
+		?>			
 			
 		<!-- content-wrap starts here -->
 		<div id="content-wrap">
 				
-			<div id="sidebar">
-				<h1>Downloads</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://cran.r-project.org/web/packages/analogue/index.html">Stable version (0.5-2)</a></li>
-						<li><a href="http://r-forge.r-project.org/R/?group_id=69">Development version</a></li>
-  					</ul>	
-				</div>
-			
-				<h1>Related R Packages</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://cran.r-project.org/web/packages/vegan/index.html">Vegan</a></li>
-  					</ul>	
-				</div>
-				
-				<h1>R-Forge Page</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://r-forge.r-project.org/projects/analogue/">analogue R-Forge page</a></li>
-  					</ul>	
-				</div>
-				
-			</div>
+		<!-- side bar -->
+        <?php
+            include_once("./include/side_bar.inc");
+        ?>
 				
 			<div id="main">
 				
 				<a name="Welcome"></a>
 				<h1>Getting help with using the analogue package</h1>
 				
-				<p>Coming Soon!</p>
+				<p>Coming soon!</p>
 
 			</div>
 		
@@ -81,22 +51,9 @@
 		</div>
 					
 		<!--footer starts here-->
-		<div id="footer">
-			
-			<p>
-			&copy; 2008 <strong>Gavin L. Simpson</strong> | 
-			Design by: <a href="http://www.styleshout.com/">styleshout</a> | 
-			Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> | 
-			<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
-			
-   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
-			<a href="index.html">Home</a>&nbsp;|&nbsp;
-   		<a href="index.html">Sitemap</a>&nbsp;|&nbsp;
-	   	<a href="http://r-forge.r-project.org/export/rss_sfnews.php?group_id=69">RSS Feed</a>
-   		</p>
-				
-		</div>	
+		<?php
+            include_once("./include/side_bar.inc");
+        ?>
 
 <!-- wrap ends here -->
 </div>
