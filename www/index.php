@@ -103,7 +103,7 @@
 					
 		<!--footer starts here-->
 		<?php
-            include_once("./include/side_bar.inc");
+            include_once("./include/footer.inc");
         ?>
 
 <!-- wrap ends here -->
