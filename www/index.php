@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -14,13 +18,11 @@
 
 <title>analogue &mdash; an R package for quantitative palaeoecology</title>
 
-	
 </head>
 
 <body>
 <!-- wrap starts here -->
-<div id="wrap">
-		
+<div id="wrap">
 		<!--header -->
 		<div id="header">			
 				
@@ -29,44 +31,16 @@
 		</div>
 		
 		<!-- menu -->	
-		<div  id="menu">
-			<ul>
-				<li id="current"><a href="index.html">Home</a></li>
-				<li><a href="news.html">Project News</a></li>
-				<li><a href="downloads.html">Downloads</a></li>
-				<li><a href="documentation.html">Documentation</a></li>
-				<li><a href="devel.html">Development</a></li>
-				<li><a href="support.html">Support</a></li>	
-			</ul>
-		</div>					
+		<?php
+            include_once("./include/menu.inc");
+		?>				
 			
 		<!-- content-wrap starts here -->
 		<div id="content-wrap">
-				
-			<div id="sidebar">
-				<h1>Downloads</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://cran.r-project.org/web/packages/analogue/index.html">Stable version (0.5-2)</a></li>
-						<li><a href="http://r-forge.r-project.org/R/?group_id=69">Development version</a></li>
-  					</ul>	
-				</div>
-			
-				<h1>Related R Packages</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://cran.r-project.org/web/packages/vegan/index.html">Vegan</a></li>
-  					</ul>	
-				</div>
-				
-				<h1>R-Forge Page</h1>
-				<div class="left-box">
-					<ul class="sidemenu">
-   					    <li><a href="http://r-forge.r-project.org/projects/analogue/">analogue R-Forge page</a></li>
-  					</ul>	
-				</div>
-				
-			</div>
+         <!-- side bar -->
+         <?php
+             include_once("./include/side_bar.inc");
+         ?>
 				
 			<div id="main">
 				
@@ -87,15 +61,46 @@
             	    <li>Palaeoecological transfer functions:
             	        <ul>
             	            <li>Modern Analogue Technique (<acronym title="Modern Analogue Technique">MAT</acronym>)</li>
-            	            <li>Weighted Averaging (<acronym title="Weighted Averaging">WA</acronym>)</li>
+            	            <li>Weighted Averaging (<acronym title="Weighted Averaging">WA</acronym>)
+            	                <ul>
+            	                    <li>Tolerance down-weighting</li>
+            	                    <li>Classical and inverse deshrinking, plus others</li>
+            	                </ul>
+            	            </li>
+            	            <li>Transfer function evaluation:
+            	                <ul>
+            	                    <li>Bootstrap, k-fold, leave-one-out cross validation</li>
+            	                    <li>Analogue statistics</li>
+            	                </ul>
+            	            </li>
             	        </ul>
             	    </li>
             	    <li>Analogue matching</li>
-            	    <li>Dissimilarity coefficients</li>
-            	    <li>Receiver Operator Characteristic (<acronym title="Receiver Operator Characteristic">ROC</acronym>) curves </li>
+            	    <li>Dissimilarity coefficients, including:
+            	        <ul>
+                            <li>Chord distance</li>
+                            <li>Bray-Curtis distance</li>
+                            <li>Gower's General (dis)similarity</li>
+                            <li>Manhattan metric</li>
+                            <li>...and many more</li>
+            	        </ul>
+            	    </li>
+            	    <li>Methods to select dissimilaity decision thresholds:
+            	        <ul>
+                            <li>Receiver Operator Characteristic (<acronym title="Receiver Operator Characteristic">ROC</acronym>) curves </li>
+                            <li>Monte Carlo resampling</li>
+                            <li>Logistic regression modelling</li>            	        
+            	        </ul>
+            	    </li>
+            	    <li>Utilities:
+            	        <ul>
+            	            <li>Merge data sets</li>
+            	            <li>Apply common data transformations</li>
+            	        </ul>
+            	    </li>
 				</ul>
 				
-				<p>with plenty more features planned for future versions.</p>
+				<p>Plenty more features are planned for future versions.</p>
 
 			</div>
 		
@@ -103,22 +108,9 @@
 		</div>
 					
 		<!--footer starts here-->
-		<div id="footer">
-			
-			<p>
-			&copy; 2008 <strong>Gavin L. Simpson</strong> | 
-			Design by: <a href="http://www.styleshout.com/">styleshout</a> | 
-			Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> | 
-			<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
-			
-   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
-			<a href="index.html">Home</a>&nbsp;|&nbsp;
-   		<a href="index.html">Sitemap</a>&nbsp;|&nbsp;
-	   	<a href="http://r-forge.r-project.org/export/rss_sfnews.php?group_id=69">RSS Feed</a>
-   		</p>
-				
-		</div>	
+		<?php
+            include_once("./include/side_bar.inc");
+      ?>
 
 <!-- wrap ends here -->
 </div>
