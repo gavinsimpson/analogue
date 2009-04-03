@@ -5,6 +5,8 @@
 \alias{tolerance}
 \alias{print.tolerance}
 \alias{tolerance.default}
+\alias{as.data.frame.optima}
+\alias{as.data.frame.tolerance}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Weighted averaging optima and tolerance ranges}
 \description{
@@ -30,7 +32,7 @@ tolerance(x, ...)
   \item{\dots}{Arguments passed to other methods.}
 }
 %\details{
-%  ~~ If necessary, more details than the description above ~~
+%
 %}
 \value{
   Both functions return a named vector containing the WA optima or
@@ -38,10 +40,10 @@ tolerance(x, ...)
 }
 \references{TO DO}
 \author{Gavin L. Simpson}
-%\note{ ~~further notes~~ 
-%
-% ~Make other sections like Warning with \section{Warning }{....} ~
-%}
+\note{
+  Objects of class \code{"optima"} or \code{"tolerance"} can be coerced
+  to data frames using methods for \code{link{as.data.frame}}.
+}
 \seealso{\code{\link{wa}}}
 \examples{
 ## Load the Imbrie & Kipp data and
@@ -50,10 +52,14 @@ data(ImbrieKipp)
 data(SumSST)
 
 ## WA optima
-optima(ImbrieKipp, SumSST)
+(opt <- optima(ImbrieKipp, SumSST))
 
 ## WA tolerances
-tolerance(ImbrieKipp, SumSST, useN2 = TRUE)
+(tol <- tolerance(ImbrieKipp, SumSST, useN2 = TRUE))
+
+## convert to data frame
+as.data.frame(opt)
+as.data.frame(tol)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
