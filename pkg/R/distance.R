@@ -83,7 +83,7 @@ distance.default <- function(x, y,
       }
     kendall <- function(x, y, maxi)
       {
-        sum(maxi - min(x, y))
+        sum(maxi - pmin(x, y))
       }
     gower <- function(x, y, maxi, mini)
       {

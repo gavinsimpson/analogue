@@ -5,6 +5,9 @@ Version 0.6-7 (Opened Fri 3 Apr 2009)
 	* optima, tolerance: new methods to coerce objects of these classes
 	to data frames.
 
+	* distance: method = "kendall" was incorrectly computing the min of
+	the x and y components in the dissimilarity.
+
 Version 0.6-6 (Released to CRAN: Wed 25th Feb 2009)
 
 	* optima, tolerance: New print methods for both functions. Returned 
