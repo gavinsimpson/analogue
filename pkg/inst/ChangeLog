@@ -1,6 +1,13 @@
 analogue Change Log
 
-Version 0.6-7 (Opened Fri 3 Apr 2009) 
+Version 0.6-8 (Opened Mon 13 Apr 2009)
+
+	* residLen: new function to compute squared residual length 
+	diagnostic for passive samples in a constrained ordination. Used as
+	a test of whether core samples are well fitted in a transfer function
+	model.
+
+Version 0.6-7 (Closed Mon 13 Apr 2009) 
 
 	* optima, tolerance: new methods to coerce objects of these classes
 	to data frames.
