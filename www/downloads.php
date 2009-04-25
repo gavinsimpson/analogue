@@ -44,7 +44,8 @@
 				<h1>Downloads</h1>
 				
 				<h2>Stable Version</h2>
-				<p>The current stable release of <strong>analogue</strong> is version 0.6-6. This version is 
+				<p>The current stable release of <strong>analogue</strong> is version 
+				<?php echo '{$stable_version}'; ?>. This version is 
 				<a href="http://cran.r-project.org/web/packages/analogue/index.html">available from</a> the 
 				CRAN mirrors.</p>
 				
