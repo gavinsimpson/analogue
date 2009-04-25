@@ -46,7 +46,7 @@
 				palaeoecological data. analogue was started by 
 				<a href="http://www.ecrc.ucl.ac.uk/content/view/90/94/">Gavin Simpson</a> to bring together
 				functions written for various research projects and his Ph.D thesis. Recently, 
-				<a href="http://cc.oulu.fi/~jarioksa/">Jari Oksanen</a> has joined the development team.</p>
+				<a href="http://cc.oulu.fi/~jarioksa/">Jari Oksanen</a> joined the development team.</p>
 				<p><strong>analogue</strong> is free and open-source, released under version 2 of the
 				<a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html#SEC1">GNU GPL</a>.</p>
 				

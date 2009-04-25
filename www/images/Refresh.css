@@ -82,13 +82,13 @@ code {
     overflow: auto;  
     font: 500 0.8em/1.3em 'Lucida Console', 'courier new', monospace ;
     /* white-space: pre; */
-    background: #CCCCCC; /*#FAFAFA;*/
-    border: 1px solid #CCCCCC; /*#f2f2f2;*/
+    background: #FAFAFA; /*#FAFAFA;*/
+    border: 1px solid #F2F2F2; /*#f2f2f2;*/
 }
 kbd {
     font: 500 0.8em/1.3em 'Lucida Console', 'courier new', monospace ;
-    background: #CCCCCC; /*#FAFAFA;*/
-    border: 1px solid #CCCCCC; /*#f2f2f2;*/
+    background: #FAFAFA; /*#FAFAFA;*/
+    border: 1px solid #F2F2F2; /*#f2f2f2;*/
 }
 acronym {
   cursor: help;
