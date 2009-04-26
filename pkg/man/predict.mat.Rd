@@ -124,6 +124,14 @@
 	the same components as \code{sample.errors}, above.}
     }
   }
+  \item{method}{the dissimilarity measure used to fit the underlying MAT
+    models.}
+  \item{quantiles}{probability quantiles of the pairwise dissimilarities
+    computed from the training set.}
+  \item{minDC}{smallest distances between each sample in \code{newdata}
+    and the training set samples.}
+  \item{Dij}{dissimilarities between \code{newdata} and training set
+    samples.}
 }
 
 \references{

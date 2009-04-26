@@ -43,14 +43,14 @@ predict.mat <- function(object, newdata, k, weighted = FALSE,
           else
             k <- which.min(object$standard$rmsep)
         }
-      dis <- distance(x = object$orig.x, y = newdata,
+      Dij <- distance(x = object$orig.x, y = newdata,
                       method = object$method)
-      minDC <- apply(dis, 2, function(x) {sort(x)[1]})
+      minDC <- apply(Dij, 2, function(x) {sort(x)[1]})
       quantiles <- quantile(as.dist(object$Dij), probs = probs)
       if(weighted)
-        predicted <- apply(dis, 2, cumWmean, object$orig.y, drop = FALSE)
+        predicted <- apply(Dij, 2, cumWmean, object$orig.y, drop = FALSE)
       else
-        predicted <- apply(dis, 2, cummean, object$orig.y, drop = FALSE)
+        predicted <- apply(Dij, 2, cummean, object$orig.y, drop = FALSE)
       est <- fitted(object, weighted = weighted)$estimated
       obs <- object$orig.y
       resi <- resid(object, k = k, weighted = weighted)
@@ -75,7 +75,8 @@ predict.mat <- function(object, newdata, k, weighted = FALSE,
                   predictions = list(model =
                     list(predicted = predicted,
                          k = k)),
-                  minDC = minDC)
+                  minDC = minDC,
+                  Dij = Dij)
     } else {
       if(missing(k))
         k <- NULL
