@@ -3,6 +3,7 @@
 \alias{getK.default}
 \alias{getK.mat}
 \alias{getK.bootstrap.mat}
+\alias{getK.predict.mat}
 \alias{setK<-}
 \alias{setK<-.default}
 \alias{setK<-.mat}
@@ -19,7 +20,10 @@ getK(object, ...)
 \method{getK}{mat}(object, weighted = FALSE, ...)
 
 \method{getK}{bootstrap.mat}(object, which = c("bootstrap", "model"),
-             prediction = FALSE, ...)
+     prediction = FALSE, ...)
+
+\method{getK}{predict.mat}(object, which = c("model", "bootstrap"),
+     ...)
 
 setK(object, weighted = FALSE) <- value
 
