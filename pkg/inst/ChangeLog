@@ -1,11 +1,21 @@
 analogue Change Log
 
-Version 0.6-8 (Opened Mon 13 Apr 2009)
+Version 0.6-8 (Closed Mon 26 Apr 2009)
 
 	* residLen: new function to compute squared residual length 
 	diagnostic for passive samples in a constrained ordination. Used as
 	a test of whether core samples are well fitted in a transfer function
 	model.
+
+	Several utility functions to compute fitted values from an ordination
+	and corresponding residual lengths are provided, which me be useful
+	for authors of other functions.
+
+	'plot' and 'hist' methods produce density plots and histograms for
+	'residLen' objects using base graphics.
+
+	'densityplot' and 'histogram' methods for 'residLen' objects using
+	Lattice graphics.
 
 Version 0.6-7 (Closed Mon 13 Apr 2009) 
 
