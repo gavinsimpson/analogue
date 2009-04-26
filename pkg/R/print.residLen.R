@@ -1,15 +1,27 @@
 ## print method
 `print.residLen` <- function(x,
-                             digits = min(3, getOption("digits") - 4),
+                             digits = min(4, getOption("digits") - 4),
                              probs = c(0.5, 0.75, 0.9, 0.95, 0.99), ...) {
     cat("\n")
     writeLines(strwrap("Squared residual lengths",
         prefix = "\t"))
-    cat("\nCall:\n")
-    cat(paste(deparse(x$call), "\n\n"))
-    cat("Quantiles of training set lengths:\n")
-    print(with(x, quantile(train, probs = probs)), digits = digits)
-    cat("\nQuantiles of passive sample lengths:\n")
-    print(with(x, quantile(passive, probs = probs)), digits = digits)
     cat("\n")
+    writeLines(strwrap(pasteCall(x$call)))
+    cat("\n")
+    writeLines(strwrap(paste("Ordination Method:",
+                             attr(x, "method"))))
+    cat("\nQuantiles of residual lengths:\n\n")
+    quant <- with(x,
+                  data.frame(rbind(quantile(train,
+                                            probs = probs),
+                                   quantile(passive,
+                                            probs = probs)
+                                   )
+                             )
+                  )
+    names(quant) <- as.character(paste(probs * 100, "%",
+                                       sep = ""))
+    rownames(quant) <- c("Training Set:", "Passive:")
+    print(quant, digits = digits)
+    invisible(x)
 }
