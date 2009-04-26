@@ -17,7 +17,14 @@ Version 0.6-8 (Closed Mon 26 Apr 2009)
 	'densityplot' and 'histogram' methods for 'residLen' objects using
 	Lattice graphics.
 
-	* predict.mat: Now returns the dissimilarity matrix between the 
+	* stdError: new function to compute the weighted standard deviation
+	of the environment values for the k closest analogues in MAT models.
+	This can be used as an uncertainty measure for MAT fitted values or
+	transfer function predictions.
+
+	Methods are available for 'mat' and 'predict.mat'.
+
+	* predict.mat: now returns the dissimilarity matrix between the 
 	training set samples and samples in 'newdata'.
 
 	* getK: new method for 'predict.mat'.
