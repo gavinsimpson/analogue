@@ -24,7 +24,7 @@ getK.mat <- function(object, weighted=FALSE, ...){
 
 getK.bootstrap.mat <- function(object, which = c("bootstrap", "model"),
                                prediction = FALSE, ...) {
-  if (!inherits(object, "bootstrap.mat")) 
+  if (!inherits(object, "bootstrap.mat"))
     stop("Use only with \"bootstrap.mat\" objects")
   if(missing(which))
     which <- "bootstrap"
@@ -43,6 +43,26 @@ getK.bootstrap.mat <- function(object, which = c("bootstrap", "model"),
   attr(retval, "auto") <- object$auto
   attr(retval, "weighted") <- object$weighted
   return(retval)
+}
+
+getK.predict.mat <- function(object,
+                             which = c("model", "bootstrap"),
+                             ...) {
+    if(missing(which))
+        which <- "model"
+    which <- match.arg(which)
+    if(which == "bootstrap" && is.null()) {
+        which <- "model"
+        warning()
+    }
+    if(which == "model") {
+        retval <- object$predictions$model$k
+    } else {
+        retval <- object$predictions$bootstrap$k
+    }
+    attr(retval, "auto") <- object$auto
+    attr(retval, "weighted") <- object$weighted
+    return(retval)
 }
 
 "setK<-" <- function(object, weighted=FALSE, value) UseMethod("setK<-")
