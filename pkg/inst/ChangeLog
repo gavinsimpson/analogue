@@ -20,6 +20,8 @@ Version 0.6-8 (Closed Mon 26 Apr 2009)
 	* predict.mat: Now returns the dissimilarity matrix between the 
 	training set samples and samples in 'newdata'.
 
+	* getK: new method for 'predict.mat'.
+
 Version 0.6-7 (Closed Mon 13 Apr 2009) 
 
 	* optima, tolerance: new methods to coerce objects of these classes
