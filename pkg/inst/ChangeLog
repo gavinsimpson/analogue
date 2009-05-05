@@ -1,6 +1,6 @@
 analogue Change Log
 
-Version 0.6-8 (Closed Mon 26 Apr 2009)
+Version 0.6-8 (Closed Mon 5 May 2009)
 
 	* residLen: new function to compute squared residual length 
 	diagnostic for passive samples in a constrained ordination. Used as
@@ -28,6 +28,8 @@ Version 0.6-8 (Closed Mon 26 Apr 2009)
 	training set samples and samples in 'newdata'.
 
 	* getK: new method for 'predict.mat'.
+
+	* CITATION: updated as per request from Kurt Hornik and CRAN.
 
 Version 0.6-7 (Closed Mon 13 Apr 2009) 
 
