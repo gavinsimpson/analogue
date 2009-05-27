@@ -1,5 +1,13 @@
 analogue Change Log
 
+Version 0.6-9 (Opened Wed 27 May 2009)
+
+	* predict.wa: Predictions without CV can now be made for WA models
+	fitted using tolerance DW.
+
+	* Utility functions: WApred() and WATpred() internal functions for
+	predictions using WA or WA with tolerance DW.
+
 Version 0.6-8 (Closed Mon 5 May 2009)
 
 	* residLen: new function to compute squared residual length 

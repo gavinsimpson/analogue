@@ -1,7 +1,7 @@
 `predict.wa` <- function(object, newdata,
                          CV = c("none","LOO","bootstrap", "nfold"),
                          verbose = FALSE,
-                         n.boot = 100, nfold = 5, 
+                         n.boot = 100, nfold = 5,
                          ...) {
     if(missing(newdata))
         return(fitted(object))
@@ -29,9 +29,15 @@
         want <- names(object$wa.optima) %in%
         colnames(newdata)
         want <- names(object$wa.optima)[want]
-        pred <- colSums(t(newdata[,want]) *
-                        object$wa.optima[want]) /
-                            rowSums(newdata[,want])
+        #pred <- colSums(t(newdata[,want]) *
+        #                object$wa.optima[want]) /
+        #                    rowSums(newdata[,want])
+        if(object$tol.dw) {
+            pred <- WATpred(newdata[,want], object$wa.optima[want],
+                            object$model.tol[want])
+        } else {
+            pred <- WApred(newdata[,want], object$wa.optima[want])
+        }
         pred <- deshrink.pred(pred, coef(object))
     } else {
         ## CV wanted
@@ -125,7 +131,7 @@
                 ## n-fold sample
                 pind <- sample(ind)
                 for (k in seq_len(nfold)) {
-                    sel <- pind != k 
+                    sel <- pind != k
                     wa.optima <- w.avg(X[sel,], ENV[sel])
                     ## do the model bits
                     ones <- rep(1, length = length(wa.optima))
@@ -217,4 +223,16 @@
     retval$tol.dw <- object$tol.dw
     class(retval) <- "predict.wa"
     retval
+}
+
+WApred <- function(X, optima) {
+    ((X %*% optima) / rowSums(X))[,1, drop = TRUE]
+}
+
+WATpred <- function(X, optima, tol) {
+    tol2 <- tol^2
+    tmp <- sweep(X, 2, optima, "*", check.margin = FALSE)
+    tmp <- rowSums(sweep(tmp, 2, tol2, "/",
+                         check.margin = FALSE))
+    tmp / rowSums(sweep(X, 2, tol2, "/", check.margin = FALSE))
 }

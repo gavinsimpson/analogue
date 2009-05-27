@@ -15,6 +15,8 @@
 \alias{deshrink.pred}
 \alias{sppN2}
 \alias{w.tol}
+\alias{WApred}
+\alias{WATpred}
 \title{Internal analogue Functions}
 \description{
   Internal analogue functions
