@@ -48,7 +48,7 @@ wa(x, \dots)
     missing.}
   \item{small.tol}{character; method to replace small tolerances. See Details.}
   \item{min.tol}{numeric; threshold below which tolerances are treated
-    as being \sQuote{small}.}
+    as being \sQuote{small}. Default is not to replace small tolerances.}
   \item{f}{numeric, \eqn{0 < f < 1}; fraction of environmental gradient
     \code{env} to replace small tolerances with if \code{small.tol =
       "fraction"} is specified.}
@@ -85,8 +85,12 @@ wa(x, \dots)
   Species that have very small tolerances can dominate reconstructed
   values if tolerance down-weighting is used. In \code{wa}, small
   tolerances are defined as a tolerance that is \eqn{<}
-  \code{min.tol}. These small tolerances can be adjusted in several
-  ways:
+  \code{min.tol}. The default is to not replace small tolerances, and
+  the user needs to specify suitable values of \code{min.tol}. Function
+  \code{\link{tolerance}} may be of use in computing tolerances before
+  fitting the WA model.
+
+  Small tolerances can be adjusted in several ways:
 
   \describe{
     \item{\code{min} }{small tolerances are replaced by the smallest
