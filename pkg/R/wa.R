@@ -12,7 +12,7 @@
     env <- as.numeric(env)
     ## drop species with no information
     if(any(csum <- colSums(x) == 0))
-    x <- x[, !csum, drop = FALSE]
+        x <- x[, !csum, drop = FALSE]
     ## sample summaries
     n.samp <- nrow(x)
     n.spp <- ncol(x)
@@ -57,14 +57,9 @@
     }
     ## calculate WA estimate of env for each site
     if(tol.dw) {
-        tol2 <- tol^2
-        wa.env <- rowSums(sweep(sweep(x, 2, wa.optima, "*",
-                                      check.margin = FALSE),
-                                2, tol2, "/", check.margin = FALSE)) /
-                                    rowSums(sweep(x, 2, tol2, "/",
-                                                  check.margin = FALSE))
+        wa.env <- WATpred(x, wa.optima, tol)
     } else {
-        wa.env <- ((x %*% wa.optima) / rowSums(x))[,1, drop = TRUE]
+        wa.env <- WApred(x, wa.optima)
     }
     ## taken averages twice so deshrink
     expanded <- switch(deshrink,
@@ -103,7 +98,13 @@
                 n.samp = n.samp, n.spp = n.spp,
                 deshrink = deshrink, tol.dw = tol.dw,
                 call = .call,
-                orig.x = x, orig.env = env)
+                orig.x = x, orig.env = env,
+                options.tol =
+                list(useN2 = useN2,
+                     na.tol = na.tol,
+                     small.tol = small.tol,
+                     min.tol = min.tol,
+                     f = f))
     class(res) <- "wa"
     return(res)
 }

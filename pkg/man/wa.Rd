@@ -130,6 +130,9 @@ wa(x, \dots)
   \item{call}{The matched function call.}
   \item{orig.x}{The training set species data.}
   \item{orig.env}{The response data for the training set.}
+  \item{options.tol}{A list, containing the values of the arguments
+  \code{useN2}, \code{na.tol}, \code{small.tol}, \code{min.tol}, and
+  \code{f}.}
   \item{terms, model}{Model \code{\link{terms}} and \code{\link{model.frame}}
     components. Only returned by the \code{formula} method of
     \code{wa}.}
