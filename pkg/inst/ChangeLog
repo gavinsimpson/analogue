@@ -5,6 +5,9 @@ Version 0.6-9 (Opened Wed 27 May 2009)
 	* predict.wa: Predictions without CV can now be made for WA models
 	fitted using tolerance DW.
 
+	* wa: Now returns the options for tweaking tolerances as part of
+	model object in component 'options.tol', which is a names list.
+
 	* Utility functions: WApred() and WATpred() internal functions for
 	predictions using WA or WA with tolerance DW.
 
