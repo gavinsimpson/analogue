@@ -43,7 +43,22 @@
 				
 				<a name="Welcome"></a>
 				<h1>analogue News</h1>
-				
+			    <h2>Version 0.6-8 uploaded to CRAN</h2>
+			    <h3>7 May 2009</h3>
+			    <p>A new version of <strong>analogue</strong> was released in order to fix a problem with the CITATION
+			    on CRAN. Several additional new functions and methods were included in this release as a result:</p>
+			    <ul>
+        	        <li><strong><kbd>residLen</kbd></strong>&mdash;new function to compute the squared residual length diagnostic
+        	        for passive samples in a constrained ordination. Includes several plotting routines for both base
+        	        Lattice graphics.</li>
+        	        <li><strong><kbd>stdError</kbd></strong>&mdash;computes the weighted standard deviation of the predicted values
+        	        over the <em>k</em>-closest analogues. This measure has been proposed as an uncertainty measure for
+        	        MAT model predictions. Methods provided for <strong><kbd>mat</kbd></strong> and 
+        	        <strong><kbd>predict.mat</kbd></strong></li>.
+        	        <li><strong><kbd>predict.mat</kbd></strong> now returns the dissimilarity matrix between training 
+        	        set and new samples.</li>
+        	        <li><strong><kbd>getK</kbd></strong>&mdash;new method for <strong><kbd>predict.mat</kbd></strong>.</li>
+			    </ul>
 				<h2>Version 0.6-6 uploaded to CRAN</h2>
 				<h3>10 March 2009</h3>
 				<p>A new version of analogue has been uploaded to CRAN. It contains lots of new functionality 
