@@ -59,6 +59,8 @@
         	        set and new samples.</li>
         	        <li><strong><kbd>getK</kbd></strong>&mdash;new method for <strong><kbd>predict.mat</kbd></strong>.</li>
 			    </ul>
+			    <p>See the <a href="http://cran.r-project.org/web/packages/analogue/ChangeLog">ChangeLog</a>
+			    for more details.</p>
 				<h2>Version 0.6-6 uploaded to CRAN</h2>
 				<h3>10 March 2009</h3>
 				<p>A new version of analogue has been uploaded to CRAN. It contains lots of new functionality 
