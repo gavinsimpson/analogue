@@ -23,7 +23,9 @@ wa(x, \dots)
 
 \method{wa}{formula}(formula, data, subset, na.action,
    deshrink = c("inverse", "classical", "expanded", "none"),
-   tol.dw = FALSE, ..., model = FALSE)
+   tol.dw = FALSE, useN2 = TRUE, na.tol = c("min","mean","max"),
+   small.tol = c("min","fraction","absolute"), min.tol = NULL,
+   f = 0.1,..., model = FALSE)
 
 \method{fitted}{wa}(object, \dots)
 

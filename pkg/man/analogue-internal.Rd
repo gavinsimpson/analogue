@@ -17,6 +17,7 @@
 \alias{w.tol}
 \alias{WApred}
 \alias{WATpred}
+\alias{fixUpTol}
 \title{Internal analogue Functions}
 \description{
   Internal analogue functions

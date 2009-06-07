@@ -1,6 +1,18 @@
 analogue Change Log
 
-Version 0.6-9 (Opened Wed 27 May 2009)
+Version 0.6-10
+
+	* predict.wa: Predictions with tolerance DW now works for CV = "LOO"
+
+	* wa.formula: Argument list updated to match wa.default.
+
+	* fixUpTol: New internal utility function the encapsulates code to
+	modify working tolerances within WA model fitting.
+
+	* w.tol: Internal function w.tol now uses a faster C version of the
+	code.
+	
+Version 0.6-9 (Closed Sun 7 June 2009)
 
 	* predict.wa: Predictions without CV can now be made for WA models
 	fitted using tolerance DW.

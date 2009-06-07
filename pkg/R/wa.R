@@ -27,34 +27,18 @@
     if(missing(na.tol))
         na.tol <- "min"
     na.tol <- match.arg(na.tol)
-    ## first missing tolerances
-    if(any(NA.TOL <- is.na(tol))) {
-        tol[NA.TOL] <- switch(na.tol,
-                              min = min(tol, na.rm = TRUE),
-                              mean = mean(tol, na.rm = TRUE),
-                              max = max(tol, na.rm = TRUE))
+    if(missing(small.tol))
+        small.tol <- "min"
+    small.tol <- match.arg(small.tol)
+    if(small.tol == "fraction") {
+        if(!(f > 0 && f < 1))
+            stop("'f' must be 0 < f < 1")
+        frac <- f * diff(range(env))
+        if(frac < min.tol)
+            warning("Requested fraction of gradient is < minimum tolerance.")
     }
-    ## second, replace tol < min.tol
-    if(!is.null(min.tol) && any(MIN.TOL <- tol < min.tol)) {
-        if(missing(small.tol))
-            small.tol <- "min"
-        small.tol <- match.arg(small.tol)
-        ## min.tol must be in or on extremesof range(env)
-        if(min.tol < min(env) || min.tol > max(env))
-            stop("'min.tol' must be >= min(env) and <= max(env)")
-        ## warn if "fraction" and f * diff(range(env))) < min.tol
-        if(small.tol == "fraction") {
-            if(!(f > 0 && f < 1))
-                stop("'f' must be 0 < f < 1")
-            frac <- f * diff(range(env))
-            if(frac < min.tol)
-                warning("Requested fraction of gradient is < minimum tolerance.")
-        }
-        tol[MIN.TOL] <- switch(small.tol,
-                               fraction = frac,
-                               absolute = min.tol,
-                               min = min(tol[tol >= min.tol], na.rm = TRUE))
-    }
+    tol <- fixUpTol(tol, na.tol = na.tol, small.tol = small.tol,
+                    min.tol = min.tol, f = f, env = env)
     ## calculate WA estimate of env for each site
     if(tol.dw) {
         wa.env <- WATpred(x, wa.optima, tol)

@@ -227,7 +227,14 @@ w.tol <- function(x, env, opt, useN2 = TRUE) {
     ## x   = species abundances
     ## env = vector of response var
     ## opt = weighted average optima
-    tol <- sqrt(ColSums(x * outer(env, opt, "-")^2) / ColSums(x))
+    ##tol <- sqrt(ColSums(x * outer(env, opt, "-")^2) / ColSums(x))
+    nr <- NROW(x)
+    nc <- NCOL(x)
+    tol <- .C("WTOL", x = as.double(env), w = as.double(x),
+              opt = as.double(opt),
+              nr = as.integer(nr), nc = as.integer(nc),
+              stat = double(nc), NAOK = FALSE,
+              PACKAGE="analogue")$stat
     if(useN2)
         tol <- tol / sqrt(1 - (1 / sppN2(x)))
     names(tol) <- colnames(x)
@@ -245,6 +252,3 @@ w.tol <- function(x, env, opt, useN2 = TRUE) {
     1/H
 }
 
-## data(ImbrieKipp)
-## data(SumSST)
-## mod <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE)
