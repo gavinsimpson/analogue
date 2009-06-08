@@ -43,3 +43,28 @@ void WTOL(double *x, double *w, double *opt, int *nr, int *nc, double *stat)
 	stat[i] = sqrt(sumWX / sumW);
     }
 }
+
+void WATpred(double *spp, double *opt, double *tol2, 
+	     int *nr, int *nc, int *want, double *stat)
+{
+    int i, j, ij;
+    /* spp == species data
+       opt == species optima
+       tol == species tolerances^2
+       nr, nc == n rows, n cols
+    */
+    
+    double nomin, denom;
+
+    for (i=0; i<*nr; i++) {
+	nomin = 0.0;
+	denom= 0.0;
+	for(j=0; j<*nc; j++) {
+	    ij = i + (j * *nr);
+	    nomin += (spp[ij] * opt[j]) / tol2[j];
+	    if(*want == 0)
+		denom += spp[ij] / tol2[j];
+	}
+	stat[i] = nomin / denom;
+    }
+}

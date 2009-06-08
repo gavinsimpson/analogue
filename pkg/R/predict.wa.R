@@ -32,7 +32,9 @@
         want <- names(object$wa.optima)[want]
         if(object$tol.dw) {
             pred <- WATpred(newdata[,want], object$wa.optima[want],
-                            object$model.tol[want])
+                            object$model.tol[want],
+                            NROW(newdata[,want]),
+                            NCOL(newdata[,want]))
         } else {
             pred <- WApred(newdata[,want], object$wa.optima[want])
         }
@@ -46,6 +48,10 @@
             useN2 <- object$options.tol$useN2
             want <- names(object$wa.optima) %in% colnames(newdata)
             want <- names(object$wa.optima)[want]
+            nr <- NROW(X) - 1
+            nr.new <- NROW(newdata)
+            nc <- NCOL(X)
+            nc.want <- length(want)
             for(i in seq_len(n.train)) {
                 if(verbose && ((i %% 10) == 0)) {
                     cat(paste("Leave one out sample", i, "\n"))
@@ -59,9 +65,11 @@
                                 O$min.tol, O$f, ENV[-i])
                 ## CV for the training set
                 if(object$tol.dw) {
-                    wa.env <- WATpred(X[-i,], wa.optima, tol)
+                    wa.env <- WATpred(X[-i,], wa.optima, tol,
+                                      nr, nc)
                     mod.pred[i] <- WATpred(X[i,,drop=FALSE],
-                                           wa.optima, tol)
+                                           wa.optima, tol,
+                                           1, nc)
                 } else {
                     wa.env <- WApred(X[-i,], wa.optima)
                     mod.pred[i] <- WApred(X[i,,drop=FALSE],
@@ -75,7 +83,7 @@
                 ## newdata predictions
                 pred <- if(object$tol.dw) {
                     WATpred(newdata[,want], wa.optima[want],
-                            tol[want])
+                            tol[want], nr.new, nc.want)
                 } else {
                     WApred(newdata[,want], wa.optima[want])
                 }
@@ -237,10 +245,10 @@ WApred <- function(X, optima) {
     ((X %*% optima) / rsum)
 }
 
-WATpred <- function(X, optima, tol) {
-    ones <- rep.int(1, length(optima))
+WATpred <- function(X, optima, tol, nr, nc) {
+    #ones <- rep.int(1, length(optima))
     miss <- is.na(optima)
-    ones[miss] <- 0
+    #ones[miss] <- 0
     optima[miss] <- 0
     tol[miss] <- 1
     tol2 <- tol^2
@@ -252,5 +260,11 @@ WATpred <- function(X, optima, tol) {
     #                    check.margin = FALSE)[,!miss, drop = FALSE])
     #tmp / (sweep(X, 2, tol2, "/",check.margin = FALSE) %*% ones)
     ##tmp / (t(t(X) / tol2) %*% ones)
-    RowSums(t(t(X) * optima / tol2)) / (t(t(X) / tol2) %*% ones)
+    #RowSums(t(t(X) * optima / tol2)) / (t(t(X) / tol2) %*% ones)
+    res <- .C("WATpred", spp = as.double(X), opt = as.double(optima),
+              tol2 = as.double(tol2), nr = as.integer(nr),
+              nc = as.integer(nc), want = as.integer(miss),
+              stat = double(nr),
+              NAOK = TRUE, PACKAGE="analogue")$stat
+    res
 }

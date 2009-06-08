@@ -4,6 +4,9 @@ Version 0.6-11
 
 	* tran: now converts input data to matrix using 'data.matrix' which
 	deals with factor variables appropriately.
+
+	* predict.wa, wa, WATpred: Now use faster C code for computing
+	predictions from WA models with tolerance down-weighting.
 	
 Version 0.6-10
 

@@ -41,7 +41,7 @@
                     min.tol = min.tol, f = f, env = env)
     ## calculate WA estimate of env for each site
     if(tol.dw) {
-        wa.env <- WATpred(x, wa.optima, tol)
+        wa.env <- WATpred(x, wa.optima, tol, n.samp, n.spp)
     } else {
         wa.env <- WApred(x, wa.optima)
     }
