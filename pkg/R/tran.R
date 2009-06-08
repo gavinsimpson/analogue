@@ -2,7 +2,7 @@
                    na.rm = FALSE, na.value = 0, ...) {
     wasDF <- is.data.frame(x)
     dim.nams <- dimnames(x)
-    x <- as.matrix(x)
+    x <- data.matrix(x)
     METHOD <- c("sqrt", "cubert", "log", "reciprocal", "freq", "center",
                 "standardize", "range", "percent", "proportion", "pa",
                 "missing", "hellinger", "chi.square", "wisconsin",

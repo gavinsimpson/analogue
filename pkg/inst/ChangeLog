@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.6-11
+
+	* tran: now converts input data to matrix using 'data.matrix' which
+	deals with factor variables appropriately.
+	
 Version 0.6-10
 
 	* predict.wa: Predictions with tolerance DW now works for CV = "LOO"
