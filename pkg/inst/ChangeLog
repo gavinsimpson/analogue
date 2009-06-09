@@ -1,5 +1,12 @@
 analogue Change Log
 
+Version 0.6-12
+
+	* deshrink, deshrinkPred; New utility functions for deshrinking WA
+	estimates. These replace the '*.deshrink' and 'deshrink.pred' internal
+	functions used to this end to date. This provides a more extensible
+	solution.
+
 Version 0.6-11
 
 	* tran: now converts input data to matrix using 'data.matrix' which

@@ -46,11 +46,7 @@
         wa.env <- WApred(x, wa.optima)
     }
     ## taken averages twice so deshrink
-    expanded <- switch(deshrink,
-                       inverse = inv.deshrink(env, wa.env),
-                       classical = class.deshrink(env, wa.env),
-                       expanded = expand.deshrink(env, wa.env),
-                       none = no.deshrink(env, wa.env))
+    expanded <- deshrink(env, wa.env, type = deshrink)
     wa.env <- expanded$env
     coefficients <- coef(expanded)
     ## site/sample names need to be reapplied
