@@ -13,8 +13,7 @@
     spp.fossil <- ncol(newdata)
     n.train <- object$n.samp
     n.fossil <- nrow(newdata)
-    n.in.train <- sum(colnames(newdata) %in%
-                      names(object$wa.optima))
+    n.in.train <- sum(colnames(newdata) %in% names(object$wa.optima))
     Dtype <- object$deshrink
     X <- object$orig.x
     ENV <- object$orig.env
@@ -27,8 +26,7 @@
         want <- names(object$wa.optima)[want]
         if(object$tol.dw) {
             pred <- WATpred(newdata[,want], object$wa.optima[want],
-                            object$model.tol[want],
-                            NROW(newdata[,want]),
+                            object$model.tol[want], NROW(newdata[,want]),
                             NCOL(newdata[,want]))
         } else {
             pred <- WApred(newdata[,want], object$wa.optima[want])
@@ -37,8 +35,7 @@
     } else {
         ## CV wanted
         if(identical(CV, "LOO")) {
-            loo.pred <- matrix(0, ncol = n.train,
-                               nrow = n.fossil)
+            loo.pred <- matrix(0, ncol = n.train, nrow = n.fossil)
             mod.pred <- length(n.train)
             useN2 <- object$options.tol$useN2
             want <- names(object$wa.optima) %in% colnames(newdata)
@@ -53,22 +50,20 @@
                     flush.console()
                 }
                 wa.optima <- w.avg(X[-i,], ENV[-i])
-                tol <- w.tol(X[-i, ], ENV[-i], wa.optima,
-                             useN2 = useN2)
-                ## fix up problematic tolerances
-                tol <- fixUpTol(tol, O$na.tol, O$small.tol,
-                                O$min.tol, O$f, ENV[-i])
                 ## CV for the training set
                 if(object$tol.dw) {
+                    tol <- w.tol(X[-i, ], ENV[-i], wa.optima,
+                                 useN2 = useN2)
+                    ## fix up problematic tolerances
+                    tol <- fixUpTol(tol, O$na.tol, O$small.tol,
+                                    O$min.tol, O$f, ENV[-i])
                     wa.env <- WATpred(X[-i,], wa.optima, tol,
                                       nr, nc)
-                    mod.pred[i] <- WATpred(X[i,,drop=FALSE],
-                                           wa.optima, tol,
-                                           1, nc)
+                    mod.pred[i] <- WATpred(X[i,,drop=FALSE], wa.optima,
+                                           tol, 1, nc)
                 } else {
                     wa.env <- WApred(X[-i,], wa.optima)
-                    mod.pred[i] <- WApred(X[i,,drop=FALSE],
-                                          wa.optima)
+                    mod.pred[i] <- WApred(X[i,,drop=FALSE], wa.optima)
                 }
                 deshrink.mod <- deshrink(ENV[-i], wa.env, Dtype)
                 wa.env <- deshrink.mod$env
@@ -89,6 +84,11 @@
         } else if(identical(CV, "bootstrap")) {
             boot.pred <- matrix(0, ncol = n.boot, nrow = n.fossil)
             oob.pred <- matrix(NA, ncol = n.boot, nrow = n.train)
+            want <- names(object$wa.optima) %in% colnames(newdata)
+            want <- names(object$wa.optima)[want]
+            nr.new <- NROW(newdata)
+            nc <- NCOL(X)
+            nc.want <- length(want)
             for(i in seq_len(n.boot)) {
                 if(verbose && ((i %% 100) == 0)) {
                     cat(paste("Bootstrap sample", i, "\n"))
@@ -97,31 +97,36 @@
                 ## bootstrap sample
                 sel <- .Internal(sample(n.train, n.train,
                                         TRUE, NULL))
-                wa.optima <- w.avg(X[sel,], ENV[sel])
-                ## do the model bits
-                ones <- rep(1, length = length(wa.optima))
-                miss <- is.na(wa.optima)
-                ones[miss] <- 0
-                wa.optima[miss] <- 0
-                rowsum <- X[sel,] %*% ones
-                wa.env <- (X[sel,] %*% wa.optima) / rowsum
+                nr <- NROW(X[sel, , drop = FALSE]) ## number of samples
+                nr.oob <- NROW(X[-sel, , drop = FALSE])
+                wa.optima <- w.avg(X[sel,,drop = FALSE], ENV[sel])
+                ## CV for the training set
+                if(object$tol.dw) {
+                    tol <- w.tol(X[sel, , drop = FALSE], ENV[-sel],
+                                 wa.optima, useN2 = useN2)
+                    ## fix up problematic tolerances
+                    tol <- fixUpTol(tol, O$na.tol, O$small.tol,
+                                    O$min.tol, O$f, ENV[-sel])
+                    wa.env <- WATpred(X[sel, , drop = FALSE],
+                                      wa.optima, tol, nr, nc)
+                    pred <- WATpred(X[-sel, ,drop=FALSE], wa.optima,
+                                    tol, nr.oob, nc)
+                } else {
+                    wa.env <- WApred(X[sel, ,drop = FALSE], wa.optima)
+                    pred <- WApred(X[-sel, ,drop=FALSE], wa.optima)
+                }
                 deshrink.mod <- deshrink(ENV[sel], wa.env, Dtype)
                 wa.env <- deshrink.mod$env
                 coefs <- coef(deshrink.mod) #$coef
-                ## if we want sample specific errors or
-                ## model performance stats
-                rowsum <- X[-sel,] %*% ones
-                pred <- (X[-sel,] %*% wa.optima) / rowsum
+                ## sample specific errors or model performance stats
                 oob.pred[-sel,i] <- deshrinkPred(pred, coefs)
                 ## do the prediction step
-                want <- names(wa.optima) %in% colnames(newdata)
-                want <- names(wa.optima)[want]
-                ones <- rep(1, length = length(want))
-                miss <- miss[want]
-                ones[miss] <- 0
-                rowsum <- newdata[,want] %*% ones
-                pred <- (newdata[,want] %*% wa.optima[want]) /
-                    rowsum
+                pred <- if(object$tol.dw) {
+                    WATpred(newdata[,want], wa.optima[want],
+                            tol[want], nr.new, nc.want)
+                } else {
+                    WApred(newdata[,want], wa.optima[want])
+                }
                 boot.pred[,i] <- deshrinkPred(pred, coefs)
             }
             pred <- rowMeans(boot.pred)

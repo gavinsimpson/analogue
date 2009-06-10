@@ -1,8 +1,14 @@
 analogue Change Log
 
+Version 0.6-13
+
+	* predict.wa: Now handles WA with tolerance down-weighting for
+	bootstrap CV and benefits from the changes introduced in previous
+	version.
+	
 Version 0.6-12
 
-	* deshrink, deshrinkPred; New utility functions for deshrinking WA
+	* deshrink, deshrinkPred: New utility functions for deshrinking WA
 	estimates. These replace the '*.deshrink' and 'deshrink.pred' internal
 	functions used to this end to date. This provides a more extensible
 	solution.
