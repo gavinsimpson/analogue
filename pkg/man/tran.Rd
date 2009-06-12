@@ -9,7 +9,7 @@
   available options.
 }
 \usage{
-tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
+tran(x, method, a = 1, b = 0, p = 2, base = exp(1), na.rm = FALSE,
      na.value = 0, ...)
 }
 \arguments{
@@ -22,6 +22,7 @@ tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
   \item{b}{Constant to add to \code{x} before taking logs. \code{method
       = "log"} only. Can be a vector, in which case the vector of values
     to add to each column of \code{x}.}
+  \item{p}{The power to use in the power transformation.}
   \item{base}{the base with respect to which logarithms are
     computed. See \code{\link{log}} for further details. The default is
     to compute natural logarithms.}
@@ -31,15 +32,18 @@ tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
   \item{\dots}{Arguments passed to \code{\link[vegan]{decostand}}.}
 }
 \details{
-  The function offers following standardization methods for community
-  data:
+  The function offers following tranformation and standardization
+  methods for community data:
   \itemize{
     \item \code{sqrt}: take the square roots of the observed values.
     \item \code{cubert}: take the cube root of the observed values.
+    \item \code{rootroot}: take the fourthe root of the observed
+    values. This is also known as the root root transformation (Field et
+    al 1982).
     \item \code{log}: take the logarithms of the observed values. The
     tansformation applied can be modified by constants \code{a} and
     \code{b} and the \code{base} of the logarithms. The transformation
-    applied is \eqn{x^* = \log_{\mathrm{base}}(ax + b)}{x^* =
+    applied is \eqn{x^* = \log_{\mathrm{base}}(ax + b)}{x* =
       log[base](ax + b).}
     \item \code{reciprocal}: returns the multiplicative inverse or
     reciprocal, \eqn{1/x}, of the observed values.
@@ -69,6 +73,16 @@ tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
     standardized by maxima and then sites (rows) by site totals.
     \item \code{pcent2prop}: convert percentages to proportions.
     \item \code{prop2pcent}: convert proportions to percentages.
+    \item \code{logRatio}: applies a log ransformation (see \code{log}
+    above) to the data, then centres the data by rows (by subtraction of
+    the mean for row \emph{i} from the observations in row
+    \emph{i}). Using this transformation subsequent to PCA results in
+    Aitchison's Log Ratio Analysis (LRA), a means of dealing with closed
+    compositional data such as common in palaeoecology (Aitchison, 1983).
+    \item \code{power}: applies a power tranformation.
+    \item \code{rowCenter}: Centres \code{x} by rows through the
+    subtraction of the corresponding row mean from the observations in
+    the row.
   }
 }
 \value{
@@ -78,6 +92,13 @@ tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
   applied transformation or standardization \code{"method"}.
 }
 \references{
+  Aitchison, J. (1983) Principal components analysis of compositional
+  data. \emph{Biometrika} \strong{70}(1); 57--65.
+  
+  Field, J.G., Clarke, K.R., & Warwick, R.M. (1982) A practical strategy
+  for analysing multispecies distributions patterns. \emph{Marine
+    Ecology Progress Series} \strong{8}; 37--52.
+  
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
   \strong{129}; 271-280.
@@ -85,6 +106,7 @@ tran(x, method, a = 1, b = 0, base = exp(1), na.rm = FALSE,
   Oksanen, J. (1983) Ordination of boreal heath-like vegetation with
   principal component analysis, correspondence analysis and
   multidimensional scaling. \emph{Vegetatio} \strong{52}; 181-189.
+
 }
 \author{Gavin L. Simpson. Much of the functionality of \code{tran} is
   provided by \code{\link[vegan]{decostand}}, written by Jari Oksanen.}

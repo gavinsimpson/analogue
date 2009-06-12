@@ -1,7 +1,7 @@
 Package: analogue
 Type: Package
 Title: Analogue and weighted averaging methods for palaeoecology
-Version: 0.6-13
+Version: 0.6-14
 Date: $Date$
 Depends: R (>= 2.5.0), stats, graphics, vegan, lattice, MASS
 Author: Gavin L. Simpson, Jari Oksanen

@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.6-14
+
+	* tran; new transformation and standardization methods for the power 
+	and 4th root transformation, the log ratio transformation for 
+	compositional data, plus row (sample) centring. 
+
 Version 0.6-13
 
 	* predict.wa: Now handles WA with tolerance down-weighting for

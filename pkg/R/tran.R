@@ -1,12 +1,13 @@
-`tran` <- function(x, method, a = 1, b = 0, base = exp(1),
+`tran` <- function(x, method, a = 1, b = 0, p = 2, base = exp(1),
                    na.rm = FALSE, na.value = 0, ...) {
     wasDF <- is.data.frame(x)
     dim.nams <- dimnames(x)
     x <- data.matrix(x)
-    METHOD <- c("sqrt", "cubert", "log", "reciprocal", "freq", "center",
-                "standardize", "range", "percent", "proportion", "pa",
-                "missing", "hellinger", "chi.square", "wisconsin",
-                "pcent2prop", "prop2pcent")
+    METHOD <- c("sqrt", "cubert", "rootroot", "log", "reciprocal", "freq",
+                "center", "standardize", "range", "percent", "proportion",
+                "pa","missing", "hellinger", "chi.square", "wisconsin",
+                "pcent2prop", "prop2pcent", "logRatio", "power",
+                "rowCenter")
     method <- match.arg(method, METHOD)
     if(method %in% c("freq", "standardize","range","pa","hellinger",
                      "chi.square","wisconsin")) {
@@ -19,6 +20,7 @@
         x <- switch(method,
                     sqrt = sqrt(x),
                     cubert = x^(1/3),
+                    rootroot = x^(1/4),
                     log = {x <- sweep(x, 2, a, "*")
                            x <- sweep(x, 2, b, "+")
                            log(x, base = base)} ,
@@ -30,7 +32,13 @@
                     function(x) {x[is.na(x)] <- na.value
                                  x}),
                     pcent2prop = x / 100,
-                    prop2pcent = x * 100
+                    prop2pcent = x * 100,
+                    logRatio = {x <- sweep(x, 2, a, "*")
+                                x <- sweep(x, 2, b, "+")
+                                x <- log(x, base = base)
+                                x - rowMeans(x)},
+                    power = x^p,
+                    rowCenter = x - rowMeans(x)
                     )
     }
     if(wasDF)
