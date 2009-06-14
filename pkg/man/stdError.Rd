@@ -13,7 +13,7 @@ stdError(object, ...)
 
 \method{stdError}{mat}(object, k, ...)
 
-\method{stdError}{mat}(object, k, ...)
+\method{stdError}{predict.mat}(object, k, ...)
 }
 \arguments{
   \item{object}{Object for which the uncertainty measure is to be

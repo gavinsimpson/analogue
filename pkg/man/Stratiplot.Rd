@@ -81,7 +81,7 @@ Stratiplot(x, \dots)
   interpret these as \sQuote{depths} instead. This will be fixed in a
   future version.
 }
-\seealso{\code{\link[lattice]{xyplot}}',
+\seealso{\code{\link[lattice]{xyplot}},
 \code{\link{panel.Stratiplot}}, \code{\link{panel.Loess}}.}
 \examples{
 data(V12.122)

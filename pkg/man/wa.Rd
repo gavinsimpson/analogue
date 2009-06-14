@@ -76,7 +76,7 @@ wa(x, \dots)
 }
 \details{
   A typical model has the form \code{response ~ terms}
-  where\code{response} is the (numeric) response vector (the variable to
+  where \code{response} is the (numeric) response vector (the variable to
   be predicted) and \code{terms} is a series of terms which specifies a
   linear predictor for \code{response}.  A terms specification of the
   form \code{first + second} indicates all the terms in \code{first}
