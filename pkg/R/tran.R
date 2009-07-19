@@ -19,8 +19,8 @@
     } else {
         x <- switch(method,
                     sqrt = sqrt(x),
-                    cubert = x^(1/3),
-                    rootroot = x^(1/4),
+                    cubert = sign(x) * exp(log(abs(x)) / 3), #x^(1/3),
+                    rootroot = sign(x) * exp(log(abs(x)) / 3), #x^(1/4),
                     log = {x <- sweep(x, 2, a, "*")
                            x <- sweep(x, 2, b, "+")
                            log(x, base = base)} ,
