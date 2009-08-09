@@ -1,5 +1,7 @@
 \name{tran}
 \alias{tran}
+\alias{tran.default}
+\alias{tran.formula}
 \concept{transformation}
 \title{Common data transformations and standardizations}
 \description{
@@ -7,10 +9,17 @@
   palaeoecological data. The function acts as a wrapper to function
   \code{\link[vegan]{decostand}} in package vegan for several of the
   available options.
+
+  The \code{formula} method allows a convenient method for selecting or
+  excluding subsets of variables before applying the chosen
+  transformation.
 }
 \usage{
-tran(x, method, a = 1, b = 0, p = 2, base = exp(1), na.rm = FALSE,
-     na.value = 0, ...)
+\method{tran}{default}(x, method, a = 1, b = 0, p = 2, base = exp(1),
+     na.rm = FALSE, na.value = 0, \ldots)
+
+\method{tran}{formula}(formula, data = NULL, subset = NULL,
+     na.action = na.pass, \ldots)
 }
 \arguments{
   \item{x}{A matrix-like object.}
@@ -29,10 +38,18 @@ tran(x, method, a = 1, b = 0, p = 2, base = exp(1), na.rm = FALSE,
   \item{na.rm}{Should missing values be removed before some computations?}
   \item{na.value}{The value with which to replace missing values
     (\code{NA}).}
-  \item{\dots}{Arguments passed to \code{\link[vegan]{decostand}}.}
+  \item{\ldots}{Arguments passed to \code{\link[vegan]{decostand}}, or
+     other \code{tran} methods.}
+  \item{formula}{A model formula describing the variables to be
+     transformed. The formula should have only a right hand side,
+     e.g.~\code{~ foo + bar}.}
+   \item{data, subset, na.action}{See \code{\link{model.frame}} for
+     details on these arguments. \code{data} will generally be the
+     object or environment within which the variables in the forumla are
+     searched for.}
 }
 \details{
-  The function offers following tranformation and standardization
+  The function offers following transformation and standardization
   methods for community data:
   \itemize{
     \item \code{sqrt}: take the square roots of the observed values.
@@ -118,6 +135,15 @@ sptrans <- tran(swapdiat, "pcent2prop")
 
 ## apply Hellinger transformation
 spHell <- tran(swapdiat, "hellinger")
+
+## Dummy data to illustrate formula method
+d <- data.frame(A = runif(10), B = runif(10), C = runif(10))
+## simulate some missings
+d[sample(10,3), 1] <- NA
+## apply tran using formula
+tran(~ . - B, data = d, na.action = na.pass,
+     method = "missing", na.value = 0)
 }
 \keyword{ multivariate }
 \keyword{ manip }
+\keyword{ methods }

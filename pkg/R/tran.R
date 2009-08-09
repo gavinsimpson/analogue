@@ -1,4 +1,8 @@
-`tran` <- function(x, method, a = 1, b = 0, p = 2, base = exp(1),
+`tran` <- function(x, ...) {
+    UseMethod("tran")
+}
+
+`tran.default` <- function(x, method, a = 1, b = 0, p = 2, base = exp(1),
                    na.rm = FALSE, na.value = 0, ...) {
     wasDF <- is.data.frame(x)
     dim.nams <- dimnames(x)
@@ -46,4 +50,18 @@
     dimnames(x) <- dim.nams
     attr(x, "tran") <- method
     return(x)
+}
+
+`tran.formula` <- function(formula, data = NULL,
+                           subset = NULL,
+                           na.action = na.pass, ...) {
+    mf <- match.call()
+    mf[[1]] <- as.name("model.frame")
+    mt <- terms(formula, data = data, simplify = TRUE)
+    mf[[2]] <- formula(mt, data = data)
+    mf$na.action <- substitute(na.action)
+    dots <- list(...)
+    mf[[names(dots)]] <- NULL
+    mf <- eval(mf,parent.frame())
+    tran.default(mf, ...)
 }
