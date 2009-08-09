@@ -19,6 +19,9 @@
 \usage{
 roc(object, groups, k = 1, ...)
 
+\method{roc}{default}(object, groups, k = 1, thin = FALSE,
+    max.len = 10000, ...)
+
 \method{roc}{mat}(object, groups, k = 1, ...)
 
 \method{roc}{analog}(object, groups, k = 1, ...)
@@ -31,6 +34,10 @@ roc(object, groups, k = 1, ...)
     coerced to one if supplied vecvtor is not a factor.}
   \item{k}{numeric; the \code{k} closest analogues to use to calculate
     ROC curves.}
+  \item{thin}{logical; should the points on the ROC curve be thinned?
+    See Details, below.}
+  \item{max.len}{numeric; length of analolgue and non-analogue
+    vectors. Used as limit to thin points on ROC curve to.}
   \item{\dots}{arguments passed to/from other methods.}
 }
 \details{
@@ -46,6 +53,17 @@ roc(object, groups, k = 1, ...)
   the basis of assemblage dissimilarity, then the dissimilarities
   between samples within a group will be small compared to the
   dissimilarities between group members and non group members.
+
+  \code{thin} is useful for large problems, where the number of analogue
+  and non-analogue distances can conceivably be large and thus overflow
+  the largest number R can work with. This option is also useful to
+  speed up computations for large problems. If \code{thin == TRUE}, then
+  the larger of the analogue or non-analogue distances is thinned to a
+  maximum length of \code{max.len}. The smaller set of distances is
+  scaled proportionally. In thinning, we approximate the distribution of
+  distances by taking \code{max.len} (or a fraction of \code{max.len}
+  for the smaller set of distances) equally-spaced probability
+  quantiles of the distribution as a new set of distances. 
 }
 \value{
   A list with two components; i, \code{statistics}, a summary of ROC

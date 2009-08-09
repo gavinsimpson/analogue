@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.6-16
+
+	* roc: For large problems the calculation of AUC and its standard
+	error could overflow the largest number R currently handles. roc()
+	now has two new arguments, 'thin' and 'max.len', which allow the
+	number of points on the ROC curve to be thinned to a smaller number,
+	which should allow the computations to be performed. The original
+	problem was reported by Diana Stralberg.
+
 Version 0.6-15
 
 	* tran: new 'formula' method allows simple selection or exclusion

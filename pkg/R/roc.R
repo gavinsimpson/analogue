@@ -8,10 +8,25 @@
 
 `roc` <- function(object, groups, k = 1, ...) UseMethod("roc")
 
-`roc.default` <- function(object, groups, k = 1, ...) {
-    calcROC <- function(IN, OUT) {
+`roc.default` <- function(object, groups, k = 1,
+                          thin = FALSE, max.len = 10000, ...) {
+    calcROC <- function(IN, OUT, thin = FALSE, max.len = 10000) {
         n.IN <- length(IN)
         n.OUT <- length(OUT)
+        if(thin) {
+            ## thin
+            ratio <- n.IN/n.OUT
+            largest <- which.max(c(n.IN, n.OUT))
+            seq.vars <- c(max.len * ratio, max.len)
+            if(largest == 1)
+                seq.vars <- rev(seq.vars)
+            IN <- quantile(IN,
+                           probs = seq(0, 1, length.out = seq.vars[1]))
+            OUT <- quantile(OUT,
+                            probs = seq(0, 1, length.out = 1/seq.vars[2]))
+            n.IN <- length(IN)
+            n.OUT <- length(OUT)
+        }
         g <- rep(c(TRUE, FALSE), times = c(n.IN, n.OUT))
         tab <- table(c(IN, OUT), g)
         TPF <- cumsum(tab[, 2])/sum(tab[, 2])
@@ -56,16 +71,17 @@
                                function(x, k) {x[order(x)[k]]}, k = k))
         OUT <- as.numeric(apply(object[inds, !inds], 2,
                                 function(x, k) {x[order(x)[k]]}, k = k))
-        ROC <- calcROC(IN, OUT)
-        within[[l]] <- IN
-        without[[l]] <- OUT
+        ROC <- calcROC(IN, OUT, thin = thin, max.len = max.len)
+        within[[l]] <- ROC$analogue$yes
+        without[[l]] <- ROC$analogue$no
         statistics[l, ] <- with(ROC, data.frame(n.in, n.out, optimal, AUC,
                                                 se.fit, p.value))
         roc[[l]] <- ROC
     }
     IN <- do.call(c, within)
     OUT <- do.call(c, without)
-    roc[["Combined"]] <- ROC <- calcROC(IN, OUT)
+    roc[["Combined"]] <- ROC <- calcROC(IN, OUT, thin = thin,
+                                        max.len = max.len)
     statistics["Combined", ] <- with(ROC, data.frame(n.in, n.out, optimal,
                                                      AUC, se.fit, p.value))
     retval <- list(statistics = statistics, roc = roc)
