@@ -31,7 +31,7 @@
         } else {
             pred <- WApred(newdata[,want], object$wa.optima[want])
         }
-        pred <- deshrinkPred(pred, coef(object))
+        pred <- deshrinkPred(pred, coef(object), type = Dtype)
     } else {
         ## CV wanted
         if(identical(CV, "LOO")) {
@@ -69,7 +69,8 @@
                 wa.env <- deshrink.mod$env
                 coefs <- coef(deshrink.mod)
                 ## LOO model predictions
-                mod.pred[i] <- deshrinkPred(mod.pred[i], coefs)
+                mod.pred[i] <- deshrinkPred(mod.pred[i], coefs,
+                                            type = Dtype)
                 ## newdata predictions
                 pred <- if(object$tol.dw) {
                     WATpred(newdata[,want], wa.optima[want],
@@ -77,7 +78,7 @@
                 } else {
                     WApred(newdata[,want], wa.optima[want])
                 }
-                loo.pred[,i] <- deshrinkPred(pred, coefs)
+                loo.pred[,i] <- deshrinkPred(pred, coefs, type = Dtype)
             }
             ## average the LOO predictions
             pred <- rowMeans(loo.pred)
@@ -119,7 +120,7 @@
                 wa.env <- deshrink.mod$env
                 coefs <- coef(deshrink.mod) #$coef
                 ## sample specific errors or model performance stats
-                oob.pred[-sel,i] <- deshrinkPred(pred, coefs)
+                oob.pred[-sel,i] <- deshrinkPred(pred, coefs, type = Dtype)
                 ## do the prediction step
                 pred <- if(object$tol.dw) {
                     WATpred(newdata[,want], wa.optima[want],
@@ -127,7 +128,7 @@
                 } else {
                     WApred(newdata[,want], wa.optima[want])
                 }
-                boot.pred[,i] <- deshrinkPred(pred, coefs)
+                boot.pred[,i] <- deshrinkPred(pred, coefs, type = Dtype)
             }
             pred <- rowMeans(boot.pred)
         } else if (identical(CV, "nfold")) {
@@ -180,7 +181,8 @@
                     ## model performance stats
                     #rowsum <- X[!sel,] %*% ones
                     #pred <- (X[!sel,] %*% wa.optima) / rowsum
-                    oob.pred[!sel,i] <- deshrinkPred(pred, coefs)
+                    oob.pred[!sel,i] <- deshrinkPred(pred, coefs,
+                                                     type = Dtype)
                     ## do the prediction step
                     #want <- names(wa.optima) %in% colnames(newdata)
                     #want <- names(wa.optima)[want]
@@ -196,7 +198,7 @@
                     } else {
                         WApred(newdata[,want], wa.optima[want])
                     }
-                    boot.pred[,i] <- deshrinkPred(pred, coefs)
+                    boot.pred[,i] <- deshrinkPred(pred, coefs, type = Dtype)
                 }
             }
             pred <- rowMeans(boot.pred)
@@ -258,7 +260,7 @@
     if (identical(CV, "nfold"))
         CV <- paste(nfold, "fold", sep="-")
     retval$CV.method <- CV
-    retval$deshrink <- deshrink
+    retval$deshrink <- Dtype
     retval$tol.dw <- object$tol.dw
     class(retval) <- "predict.wa"
     retval
