@@ -5,6 +5,16 @@ Version 0.6-17
 	* predict.wa: deshrinking method was not being honoured when
 	expanding predictions.
 
+	* Stratiplot: gains option ('rev') to reverse the y-axis limits.
+
+	Can now also sort/order the columns of 'x' (the species or
+	variables) as weighted averages of 'y' (to emphasise the change
+	in composition along 'y'), or using a supplied variable. The
+	latter is useful if you want to sort the variables by their optima
+	with an environmental variable.
+
+	Now also provides a guess as to the y-axis label if none is supplied.
+
 Version 0.6-16
 
 	* roc: For large problems the calculation of AUC and its standard

@@ -1,12 +1,6 @@
-`Stratiplot.formula` <- function(formula,
-                                 data,
-                                 subset,
-                                 na.action,
-                                 type = "l",
-                                 ylab = "",
-                                 xlab = "",
-                                 pages = 1,
-                                 ...) {
+`Stratiplot.formula` <- function(formula,  data, subset, na.action,
+                                 type = "l", ylab = NULL, xlab = "",
+                                 pages = 1, ...) {
     cl <- match.call()
     mf <- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data", "subset", "na.action"),
@@ -20,6 +14,8 @@
     data <- data.frame(model.matrix(mt, mf))[,-1]
     n.vars <- ncol(data)
     y <- rep(y, n.vars)
+    if(is.null(ylab))
+        ylab <- as.character(attr(mt, "variables")[[2]])
     Stratiplot.default(x = data, y = y, type = type,
                        ylab = ylab, xlab = xlab, pages = pages,
                        ...)

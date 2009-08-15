@@ -13,11 +13,12 @@
 \usage{
 Stratiplot(x, \dots)
 
-\method{Stratiplot}{default}(x, y, type = "l", ylab = "", xlab = "",
-           pages = 1, \dots)
+\method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
+           pages = 1, rev = TRUE, sort = c("none", "wa", "var"),
+           svar = NULL, rev.sort = FALSE, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
-           ylab = "", xlab = "", pages = 1, \dots)
+           ylab = NULL, xlab = "", pages = 1, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -49,6 +50,16 @@ Stratiplot(x, \dots)
   \item{ylab, xlab}{the x- and y-axis labels.}
   \item{pages}{numeric; the number of pages to draw the plot over. May
     be useful for data sets with many species.}
+  \item{rev}{logical; should the y-axis limits be reversed}
+  \item{sort}{character; how should the variables (columns) of \code{x}
+    be sorted on the plot. \code{"wa"} sorts by weighted averages
+    of variable \code{svar} if not \code{NULL} or of \code{y}
+    otherwise. The default when \code{"wa"} is specified is to
+    order by wiehgted average of the depth/time axis -- \code{y}. If
+    \code{"var"}, then ordering is done as per the \strong{order} of
+    \code{svar}.}
+  \item{svar}{vector; optional variable to sort columns of \code{x} by.}
+  \item{rev.sort}{logical; should the sorting order be reversed.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}
@@ -85,22 +96,21 @@ Stratiplot(x, \dots)
 \code{\link{panel.Stratiplot}}, \code{\link{panel.Loess}}.}
 \examples{
 data(V12.122)
-depths <- as.numeric(rownames(V12.122))
+Depths <- as.numeric(rownames(V12.122))
 
-(plt <- Stratiplot(depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                   data = V12.122,
-                   type = c("h","l","g","smooth")))
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122,  type = c("h","l","g","smooth")))
 
-(plt2 <- Stratiplot(depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122,
-                    type = c("poly","g")))
+(plt2 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("poly","g")))
 
-(plt3 <- Stratiplot(depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122,
-                    type = c("h")))
+## Order taxa by WA in depth --- ephasises change over time
+(plt3 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("h"), sort = "wa"))
 
+## Using the default interface
 spp.want <- c("O.univ","G.ruber","G.tenel","G.pacR")
-(plt4 <- Stratiplot(V12.122[, spp.want], y = depths,
+(plt4 <- Stratiplot(V12.122[, spp.want], y = Depths,
                     type = c("poly", "g")))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
