@@ -67,10 +67,12 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE,
             dfs <- X[[2]]
         ## matched column names
         mcn <- match(colnames(dfs), cn)
+        mcn2 <- match(cn, colnames(dfs))
         mcn <- mcn[!is.na(mcn)]
+        mcn2 <- mcn2[!is.na(mcn2)]
         joined <- matrix(NA, ncol = dims[1,2], nrow = sum(dims[,1]))
         joined[1:dims[1,1], ] <- data.matrix(X[[1]])
-        joined[(dims[1,1]+1):NROW(joined), mcn] <- data.matrix(dfs[, mcn])
+        joined[(dims[1,1]+1):NROW(joined), mcn] <- data.matrix(dfs[, mcn2])
         colnames(joined) <- cn
         return(joined)
     }
