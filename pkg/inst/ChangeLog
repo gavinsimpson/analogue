@@ -1,5 +1,19 @@
 analogue Change Log
 
+Version 0.6-18
+
+	* join: new arguments 'type' and 'value'.
+
+	'type' controls which join is performed. Options are (currently)
+	"outer" (default) and "left". The left join is used to prepare two
+	or more data sets for ordinating the first and subsequently
+	passively projecting the other data sets into this ordination.
+	The outer join is used to prepare data for transfer functions such
+	as MAT and WA.
+
+	'value' allows the user to supply a numeric value to be used to
+	replace 'NA's.
+
 Version 0.6-17
 
 	* predict.wa: deshrinking method was not being honoured when
