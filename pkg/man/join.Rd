@@ -98,6 +98,9 @@ dat <- join(swapdiat, rlgh, verbose = TRUE)
 swapdiat <- dat[[1]] / 100
 rlgh <- dat[[2]] / 100
 
+## merge training and test set using left join
+head(join(swapdiat, rlgh, verbose = TRUE, type = "left"))
+
 ## load the example data
 data(ImbrieKipp)
 data(SumSST)
@@ -115,9 +118,6 @@ head(dat, n = 4)
 
 ## show just the last few lines of each data set
 tail(dat, n = 4)
-
-## merge training and test set using left join
-head(join(ImbrieKipp, V12.122, verbose = TRUE, type = "left"))
 
 ## merge training and test set using inner join
 head(join(ImbrieKipp, V12.122, verbose = TRUE, type = "inner"))
