@@ -12,7 +12,7 @@
 }
 \usage{
 join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE, value = 0,
-     type = c("outer", "left"))
+     type = c("outer", "left", "inner"))
 
 \method{head}{join}(x, \dots)
 
@@ -46,7 +46,9 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE, value = 0,
     across all the data frames to be merged. \code{"left"} returns the
     left outer (or the left) join, such that the merged data frames
     contain the set of variables found in the first supplied data
-    frame. See Details.}
+    frame. \code{"inner"} returns the inner join, such that the merged
+    data frame contain the intersection of the variables in the supplied
+    data frames. See Details.}
   \item{x}{an object of class \code{"join"}, usually the result of a
     call to \code{\link{join}}.}
 }
@@ -64,6 +66,10 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE, value = 0,
 
   With the \emph{left outer} join the resulting data frame(s) contain
   only the set of variables found in the first data frame provided.
+
+  The \emph{inner} join returns the intersection of the set of variables
+  found in the supplied data frames. The resulting data frame(s)
+  contains the variables common to all supplied data frames.
 }
 \value{
   If \code{split = TRUE}, an object of class \code{"join"}, a list of
@@ -112,6 +118,9 @@ tail(dat, n = 4)
 
 ## merge training and test set using left join
 head(join(ImbrieKipp, V12.122, verbose = TRUE, type = "left"))
+
+## merge training and test set using inner join
+head(join(ImbrieKipp, V12.122, verbose = TRUE, type = "inner"))
 
 ## merge training and test set using outer join and replace
 ## NA with -99.9

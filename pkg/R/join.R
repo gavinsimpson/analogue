@@ -4,7 +4,7 @@
 ##                                                                       ##
 ## Created       : 17-Apr-2006                                           ##
 ## Author        : Gavin Simpson                                         ##
-## Version       : 0.5-0                                                 ##
+## Version       : 0.6-0                                                 ##
 ## Last modified : 16-Aug-2009                                           ##
 ##                                                                       ##
 ## ARGUMENTS:                                                            ##
@@ -37,10 +37,11 @@
 ##                             results of join(..., split = FALSE        ##
 ## 16-Aug-2009 - GLS - 0.5-0 * now has left outer as well as outer join  ##
 ##                           * replacement value can now be specified    ##
+## 16-Aug-2009 - GLS - 0.6-0 * now has inner join capability             ##
 ##                                                                       ##
 ###########################################################################
 join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE,
-                  value = 0, type = c("outer","left"))
+                  value = 0, type = c("outer", "left", "inner"))
 {
     outerJoin <- function(X) {
         ## From code provided by Sundar Dorai-Raj in R-Help posting:
@@ -73,6 +74,18 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE,
         colnames(joined) <- cn
         return(joined)
     }
+    innerJoin <- function(X) {
+        cn <- lapply(X, colnames)
+        cn <- Reduce(intersect, cn)
+        ##joined <- matrix(NA, ncol = length(cn), nrow = sum(dims[,1]))
+        joined <- vector(length = length(X), mode = "list")
+        for(i in seq_along(joined)) {
+            joined[[i]] <- data.matrix(X[[i]][, cn])
+        }
+        joined <- do.call(rbind, joined)
+        colnames(joined) <- cn
+        return(joined)
+    }
     x <- list(...)
     if(any(!sapply(x, inherits, "data.frame")))
         stop("\nall objects to be merged must be data frames.")
@@ -85,6 +98,8 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE,
         joined <- outerJoin(x)
     } else if(type == "left") {
         joined <- leftJoin(x)
+    } else if(type == "inner") {
+        joined <- innerJoin(x)
     }
     if(na.replace) {
         joined[is.na(joined)] <- value

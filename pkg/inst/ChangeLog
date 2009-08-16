@@ -1,5 +1,12 @@
 analogue Change Log
 
+Version 0.6-19
+
+	* join: gains ability to return the inner join of the supplied
+	data frames. This is the intersection of the set of variables
+	in the supplied data frames, the set of variables common to the
+	supplied data frames.
+
 Version 0.6-18
 
 	* join: new arguments 'type' and 'value'.
