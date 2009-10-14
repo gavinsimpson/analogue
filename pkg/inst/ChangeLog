@@ -1,5 +1,13 @@
 analogue Change Log
 
+Version 0.6-20
+
+	* Stratiplot: was not respecting the sort variable under certain
+	conditions.
+
+	* panel.Stratiplot: typo in Rd file was causing warnings in R
+	version 2.10.0-beta.
+
 Version 0.6-19
 
 	* join: gains ability to return the inner join of the supplied
