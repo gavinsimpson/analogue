@@ -31,10 +31,12 @@
         ## sort by
         opt <- optima(x, svar)
         ord <- order(opt)
-    } else if(check.var) {
-        warning("With 'sort = \"var\"', 'svar' not supplied.\nNo sorting applied.")
-    } else {
-        ord <- order(svar)
+    } else if(sort == "var") {
+        if(check.var) {
+            warning("With 'sort = \"var\"', 'svar' not supplied.\nNo sorting applied.")
+        } else {
+            ord <- order(svar)
+        }
     }
     if(rev.sort)
         ord <- rev(ord)
