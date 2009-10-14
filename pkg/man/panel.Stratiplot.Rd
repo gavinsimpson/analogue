@@ -48,7 +48,7 @@ panel.Stratiplot(x, y,
     \code{\link[lattice]{panel.loess}}.
   
     For \code{"smooth"} a loess fit is added to each panel using
-    \code{\link[lattice]{panel.Loess}}.
+    \code{\link{panel.Loess}}.
   
     For \code{"poly"}, a shaded polygon, or silhouette, is drawn for each
     panel.}
