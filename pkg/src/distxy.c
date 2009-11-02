@@ -491,7 +491,7 @@ double xy_MIXED(double *x, double *y, int nr1, int nr2,
 		dist += dev * weights[j];
 	    }
 	    if(vtype[j] == 2) {
-		dev = (x[i1] == y[i2]) ?   : 0;
+		dev = (x[i1] == y[i2]) ? 1 : 0;
 		dist += dev * weights[j];
 	    }
 	    if(vtype[j] == 3) {

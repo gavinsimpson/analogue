@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.6-21
+
+	* distx.c, distxy.c: Warning due to non ISO C-compliant 'mistake'
+	in experimental code for Gower's Mixed coefficient.
+
 Version 0.6-20
 
 	* Stratiplot: was not respecting the sort variable under certain
