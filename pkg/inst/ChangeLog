@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.6-22
+
+	* tran.formula: bug in my implementation of the standard
+	non-standard evaluation technique used within the formula method
+	for 'tran'. Diagnosis and fix by Prof. Brian Ripley.
+
 Version 0.6-21
 
 	* distx.c, distxy.c: Warning due to non ISO C-compliant 'mistake'

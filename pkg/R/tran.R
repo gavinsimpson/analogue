@@ -61,7 +61,7 @@
     mf[[2]] <- formula(mt, data = data)
     mf$na.action <- substitute(na.action)
     dots <- list(...)
-    mf[[names(dots)]] <- NULL
-    mf <- eval(mf,parent.frame())
+    mf[names(dots)] <- NULL
+    mf <- eval(mf, parent.frame())
     tran.default(mf, ...)
 }
