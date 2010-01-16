@@ -24,7 +24,7 @@
         x <- switch(method,
                     sqrt = sqrt(x),
                     cubert = sign(x) * exp(log(abs(x)) / 3), #x^(1/3),
-                    rootroot = sign(x) * exp(log(abs(x)) / 3), #x^(1/4),
+                    rootroot = sign(x) * exp(log(abs(x)) / 4), #x^(1/4),
                     log = {x <- sweep(x, 2, a, "*")
                            x <- sweep(x, 2, b, "+")
                            log(x, base = base)} ,
