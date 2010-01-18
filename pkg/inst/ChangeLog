@@ -1,5 +1,19 @@
 analogue Change Log
 
+Version 0.6-23
+
+	* tran: 'rootroot' transformation was same as 'cuberoot' from
+	vhanges made in r140. Now fixed.
+
+	* wa: 'formula' method was not passing tolerance-related arguments
+	to default method. As such, the newer code to handle small
+	tolerance values was not being invoked when using the formula
+	interface to wa().
+
+	Code was also tidied a bit.
+
+	* fixUpTol: was inappropriately matching one of it's arguments.
+
 Version 0.6-22
 
 	* tran.formula: bug in my implementation of the standard

@@ -28,7 +28,9 @@
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
     x <- model.matrix(mt, mf)
-    res <- wa.default(x, y, deshrink = deshrink, tol.dw = tol.dw, ...)
+    res <- wa.default(x, y, deshrink = deshrink, tol.dw = tol.dw,
+                      na.tol = na.tol, small.tol = small.tol,
+                      min.tol = min.tol, f = f, ...)
     res$na.action <- attr(mf, "na.action")
     res$call <- .call
     if(model) {
