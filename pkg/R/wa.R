@@ -1,12 +1,12 @@
 `wa` <- function(x, ...) UseMethod("wa")
 
 `wa.default` <-
-  function(x, env,
-           deshrink = c("inverse", "classical", "expanded", "none"),
-           tol.dw = FALSE, useN2 = TRUE,
-           na.tol = c("min","mean","max"),
-           small.tol = c("min","fraction","absolute"),
-           min.tol = NULL, f = 0.1, ...)
+    function(x, env,
+             deshrink = c("inverse", "classical", "expanded", "none"),
+             tol.dw = FALSE, useN2 = TRUE,
+             na.tol = c("min","mean","max"),
+             small.tol = c("min","fraction","absolute"),
+             min.tol = NULL, f = 0.1, ...)
 {
     ## x = species abundances (weights), env = response vector
     x <- as.matrix(x)
@@ -42,9 +42,9 @@
                     min.tol = min.tol, f = f, env = env)
     ## calculate WA estimate of env for each site
     wa.env <- if(tol.dw) {
-      WATpred(x, wa.optima, tol, n.samp, n.spp)
+        WATpred(x, wa.optima, tol, n.samp, n.spp)
     } else {
-      WApred(x, wa.optima)
+        WApred(x, wa.optima)
     }
     ## taken averages twice so deshrink
     expanded <- deshrink(env, wa.env, type = deshrink)
