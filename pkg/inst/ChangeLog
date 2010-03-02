@@ -19,6 +19,10 @@ Version 0.6-23
 	statistics. Fixed to use the points established by 'table', used to
 	generate these other statistics. This affected the plot method.
 
+	* plot.roc: Allow user to specify the line types used to draw the
+	plots. Two line types can be specified for plots comparing analogue
+	with non-analogue statistics.
+
 Version 0.6-22
 
 	* tran.formula: bug in my implementation of the standard
