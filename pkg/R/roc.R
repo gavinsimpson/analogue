@@ -32,7 +32,8 @@
         TPF <- cumsum(tab[, 2])/sum(tab[, 2])
         FPE <- cumsum(tab[, 1])/sum(tab[, 1])
         roc.values <- TPF - FPE
-        roc.points <- rev(sort(c(IN, OUT)))
+        ##roc.points <- rev(sort(c(IN, OUT)))
+        roc.points <- rev(sort(as.numeric(dimnames(tab)[[1]])))
         optimal <- as.numeric(names(max.roc <- which.max(roc.values)))
         names(FPE) <- names(TPF) <- names(roc.values) <- NULL
         wilcox <- wilcox.test(IN, OUT, conf.int = FALSE)
