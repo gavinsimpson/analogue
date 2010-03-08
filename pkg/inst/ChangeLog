@@ -23,6 +23,9 @@ Version 0.6-23
 	plots. Two line types can be specified for plots comparing analogue
 	with non-analogue statistics.
 
+	* plot.minDC: argument 'lty.quantile' was not being used by the
+	graphical function that drew the quantiles of the pairwise D[ij]s.
+
 Version 0.6-22
 
 	* tran.formula: bug in my implementation of the standard

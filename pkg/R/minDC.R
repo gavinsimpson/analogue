@@ -83,7 +83,7 @@ plot.minDC <- function(x, depths, use.labels = FALSE,
   plot(depths, x$minDC, ylim = ylim, xlim = xlim, type = "n",
        ylab = ylab, xlab = xlab, main = main, sub = sub, ...)
   if(quantiles & !is.null(x$quantile)) {
-    abline(h = x$quantile, lty = "dotted", col = col.quantile)
+    abline(h = x$quantile, lty = lty.quantile, col = col.quantile)
     axis(4, at = x$quantile, labels = names(x$quantile), las = 2)
   }
   lines(depths, x$minDC, type = type)
