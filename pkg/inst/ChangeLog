@@ -29,6 +29,9 @@ Version 0.6-23
 	* plot.minDC: argument 'lty.quantile' was not being used by the
 	graphical function that drew the quantiles of the pairwise D[ij]s.
 
+	* plot.bayesF: New argument 'abline.lty', which defaults to "dashed",
+	controls plotting of the optimal ROC dissimilarity threshold.
+
 Version 0.6-22
 
 	* tran.formula: bug in my implementation of the standard

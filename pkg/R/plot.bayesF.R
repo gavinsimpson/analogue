@@ -5,13 +5,14 @@ plot.bayesF <- function(x, group = "all",
                         ylab = "Pr (A+ | d)",
                         col = "red",
                         abline.col = "lightgrey",
+                        abline.lty = "dashed",
                         ...) {
   pfun <- function(x, xlab, ylab, col, abline.col, main, ...) {
       prob.pos <- x$posterior.odds$pos / (1 + x$posterior.odds$pos)
       prob.pos[is.nan(prob.pos)] <- 1
       plot(rev(x$roc.points), prob.pos, type = "n",
            ylab = "", xlab = "", axes = FALSE, main = main)
-      abline(v = x$optimal, lty = "dotted", col = abline.col)
+      abline(v = x$optimal, lty = abline.lty, col = abline.col)
       lines(rev(x$roc.points), prob.pos, col = col)
       axis(1)
       axis(2)

@@ -14,7 +14,7 @@
 bayesF(x, prior = rep(0.5, 2))
 
 \method{plot}{bayesF}(x, group = "all", xlab = NULL, ylab = "Pr (A+ | d)",
-        col = "red", abline.col = "lightgrey", ...)
+        col = "red", abline.col = "lightgrey", abline.lty = "dashed", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,6 +31,8 @@ bayesF(x, prior = rep(0.5, 2))
   \item{col}{colour of the line used to draw the posterior probability.}
   \item{abline.col}{colour of the vertical line drawn to indicate the
     optimal dissimilarity determined from the ROC curve.}
+  \item{abline.lty}{Line type for indicator of optimal ROC dissimilarity
+    threshold. See \code{\link{par}} for the allowed line types.}
   \item{\dots}{other plot arguments passed to plotting
     functions. Currently ignored.}
 }
