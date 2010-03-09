@@ -4,6 +4,7 @@ plot.roc <- function(x,
                      prior = NULL,
                      show.stats = TRUE,
                      abline.col = "grey",
+                     abline.lty = "dashed",
                      inGroup.col = "red",
                      outGroup.col = "blue",
                      lty = "solid",
@@ -68,7 +69,7 @@ plot.roc <- function(x,
         abline(h = 0, col = abline.col)
         lines(dens.in, col = inGroup.col, lty = lty[1L], ...)
         lines(dens.out, col = outGroup.col, lty = lty[2L], ...)
-        abline(v = x$roc[[group]]$optimal, lty = "dotted",
+        abline(v = x$roc[[group]]$optimal, lty = abline.lty,
                col = abline.col)
         axis(side = 2)
         axis(side = 1)
@@ -89,7 +90,7 @@ plot.roc <- function(x,
              sep = ""))
         abline(h = 0, col = abline.col)
         lines(cutpoints, roc.values, lty = lty[1L], ...)
-        abline(v = x$roc[[group]]$optimal, lty = "dotted",
+        abline(v = x$roc[[group]]$optimal, lty = abline.lty,
                col = abline.col)
         mtext(caption[3], side = 3, line = 1.7, font = 2)
         box()
@@ -101,7 +102,7 @@ plot.roc <- function(x,
         plot(dissims, pos, type = "n", axes = FALSE, ylab = "LR (+)",
              xlab = paste("Dissimilarity (", attr(x, "method"), ")",
              sep = ""))
-        abline(v = x$roc[[group]]$optimal, lty = "dotted",
+        abline(v = x$roc[[group]]$optimal, lty = abline.lty,
                col = abline.col)
         lines(dissims, pos, col = inGroup.col, lty = lty[1L], ...)
         axis(side = 1)

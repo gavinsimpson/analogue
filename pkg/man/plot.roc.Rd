@@ -16,6 +16,7 @@
      prior = NULL,
      show.stats = TRUE,
      abline.col = "grey",
+     abline.lty = "dashed",
      inGroup.col = "red",
      outGroup.col = "blue",
      lty = "solid",
@@ -43,6 +44,8 @@
   \item{abline.col}{character string or numeric value; the
     colour used to draw vertical lines at the optimal dissimilarity on
     the plots.}
+  \item{abline.lty}{Line type for indicator of optimal ROC dissimilarity
+    threshold. See \code{\link{par}} for the allowed line types.}
   \item{inGroup.col}{character string or numeric value; the colour used
     to draw the density curve for the dissimilarities between sites in
     the same group.}
