@@ -88,18 +88,27 @@ reconPlot(x, \dots)
   transfer functions and \code{\link{wa}} and \code{\link{predict.wa}}
   for WA models.}
 \examples{
-## Continue example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
 
 ## Fit a MAT model
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
-swap.mat
+(ik.mat <- mat(ImbrieKipp, SumSST, method = "chord"))
 
 ## Reconstruct pH for the RLGH core
-rlgh.pH <- predict(swap.mat, rlgh)
+v12.pH <- predict(ik.mat, V12.122)
 
 ## draw the reconstruction
-reconPlot(rlgh.pH, use.labels = TRUE, display.error = "bars",
-          xlab = "Depth", ylab = "pH")
+reconPlot(v12.pH, use.labels = TRUE, display.error = "bars",
+          xlab = "Depth", ylab = "Summer Seas-surface Temperature")
 }
 \keyword{hplot}

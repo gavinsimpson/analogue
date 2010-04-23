@@ -2,8 +2,21 @@ analogue Change Log
 
 Version 0.6-24
 
+	* residuals: Residuals were defined as \hat{x}_i - x_i to match
+	fitted vs. observed scatterplots. Definition of residuals in wa()
+	and related functions has been changed to the more common
+	definition of x_i - \hat{x}. Reported by Andreas Plank and Steve
+	Juggins.
+
+	* plot.wa: Following changed definition of residuals, plot.wa()
+	now plots observed values on the y-axis and fitted values on the
+	x-axis for 'which = 1'.
+
 	* summary.predict.mat: print method was incorrectly extracting
 	the model estimates for training set samples.
+
+	* Package: reduced package check time in examples, by using
+	the Imbrie & Kipp data.
 
 Version 0.6-23
 

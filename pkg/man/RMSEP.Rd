@@ -71,24 +71,33 @@ RMSEP(object, \dots)
 \seealso{\code{\link{mat}}, \code{\link{bootstrap}}, \code{\link{wa}},
   \code{\link{bootstrap.wa}}.}
 \examples{
-## continue the RLGH and SWAP example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
 
 ## fit the MAT model using the squared chord distance measure
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
+(ik.mat <- mat(ImbrieKipp, SumSST, method = "chord"))
 
 ## Leave-one-out RMSEP for the MAT model
-RMSEP(swap.mat)
+RMSEP(ik.mat)
 
 ## bootstrap training set
-swap.boot <- bootstrap(swap.mat, n.boot = 100)
-swap.boot
+(ik.boot <- bootstrap(ik.mat, n.boot = 100))
 
 ## extract the Birks et al (1990) RMSEP
-RMSEP(swap.boot)
+RMSEP(ik.boot)
 
 ## Calculate the alternative formulation
-RMSEP(swap.boot, type = "standard")
+RMSEP(ik.boot, type = "standard")
 }
 \keyword{methods}
 \keyword{utilities}

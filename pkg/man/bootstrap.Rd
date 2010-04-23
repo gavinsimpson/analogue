@@ -129,11 +129,20 @@ bootstrap(object, \dots)
 \seealso{\code{mat}, \code{plot.mat}, \code{summary.bootstrap.mat},
   \code{\link{residuals}}}
 \examples{
-## continue the ImbrieKipp example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
 
 ## Imbrie and Kipp foraminfera sea-surface temperature 
-
 ## fit the MAT model using the squared chord distance measure
 ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
 

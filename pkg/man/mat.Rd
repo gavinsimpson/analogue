@@ -228,7 +228,7 @@ ImbrieKipp <- dat[[1]] / 100
 ImbrieKippCore <- dat[[2]] / 100
 
 ## fit the MAT model using the squared chord distance measure
-ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
+ik.mat <- mat(ImbrieKipp, SumSST, method = "chord")
 ik.mat
 
 ## model summary

@@ -77,11 +77,21 @@
 \author{Gavin L. Simpson. Code borrows heavily from \code{\link{plot.lm}}.}
 \seealso{\code{\link{mat}}}
 \examples{
-## continue the ImbrieKipp example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
 
 ## MAT
-ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
+ik.mat <- mat(ImbrieKipp, SumSST, method = "chord")
 ik.mat
 summary(ik.mat)
 
@@ -91,5 +101,5 @@ plot(ik.mat)
 layout(1)
 
 }
-\keyword{hplot}% at least one, from doc/KEYWORDS
+\keyword{hplot}
 \keyword{methods}

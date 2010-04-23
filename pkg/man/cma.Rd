@@ -107,24 +107,29 @@ cma(object, \dots)
 \seealso{\code{\link{analog}}, \code{\link{stripchart}}, or
   \code{\link{boxplot}} for an alternative representation.}
 \examples{
-## continue the RLGH example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
 
-## select only the preindustrial reference condition samples
-## from the RLGH core
-rlgh.ref <- rlgh[25:37, ]
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
 
 ## analog matching between SWAP and RLGH reference samples
-swap.ana <- analog(swapdiat, rlgh.ref, method = "chord")
-swap.ana
+(ik.ana <- analog(ImbrieKipp, V12.122, method = "chord"))
 
-## close modern analogues
-swap.cma <- cma(swap.ana)
-swap.cma
-summary(swap.cma)
+## close modern analogues --- no analogues are "close"
+(ik.cma <- cma(ik.ana, cutoff = 0.91))
+summary(ik.cma)
 
 ## plot the results
-plot(swap.cma)
+plot(ik.cma)
+
 }
 \keyword{methods}
 \keyword{manip}

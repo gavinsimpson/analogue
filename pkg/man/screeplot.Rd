@@ -71,15 +71,23 @@
 }
 \seealso{\code{\link{screeplot}} }
 \examples{
-## continue the example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
 
-## fit the MAT model using the squared chord distance measure
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
-swap.mat
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
 
-##
-screeplot(swap.mat)
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
+
+## fit the MAT model using the chord distance measure
+(ik.mat <- mat(ImbrieKipp, SumSST, method = "chord"))
+
+screeplot(ik.mat)
 }
 \keyword{hplot}
 \keyword{methods}

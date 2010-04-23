@@ -145,14 +145,24 @@
 \author{Gavin L. Simpson}
 \seealso{\code{\link{mat}}, \code{\link{bootstrap.mat}}}
 \examples{
-## continue the RLGH and SWAP example from ?join
-example(join)
+## Imbrie and Kipp example
+## load the example data
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
 
-## fit the MAT model using the squared chord distance measure
-swap.mat <- mat(swapdiat, swappH, method = "SQchord")
+## merge training and test set on columns
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
 
-## predict for RLGH data
-predict(swap.mat, rlgh)
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+V12.122 <- dat[[2]] / 100
+
+## fit the MAT model using the chord distance measure
+(ik.mat <- mat(ImbrieKipp, SumSST, method = "chord"))
+
+## predict for V12.122 data
+predict(ik.mat, V12.122)
 
 }
 \keyword{methods}% at least one, from doc/KEYWORDS
