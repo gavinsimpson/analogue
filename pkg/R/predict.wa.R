@@ -19,6 +19,7 @@
     ENV <- object$orig.env
     ## tolerance options from model
     O <- object$options.tol
+    useN2 <- object$options.tol$useN2
     ## Doing CV?
     if(identical(CV, "none")) {
         want <- names(object$wa.optima) %in%
@@ -37,7 +38,7 @@
         if(identical(CV, "LOO")) {
             loo.pred <- matrix(0, ncol = n.train, nrow = n.fossil)
             mod.pred <- length(n.train)
-            useN2 <- object$options.tol$useN2
+            ##useN2 <- object$options.tol$useN2
             want <- names(object$wa.optima) %in% colnames(newdata)
             want <- names(object$wa.optima)[want]
             nr <- NROW(X) - 1
@@ -218,7 +219,7 @@
         retval$model.pred <- list(pred = fitted(object))
     } else if(identical(CV, "LOO")) {
         mod.r.squared <- cor(mod.pred, ENV)^2
-        mod.resid <- mod.pred - ENV
+        mod.resid <- ENV - mod.pred ##mod.pred - ENV
         mod.avg.bias <- mean(mod.resid)
         mod.max.bias <- maxBias(mod.resid, ENV)
         mod.rmsep <- sqrt(mean(mod.resid^2))
@@ -231,9 +232,10 @@
                                   resid = mod.resid)
     } else {
         mod.pred <- rowMeans(oob.pred, na.rm = TRUE)
-        mod.resid <- mod.pred - ENV
+        mod.resid <- ENV - mod.pred ##mod.pred - ENV
         s1 <- apply(oob.pred, 1, sd, na.rm = TRUE)
-        s2 <- sqrt(rowMeans((oob.pred - ENV)^2, na.rm = TRUE))
+        ##s2 <- sqrt(rowMeans((oob.pred - ENV)^2, na.rm = TRUE))
+        s2 <- sqrt(rowMeans((ENV - oob.pred)^2, na.rm = TRUE))
         mod.s1 <- sqrt(mean(s1^2))
         mod.s2 <- sqrt(mean(mod.resid^2))
         samp.rmsep <- sqrt(s1^2 + mod.s2^2)
