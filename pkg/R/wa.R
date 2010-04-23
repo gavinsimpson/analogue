@@ -55,7 +55,7 @@
     ## species names need to be reapplied
     names(wa.optima) <- colnames(x)
     ## residuals
-    resi <- wa.env - env
+    resi <- env - wa.env
     ## RMSE of predicted/fitted values
     rmse <- sqrt(mean(resi^2))
     ## r-squared

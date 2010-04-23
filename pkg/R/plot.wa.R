@@ -37,18 +37,16 @@ plot.wa <- function(x, which = 1:2,
     }
     if (show[1]) {
         lims <- range(Est, Obs)
-        ylabel <- "Fitted values"
-        plot(Obs, Est, type = "n", asp = 1, xlim = lims,
-             ylim = lims, ylab = ylabel, xlab = "Observed", ...)
+        plot(Est, Obs, type = "n", asp = 1, xlim = lims,
+             ylim = lims, xlab = "Fitted values", ylab = "Observed", ...)
         abline(0, 1, col = "grey", ...)
-        panel(Obs, Est, ...)
+        panel(Est, Obs, ...)
         if (one.fig)
             title(sub = sub.caption, ...)
         mtext(caption[1], 3, 0.25)
     }
     if (show[2]) {
-        ylabel <- "Residuals"
-        plot(Obs, Resi, type = "n", ylab = ylabel,
+        plot(Obs, Resi, type = "n", ylab = "Residuals",
              xlab = "Observed", ...)
         abline(h = 0, col = "grey", ...)
         abline(h = mean(Resi), col = "blue", lty = "dashed")
