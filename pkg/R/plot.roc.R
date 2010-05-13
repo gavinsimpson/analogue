@@ -23,10 +23,9 @@ plot.roc <- function(x,
     show <- rep(FALSE, 5)
     show[which] <- TRUE
     one.fig <- prod(par("mfcol")) == 1
-    op <- par(no.readonly = TRUE)
-    on.exit(par(op))
-    if (ask) {
-        par(ask = TRUE)
+    if(ask) {
+        oask <- devAskNewPage(TRUE)
+        on.exit(devAskNewPage(oask))
     }
     if(any(show[4:5])){
         l.ratios <- bayesF(x, prior = prior)

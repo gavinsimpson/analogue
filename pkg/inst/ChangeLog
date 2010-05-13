@@ -2,6 +2,9 @@ analogue Change Log
 
 Version 0.6-24
 
+	* plot.roc: was resetting the plotting region at the end of
+	plotting even when there was no need to do so.
+
 	* residuals: Residuals were defined as \hat{x}_i - x_i to match
 	fitted vs. observed scatterplots. Definition of residuals in wa()
 	and related functions has been changed to the more common
@@ -16,7 +19,7 @@ Version 0.6-24
 	the model estimates for training set samples.
 
 	* predict.wa: fix minor bug with CV when tolerance DW was used.
-	
+
 	* Package: reduced package check time in examples, by using
 	the Imbrie & Kipp data.
 
