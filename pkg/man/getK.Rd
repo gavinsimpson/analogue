@@ -71,11 +71,20 @@ setK(object, weighted = FALSE) <- value
 \author{Gavin L. Simpson}
 \seealso{\code{\link{mat}}}
 \examples{
-## continue the example from join
-example(join)
+## Imbrie and Kipp Sea Surface Temperature
+data(ImbrieKipp)
+data(SumSST)
+data(V12.122)
+
+## merge training set and core samples
+dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+ImbrieKipp <- dat[[1]] / 100
+ImbrieKippCore <- dat[[2]] / 100
 
 ## fit a MAT model
-ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
+ik.mat <- mat(ImbrieKipp, SumSST, method = "chord")
 
 ## How many analogues gives lowest RMSE?
 getK(ik.mat)
