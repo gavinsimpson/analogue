@@ -75,7 +75,7 @@
                list(xlim = c(0, max(x)),
                     ylim = rev(c(0, max(y))))
            },
-           panel = panel.Stratiplot,
+           panel = "panel.Stratiplot",
            layout = c(n.vars, 1, pages),
            par.settings = list(layout.widths = list(panel = max.abun)),
            ##index.cond = list(ord),
