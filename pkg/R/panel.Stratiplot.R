@@ -26,7 +26,7 @@
         if (missing(col.symbol))
             col.symbol <- col
     }
-    panel.refline(v = 0, col.line = ref.line, ...)
+    panel.refline(v = 0, col.line = ref.line$col, ...)
     if ("o" %in% type || "b" %in% type)
         type <- c(type, "p", "l")
     if ("g" %in% type)
@@ -37,9 +37,10 @@
     if("p" %in% type)
         panel.points(x = x, y = y, cex = cex, fill = fill,
                      col = col.symbol, pch = pch, ...)
-    if("h" %in% type)
-        panel.segments(x0 = 0, y0 = y, x1 = x, y1 = y,
-                       col = col.line, lty = lty, lwd = lwd, ...)
+    if ("h" %in% type) {
+        panel.lines(x = x, y = y, type = "H", col = col.line, lty = lty,
+                    lwd = lwd, ...)
+    }
     if("poly" %in% type)
         panel.polygon(x = c(0, x, 0), y = c(y[1], y, y[length(y)]),
                       border = col.poly, col = col.poly, ...)

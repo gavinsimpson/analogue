@@ -2,6 +2,10 @@ analogue Change Log
 
 Version 0.6-24
 
+	* panel.Stratiplot; fix warning messages (from Grid) due to
+	inappropriate colour specification. Reference lines in
+	Stratiplot now plot correctly again.
+
 	* plot.roc: was resetting the plotting region at the end of
 	plotting even when there was no need to do so.
 
