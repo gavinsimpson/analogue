@@ -2,6 +2,8 @@ analogue Change Log
 
 Version 0.6-24
 
+	* Dependencies: package now depends on package 'grid'.
+
 	* Stratiplot: gains ability to draw variable labels above the
 	plot panels so that the plots conform to common standards. If
 	you prefer the 'strips' of Lattice plots, set 'strip = FALSE'
