@@ -15,7 +15,7 @@ Stratiplot(x, \dots)
 
 \method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
            pages = 1, rev = TRUE, sort = c("none", "wa", "var"),
-           svar = NULL, rev.sort = FALSE, \dots)
+           svar = NULL, rev.sort = FALSE, strip = FALSE, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
            ylab = NULL, xlab = "", pages = 1, \dots)
@@ -60,6 +60,9 @@ Stratiplot(x, \dots)
     \code{svar}.}
   \item{svar}{vector; optional variable to sort columns of \code{x} by.}
   \item{rev.sort}{logical; should the sorting order be reversed.}
+  \item{strip}{logical; Should panels have strips containing variable
+    labels drawn on them? Default is \code{FALSE}, which labels each
+    panel with a label resulting in a more familiar plot style.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}

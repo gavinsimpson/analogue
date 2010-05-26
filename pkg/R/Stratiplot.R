@@ -11,7 +11,23 @@
                                  sort = c("none", "wa", "var"),
                                  svar = NULL,
                                  rev.sort = FALSE,
+                                 strip = FALSE,
                                  ...) {
+    ## inline function for custom axis
+    axis.VarLabs <- function(side, ...) {
+        if(isTRUE(all.equal(side, "top"))) {
+            M <- function(lims) min(lims) + (diff(lims) / 2)
+            xlim <- current.panel.limits()$xlim
+            panel.axis(side = side, outside = TRUE, at = M(xlim),
+                       tck = 1, line.col = "black",
+                       text.col = "black",
+                       labels = levels(sx$ind)[which.packet()],
+                       rot = 45)
+        } else {
+            axis.default(side = side, ...)
+        }
+    }
+
     ## process 'type'
     TYPE <- c("l","h","g","smooth","b","o", "poly","p")
     if(any(!(type %in% TYPE)))
@@ -53,7 +69,7 @@
     }
     ## plot parameters
     maxy <- max(y)
-    ylimits <- c(0 - (0.03*maxy), maxy + (0.03 * maxy))
+    ylimits <- c(0 - (0.03*maxy), maxy + (0.03*maxy))
     if(rev)
         ylimits <- rev(ylimits)
     max.abun <- sapply(x, function(x) round(max(x), 1))
@@ -62,12 +78,19 @@
                    y = list(axs = "r", limits = ylimits),
                    x = list(axs = "r", rot = 45, relation = "free"))
     par.strip.text <- list(cex = 0.75)
+    str.max <- 1
+    if(!isTRUE(strip)) {
+        str.max <- max(convertWidth(grobWidth(textGrob(levels(sx$ind),
+                                                       gp = gpar())),
+                                    "lines", valueOnly = TRUE))
+        str.max <- ceiling(str.max) + 3
+    }
     ## plotting
     xyplot(y ~ values | ind,
            data = sx,
            type = type,
            ylab = ylab, xlab = xlab,
-           strip.left = FALSE, strip = TRUE,
+           strip.left = FALSE, strip = strip,
            par.strip.text = par.strip.text,
            scales = scales,
            xlim = xlimits,
@@ -77,7 +100,8 @@
            },
            panel = "panel.Stratiplot",
            layout = c(n.vars, 1, pages),
-           par.settings = list(layout.widths = list(panel = max.abun)),
-           ##index.cond = list(ord),
+           par.settings = list(layout.widths = list(panel = max.abun),
+           layout.heights = list(top.padding = str.max)),
+           axis = if(isTRUE(strip)) {axis.default} else {axis.VarLabs},
            ...)
 }

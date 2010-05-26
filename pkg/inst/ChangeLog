@@ -2,7 +2,12 @@ analogue Change Log
 
 Version 0.6-24
 
-	* panel.Stratiplot; fix warning messages (from Grid) due to
+	* Stratiplot: gains ability to draw variable labels above the
+	plot panels so that the plots conform to common standards. If
+	you prefer the 'strips' of Lattice plots, set 'strip = FALSE'
+	to get the old behaviour.
+
+	* panel.Stratiplot: fix warning messages (from Grid) due to
 	inappropriate colour specification. Reference lines in
 	Stratiplot now plot correctly again.
 
