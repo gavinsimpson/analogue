@@ -37,7 +37,7 @@ Version 0.6-24
 Version 0.6-23
 
 	* tran: 'rootroot' transformation was same as 'cuberoot' from
-	vhanges made in r140. Now fixed.
+	changes made in r140. Now fixed.
 
 	* wa: 'formula' method was not passing tolerance-related arguments
 	to default method. As such, the newer code to handle small
