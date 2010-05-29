@@ -42,6 +42,29 @@
 			<div id="main">
 				
 				<a name="Welcome"></a>
+			    <h2>Version 0.6-22 uploaded to CRAN</h2>
+			    <h3>7 Nov 2009</h3>
+			    <p>A new version of analogue was pushed to CRAN a few days ago. This release was precipitated by the release 
+			    of R 2.10.0, and features the following key additions and fixes:</p>
+			    <ul>
+        	        <li>WA models can now make full use of tolerance down-weighting, including cross validation, and all WA 
+        	        models benefit from key computations being conducted in faster C code;
+        	        <li><strong><kbd>tran</kbd></strong>&mdash;now has a formula method and includes new transformations; 
+        	        power, 4th root and log-ratio transformations. <strong><kbd>tran()</strong></kbd> now also provides row 
+        	        (sample) centring;</li>
+        	        <li><strong><kbd>roc</kbd></strong>&mdash;For large problems the calculation of AUC and its standard error
+        	        could overflow the largest number R currently handles. <strong><kbd>roc()</strong></kbd> now has two new 
+        	        arguments, <strong><kbd>'thin'</strong></kbd> and <strong><kbd>'max.len'</strong></kbd>, which allow the
+        	        number of points on the ROC curve to be thinned to a smaller number, which should allow the computations
+        	        to be performed;</li>
+        	        <li><strong><kbd>Stratiplot</kbd></strong>&mdash;can now reverse the y-axis limits and has option to sort
+        	        the variables plotted according to their weight average for the <strong><kbd>'y'</strong></kbd> variable
+        	        (to emphasis compositional change in <strong><kbd>'y'</strong></kbd>) or a further supplied variable;</li>
+        	        <li><strong><kbd>join</kbd></strong>&mdash;the value used to replace NAs can now be set by the user, and
+        	        the inner and left joins as well as the default outer join.</li>
+			    </ul>
+			    <p>See the <a href="http://cran.r-project.org/web/packages/analogue/ChangeLog">ChangeLog</a>
+			    for more details.</p>
 				<h1>analogue News</h1>
 			    <h2>Version 0.6-8 uploaded to CRAN</h2>
 			    <h3>7 May 2009</h3>
@@ -54,7 +77,7 @@
         	        <li><strong><kbd>stdError</kbd></strong>&mdash;computes the weighted standard deviation of the predicted values
         	        over the <em>k</em>-closest analogues. This measure has been proposed as an uncertainty measure for
         	        MAT model predictions. Methods provided for <strong><kbd>mat</kbd></strong> and 
-        	        <strong><kbd>predict.mat</kbd></strong></li>.
+        	        <strong><kbd>predict.mat</kbd></strong>.</li>
         	        <li><strong><kbd>predict.mat</kbd></strong> now returns the dissimilarity matrix between training 
         	        set and new samples.</li>
         	        <li><strong><kbd>getK</kbd></strong>&mdash;new method for <strong><kbd>predict.mat</kbd></strong>.</li>

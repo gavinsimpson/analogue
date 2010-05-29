@@ -1,5 +1,5 @@
 <?php
-    $stable_version = "0.6-8";
+    $stable_version = "0.6-22";
     echo "
          <div id=\"sidebar\">
 				<h1>Downloads</h1>
