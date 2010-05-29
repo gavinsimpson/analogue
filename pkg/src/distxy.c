@@ -5,7 +5,7 @@
  * Based on code from vegdist by Jari Oksanen:
  *
  * (C) 2001-2009, Jari Oksanen
- * (C) 2009 Gavin L. Simpson
+ * (C) 2009-2010 Gavin L. Simpson
  *
  * Licene: GPL 2
  */
@@ -357,6 +357,12 @@ void xy_distance(double *x, double *y, int *nr1, int *nr2,
 	    d[ij++] = distfun(x, y, *nr1, *nr2, *nc, j, i);
 	}
 }
+
+/* 
+ * These functions are called directly as they don't fit the
+ * nice, ordered manner of the coefficients above
+ *
+ */
 
 /*
  * Kendall's coefficient

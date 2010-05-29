@@ -16,7 +16,7 @@
 #include <math.h>
 
 /* Indices */
-/* Note we don't actually call all of these via xy_distance
+/* Note we don't actually call all of these via xx_distance
  * Some are called via direct methods, but we include the 
  * indices here to allow the pattern matching to work 
  * correctly
@@ -366,6 +366,12 @@ void xx_distance(double *x, int *nr, int *nc, double *d,
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
 	}
 }
+
+/* 
+ * These functions are called directly as they don't fit the
+ * nice, ordered manner of the coefficients above
+ *
+ */
 
 /*
  * Kendall's coefficient

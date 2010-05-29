@@ -1,3 +1,13 @@
+/* 
+ * Functions to WA and WAT transfer function models
+ * Really helper functions to speed aspects of the
+ * computations
+ *
+ * (C) 2009-2010 Gavin L. Simpson
+ *
+ * Licene: GPL 2
+ */
+
 /* Standard R headers */
 
 #include <R.h>
