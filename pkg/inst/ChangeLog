@@ -6,8 +6,13 @@ Version 0.6-24
 
 	* Stratiplot: gains ability to draw variable labels above the
 	plot panels so that the plots conform to common standards. If
-	you prefer the 'strips' of Lattice plots, set 'strip = FALSE'
+	you prefer the 'strips' of Lattice plots, set 'strip = TRUE'
 	to get the old behaviour.
+
+	Stratiplot was fixinging the min(ylim) value at 0 and contained
+	redundant calls to set the y-axis limits. The behaviour has been
+	rationalised and a new 'ylim' argument added. The default
+	behaviour uses the range of the y-data for 'ylim'.
 
 	* panel.Stratiplot: fix warning messages (from Grid) due to
 	inappropriate colour specification. Reference lines in

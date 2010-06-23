@@ -8,6 +8,7 @@
                                  xlab = "",
                                  pages = 1,
                                  rev = TRUE,
+                                 ylim,
                                  sort = c("none", "wa", "var"),
                                  svar = NULL,
                                  rev.sort = FALSE,
@@ -69,13 +70,19 @@
     }
     ## plot parameters
     maxy <- max(y)
-    ylimits <- c(0 - (0.03*maxy), maxy + (0.03*maxy))
+    miny <- min(y)
+    if(missing(ylim)) {
+        ylim <- c(miny - (0.03*maxy), maxy + (0.03*maxy))
+    } else {
+        ylim <- c(min(ylim) - (0.03*max(ylim)),
+                  max(ylim) + (0.03*max(ylim)))
+    }
     if(rev)
-        ylimits <- rev(ylimits)
+        ylim <- rev(ylim)
     max.abun <- sapply(x, function(x) round(max(x), 1))
     xlimits <- lapply(max.abun * 1.05, function(x) c(0, x))
     scales <- list(cex = 0.75, tck = 0.75,
-                   y = list(axs = "r", limits = ylimits),
+                   y = list(axs = "r", limits = ylim),
                    x = list(axs = "r", rot = 45, relation = "free"))
     par.strip.text <- list(cex = 0.75)
     str.max <- 1
@@ -83,7 +90,7 @@
         str.max <- max(convertWidth(grobWidth(textGrob(levels(sx$ind),
                                                        gp = gpar())),
                                     "lines", valueOnly = TRUE))
-        str.max <- ceiling(str.max) + 3
+        str.max <- ceiling(str.max) + 4
     }
     ## plotting
     xyplot(y ~ values | ind,
@@ -94,10 +101,11 @@
            par.strip.text = par.strip.text,
            scales = scales,
            xlim = xlimits,
-           prepanel = function(x, y, ...) {
-               list(xlim = c(0, max(x)),
-                    ylim = rev(c(0, max(y))))
-           },
+           ylim = ylim,
+           #prepanel = function(x, y, ...) {
+           #    list(xlim = c(0, max(x)),
+           #         ylim = rev(c(0, max(y))))
+           #},
            panel = "panel.Stratiplot",
            layout = c(n.vars, 1, pages),
            par.settings = list(layout.widths = list(panel = max.abun),

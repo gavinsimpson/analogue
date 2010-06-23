@@ -14,7 +14,7 @@
 Stratiplot(x, \dots)
 
 \method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
-           pages = 1, rev = TRUE, sort = c("none", "wa", "var"),
+           pages = 1, rev = TRUE, ylim, sort = c("none", "wa", "var"),
            svar = NULL, rev.sort = FALSE, strip = FALSE, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
@@ -51,6 +51,12 @@ Stratiplot(x, \dots)
   \item{pages}{numeric; the number of pages to draw the plot over. May
     be useful for data sets with many species.}
   \item{rev}{logical; should the y-axis limits be reversed}
+  \item{ylim}{user supplied limits for the y-axis (time/depth). If not
+    supplied, suitable limits will be determined from the data. As such,
+    in general use \code{ylim} need not be supplied. If you choose to
+    supply your own \code{ylim} values, note the default for argument
+    \code{rev}; the default will reverse the values you supply to
+    \code{ylim}.}
   \item{sort}{character; how should the variables (columns) of \code{x}
     be sorted on the plot. \code{"wa"} sorts by weighted averages
     of variable \code{svar} if not \code{NULL} or of \code{y}
