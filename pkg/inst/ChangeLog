@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.6-25
+
+	* chooseTaxa: new function to select species on basis of number
+	of occurrences and maximum abundance. Function is an S3 generic
+	with a default method.
+
 Version 0.6-24
 
 	* Dependencies: package now depends on package 'grid'.

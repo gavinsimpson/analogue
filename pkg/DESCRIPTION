@@ -1,9 +1,9 @@
 Package: analogue
 Type: Package
 Title: Analogue and weighted averaging methods for palaeoecology
-Version: 0.6-24
+Version: 0.6-25
 Date: $Date$
-Depends: R (>= 2.5.0), stats, graphics, vegan, lattice, grid, MASS
+Depends: R (>= 2.5.0), stats, graphics, vegan, lattice, grid, MASS, princurve
 Author: Gavin L. Simpson, Jari Oksanen
 Maintainer: Gavin L. Simpson <gavin.simpson@ucl.ac.uk>
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
