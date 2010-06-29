@@ -11,7 +11,7 @@
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    data <- data.frame(model.matrix(mt, mf))[,-1]
+    data <- data.frame(model.matrix(mt, mf), check.names = FALSE)[,-1]
     n.vars <- ncol(data)
     y <- rep(y, n.vars)
     if(is.null(ylab))
