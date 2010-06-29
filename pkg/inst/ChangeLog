@@ -1,5 +1,18 @@
 analogue Change Log
 
+Version 0.6-26
+
+	* abernethy: New data set containing the classic Abernethy Forest
+	data of Birks and Mathewes (1978).
+
+	* Stratiplot.formula: Preserves the names component as far as is
+	possible.
+
+	* chooseTaxa: Explicitly preserves row and column names.
+
+	* DESCRIPTION: prematurely added princurve as a dependency in
+	previous version.
+
 Version 0.6-25
 
 	* chooseTaxa: new function to select species on basis of number
