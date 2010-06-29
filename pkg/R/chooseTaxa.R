@@ -14,5 +14,10 @@ chooseTaxa.default <- function(object, n.occ = 1, max.abun = 0,
     } else {
         occ.want & abun.want
     }
-    return(object[,want])
+    rname <- rownames(object)
+    cname <- colnames(object)
+    object <- object[, want]
+    rownames(object) <- rname
+    colnames(object) <- cname[want]
+    return(object)
 }
