@@ -13,6 +13,7 @@
                                  svar = NULL,
                                  rev.sort = FALSE,
                                  strip = FALSE,
+                                 topPad = 6,
                                  ...) {
     ## inline function for custom axis
     axis.VarLabs <- function(side, ...) {
@@ -102,7 +103,7 @@
                          valueOnly = TRUE)
         }
         str.max <- max(sapply(levels(sx$ind), convWidth, gp))
-        str.max <- ceiling(str.max) + 6
+        str.max <- ceiling(str.max) + topPad
     }
     ## plotting
     xyplot(y ~ values | ind,

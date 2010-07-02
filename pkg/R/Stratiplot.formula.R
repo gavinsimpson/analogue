@@ -12,6 +12,7 @@
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
     data <- data.frame(model.matrix(mt, mf), check.names = FALSE)[,-1]
+    names(data) <- gsub("`", "", names(data))
     n.vars <- ncol(data)
     y <- rep(y, n.vars)
     if(is.null(ylab))
