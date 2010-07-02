@@ -5,8 +5,14 @@ Version 0.6-26
 	* abernethy: New data set containing the classic Abernethy Forest
 	data of Birks and Mathewes (1978).
 
-	* Stratiplot.formula: Preserves the names component as far as is
+	* Stratiplot: Preserves the names component as far as is
 	possible.
+
+	Bug in padding of the y-axis now fixed; default is to add 1% of
+	the range y-axis to the y-axis limits specified.
+
+	Bug in computing length of variable labels when 'strip = FALSE'
+	now fixed.
 
 	* chooseTaxa: Explicitly preserves row and column names.
 

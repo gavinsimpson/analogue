@@ -19,11 +19,11 @@
         if(isTRUE(all.equal(side, "top"))) {
             M <- function(lims) min(lims) + (diff(lims) / 2)
             xlim <- current.panel.limits()$xlim
-            panel.axis(side = side, outside = TRUE, at = M(xlim),
+            panel.axis(side = side, outside = TRUE, at = 0, #M(xlim),
                        tck = 1, line.col = "black",
                        text.col = "black",
                        labels = levels(sx$ind)[which.packet()],
-                       rot = 45)
+                       rot = 60)
         } else {
             axis.default(side = side, ...)
         }
@@ -71,11 +71,20 @@
     ## plot parameters
     maxy <- max(y)
     miny <- min(y)
+    ## add padYlim * range as per base graphics
+    padY <- 0.01
     if(missing(ylim)) {
-        ylim <- c(miny - (0.03*maxy), maxy + (0.03*maxy))
+        diffy <- padY * (maxy - miny)
+        ylim <- c(miny - diffy, maxy + diffy)
     } else {
-        ylim <- c(min(ylim) - (0.03*max(ylim)),
-                  max(ylim) + (0.03*max(ylim)))
+        minLim <- min(ylim)
+        maxLim <- max(ylim)
+        ## add padY * range as per base graphics
+        diffy <- abs(diff(minLim, maxLim))
+        ylim <- if(minLim > maxLim)
+            c(minLim + (padY * diffy), maxLim - (padY * diffy))
+        else
+            c(minLim - (padY * diffy), maxLim + (padY * diffy))
     }
     if(rev)
         ylim <- rev(ylim)
@@ -87,10 +96,13 @@
     par.strip.text <- list(cex = 0.75)
     str.max <- 1
     if(!isTRUE(strip)) {
-        str.max <- max(convertWidth(grobWidth(textGrob(levels(sx$ind),
-                                                       gp = gpar())),
-                                    "lines", valueOnly = TRUE))
-        str.max <- ceiling(str.max) + 4
+        gp <- gpar()
+        convWidth <- function(x, gp) {
+            convertWidth(grobWidth(textGrob(x, gp = gp)), "lines",
+                         valueOnly = TRUE)
+        }
+        str.max <- max(sapply(levels(sx$ind), convWidth, gp))
+        str.max <- ceiling(str.max) + 6
     }
     ## plotting
     xyplot(y ~ values | ind,
@@ -102,10 +114,6 @@
            scales = scales,
            xlim = xlimits,
            ylim = ylim,
-           #prepanel = function(x, y, ...) {
-           #    list(xlim = c(0, max(x)),
-           #         ylim = rev(c(0, max(y))))
-           #},
            panel = "panel.Stratiplot",
            layout = c(n.vars, 1, pages),
            par.settings = list(layout.widths = list(panel = max.abun),
