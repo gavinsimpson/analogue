@@ -1,6 +1,6 @@
 \name{panel.Stratiplot}
 \alias{panel.Stratiplot}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Panel function for stratigraphic diagrams}
 \description{
   A Lattice panel function for drawing individuals panels on
@@ -29,7 +29,7 @@ panel.Stratiplot(x, y,
                  lwd.zones = plot.line$lwd,
                  \dots)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x, y}{variables defining the contents of the panel.}
   \item{type}{character vector consisting of one or more of the
@@ -84,16 +84,19 @@ panel.Stratiplot(x, y,
   Creates stratigraphic scatter plots of \code{x} and \code{y}, with
   various modifications possible via the type argument.
 
+  Zones can be drawn on the panels by supplying the numeric vector of
+  zone boundaries as argument \code{zones}. The panel function will then
+  draw horizontal lines across the panels at the desired y-axis
+  locations. Note that the panel function does \strong{not} attempt to
+  identify the zone boundaries automatically; these must be determined
+  via a chronological (constrained) cluster analysis function or
+  similar.
+
   Note that all the arguments controlling the display can be supplied
   directly to a high-level call of the function \code{\link{Stratiplot}}.
 }
 \author{Gavin L. Simpson}
-%\note{ ~~further notes~~ 
-%
-% ~Make other sections like Warning with \section{Warning }{....} ~
-%}
+
 \seealso{\code{\link{Stratiplot}}, \code{\link{panel.Loess}},
     \code{\link[lattice]{panel.xyplot}}.}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{hplot}
