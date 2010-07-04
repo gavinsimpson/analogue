@@ -1,9 +1,25 @@
 analogue Change Log
 
+Version 0.7-0
+
+	* timetrack: new function to passively project sediment core
+	samples within an ordination of training or reference set
+	samples. Both unconstrained and constrained ordinations are
+	supported using the Vegan package. 'fitted' and 'plot' methods
+	are available.
+
+	* prcurve: new function to fit principal curves to sediment
+	core samples. A 'plot' method is also provided.
+
+	Several support functions are also provided; 'smoothSpline' is
+	a wrapper to 'smooth.spline' for fitting splines to individual
+	species in order to fit the principal curve. 'initCurve'
+	implements several methods for initialising the principal curve.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
-	data of Birks and Mathewes (1978).
+	data of Birks and Mathewes (1978)
 
 	* Stratiplot: Preserves the names component as far as is
 	possible, even to the extent of processing the names after the
