@@ -10,7 +10,7 @@ citEntry(entry="Manual",
    url = "http://cran.r-project.org/package=analogue",
 
 	textVersion =
-	paste("Simpson, G.L. and Oksanen, J. (2009). ", 
+	paste("Simpson, G.L. and Oksanen, J. ", paste("(", sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date), ")."), 
          "analogue: Analogue matching and Modern Analogue Technique transfer function models. (R package version",
 	      meta$Version,").", 
 	      "(http://cran.r-project.org/package=analogue).", sep=" ")
