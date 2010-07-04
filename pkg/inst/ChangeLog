@@ -15,6 +15,12 @@ Version 0.6-26
 	Bug in computing length of variable labels when 'strip = FALSE'
 	now fixed.
 
+	* panel.Stratiplot: Add capability to draw zones on stratigraphic
+	plots via new argument 'zones' which takes the numeric levels of
+	the zone boundaries on the scale of the plot y-axis. How the
+	zone markers are drawn can be controlled via several graphical
+	parameters. See ?panel.Stratiplot.
+
 	* chooseTaxa: Explicitly preserves row and column names.
 
 	* DESCRIPTION: prematurely added princurve as a dependency in

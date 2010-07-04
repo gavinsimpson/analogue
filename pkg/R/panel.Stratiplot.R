@@ -12,6 +12,10 @@
                                lty.smooth = plot.line$lty,
                                lwd.smooth = 2,
                                fill = plot.symbol$fill,
+                               zones = NULL,
+                               col.zones = plot.line$col,
+                               lty.zones = plot.line$lty,
+                               lwd.zones = plot.line$lwd,
                                ...) {
     if (all(is.na(x) | is.na(y)))
         return()
@@ -47,4 +51,7 @@
     if("smooth" %in% type)
         panel.Loess(x, y, col = col.smooth, lwd = lwd.smooth,
                     lty = lty.smooth, ...)
+    if(!is.null(zones) && is.numeric(zones))
+        panel.abline(h = zones, col = col.zones, lwd = lwd.zones,
+                     lty = lty.zones, ...)
 }
