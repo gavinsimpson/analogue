@@ -15,7 +15,7 @@ Stratiplot(x, \dots)
 
 \method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
            pages = 1, rev = TRUE, ylim, sort = c("none", "wa", "var"),
-           svar = NULL, rev.sort = FALSE, strip = FALSE, \dots)
+           svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
            ylab = NULL, xlab = "", pages = 1, \dots)
@@ -69,6 +69,11 @@ Stratiplot(x, \dots)
   \item{strip}{logical; Should panels have strips containing variable
     labels drawn on them? Default is \code{FALSE}, which labels each
     panel with a label resulting in a more familiar plot style.}
+  \item{topPad}{numeric; additional padding for the top axis to
+    accomodate long variable names. This is a temporary fudge until the
+    actual space required can be automagically calculated from the
+    variable names themselves. The currently gets most of the way there,
+    but \code{topPad} is used to add some extra space if required.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}
