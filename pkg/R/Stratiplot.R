@@ -81,7 +81,7 @@
         minLim <- min(ylim)
         maxLim <- max(ylim)
         ## add padY * range as per base graphics
-        diffy <- abs(diff(minLim, maxLim))
+        diffy <- abs(diff(c(minLim, maxLim)))
         ylim <- if(minLim > maxLim)
             c(minLim + (padY * diffy), maxLim - (padY * diffy))
         else
