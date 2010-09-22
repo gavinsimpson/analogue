@@ -64,11 +64,24 @@ data(Location)
   These datasets were extracted from Version 1.7 of the North American
   Modern Pollen Database.
 
-  All pollen species were included, however, on the Vegetation type
+  All pollen species were included, however, only the Vegetation type
   (Biome) field of the AVHRR data and selected Climatic variables were
   extracted. Requests for additional variables to be included in the
   versions of the data included in the package should me sent to the
   package maintainer.
+}
+\section{Warning}{
+  Note that the data for the pollen species are a mixture of types. The
+  \code{DataForm} variable contains information on the type of data
+  included for each site. The codes are:
+  \describe{
+    \item{RC}{raw counts}
+    \item{RP}{raw counts expressed as percentages}
+    \item{DC}{digitised counts}
+    \item{DP}{digitised counts expressed as percentages}
+    \item{PM}{counts in permille}
+  }
+  This value is not known for all samples.
 }
 \source{
   The database is archived electronically at two sites:
