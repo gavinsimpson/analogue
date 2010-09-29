@@ -87,9 +87,7 @@ join(\dots, verbose = FALSE, na.replace = TRUE, split = TRUE, value = 0,
 \seealso{\code{\link{merge}}}
 \examples{
 ## load the example data
-data(swapdiat)
-data(swappH)
-data(rlgh)
+data(swapdiat, swappH, rlgh)
 
 ## merge training and test set on columns
 dat <- join(swapdiat, rlgh, verbose = TRUE)
@@ -102,9 +100,7 @@ rlgh <- dat[[2]] / 100
 head(join(swapdiat, rlgh, verbose = TRUE, type = "left"))
 
 ## load the example data
-data(ImbrieKipp)
-data(SumSST)
-data(V12.122)
+data(ImbrieKipp, SumSST, V12.122)
 
 ## merge training and test set on columns
 dat <- join(ImbrieKipp, V12.122, verbose = TRUE)
