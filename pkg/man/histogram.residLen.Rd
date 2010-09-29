@@ -33,10 +33,11 @@
 \seealso{\code{\link{residLen}}, \code{\link{plot.residLen}},
   \code{\link{hist.residLen}}, \code{\link{densityplot.residLen}}.}
 \examples{
-data(swapdiat, swappH, rlgh)
+## load the Imbrie and Kipp example data
+data(ImbrieKipp, SumSST, V12.122)
 
-## squared residual lengths for RLGH
-rlens <- residLen(swapdiat, swappH, rlgh)
+## squared residual lengths for Core V12.122
+rlens <- residLen(ImbrieKipp, SumSST, V12.122)
 rlens
 
 ## plot a histogram of the residual distances
