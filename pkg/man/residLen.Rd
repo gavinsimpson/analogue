@@ -80,14 +80,15 @@ sqrlUnimodal(Y, colsum, fitted)
   of the underlying computations.
 }
 \examples{
-data(swapdiat, swappH, rlgh)
+## load the Imbrie and Kipp example data
+data(ImbrieKipp, SumSST, V12.122)
 
-## squared residual lengths for RLGH
-rlens <- residLen(swapdiat, swappH, rlgh)
+## squared residual lengths for Core V12.122
+rlens <- residLen(ImbrieKipp, SumSST, V12.122)
 rlens
 
 ## as before but using linear RDA
-residLen(swapdiat, swappH, rlgh, method = "rda")
+residLen(ImbrieKipp, SumSST, V12.122, method = "rda")
 }
 \keyword{methods}
 \keyword{multivariate}

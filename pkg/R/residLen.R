@@ -4,7 +4,7 @@
 `residLen` <- function(X, env, passive,
                        method = c("cca", "rda")) {
     ## merge X and passive
-    dat <- join(X, passive)
+    dat <- join(X, passive, type = "left") ## Think this should have type = "left" ?
     X <- dat[[1]]
     passive <- dat[[2]]
     ## check env is same length as nrow(X)

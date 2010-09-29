@@ -16,13 +16,17 @@ Version 0.7-0
 	species in order to fit the principal curve. 'initCurve'
 	implements several methods for initialising the principal curve.
 
-	* tran: improvements to the underlying code.
-
 	* Stratiplot: if 'zones' are supplied, a legend on the right-hand
 	side of the diagram can be drawn by setting argument 'drawLegend'
 	to TRUE (the default). Currently, only simple blocks that
 	demarcate the zone boundaries are drawn and labelled using
 	argument 'zoneNames'.
+
+	* residLen: was not 'join'-ing the training set and passive data
+	correctly and would fail if species were found in one but not the
+	other data set.
+
+	* tran: improvements to the underlying code.
 
 Version 0.6-26
 
