@@ -15,7 +15,8 @@ Stratiplot(x, \dots)
 
 \method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
            pages = 1, rev = TRUE, ylim, sort = c("none", "wa", "var"),
-           svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6, \dots)
+           svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
+           zoneNames = NULL, drawLegend = TRUE, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
            ylab = NULL, xlab = "", pages = 1, \dots)
@@ -74,6 +75,10 @@ Stratiplot(x, \dots)
     actual space required can be automagically calculated from the
     variable names themselves. The currently gets most of the way there,
     but \code{topPad} is used to add some extra space if required.}
+  \item{zoneNames}{character vector of labels, one per zone, with which
+    to label the zone legend, if drawn (see argument
+    \code{drawLegend}). See Details.} 
+  \item{drawLegend}{logical; should a legend for the zones}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}
@@ -96,6 +101,23 @@ Stratiplot(x, \dots)
   within \code{Stratiplot} and an appropriate data structure formed to
   facilitate plotting via \code{\link[lattice]{xyplot}}. As such, the special
   features of \pkg{Lattice} formulae cannot be used.
+
+  If zones are drawn on the stratigraphic plot, the \code{zoneNames}
+  argument can be used to supply a set of names with which to label the
+  zones using a legend. This legend is drawn on the right-hand side of
+  the the straigraphic diagram if \code{drawLegend = TRUE} is
+  supplied. The \code{zoneNames} must be supplied in stratigraphic
+  order, as that is the order in which they are drawn in the
+  legend. Whether this ordering is reversed or not will depend on the
+  value of argument \code{rev}. It is up to the user to provide the
+  labels in the correct order. Zones are specified by the zone
+  boundaries (excluding the core sequence top and bottom), and as a
+  result 1 more label is required than the number of zone boundaries
+  supplied. If no \code{zoneNames} is not supplied, but a legend is
+  requested, suitable names will be produced. If you do not wish to have
+  any labelling at all, then set \code{zoneNames = ""} as this will get
+  recycled to the correct length. See the Example section for an
+  illustration of how this drawing zones works. 
 }
 \value{
   Returns a Lattice plot object of class \code{"trellis"}.
@@ -126,6 +148,34 @@ Depths <- as.numeric(rownames(V12.122))
 spp.want <- c("O.univ","G.ruber","G.tenel","G.pacR")
 (plt4 <- Stratiplot(V12.122[, spp.want], y = Depths,
                     type = c("poly", "g")))
+
+## Addin zones to a Stratigraphic plot
+
+## Default labelling and draw zone legend
+## Here we choose 4 arbitrary Depths as the zone boundaries
+set.seed(123)
+Zones <-sample(Depths, 4)
+(plt5 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("poly","g"),
+                    zones = Zones))
+
+## As before, but supplying your own zone labels
+zone.labs <- c("A","B","C","D","E")
+(plt6 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("poly","g"),
+                    zones = Zones, zoneNames = zone.labs))
+
+## Suppress the drawing of the zone legend
+(plt7 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("poly","g"),
+                    zones = Zones, drawLegend = FALSE))
+
+## Add zones and draw a legend, but do not label the zones
+(plt8 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                    data = V12.122, type = c("poly","g"),
+                    zones = Zones, zoneNames = ""))
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

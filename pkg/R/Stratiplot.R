@@ -14,6 +14,8 @@
                                  rev.sort = FALSE,
                                  strip = FALSE,
                                  topPad = 6,
+                                 zoneNames = NULL,
+                                 drawLegend = TRUE,
                                  ...) {
     ## inline function for custom axis
     axis.VarLabs <- function(side, ...) {
@@ -75,9 +77,11 @@
     ## add padYlim * range as per base graphics
     padY <- 0.01
     if(missing(ylim)) {
-        diffy <- padY * (maxy - miny)
-        ylim <- c(miny - diffy, maxy + diffy)
+        ##diffy <- padY * (maxy - miny)
+        diffy <- maxy - miny
+        ylim <- c(miny - (padY * diffy), maxy + (padY * diffy))
     } else {
+        ## should these be ylim[1] and ylim[2] ???
         minLim <- min(ylim)
         maxLim <- max(ylim)
         ## add padY * range as per base graphics
@@ -105,6 +109,41 @@
         str.max <- max(sapply(levels(sx$ind), convWidth, gp))
         str.max <- ceiling(str.max) + topPad
     }
+    ## Legend specification for Zones
+    dotArgs <- list(...)
+    if("zones" %in% names(dotArgs) && drawLegend) {
+        Zones <- sort(c(ylim, dotArgs$zones), decreasing = rev)
+        Heights <- abs(diff(Zones))
+        Ydiff <- abs(diff(ylim))
+        Heights <- Heights / Ydiff
+        Ylocs <- cumsum(c(0, Heights[-length(Heights)]))
+        ZoneUnits <- function(h, units = "npc") {
+            unit(h, units = units)
+        }
+        HeightUnits <- do.call(unit.c, lapply(Heights, ZoneUnits))
+        MidUnits <- do.call(unit.c, lapply(Heights/2, ZoneUnits))
+        YlocsUnits <- do.call(unit.c, lapply(Ylocs, ZoneUnits))
+        ## rectangles to draw
+        zoneRects <- rectGrob(y = YlocsUnits, width = unit(1.5, "cm"),
+                              height = HeightUnits, vjust = 0)
+        if(is.null(zoneNames))
+            zoneNames <- paste("Zone", seq_along(c(1, dotArgs$zones)))
+        labelText <- rep(zoneNames, length = length(dotArgs$zones) + 1)
+        labelYlocs <- YlocsUnits + MidUnits
+        zoneLabels <- textGrob(label = labelText, y = labelYlocs,
+                               just = rep("center",2),
+                               default.units = "npc")
+        key.layout <- grid.layout(nrow = 1, ncol = 1,
+                                  heights = unit(1, "null"),
+                                  widths = unit(1.5, "cm"),
+                                  respect = FALSE)
+        key.gf <- frameGrob(layout = key.layout)
+        key.gf <- placeGrob(key.gf, zoneRects, row = 1, col = 1)
+        key.gf <- placeGrob(key.gf, zoneLabels, row = 1, col = 1)
+        Legend <- list(right = list(fun = key.gf))
+    } else {
+        Legend <- NULL
+    }
     ## plotting
     xyplot(y ~ values | ind,
            data = sx,
@@ -120,5 +159,6 @@
            par.settings = list(layout.widths = list(panel = max.abun),
            layout.heights = list(top.padding = str.max)),
            axis = if(isTRUE(strip)) {axis.default} else {axis.VarLabs},
+           legend = Legend,
            ...)
 }

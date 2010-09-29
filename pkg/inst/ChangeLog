@@ -18,6 +18,12 @@ Version 0.7-0
 
 	* tran: improvements to the underlying code.
 
+	* Stratiplot: if 'zones' are supplied, a legend on the right-hand
+	side of the diagram can be drawn by setting argument 'drawLegend'
+	to TRUE (the default). Currently, only simple blocks that
+	demarcate the zone boundaries are drawn and labelled using
+	argument 'zoneNames'.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
