@@ -16,6 +16,8 @@ Version 0.7-0
 	species in order to fit the principal curve. 'initCurve'
 	implements several methods for initialising the principal curve.
 
+	* tran: improvements to the underlying code.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest

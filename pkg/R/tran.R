@@ -4,6 +4,10 @@
 
 `tran.default` <- function(x, method, a = 1, b = 0, p = 2, base = exp(1),
                    na.rm = FALSE, na.value = 0, ...) {
+    repMissing <- function(x, na.value) {
+        x[is.na(x)] <- na.value
+        return(x)
+    }
     wasDF <- is.data.frame(x)
     dim.nams <- dimnames(x)
     x <- data.matrix(x)
@@ -32,9 +36,7 @@
                     center = scale(x, scale = FALSE, center = TRUE),
                     percent = sweep(x, 1, rowSums(x), "/") * 100,
                     proportion = sweep(x, 1, rowSums(x), "/"),
-                    missing = apply(x, 2,
-                    function(x) {x[is.na(x)] <- na.value
-                                 x}),
+                    missing = repMissing(x, na.value),
                     pcent2prop = x / 100,
                     prop2pcent = x * 100,
                     logRatio = {x <- sweep(x, 2, a, "*")
