@@ -22,7 +22,7 @@ cma.default <- function(object, ...)
 
 cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
   {
-    if (!inherits(object, "analog")) 
+    if (!inherits(object, "analog"))
       stop("Use only with \"analog\" objects")
     if(missing(cutoff)) {
       if(is.null(object$train))
@@ -41,7 +41,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
     close <- apply(object$analogs, 2, function(x) {
       x <- sort(x)
       x <- x[x <= cutoff]})
-    if(length(close) == 0) 
+    if(length(close) == 0)
       close <- vector(mode = "list", length = length(nams))
     each.analogs <- sapply(close, length)
     names(each.analogs) <- names(close) <- nams
@@ -56,21 +56,135 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
               class = "cma")
   }
 
-print.cma <- function(x,
-                      digits = min(3, getOption("digits") - 4), ...)
-  {
+## First attempt at this method - we want k to select the k closest analogues
+## but also allow cutoff for later when mat will work with a threshold
+`cma.mat` <- function(object, k, cutoff, prob = c(0.01, 0.025, 0.05), ...) {
+    if (!inherits(object, "mat"))
+        stop("Use only with \"mat\" objects")
+    n.samp <- ncol(object$Dij)
+    nams <- colnames(object$Dij)
+    K <- !missing(k)
+    CUT <- !missing(cutoff)
+    if(K && CUT)
+        stop("Only one of \"k\" and \"cutoff\" may be used, not both.")
+    if(!K && !CUT) {
+        k <- getK(object)
+        cutoff <- NULL
+        K <- TRUE
+    }
+    if(K) {
+        FUN <- function(x, ks) {
+            x <- sort(x)
+            x[ks]
+        }
+        close <- vector(mode = "list", length = n.samp)
+        ks <- seq_len(k)
+        for(i in seq_along(close)) {
+            close[[i]] <- FUN(object$Dij[, i], ks)
+        }
+        each.analogs <- sapply(close, length)
+        names(each.analogs) <- names(close) <- nams
+    } else {
+        FUN <- function(x, cutoff) {
+            x <- sort(x)
+            x <- x[x <= cutoff]
+        }
+        close <- apply(object$Dij, 2, FUN, cutoff = cutoff)
+        each.analogs <- sapply(close, length)
+        k <- NULL
+        names(each.analogs) <- names(close) <- nams
+    }
+    if(length(close) == 0) {
+        close <- vector(mode = "list", length = length(nams))
+        names(each.analogs) <- names(close) <- nams
+    }
+    .call <- match.call()
+    .call[[1]] <- as.name("cma")
+    structure(list(close = close,
+                   call = .call, cutoff = cutoff, k = k,
+                   quant = quantile(dissim(object), probs = prob,
+                   na.rm = TRUE),
+                   prob = prob,
+                   method = object$method,
+                   n.analogs = each.analogs),
+              class = "cma")
+}
+## First attempt at this method - we want k to select the k closest analogues
+## but also allow cutoff for later when mat will work with a threshold
+`cma.predict.mat` <- function(object, k, cutoff, prob = c(0.01, 0.025, 0.05),
+                              ...) {
+    if (!inherits(object, "predict.mat"))
+        stop("Use only with \"predict.mat\" objects")
+    n.samp <- ncol(object$Dij)
+    nams <- colnames(object$Dij)
+    K <- !missing(k)
+    CUT <- !missing(cutoff)
+    if(K && CUT)
+        stop("Only one of \"k\" and \"cutoff\" may be used, not both.")
+    if(!K && !CUT) {
+        k <- getK(object)
+        cutoff <- NULL
+        K <- TRUE
+    }
+    if(K) {
+        FUN <- function(x, ks) {
+            x <- sort(x)
+            x[ks]
+        }
+        close <- vector(mode = "list", length = n.samp)
+        ks <- seq_len(k)
+        for(i in seq_along(close)) {
+            close[[i]] <- FUN(object$Dij[, i], ks)
+        }
+        each.analogs <- sapply(close, length)
+        names(each.analogs) <- names(close) <- nams
+    } else {
+        FUN <- function(x, cutoff) {
+            x <- sort(x)
+            x <- x[x <= cutoff]
+        }
+        close <- apply(object$Dij, 2, FUN, cutoff = cutoff)
+        each.analogs <- sapply(close, length)
+        k <- NULL
+        names(each.analogs) <- names(close) <- nams
+    }
+    if(length(close) == 0) {
+        close <- vector(mode = "list", length = length(nams))
+        names(each.analogs) <- names(close) <- nams
+    }
+    .call <- match.call()
+    .call[[1]] <- as.name("cma")
+    structure(list(close = close,
+                   call = .call, cutoff = cutoff, k = k,
+                   quant = NULL,
+                   prob = prob,
+                   method = object$method,
+                   n.analogs = each.analogs),
+              class = "cma")
+}
+
+print.cma <- function(x, digits = min(3, getOption("digits") - 4), ...) {
     method <- x$method
     .call <- deparse(x$call)
     cat("\n")
     writeLines(strwrap("Close modern analogues of fossil samples",
                        prefix = "\t"))
     cat(paste("\nCall:", .call, "\n"))
-    cat(paste("\nDissimilarity:", method, "\n"))
-    cat(paste("Cutoff:", round(x$cutoff, digits), "\n\n"))
+    cat(paste("\nDissimilarity:", method, "\n\n"))
+    if(is.null(x$k)) {
+        cat("     k: Not supplied\n\n")
+    } else {
+        cat(paste("     k:", x$k[1], "\n"))
+    }
+    if(is.null(x$cutoff)) {
+        cat("Cutoff: Not supplied\n\n")
+    } else {
+        cat(paste("Cutoff:", round(x$cutoff, digits), "\n\n"))
+    }
     writeLines(strwrap("Number of analogues per fossil sample:",
                        prefix = "\t"))
     cat("\n")
     print(x$n.analogs, digits = digits)
     cat("\n")
     invisible(x)
-  }
+}

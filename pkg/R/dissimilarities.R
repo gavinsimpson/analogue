@@ -28,3 +28,9 @@ dissimilarities.analog <- function(object, which = c("train", "analogs"), ...)
     class(retval) <- "dissimilarities"
     retval
   }
+
+`dissimilarities.mat` <- function(object, ...) {
+    retval <- as.vector(object$analogs)
+    class(retval) <- "dissimilarities"
+    retval
+}

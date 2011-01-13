@@ -31,8 +31,9 @@ mat.default <- function(x, y,
     method <- match.arg(method)
     dis <- distance(x, method = method, ...) # calculate the distances
     ## new speed-ups might leave dimnames on dis
-    dimnames(dis) <- NULL
+    ##dimnames(dis) <- NULL
     x <- as.matrix(x) # convert to matrix for speed (?)
+    nams <- dimnames(x)
     dimnames(x) <- NULL # clear the dimnames for speed (?)
     ## insure sample under test is not chosen as analogue for itself
     diag(dis) <- NA
@@ -58,6 +59,7 @@ mat.default <- function(x, y,
     colnames(Werror) <- colnames(error) <- site.nams
     rownames(Wmeans) <- rownames(means) <- 1:(dims[1] -1)
     rownames(Werror) <- rownames(error) <- 1:(dims[1] -1)
+    dimnames(x) <- nams
     ## return results
     retval <- structure(list(standard = list(est = means, resid = error,
                              rmsep = RMSE, avg.bias = bias, max.bias = max.bias,

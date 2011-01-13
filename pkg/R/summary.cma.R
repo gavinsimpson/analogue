@@ -1,36 +1,28 @@
 ###########################################################################
 ##                                                                       ##
-## cma           - extracts and formats close modern analogues           ##
+## summary.cma   - extracts and formats close modern analogues           ##
 ##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## object        - object for method dispatch. Only class 'analog'.      ##
+## Author        : Gavin L. Simpson                                      ##
 ##                                                                       ##
 ###########################################################################
-summary.cma <- function(object, ...)
-  {
+summary.cma <- function(object, ...) {
     close <- lapply(object$close, function(x) {
-      if(length(x) == 0) {
-        res <- NA
-        names(res) <- "None"
-        return(res)
-      } else {
-        return(x)}
+        if(length(x) == 0) {
+            res <- NA
+            names(res) <- "None"
+            return(res)
+        } else {
+            return(x)}
     })
     each.analogs <- sapply(close, length)
     max.analogs <- max(each.analogs)
     samples <- distances <- matrix(NA, nrow = max.analogs,
-                               ncol = length(close))
-    for (i in seq(along = close))
-      {
+                                   ncol = length(close))
+    for (i in seq(along = close)) {
         len <- each.analogs[i]
         distances[1:len,i] <- close[[i]]
         samples[1:len,i] <- names(close[[i]])
-      }
+    }
     rownames(distances) <- rownames(samples) <- 1:max.analogs
     colnames(distances) <- colnames(samples) <- names(close)
     object <- list(close = object$close,
@@ -42,12 +34,11 @@ summary.cma <- function(object, ...)
                    samples = samples)
     class(object) <- "summary.cma"
     return(object)
-  }
+}
 
 print.summary.cma <- function(x,
-                              digits = min(3, getOption("digits") - 4), 
-                              ...)
-  {
+                              digits = min(3, getOption("digits") - 4),
+                              ...) {
     class(x) <- "cma"
     print(x)
     cat("\nDistances:\n\n")
@@ -55,4 +46,4 @@ print.summary.cma <- function(x,
     cat("\nSamples:\n\n")
     print(x$samples, quote = FALSE, right = TRUE, na.print = "")
     invisible(x)
-  }
+}
