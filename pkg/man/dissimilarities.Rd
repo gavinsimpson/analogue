@@ -1,6 +1,7 @@
 \name{dissimilarities}
 \alias{dissimilarities}
 \alias{dissimilarities.analog}
+\alias{dissimilarities.mat}
 \alias{dissim}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Extract dissimilarity coefficients from models }
@@ -10,11 +11,13 @@
 }
 \usage{
 
-dissimilarities(object, ...)
-dissim(object, ...)
+dissimilarities(object, \dots)
+dissim(object, \dots)
 
 \method{dissimilarities}{analog}(object, which = c("train", "analogs"),
-                 ...)
+                 \dots)
+
+\method{dissimilarities}{mat}(object, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

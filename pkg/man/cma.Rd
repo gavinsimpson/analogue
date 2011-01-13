@@ -2,6 +2,8 @@
 \alias{cma}
 \alias{cma.default}
 \alias{cma.analog}
+\alias{cma.mat}
+\alias{cma.predict.mat}
 \alias{print.cma}
 \alias{plot.cma}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -17,6 +19,11 @@ cma(object, \dots)
 
 \method{cma}{analog}(object, cutoff, prob = c(0.01, 0.025, 0.05), \dots)
 
+\method{cma}{mat}(object, k, cutoff, prob = c(0.01, 0.025, 0.05), \dots)
+
+\method{cma}{predict.mat}(object, k, cutoff, prob = c(0.01, 0.025,
+0.05), \dots)
+
 \method{plot}{cma}(x, method = c("overplot", "jitter", "stack"),
    jitter = 0.1, vertical = FALSE,
    draw.quant = TRUE, xlab = NULL, ylab = "",
@@ -26,6 +33,7 @@ cma(object, \dots)
 \arguments{
   \item{object}{an object for which close modern analogues are to be
     returned. Currently only for objects of class \code{\link{analog}}.}
+  \item{k}{numeric; the number of analogues to return.}
   \item{cutoff}{numeric; critical value determining level below which
     samples from the modern reference set are defined as close modern
     analogues. May be missing, in which case the 2.5\% quantile of the
@@ -56,6 +64,16 @@ cma(object, \dots)
 }
 \details{
   The plot method is simply a wrapper to \code{\link{stripchart}}.
+
+  The methods for \code{mat} and \code{predict.mat} objects allow the
+  user to select the k-closest analogues (argument \code{k}) or those
+  samples as close or closer than a stated threshold of dissimilarity
+  (argument \code{cutoff}). Only one of \code{k} and \code{cutoff} may
+  be specified. If neither is specified, \code{\link{getK}} is used to
+  extract the value for \code{k} stored within \code{object}. As such,
+  the default is to return the automatically selected set of \code{k}
+  closest samples, behaviour that is consistent with other functions in
+  the package.
 }
 \value{
   For the plot method, a plot on the current device. Invisibly the
@@ -71,14 +89,16 @@ cma(object, \dots)
   \item{call}{the matched call.}
   \item{cutoff}{the cutoff threshold used to define close modern
     analogues.}
-  \item{quant}{numeric vector of the requested quantiles.}
+  \item{quant}{numeric vector of the requested quantiles. Note returned
+    by the \code{\link{predict.mat}} method.}
   \item{probs}{the probabilities of the requested quantiles.}
   \item{method}{character; the dissimilarity coefficient used}
   \item{n.analogs}{numeric vector of the number of analogues per fossil
     sample.}
 }
 \note{
-  Currently, only objects of class \code{\link{analog}} are supported.
+  Only objects of classes \code{\link{analog}}, \code{\link{mat}}, and
+  \code{\link{predict.mat}} are supported.
   
   The plot method invisibly returns a list with the following
   components:
