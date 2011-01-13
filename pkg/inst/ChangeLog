@@ -30,6 +30,12 @@ Version 0.7-0
 
 	* distance: reslience to NA in "gower", "alt.gower", "mixed".
 
+	* cma: added methods for 'mat' and 'predict.mat' objects. These
+	allow you to retrieve the k-closest analogues for training set
+	and prediction data respectively.
+
+	* dissimilarities: new method for 'mat' objects.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
