@@ -22,6 +22,14 @@ Version 0.7-0
 	demarcate the zone boundaries are drawn and labelled using
 	argument 'zoneNames'.
 
+	First attempt to allow both relative (percentages or proportions)
+	and absolute variables, or mixtures thereof, in a single plot. The
+	user is free to specify which variables should be treated as relative
+	or absolute, and variables marked as absolute will be drawn with
+	fixed-width panels, the size of which can be controlled via argument
+	'absoluteSize' (default is 0.5 * largest panel width). Consider
+	this functionality unstable at the moment.
+
 	* residLen: was not 'join'-ing the training set and passive data
 	correctly and would fail if species were found in one but not the
 	other data set.

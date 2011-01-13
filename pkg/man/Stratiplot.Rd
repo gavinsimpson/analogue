@@ -16,6 +16,7 @@ Stratiplot(x, \dots)
 \method{Stratiplot}{default}(x, y, type = "l", ylab = NULL, xlab = "",
            pages = 1, rev = TRUE, ylim, sort = c("none", "wa", "var"),
            svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
+           varTypes = "relative", absoluteSize = 0.5,
            zoneNames = NULL, drawLegend = TRUE, \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
@@ -75,6 +76,19 @@ Stratiplot(x, \dots)
     actual space required can be automagically calculated from the
     variable names themselves. The currently gets most of the way there,
     but \code{topPad} is used to add some extra space if required.}
+  \item{varTypes}{a character vector of length 1 or equal in length to
+    the number of variables plotted. If length 1, the vector is expanded
+    to the required length. Two values are allowed; i.
+    \code{"relative"}, and ii. \code{"absolute"}. \code{"relative"}
+    treats the indicated variable as a percentage type variable and the
+    panel width is scaled relative to the percentage type variables
+    plotted. \code{"absolute"} treats the indicated variable as an
+    absolute variable whose panel width should be independent of the
+    other panels. Use \code{"absolute"} for variables that are not
+    species compositional data or other percentage type data.}
+  \item{absoluteSize}{numeric, length 1. This controls the width of
+    panels for variables marked as \code{"absolute"}, and is the
+    proportion of the largest non-\code{"absolute"} panel.}
   \item{zoneNames}{character vector of labels, one per zone, with which
     to label the zone legend, if drawn (see argument
     \code{drawLegend}). See Details.} 
@@ -84,8 +98,11 @@ Stratiplot(x, \dots)
     \code{\link[lattice]{xyplot}} function.}
 }
 \details{
-  Currently the function is designed for relative abundance data
-  only. Greater flexibility is planned in a future version.
+  The function now includes preliminary code to handle both relative
+  (proportional or percentage data) and absolute data types, and
+  mixtures thereof. Mixtures can be specified by supplying a vector of
+  types to \code{varTypes}, in the same order as the variables are drawn
+  on the plot.
 
   Plots can be specified symbolically using a formula. A typical model
   has the form \code{Y ~ variables}, where \code{Y} is either the core

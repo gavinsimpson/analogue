@@ -14,6 +14,8 @@
                                  rev.sort = FALSE,
                                  strip = FALSE,
                                  topPad = 6,
+                                 varTypes = "relative",
+                                 absoluteSize = 0.5,
                                  zoneNames = NULL,
                                  drawLegend = TRUE,
                                  ...) {
@@ -22,7 +24,8 @@
         if(isTRUE(all.equal(side, "top"))) {
             M <- function(lims) min(lims) + (diff(lims) / 2)
             xlim <- current.panel.limits()$xlim
-            panel.axis(side = side, outside = TRUE, at = 0, #M(xlim),
+            panel.axis(side = side, outside = TRUE, #at = 0,
+                       at = M(xlim),
                        tck = 1, line.col = "black",
                        text.col = "black",
                        labels = levels(sx$ind)[which.packet()],
@@ -91,13 +94,43 @@
         else
             c(minLim - (padY * diffy), maxLim + (padY * diffy))
     }
+    ## Reverse the y-axis?
     if(rev)
         ylim <- rev(ylim)
+    ## process the column/variable types
+    ## If varTypes of length one replicate it to NCOL(x)
+    if((typeLen <- length(varTypes)) != 1L) {
+        varTypes <- rep(varTypes, length = n.vars)
+        ## If typeLen != 1 or NCOL shout warning
+        if(typeLen != n.vars) {
+            warning("Length of 'varTypes' not 1 or equal to number of variables. Recycling or truncating of 'varTypes' as a result.")
+        }
+    }
+    ## Only allow two types of variables: "relative", "absolute"
+    if(any(!(varTypes%in% c("relative", "absolute"))))
+        stop("Ambiguous entry in 'varTypes'.\nMust be one of \"relative\", or \"absolute\"")
+    ## compute max abundances per relative column, which is used
+    ## to scale the panel widths layout.widths parameter)
     max.abun <- sapply(x, function(x) round(max(x), 1))
+    ## absolute panels should be set to absoluteSize of max.abun
+    panelWidths <- max.abun
+    ABS <- which(varTypes == "absolute")
+    REL <- which(varTypes == "relative")
+    panelWidths[ABS] <- absoluteSize * max(max.abun[REL])
+    ## xlim in xyplot call
     xlimits <- lapply(max.abun * 1.05, function(x) c(0, x))
+    if(any(ABS)) {
+        ## but need any "absolute" panels setting to +/- 0.05(range)
+        min.vars <- sapply(x[ABS], min)
+        max.vars <- sapply(x[ABS], max)
+        ranges <- (0.04 * (max.vars - min.vars))
+        xlimits[ABS] <- as.list(data.frame(t(cbind(min.vars - ranges,
+                                                   max.vars + ranges))))
+    }
+    ## scales in xyplot call
     scales <- list(cex = 0.75, tck = 0.75,
                    y = list(axs = "r", limits = ylim),
-                   x = list(axs = "r", rot = 45, relation = "free"))
+                   x = list(axs = "r", rot = 45, relation = "free", limits = xlimits))
     par.strip.text <- list(cex = 0.75)
     str.max <- 1
     if(!isTRUE(strip)) {
@@ -152,11 +185,11 @@
            strip.left = FALSE, strip = strip,
            par.strip.text = par.strip.text,
            scales = scales,
-           xlim = xlimits,
+           ##xlim = xlimits,
            ylim = ylim,
            panel = "panel.Stratiplot",
            layout = c(n.vars, 1, pages),
-           par.settings = list(layout.widths = list(panel = max.abun),
+           par.settings = list(layout.widths = list(panel = panelWidths),#max.abun),
            layout.heights = list(top.padding = str.max)),
            axis = if(isTRUE(strip)) {axis.default} else {axis.VarLabs},
            legend = Legend,
