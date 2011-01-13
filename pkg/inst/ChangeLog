@@ -28,6 +28,8 @@ Version 0.7-0
 
 	* tran: improvements to the underlying code.
 
+	* distance: reslience to NA in "gower", "alt.gower", "mixed".
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
