@@ -210,11 +210,11 @@ distance.default <- function(x, y,
     }
     if(method %in% c("gower", "alt.gower", "mixed")) {
         maxi <- mini <- numeric(length = n.vars)
-        maxi <- apply(rbind(apply(x, 2, max),
-                            apply(y, 2, max)),
+        maxi <- apply(rbind(apply(x, 2, max, na.rm = TRUE),
+                            apply(y, 2, max, na.rm = TRUE)),
                       2, max, na.rm = TRUE)
-        mini <- apply(rbind(apply(x, 2, min),
-                            apply(y, 2, min)),
+        mini <- apply(rbind(apply(x, 2, min, na.rm = TRUE),
+                            apply(y, 2, min, na.rm = TRUE)),
                       2, min, na.rm = TRUE)
         if(is.null(R))
             R <- maxi - mini
