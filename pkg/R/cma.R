@@ -73,23 +73,23 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         K <- TRUE
     }
     if(K) {
-        FUN <- function(x, ks) {
+        sortByK <- function(x, ks) {
             x <- sort(x)
             x[ks]
         }
         close <- vector(mode = "list", length = n.samp)
         ks <- seq_len(k)
         for(i in seq_along(close)) {
-            close[[i]] <- FUN(object$Dij[, i], ks)
+            close[[i]] <- sortByK(object$Dij[, i], ks)
         }
         each.analogs <- sapply(close, length)
         names(each.analogs) <- names(close) <- nams
     } else {
-        FUN <- function(x, cutoff) {
+        sortByCutoff <- function(x, cutoff) {
             x <- sort(x)
             x <- x[x <= cutoff]
         }
-        close <- apply(object$Dij, 2, FUN, cutoff = cutoff)
+        close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
         each.analogs <- sapply(close, length)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
@@ -127,23 +127,23 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         K <- TRUE
     }
     if(K) {
-        FUN <- function(x, ks) {
+        sortByK <- function(x, ks) {
             x <- sort(x)
             x[ks]
         }
         close <- vector(mode = "list", length = n.samp)
         ks <- seq_len(k)
         for(i in seq_along(close)) {
-            close[[i]] <- FUN(object$Dij[, i], ks)
+            close[[i]] <- sortByK(object$Dij[, i], ks)
         }
         each.analogs <- sapply(close, length)
         names(each.analogs) <- names(close) <- nams
     } else {
-        FUN <- function(x, cutoff) {
+        sortByCutoff <- function(x, cutoff) {
             x <- sort(x)
             x <- x[x <= cutoff]
         }
-        close <- apply(object$Dij, 2, FUN, cutoff = cutoff)
+        close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
         each.analogs <- sapply(close, length)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
