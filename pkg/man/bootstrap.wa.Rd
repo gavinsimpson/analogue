@@ -40,15 +40,6 @@
 \author{Gavin L. Simpson }
 \seealso{\code{wa}, \code{plot.wa}.}
 \examples{
-## continue the RLGH and SWAP example from ?wa
-##example(wa)
-
-## bootstrap the WA model
-##boot.mod <- bootstrap(mod, n.boot = 100)
-
-## performance statistics
-##performance(boot.mod)
-
 ## Imbrie and Kipp
 data(ImbrieKipp)
 data(SumSST)
