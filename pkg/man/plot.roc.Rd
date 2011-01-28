@@ -156,18 +156,18 @@
   834--846.
 }
 \author{Gavin L. Simpson. Code borrows heavily from \code{\link{plot.lm}}.}
-\seealso{\code{\link{roc}}}
-\examples{
-## continue the example from roc()
-example(roc)
+\seealso{\code{\link{roc}} for a complete example}
+% \examples{
+% ## continue the example from roc()
+% example(roc)
 
-## draw the ROC curve
-plot(swap.roc, 1)
+% ## draw the ROC curve
+% plot(swap.roc, 1)
 
-## draw the four default diagnostic plots
-opar <- par(mfrow = c(2,2))
-plot(swap.roc)
-par(opar)
-}
+% ## draw the four default diagnostic plots
+% opar <- par(mfrow = c(2,2))
+% plot(swap.roc)
+% par(opar)
+% }
 \keyword{hplot}
 \keyword{methods}

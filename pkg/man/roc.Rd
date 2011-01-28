@@ -141,6 +141,13 @@ grps <- cutree(clust, 12)
 swap.roc <- roc(swap.ana, groups = grps)
 swap.roc
 
+## draw the ROC curve
+plot(swap.roc, 1)
+
+## draw the four default diagnostic plots
+layout(matrix(1:4, ncol = 2))
+plot(swap.roc)
+layout(1)
 }
 \keyword{models}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

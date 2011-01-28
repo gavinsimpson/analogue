@@ -77,21 +77,6 @@ reconPlot(v12.pred, use.labels = TRUE, display = "bars")
 performance(v12.pred)
 }
 
-## continue the example from ?wa
-example(wa)
-
-## load the RLGH data
-data(rlgh)
-rlgh <- rlgh / 100
-
-## Predict pH for the RLGH samples
-rlgh.pred <- predict(mod, rlgh, CV = "bootstrap", n.boot = 100)
-
-## draw the fitted reconstruction
-reconPlot(rlgh.pred, use.labels = TRUE, display = "bars")
-
-## extract the model performance stats
-performance(rlgh.pred)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

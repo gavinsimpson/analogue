@@ -143,12 +143,11 @@ wa(x, \dots)
 \author{Gavin L. Simpson and Jari Oksanen}
 \seealso{\code{\link{mat}} for an alternative transfer function method.}
 \examples{
-data(swapdiat)
-data(swappH)
-swapdiat <- swapdiat / 100
+data(ImbrieKipp)
+data(SumSST)
 
 ## fit the WA model
-mod <- wa(swappH ~., data = swapdiat)
+mod <- wa(SumSST ~., data = ImbrieKipp)
 mod
 
 ## extract the fitted values
@@ -166,20 +165,12 @@ plot(mod)
 par(mfrow = c(1,1))
 
 ## tolerance DW
-mod2 <- wa(swappH ~., data = swapdiat, tol.dw = TRUE)
-
-## tolerances
-with(mod2, tolerances)
-
-## Imbrie and Kipp
-data(ImbrieKipp)
-data(SumSST)
-ik.wa <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
-            min.tol = 2, small.tol = "min")
-ik.wa
+mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
+           min.tol = 2, small.tol = "min")
+mod2
 
 ## compare actual tolerances to working values
-with(ik.wa, rbind(tolerances, model.tol))
+with(mod2, rbind(tolerances, model.tol))
 }
 \keyword{methods}
 \keyword{models}
