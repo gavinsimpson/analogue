@@ -55,6 +55,10 @@ Version 0.7-0
 	* fixUpTol: erroneous error criterion would cause CV of WA models
 	with tolerance down-weighting to stop with an error.
 
+	* Examples: Streamlined some further examples to use Imbrie &
+	Kipp data set, and to not re-run the same code again. Improves
+	package check times by a second or two on my PC.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
