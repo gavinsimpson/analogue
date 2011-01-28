@@ -44,6 +44,11 @@ Version 0.7-0
 
 	* dissimilarities: new method for 'mat' objects.
 
+	* datasets: package datasets have been resaved with optimal
+	compression determined via resaveRdaFiles(). This has reduced
+	the package tarball size considerably. As a result, however,
+	analogue now requires R version 2.10.0 or later.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
