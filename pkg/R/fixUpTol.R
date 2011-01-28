@@ -10,9 +10,12 @@ fixUpTol <- function(tol, na.tol, small.tol, min.tol, f, env) {
     }
     ## second, replace tol < min.tol
     if(!is.null(min.tol) && any(MIN.TOL <- tol < min.tol)) {
-        ## min.tol must be in or on extremesof range(env)
-        if(min.tol < min(env) || min.tol > max(env))
-            stop("'min.tol' must be >= min(env) and <= max(env)")
+        ## min.tol must be in or on extremes of range(tol)
+        ## originally had min(env) and max(env), but that doesn't make sense
+        ## I think the point was to stop user supplying too low tolerances
+        ## but this has nothing to do with the range of the environment
+        if(min.tol < min(tol) || min.tol > max(tol))
+            stop("'min.tol' must be >= min(tol) and <= max(tol)")
         if(small.tol == "fraction")
             frac <- f * diff(range(env))
         tol[MIN.TOL] <-

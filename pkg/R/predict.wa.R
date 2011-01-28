@@ -104,11 +104,11 @@
                 wa.optima <- w.avg(X[sel,,drop = FALSE], ENV[sel])
                 ## CV for the training set
                 if(object$tol.dw) {
-                    tol <- w.tol(X[sel, , drop = FALSE], ENV[-sel],
+                    tol <- w.tol(X[sel, , drop = FALSE], ENV[sel],
                                  wa.optima, useN2 = useN2)
                     ## fix up problematic tolerances
                     tol <- fixUpTol(tol, O$na.tol, O$small.tol,
-                                    O$min.tol, O$f, ENV[-sel])
+                                    O$min.tol, O$f, ENV[sel])
                     wa.env <- WATpred(X[sel, , drop = FALSE],
                                       wa.optima, tol, nr, nc)
                     pred <- WATpred(X[-sel, ,drop=FALSE], wa.optima,
@@ -155,11 +155,11 @@
                     wa.optima <- w.avg(X[sel,], ENV[sel])
                     ## CV for the training set
                     if(object$tol.dw) {
-                        tol <- w.tol(X[sel, , drop = FALSE], ENV[-sel],
+                        tol <- w.tol(X[sel, , drop = FALSE], ENV[sel],
                                      wa.optima, useN2 = useN2)
                         ## fix up problematic tolerances
                         tol <- fixUpTol(tol, O$na.tol, O$small.tol,
-                                        O$min.tol, O$f, ENV[-sel])
+                                        O$min.tol, O$f, ENV[sel])
                         wa.env <- WATpred(X[sel, , drop = FALSE],
                                           wa.optima, tol, nr, nc)
                         pred <- WATpred(X[-sel, ,drop=FALSE], wa.optima,

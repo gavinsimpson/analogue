@@ -49,6 +49,12 @@ Version 0.7-0
 	the package tarball size considerably. As a result, however,
 	analogue now requires R version 2.10.0 or later.
 
+	* predict.wa: bug in bootstrap and k-fold CV methods when
+	tolerance down-weighting was used.
+
+	* fixUpTol: erroneous error criterion would cause CV of WA models
+	with tolerance down-weighting to stop with an error.
+
 Version 0.6-26
 
 	* abernethy: New data set containing the classic Abernethy Forest
