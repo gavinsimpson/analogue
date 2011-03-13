@@ -20,60 +20,40 @@
     if(missing(deshrink))
         deshrink <- "inverse"
     deshrink <- match.arg(deshrink)
-    ## calculate WA optima for each species in x
-    wa.optima <- w.avg(x, env)
-    ## compute tolerances
-    tolerances <- tol <- w.tol(x, env, wa.optima, useN2 = useN2)
-    ## fix-up tolerances for use in TF computations
     if(missing(na.tol))
         na.tol <- "min"
     na.tol <- match.arg(na.tol)
     if(missing(small.tol))
         small.tol <- "min"
     small.tol <- match.arg(small.tol)
-    if(small.tol == "fraction") {
-        if(!(f > 0 && f < 1))
-            stop("'f' must be 0 < f < 1")
-        frac <- f * diff(range(env))
-        if(frac < min.tol)
-            warning("Requested fraction of gradient is < minimum tolerance.")
-    }
-    tol <- fixUpTol(tol, na.tol = na.tol, small.tol = small.tol,
-                    min.tol = min.tol, f = f, env = env)
-    ## calculate WA estimate of env for each site
-    wa.env <- if(tol.dw) {
-        WATpred(x, wa.optima, tol, n.samp, n.spp)
-    } else {
-        WApred(x, wa.optima)
-    }
-    ## taken averages twice so deshrink
-    expanded <- deshrink(env, wa.env, type = deshrink)
-    wa.env <- expanded$env
-    coefficients <- coef(expanded)
+    ## do the WA
+    fit <- wa.fit(x = x, y = env, tol.dw = tol.dw, useN2 = useN2,
+                  deshrink = deshrink, na.tol = na.tol,
+                  small.tol = small.tol, min.tol = min.tol, f = f)
     ## site/sample names need to be reapplied
-    names(wa.env) <- rownames(x)
+    names(fit$fitted.values) <- rownames(x)
     ## species names need to be reapplied
-    names(wa.optima) <- colnames(x)
+    names(fit$wa.optima) <- colnames(x)
     ## residuals
-    resi <- env - wa.env
+    residuals <- env - fit$fitted.values
     ## RMSE of predicted/fitted values
-    rmse <- sqrt(mean(resi^2))
+    rmse <- sqrt(mean(residuals^2))
     ## r-squared
-    r.squared <- cor(wa.env, env)^2
+    r.squared <- cor(fit$fitted.values, env)^2
     ## bias statistics
-    avg.bias <- mean(resi)
-    max.bias <- maxBias(resi, env)
+    avg.bias <- mean(residuals)
+    max.bias <- maxBias(residuals, env)
     ## the function call
     .call <- match.call()
     ## need to reset due to method dispatch
     .call[[1]] <- as.name("wa")
     ## returned object
-    res <- list(wa.optima = wa.optima,
-                tolerances = tolerances,
-                model.tol = tol,
-                fitted.values = wa.env,
-                residuals = resi,
-                coefficients = coefficients,
+    res <- list(wa.optima = fit$wa.optima,
+                tolerances = fit$tolerances,
+                model.tol = fit$model.tol,
+                fitted.values = fit$fitted.values,
+                residuals = residuals,
+                coefficients = fit$coefficients,
                 rmse = rmse, r.squared = r.squared,
                 avg.bias = avg.bias, max.bias = max.bias,
                 n.samp = n.samp, n.spp = n.spp,
