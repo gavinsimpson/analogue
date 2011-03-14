@@ -14,9 +14,6 @@
     ## drop species with no information
     if(any(csum <- colSums(x) == 0))
         x <- x[, !csum, drop = FALSE]
-    ## sample summaries
-    n.samp <- nrow(x)
-    n.spp <- ncol(x)
     if(missing(deshrink))
         deshrink <- "inverse"
     deshrink <- match.arg(deshrink)
@@ -27,9 +24,9 @@
         small.tol <- "min"
     small.tol <- match.arg(small.tol)
     ## do the WA
-    fit <- wa.fit(x = x, y = env, tol.dw = tol.dw, useN2 = useN2,
-                  deshrink = deshrink, na.tol = na.tol,
-                  small.tol = small.tol, min.tol = min.tol, f = f)
+    fit <- waFit(x = x, y = env, tol.dw = tol.dw, useN2 = useN2,
+                 deshrink = deshrink, na.tol = na.tol,
+                 small.tol = small.tol, min.tol = min.tol, f = f)
     ## site/sample names need to be reapplied
     names(fit$fitted.values) <- rownames(x)
     ## species names need to be reapplied
@@ -56,7 +53,8 @@
                 coefficients = fit$coefficients,
                 rmse = rmse, r.squared = r.squared,
                 avg.bias = avg.bias, max.bias = max.bias,
-                n.samp = n.samp, n.spp = n.spp,
+                n.samp = fit$n.samp,
+                n.spp = fit$n.spp,
                 deshrink = deshrink, tol.dw = tol.dw,
                 call = .call,
                 orig.x = x, orig.env = env,
