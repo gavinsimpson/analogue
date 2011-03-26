@@ -100,8 +100,29 @@ bayesF(x, prior = rep(0.5, 2))
 \author{Gavin L. Simpson}
 \seealso{\code{\link{roc}} and \code{\link{plot.bayesF}}.}
 \examples{
-## continue the example from ?roc
-example(roc)
+## load the example data
+data(swapdiat, swappH, rlgh)
+
+## merge training and test set on columns
+dat <- join(swapdiat, rlgh, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+swapdiat <- dat[[1]] / 100
+rlgh <- dat[[2]] / 100
+
+## fit an analogue matching (AM) model using the squared chord distance
+## measure - need to keep the training set dissimilarities
+swap.ana <- analog(swapdiat, rlgh, method = "SQchord",
+                   keep.train = TRUE)
+
+## fit the ROC curve to the SWAP diatom data using the AM results
+## Generate a grouping for the SWAP lakes
+clust <- hclust(as.dist(swap.ana$train), method = "ward")
+grps <- cutree(clust, 12)
+
+## fit the ROC curve
+swap.roc <- roc(swap.ana, groups = grps)
+swap.roc
 
 ## calculate the Bayes factors of analogue and no-analogue
 ## (uses observed probabilities of analogue/no-analogue

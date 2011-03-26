@@ -80,8 +80,25 @@ logitreg(object, groups, k = 1, ...)
 }
 \seealso{\code{\link{roc}}, \code{\link{bayesF}}, \code{\link{glm}}. }
 \examples{
-## continue the example from ?roc
-example(roc)
+## load the example data
+data(swapdiat, swappH, rlgh)
+
+## merge training and test set on columns
+dat <- join(swapdiat, rlgh, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+swapdiat <- dat[[1]] / 100
+rlgh <- dat[[2]] / 100
+
+## fit an analogue matching (AM) model using the squared chord distance
+## measure - need to keep the training set dissimilarities
+swap.ana <- analog(swapdiat, rlgh, method = "SQchord",
+                   keep.train = TRUE)
+
+## fit the ROC curve to the SWAP diatom data using the AM results
+## Generate a grouping for the SWAP lakes
+clust <- hclust(as.dist(swap.ana$train), method = "ward")
+grps <- cutree(clust, 12)
 
 ## fit the logit models to the analog object
 swap.lrm <- logitreg(swap.ana, grps)

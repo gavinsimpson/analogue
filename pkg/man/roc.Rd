@@ -124,10 +124,17 @@ roc(object, groups, k = 1, ...)
   methods for selecting critical values of analogue-ness for
   dissimilarity coefficients.}
 \examples{
-## continue the example from join()
-example(join)
+## load the example data
+data(swapdiat, swappH, rlgh)
 
-## fit a analogue matching (AM) model using the squared chord distance
+## merge training and test set on columns
+dat <- join(swapdiat, rlgh, verbose = TRUE)
+
+## extract the merged data sets and convert to proportions
+swapdiat <- dat[[1]] / 100
+rlgh <- dat[[2]] / 100
+
+## fit an analogue matching (AM) model using the squared chord distance
 ## measure - need to keep the training set dissimilarities
 swap.ana <- analog(swapdiat, rlgh, method = "SQchord",
                    keep.train = TRUE)
