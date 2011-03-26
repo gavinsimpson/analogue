@@ -1,10 +1,13 @@
-`waFit` <- function(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
-                     min.tol, f) {
+`waFit` <- function(x, y, tol.dw, useN2, deshrink, na.tol,
+                    small.tol, min.tol, f) {
     ## sample summaries
     n.samp <- nrow(x)
     n.spp <- ncol(x)
     ## calculate WA optima for each species in x
     wa.optima <- w.avg(x, y)
+    ## fix-up NaN or NA optima
+    if(any(miss <- is.na(wa.optima)))
+        wa.optima[miss] <- 0
     ## compute tolerances
     tolerances <- tol <- w.tol(x, y, wa.optima, useN2 = useN2)
     ## fix-up tolerances for use in TF computations
