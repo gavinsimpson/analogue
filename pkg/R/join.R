@@ -89,7 +89,7 @@ join <- function(..., verbose = FALSE, na.replace = TRUE, split = TRUE,
         return(joined)
     }
     x <- list(...)
-    if(any(!sapply(x, inherits, "data.frame")))
+    if(any(!sapply(x, inherits, "data.frame", USE.NAMES = FALSE)))
         stop("\nall objects to be merged must be data frames.")
     dims <- do.call(rbind, lapply(x, dim))
     n.joined <- nrow(dims)

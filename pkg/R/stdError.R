@@ -31,10 +31,10 @@
     ords <- apply(object$Dij, 2, getOrd)
     SEQ <- seq_len(ncol(ords))
     ## weights = 1/Dij
-    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq)
+    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
     ## produce matrix of Env data for each site
     env <- sapply(SEQ, getEnv, object$Dij, ords, k.seq,
-                  object$orig.y)
+                  object$orig.y, USE.NAMES = FALSE)
     ## mean of env of k closest analogues
     ybar <- colMeans(env)
     wtdSD <- sqrt(colSums(wts * sweep(env, 2, ybar, "-")^2) /
@@ -69,10 +69,10 @@
     ords <- apply(object$Dij, 2, getOrd)
     SEQ <- seq_len(ncol(ords))
     ## weights = 1/Dij
-    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq)
+    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
     ## produce matrix of Env data for each site
     env <- sapply(SEQ, getEnv, object$Dij, ords, k.seq,
-                  object$observed)
+                  object$observed, USE.NAMES = FALSE)
     ## mean of env of k closest analogues
     ybar <- colMeans(env)
     wtdSD <- sqrt(colSums(wts * sweep(env, 2, ybar, "-")^2) /

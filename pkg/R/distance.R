@@ -149,8 +149,8 @@ distance.default <- function(x, y,
     }
     if(method == "mixed") {
       ## sanity check: are same columns in x and y factors
-      facs.x <- sapply(as.data.frame(x), is.factor)
-      facs.y <- sapply(as.data.frame(y), is.factor)
+      facs.x <- sapply(as.data.frame(x), is.factor, USE.NAMES = FALSE)
+      facs.y <- sapply(as.data.frame(y), is.factor, USE.NAMES = FALSE)
       if(sum(facs.x - facs.y) > 0)
         stop("Different columns (species) are coded as factors in 'x' and 'y'")
       ## sanity check: levels of factors also need to be the same

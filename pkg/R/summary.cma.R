@@ -14,7 +14,7 @@ summary.cma <- function(object, ...) {
         } else {
             return(x)}
     })
-    each.analogs <- sapply(close, length)
+    each.analogs <- sapply(close, length, USE.NAMES = FALSE)
     max.analogs <- max(each.analogs)
     samples <- distances <- matrix(NA, nrow = max.analogs,
                                    ncol = length(close))

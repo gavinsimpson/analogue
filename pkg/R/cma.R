@@ -43,7 +43,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
       x <- x[x <= cutoff]})
     if(length(close) == 0)
       close <- vector(mode = "list", length = length(nams))
-    each.analogs <- sapply(close, length)
+    each.analogs <- sapply(close, length, USE.NAMES = FALSE)
     names(each.analogs) <- names(close) <- nams
     .call <- match.call()
     .call[[1]] <- as.name("cma")
@@ -82,7 +82,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         for(i in seq_along(close)) {
             close[[i]] <- sortByK(object$Dij[, i], ks)
         }
-        each.analogs <- sapply(close, length)
+        each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         names(each.analogs) <- names(close) <- nams
     } else {
         sortByCutoff <- function(x, cutoff) {
@@ -90,7 +90,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
             x <- x[x <= cutoff]
         }
         close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
-        each.analogs <- sapply(close, length)
+        each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
     }
@@ -136,7 +136,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         for(i in seq_along(close)) {
             close[[i]] <- sortByK(object$Dij[, i], ks)
         }
-        each.analogs <- sapply(close, length)
+        each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         names(each.analogs) <- names(close) <- nams
     } else {
         sortByCutoff <- function(x, cutoff) {
@@ -144,7 +144,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
             x <- x[x <= cutoff]
         }
         close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
-        each.analogs <- sapply(close, length)
+        each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
     }

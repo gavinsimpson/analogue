@@ -111,7 +111,7 @@
         stop("Ambiguous entry in 'varTypes'.\nMust be one of \"relative\", or \"absolute\"")
     ## compute max abundances per relative column, which is used
     ## to scale the panel widths layout.widths parameter)
-    max.abun <- sapply(x, function(x) round(max(x), 1))
+    max.abun <- sapply(x, function(x) round(max(x), 1), USE.NAMES = FALSE)
     ## absolute panels should be set to absoluteSize of max.abun
     panelWidths <- max.abun
     ABS <- which(varTypes == "absolute")
@@ -121,8 +121,8 @@
     xlimits <- lapply(max.abun * 1.05, function(x) c(0, x))
     if(any(ABS)) {
         ## but need any "absolute" panels setting to +/- 0.05(range)
-        min.vars <- sapply(x[ABS], min)
-        max.vars <- sapply(x[ABS], max)
+        min.vars <- sapply(x[ABS], min, USE.NAMES = FALSE)
+        max.vars <- sapply(x[ABS], max, USE.NAMES = FALSE)
         ranges <- (0.04 * (max.vars - min.vars))
         xlimits[ABS] <- as.list(data.frame(t(cbind(min.vars - ranges,
                                                    max.vars + ranges))))
@@ -139,7 +139,7 @@
             convertWidth(grobWidth(textGrob(x, gp = gp)), "lines",
                          valueOnly = TRUE)
         }
-        str.max <- max(sapply(levels(sx$ind), convWidth, gp))
+        str.max <- max(sapply(levels(sx$ind), convWidth, gp, USE.NAMES = FALSE))
         str.max <- ceiling(str.max) + topPad
     }
     ## Legend specification for Zones

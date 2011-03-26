@@ -126,7 +126,8 @@ plot.mat <- function(x,
         ## turn cut intervals into numeric
         interv <- lapply(strsplit(sapply(levels(groups),
                                          function(x) substr(x, 2,
-                                                            nchar(x)-1)), ","),
+                                                            nchar(x)-1),
+                                         USE.NAMES = FALSE), ","),
                          as.numeric)
         ## reformat cut intervals as 2 col matrix for easy plotting
         interv <- matrix(unlist(interv), ncol = 2, byrow = TRUE)

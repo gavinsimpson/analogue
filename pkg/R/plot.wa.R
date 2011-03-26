@@ -55,8 +55,10 @@ plot.wa <- function(x, which = 1:2,
             bias <- aggregate(as.vector(Resi), list(group = groups),
                 mean)$x
             interv <- lapply(strsplit(sapply(levels(groups),
-                function(x) substr(x, 2, nchar(x) - 1)), ","),
-                as.numeric)
+                                             function(x) substr(x, 2,
+                                                                nchar(x) - 1),
+                                             USE.NAMES = FALSE), ","),
+                             as.numeric)
             interv <- matrix(unlist(interv), ncol = 2, byrow = TRUE)
             arrows(interv[, 1], bias, interv[, 2], bias,
                    length = ifelse(one.fig, 0.05, 0.01),

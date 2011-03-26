@@ -11,7 +11,7 @@
     ## reset the storage back to a minimal set
     dots <- lapply(dots, as.dist, diag = FALSE, upper = TRUE)
     ## sanity check to make sure all objects are dist objects
-    if(any(!sapply(dots, inherits, c("dist"))))
+    if(any(!sapply(dots, inherits, c("dist"), USE.NAMES = FALSE)))
         stop(paste("All dissimilarities must be of class",
                    dQuote("dist")))
     ## bind dist vectors to a matrix

@@ -39,7 +39,8 @@ plot.mcarlo <-
     if (show[2]) {
         num.dists <- length(x)
         cumfreq <- sapply(evalDists,
-                          function(x, y) length(y[y <= x]), x)/num.dists
+                          function(x, y) length(y[y <= x]), x,
+                          USE.NAMES = FALSE) / num.dists
         cummu <- data.frame(distances = evalDists, cumfreq = cumfreq)
         suppressWarnings(critical <- approx(cummu$cumfreq, cummu$distances,
                                             alpha))

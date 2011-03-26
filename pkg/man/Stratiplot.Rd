@@ -154,45 +154,39 @@ Depths <- as.numeric(rownames(V12.122))
 (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
                    data = V12.122,  type = c("h","l","g","smooth")))
 
-(plt2 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("poly","g")))
-
 ## Order taxa by WA in depth --- ephasises change over time
-(plt3 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("h"), sort = "wa"))
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122, type = c("h"), sort = "wa"))
 
 ## Using the default interface
 spp.want <- c("O.univ","G.ruber","G.tenel","G.pacR")
-(plt4 <- Stratiplot(V12.122[, spp.want], y = Depths,
-                    type = c("poly", "g")))
+(plt <- Stratiplot(V12.122[, spp.want], y = Depths,
+                   type = c("poly", "g")))
 
-## Addin zones to a Stratigraphic plot
-
+## Adding zones to a Stratigraphic plot
 ## Default labelling and draw zone legend
 ## Here we choose 4 arbitrary Depths as the zone boundaries
 set.seed(123)
 Zones <-sample(Depths, 4)
-(plt5 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("poly","g"),
-                    zones = Zones))
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122, type = c("poly","g"),
+                   zones = Zones))
 
 ## As before, but supplying your own zone labels
 zone.labs <- c("A","B","C","D","E")
-(plt6 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("poly","g"),
-                    zones = Zones, zoneNames = zone.labs))
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122, type = c("poly","g"),
+                   zones = Zones, zoneNames = zone.labs))
 
 ## Suppress the drawing of the zone legend
-(plt7 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("poly","g"),
-                    zones = Zones, drawLegend = FALSE))
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122, type = c("poly","g"),
+                   zones = Zones, drawLegend = FALSE))
 
 ## Add zones and draw a legend, but do not label the zones
-(plt8 <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                    data = V12.122, type = c("poly","g"),
-                    zones = Zones, zoneNames = ""))
-
-
+(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+                   data = V12.122, type = c("poly","g"),
+                   zones = Zones, zoneNames = ""))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
