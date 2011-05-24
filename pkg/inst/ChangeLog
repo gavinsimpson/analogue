@@ -9,7 +9,9 @@ Version 0.7-0
 	are available.
 
 	* prcurve: new function to fit principal curves to sediment
-	core samples. A 'plot' method is also provided.
+	core samples. A 'plot' method is also provided. The function uses
+	functionality from the princurve package, which is now a
+	dependency.
 
 	Several support functions are also provided; 'smoothSpline' is
 	a wrapper to 'smooth.spline' for fitting splines to individual
@@ -36,7 +38,7 @@ Version 0.7-0
 
 	* tran: improvements to the underlying code.
 
-	* distance: reslience to NA in "gower", "alt.gower", "mixed".
+	* distance: resilience to NA in "gower", "alt.gower", "mixed".
 
 	* cma: added methods for 'mat' and 'predict.mat' objects. These
 	allow you to retrieve the k-closest analogues for training set

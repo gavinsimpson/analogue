@@ -18,7 +18,7 @@ smoothSpline <- function(lambda, x, choose = TRUE,
                            control.spar = control.spar)
     } else { ## use specified complexity
         f <- smooth.spline(lambda, x, ..., df = complexity,
-                           penalty = penalty, cv = cv,
+                           penalty = penalty, ## no cv as specifying df
                            keep.data = keep.data,
                            control.spar = control.spar)
     }

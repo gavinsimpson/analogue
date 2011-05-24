@@ -12,7 +12,7 @@ Fits a principal curve to m-dimensional data
   cloud of data points for a certain definition of `middle'.
 }
 \usage{
-prcurve(X, method = c("ca", "pca", "random"),
+prcurve(X, method = c("ca", "pca", "random", "user"), start = NULL,
         smoother = smoothSpline, complexity, vary = FALSE,
         maxComp, finalCV = FALSE, axis = 1, rank = FALSE,
         stretch = 2, maxit = 10, trace = FALSE, thresh = 0.001,
@@ -30,11 +30,13 @@ smoothSpline(lambda, x, choose = TRUE, complexity, ...,
   \item{X}{a matrix-like object containing the variables to which the
     principal curve is to be fitted.}
   \item{method}{character; method to use when initialising the principal
-  curve. \code{"ca"} fits a correspondence analysis to \code{X} and uses
-  the \code{axis}-th axis scores as the initial curve. \code{"pca"} does
-  the same but fits a principal components analysis to
-  \code{X}. \code{"random"} produces a random ordering as the initial
-  curve.}
+    curve. \code{"ca"} fits a correspondence analysis to \code{X} and uses
+    the \code{axis}-th axis scores as the initial curve. \code{"pca"} does
+    the same but fits a principal components analysis to
+    \code{X}. \code{"random"} produces a random ordering as the initial
+    curve.}
+  \item{start}{numeric vector specifying the initial curve when
+    \code{method = "user"}. Must be of length \code{nrow(X)}.}
   \item{smoother}{function; the choice of smoother used to fit the
     principal curve. Currently, the only option is \code{smoothSpline}
     which is a wrapper to \code{\link{smooth.spline}}.}
