@@ -18,8 +18,8 @@ prcurve(X, method = c("ca", "pca", "random", "user"), start = NULL,
         stretch = 2, maxit = 10, trace = FALSE, thresh = 0.001,
         plotit = FALSE, \dots)
 
-initCurve(X, method = c("ca", "pca", "random"), rank = FALSE,
-          axis = 1)
+initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
+          axis = 1, start)
 
 smoothSpline(lambda, x, choose = TRUE, complexity, ...,
              penalty = 1, cv = FALSE, keep.data = FALSE,
