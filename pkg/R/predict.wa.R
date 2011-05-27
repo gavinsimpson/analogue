@@ -37,7 +37,8 @@
         ## CV wanted
         if(identical(CV, "LOO")) {
             loo.pred <- matrix(0, ncol = n.train, nrow = n.fossil)
-            mod.pred <- length(n.train)
+            ##mod.pred <- length(n.train)
+            mod.pred <- numeric(n.train)
             ##useN2 <- object$options.tol$useN2
             want <- names(object$wa.optima) %in% colnames(newdata)
             want <- names(object$wa.optima)[want]
