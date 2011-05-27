@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.7-1
+
+	* crossval: new function to perform leave-one-out, k-fold,
+	n k-fold, and bootstrap cross-validation on transfer function
+	models. A method for wa() models is provided.
+
 Version 0.7-0
 
 	* timetrack: new function to passively project sediment core
