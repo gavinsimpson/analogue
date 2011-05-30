@@ -28,7 +28,7 @@ Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.7-0
+This is analogue 0.7-2
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5536,6 +5536,69 @@ G.hirsu 3.942135
 > 
 > 
 > cleanEx()
+> nameEx("pcr")
+> ### * pcr
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pcr
+> ### Title: Prinicpal component regression transfer function models
+> ### Aliases: pcr pcr.default pcr.formula print.pcr Hellinger ChiSquare
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+> ## Load the Imbrie & Kipp data and
+> ## summer sea-surface temperatures
+> data(ImbrieKipp)
+> data(SumSST)
+> 
+> ## normal interface and apply Hellinger transformation
+> mod <- pcr(ImbrieKipp, SumSST, tranFun = Hellinger)
+> mod
+
+	Principal Component Regression Model
+
+Call:
+pcr(x = ImbrieKipp, y = SumSST, tranFun = Hellinger)
+
+No. of Components: 27
+
+RMSEP (Apparent):
+     PC1      PC2      PC3      PC4      PC5      PC6      PC7      PC8 
+2.381215 1.707588 1.680896 1.679774 1.608903 1.535145 1.507995 1.496939 
+     PC9     PC10     PC11     PC12     PC13     PC14     PC15     PC16 
+1.496908 1.432142 1.426444 1.405155 1.391348 1.349172 1.349172 1.315284 
+    PC17     PC18     PC19     PC20     PC21     PC22     PC23     PC24 
+1.313187 1.311801 1.291201 1.206484 1.188438 1.187503 1.171215 1.170947 
+    PC25     PC26     PC27 
+1.170380 1.162497 1.162355 
+> 
+> ## formula interface, but as above
+> mod2 <- pcr(SumSST ~ ., data = ImbrieKipp, tranFun = Hellinger)
+> mod2
+
+	Principal Component Regression Model
+
+Call:
+pcr(x = x, y = y, tranFun = Hellinger)
+
+No. of Components: 27
+
+RMSEP (Apparent):
+     PC1      PC2      PC3      PC4      PC5      PC6      PC7      PC8 
+2.381215 1.707588 1.680896 1.679774 1.608903 1.535145 1.507995 1.496939 
+     PC9     PC10     PC11     PC12     PC13     PC14     PC15     PC16 
+1.496908 1.432142 1.426444 1.405155 1.391348 1.349172 1.349172 1.315284 
+    PC17     PC18     PC19     PC20     PC21     PC22     PC23     PC24 
+1.313187 1.311801 1.291201 1.206484 1.188438 1.187503 1.171215 1.170947 
+    PC25     PC26     PC27 
+1.170380 1.162497 1.162355 
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("performance")
 > ### * performance
 > 
@@ -7729,7 +7792,7 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  19.584 0.559 20.318 0 0 
+Time elapsed:  19.381 0.603 20.167 0 0 
 > grDevices::dev.off()
 null device 
           1 

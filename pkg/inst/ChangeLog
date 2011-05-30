@@ -1,5 +1,12 @@
 analogue Change Log
 
+Version 0.7-2
+
+	* pcr: new function pcr() performs principal components
+	regression. Designed to allow transformations in the spirit of
+	Legendre & Gallagher (2001) that allow PCA to be usefully
+	applied to species data.
+
 Version 0.7-1
 
 	* crossval: new function to perform leave-one-out, k-fold,
