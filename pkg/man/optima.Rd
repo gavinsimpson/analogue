@@ -2,7 +2,6 @@
 \alias{optima}
 \alias{optima.default}
 \alias{print.optima}
-\alias{tolerance}
 \alias{print.tolerance}
 \alias{tolerance.default}
 \alias{as.data.frame.optima}
@@ -17,8 +16,6 @@
 optima(x, ...)
 
 \method{optima}{default}(x, env, ...)
-
-tolerance(x, ...)
 
 \method{tolerance}{default}(x, env, useN2 = TRUE, ...)
 }

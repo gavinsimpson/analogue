@@ -1,7 +1,7 @@
 ## User function to compute weighted average tolerances for taxa
 
-`tolerance` <- function(x, ...)
-    UseMethod("tolerance")
+## `tolerance` <- function(x, ...)
+##    UseMethod("tolerance")
 
 `tolerance.default` <- function(x, env, useN2 = TRUE, ...) {
     x <- data.matrix(x)
