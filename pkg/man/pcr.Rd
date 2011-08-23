@@ -5,6 +5,12 @@
 \alias{print.pcr}
 \alias{Hellinger}
 \alias{ChiSquare}
+\alias{performance.pcr}
+\alias{fitted.pcr}
+\alias{coef.pcr}
+\alias{residuals.pcr}
+\alias{screeplot.pcr}
+\alias{eigenvals.pcr}
 \title{Prinicpal component regression transfer function models}
 \description{
   Fits a palaeoecological transfer function model using principal
@@ -20,10 +26,26 @@
 Hellinger(x, apply = FALSE)
 
 ChiSquare(x, apply = FALSE)
+
+\method{performance}{pcr}(object, ...)
+
+\method{residuals}{pcr}(object, comps = NULL, ...)
+
+\method{fitted}{pcr}(object, comps = NULL, ...)
+
+\method{coef}{pcr}(object, comps = NULL, ...)
+
+\method{screeplot}{pcr}(x, restrict = NULL,
+          display = c("RMSE","avgBias","maxBias","R2"),
+          xlab = NULL, ylab = NULL, main = NULL, sub = NULL, ...)
+
+\method{eigenvals}{pcr}(x, ...)
 }
 \arguments{
   \item{x}{Matrix or data frame of predictor variables. Usually species
-    composition or abundance data for transfer function models.}
+    composition or abundance data for transfer function models. For
+    \code{screeplot} and \code{eigenvals}, an object of class
+    \code{"pcr"}.}
   \item{y}{Numeric vector; the response variable to be modelled.}
   \item{ncomp}{numeric; number of principal components to build models
     for. If not supplied the largest possible number of components is
@@ -50,6 +72,13 @@ ChiSquare(x, apply = FALSE)
   \item{model}{logical; If \code{TRUE} the model frame is returned?}
   \item{apply}{logical; should an existing tranformation, using
     pre-computed meta-parameters, be applied?}
+  \item{object}{an object of class \code{"pcr"}.}
+  \item{comps}{numeric; which components to return.}
+  \item{restrict}{numeric; limit the number of components on the
+    screeplot.}
+  \item{display}{character; which model performance statistic should be
+    drawn on the screeplot?}
+  \item{xlab, ylab, main, sub}{character; labels for the plot.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
@@ -131,5 +160,15 @@ mod
 mod2 <- pcr(SumSST ~ ., data = ImbrieKipp, tranFun = Hellinger)
 mod2
 
+## Several standard methods are available
+fitted(mod, comps = 1:4)
+resid(mod, comps = 1:4)
+coef(mod, comps = 1:4)
+
+## Eigenvalues can be extracted
+eigenvals(mod)
+
+## screeplot method
+screeplot(mod)
 }
 \keyword{methods}

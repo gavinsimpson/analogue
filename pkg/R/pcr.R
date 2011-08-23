@@ -16,12 +16,15 @@
     Mx <- NCOL(x) ## number of predictor vars
 
     ## Apply a transformation if specified
+    fun.supplied <- FALSE
     if(!missing(tranFun)) {
         FUN <- match.fun(tranFun)
         x <- tranFun(x)
         tranParms <- attr(x, "parms")
+        fun.supplied <- TRUE
     } else {
-        FUN <- NA
+        FUN <- tranParms <- NA
+        tranFun <- "none"
     }
 
     ## centre x and y
@@ -69,19 +72,27 @@
     performance <- data.frame(R2 = drop(cor(fitted.values, Y)),
                               avgBias = colMeans(residuals),
                               maxBias = apply(residuals, 2, maxBias, Y),
-                              RMSEP = sqrt(colMeans(residuals^2)))
-    rownames(performance) <- paste("PC", S, sep = "")
+                              RMSE = sqrt(colMeans(residuals^2)))
+
+    ## apply some names to prettify to output
+    rownames(performance) <- colnames(B) <- colnames(fitted.values) <-
+        colnames(residuals) <- names(varExpl) <- colnames(TT) <-
+            colnames(P) <- rownames(tQ) <- paste("PC", S, sep = "")
+    rownames(B) <- rownames(P) <- colnames(x)
+    rownames(fitted.values) <- rownames(residuals) <- rownames(TT) <- rownames(x)
 
     ## get and fix up the call
     .call <- match.call()
     .call[[1]] <- as.name("pcr")
-    ## fix-up the name of the transformation function used,
-    ## needed when formula method called...
-    .call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
+    if(fun.supplied) {
+        ## fix-up the name of the transformation function used,
+        ## needed when formula method called...
+        .call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
+    }
 
     ## return object
     Obj <- list(fitted.values = fitted.values,
-                coefficients = coefficients,
+                coefficients = B,
                 residuals = residuals,
                 scores = TT,
                 loadings = P,
@@ -127,6 +138,12 @@
     Obj$terms <- mt
     if(model)
         Obj$model <- mf
+    .call <- match.call()
+    .call[[1]] <- as.name("pcr")
+    ## fix-up the name of the transformation function used,
+    ## needed when formula method called...
+    ##.call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
+    Obj$call <- .call
     Obj
 }
 
@@ -166,8 +183,108 @@
     print(x$call)
     cat("\n")
     writeLines(strwrap(paste("No. of Components:", x$ncomp)), sep = "\n\n")
-    writeLines("RMSEP (Apparent):")
-    perf <- x$performance[, "RMSEP"]
+    writeLines("RMSE (Apparent):")
+    perf <- x$performance[, "RMSE"]
     names(perf) <- rownames(x$performance)
     print(perf)
+}
+
+`screeplot.pcr` <- function(x, restrict = NULL,
+                            display = c("RMSE","avgBias","maxBias","R2"),
+                            xlab = NULL, ylab = NULL, main = NULL, sub = NULL,
+                            ...) {
+    display <- match.arg(display)
+    captions <- c("RMSE", "Average bias", "Maximum bias", "R squared")
+    names(captions) <- c("RMSE", "avgBias", "maxBias", "R2")
+    if (is.null(xlab))
+        xlab <- "No. of components"
+    if (is.null(ylab))
+        ylab <- captions[display]
+    if (is.null(main))
+        main <- deparse(substitute(x))
+    if (is.null(sub)) {
+        cal <- x$call
+        ##if (!is.na(m.f <- match("formula", names(cal)))) {
+        ##    cal <- cal[c(1, m.f)]
+        ##    names(cal)[2] <- ""
+        ##}
+        cc <- deparse(cal, 90)
+        nc <- nchar(cc[1])
+        abbr <- length(cc) > 1 || nc > 90
+        sub <- if (abbr)
+            paste(substr(cc[1], 1, min(90, nc)), "...")
+        else cc[1]
+    }
+    dat <- performance(x)
+    if(!is.null(restrict)) {
+        comps <- min(restrict, x$ncomp)
+    } else {
+        comps <- x$ncomp
+    }
+    Scomps <- seq_len(comps)
+    plot(Scomps, dat[Scomps, display], type = "n", ylab = ylab, xlab = xlab,
+         main = main, sub = sub, ...)
+    if(comps > 20) {
+        lines(Scomps, dat[Scomps, display], type = "b", ...)
+    } else {
+        lines(Scomps, dat[Scomps, display], type = "b", ..., pch = NA)
+        text(Scomps, dat[Scomps, display], labels = as.character(Scomps), cex = 0.8,
+             ...)
+    }
+    invisible()
+}
+
+`performance.pcr` <- function(object, ...) {
+    retval <- object$performance
+    class(retval) <- c("performance","data.frame")
+    retval
+}
+
+`coef.pcr` <- function(object, comps = NULL, ...) {
+    coefs <- object$coefficients
+    nc <- NCOL(coefs)
+    if(is.null(comps))
+        comps <- seq_len(nc)
+    else {
+        if(!is.numeric(comps))
+            stop("Non-numeric selection of components requested.")
+        if(min(comps) < 1 || max(comps) > nc)
+            stop("Requested components outside range of actual components.")
+    }
+    coefs <- coefs[, comps]
+    coefs
+}
+
+`fitted.pcr` <- function(object, comps = NULL, ...) {
+    fits <- object$fitted.values
+    nc <- NCOL(fits)
+    if(is.null(comps))
+        comps <- seq_len(nc)
+    else {
+        if(!is.numeric(comps))
+            stop("Non-numeric selection of components requested.")
+        if(min(comps) < 1 || max(comps) > nc)
+            stop("Requested components outside range of actual components.")
+    }
+    fits <- fits[, comps]
+    fits
+}
+
+`residuals.pcr` <- function(object, comps = NULL, ...) {
+    resi <- object$residuals
+    nc <- NCOL(resi)
+    if(is.null(comps))
+        comps <- seq_len(nc)
+    else {
+        if(!is.numeric(comps))
+            stop("Non-numeric selection of components requested.")
+        if(min(comps) < 1 || max(comps) > nc)
+            stop("Requested components outside range of actual components.")
+    }
+    resi <- resi[, comps]
+    resi
+}
+
+`eigenvals.pcr` <- function(x, ...) {
+    x$varExpl
 }
