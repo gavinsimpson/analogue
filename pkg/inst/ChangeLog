@@ -1,5 +1,23 @@
 analogue Change Log
 
+Version 0.7-4
+
+	* gradientDist: new function to extract locations along an
+	ordination axis. Methods for prcurve() and cca().
+
+	* varExpl: new function to extract the amount of variance
+	explained by ordination axes. Currently methods for prcurve() and
+	cca() are available.
+
+	* Namespace: analogue now has an explicit name space in
+	preparation for R 2.14.0-to-be. Hence analogue now depends on
+	Vegan >= 1.92-0
+
+Version 0.7-3
+
+	* pcr: coef(), fitted(), residuals(), eigenvals(), performance(),
+	and screeplot() methods added.
+
 Version 0.7-2
 
 	* pcr: new function pcr() performs principal components
