@@ -204,23 +204,52 @@ distance.default <- function(x, y,
           stop("'weights' must be of length 'ncol(x)'")
       }
     }
-    if(method == "kendall") {
-        maxi <- apply(rbind(apply(x, 2, max), apply(y, 2, max)),
-                      2, max)
-    }
-    if(method %in% c("gower", "alt.gower", "mixed")) {
-        maxi <- mini <- numeric(length = n.vars)
-        maxi <- apply(rbind(apply(x, 2, max, na.rm = TRUE),
-                            apply(y, 2, max, na.rm = TRUE)),
-                      2, max, na.rm = TRUE)
-        mini <- apply(rbind(apply(x, 2, min, na.rm = TRUE),
-                            apply(y, 2, min, na.rm = TRUE)),
-                      2, min, na.rm = TRUE)
-        if(is.null(R))
-            R <- maxi - mini
-        else {
-            if(length(R) != n.vars)
-                stop("'R' must be of length 'ncol(x)'")
+    dimx <- dim(x)
+    dimy <- dim(y)
+    if(method %in% c("gower", "alt.gower", "mixed", "kendall")) {
+        ## for these methods, need max for each var and mins if not
+        ## doing Kendall
+        NA.RM <- TRUE
+        if(method == "kendall")
+            NA.RM <- FALSE
+        ## need to account for a single site (matrix with 1 row)
+        ## that might have NA. Specifically not allowed in Kendall
+        ## but OK in the other methods handled here
+        maxX <- if(any(apply(is.na(x), 2, all))) {
+            x
+        } else {
+            apply(x, 2, max, na.rm = NA.RM)
+        }
+        maxY <- if(any(apply(is.na(y), 2, all))) {
+            y
+        } else {
+            apply(y, 2, max, na.rm = NA.RM)
+        }
+        maxi <- apply(rbind(maxX, maxY), 2, max, na.rm = NA.RM)
+        if(method %in% c("gower", "alt.gower", "mixed")) {
+            ## need the mins of each variable
+            ## need to account for a single site (matrix with 1 row)
+            ## that might have NA. Specifically not allowed in Kendall
+            ## but OK in the other methods handled here
+            minX <- if(any(apply(is.na(x), 2, all))) {
+                x
+            } else {
+                apply(x, 2, min, na.rm = NA.RM)
+            }
+            minY <- if(any(apply(is.na(y), 2, all))) {
+                y
+            } else {
+                apply(y, 2, min, na.rm = NA.RM)
+            }
+            mini <- apply(rbind(minX, minY), 2, min, na.rm = NA.RM)
+            ## compute R - the range - if not supplied
+            ## if R supplied then validate
+            if(is.null(R)) {
+                R <- maxi - mini
+            } else {
+                if(length(R) != n.vars)
+                    stop("'R' must be of length 'ncol(x)'")
+            }
         }
     }
     dimnames(x) <- dimnames(y) <- NULL
