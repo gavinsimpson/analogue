@@ -35,11 +35,11 @@ optima(x, ...)
   Both functions return a named vector containing the WA optima or
   tolerances for the environmental gradient specified by \code{env}.
 }
-\references{TO DO}
+%\references{TO DO}
 \author{Gavin L. Simpson}
 \note{
   Objects of class \code{"optima"} or \code{"tolerance"} can be coerced
-  to data frames using methods for \code{link{as.data.frame}}.
+  to data frames using methods for \code{\link{as.data.frame}}.
 }
 \seealso{\code{\link{wa}}}
 \examples{
