@@ -11,7 +11,7 @@ Version 0.7-4
 
 	* Namespace: analogue now has an explicit name space in
 	preparation for R 2.14.0-to-be. Hence analogue now depends on
-	Vegan >= 1.92-0
+	Vegan >= 1.17-12.
 
 Version 0.7-3
 
