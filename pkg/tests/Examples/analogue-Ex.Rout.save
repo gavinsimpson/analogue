@@ -1,8 +1,8 @@
 
-R version 2.13.1 (2011-07-08)
+R version 2.13.1 Patched (2011-07-08 r56332)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -29,7 +29,7 @@ Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.7-3
+This is analogue 0.7-4
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -6467,7 +6467,7 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  31.31 1.201 33.213 0 0 
+Time elapsed:  25.497 1.413 26.934 0 0 
 > grDevices::dev.off()
 null device 
           1 
