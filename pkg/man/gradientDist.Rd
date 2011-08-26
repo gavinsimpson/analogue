@@ -5,7 +5,7 @@
 \alias{gradientDist.prcurve}
 
 \title{
-  Locations of samples along ordination gradients.
+  Positions of samples along a unit-length ordination gradient.
 }
 \description{
   Extracts information as to the locations of samples along an
