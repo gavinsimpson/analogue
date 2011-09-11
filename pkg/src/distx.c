@@ -407,9 +407,6 @@ void xx_kendall(double *x, int *nr, int *nc, double *d,
 		double *maxi)
 {
     int i, j, ij;
-    double dist;
-
-    dist = 0.0;
     
     ij = 0;
     for(j=0; j <= *nr; j++) {
@@ -528,6 +525,21 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
     }
     if (count == 0) return NA_REAL;
     return 1 - (dist / wsum);
+}
+
+double xx_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2)
+{
+    int k;
+    double ti;
+
+    ti = 0.0;
+
+    for (k=0; k<nc; k++) {
+	ti += (x[i1] == y[i2]) ? 1.0 : 0.0;
+	i1 += nr1;
+	i2 += nr2;
+    }
+    return ti;
 }
 
 void xx_mixed(double *x, int *nr, int *nc, double *d, 
