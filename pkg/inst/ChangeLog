@@ -1,5 +1,19 @@
 analogue Change Log
 
+Version 0.7-5
+
+	* weightedCor: implements one of the tests from Telford & Birks
+	(2011, QSR) based on the weighted correlation of WA optima and
+	constrained ordination species scores. Has a plot method.
+
+	* rdaFit: Non-user (currently) function that implements RDA
+	without all of the overhead of vegan::rda. As such it doesn't
+	compute PCA axes and does not return all the components described
+	by ?cca.object in package vegan. This function is used principally
+	in weightedCor(). Has a scores() method. rdaFit() is not
+	documented as the exact details of the function and its
+	capabilities remain to be determined.
+
 Version 0.7-4
 
 	* gradientDist: new function to extract locations along an

@@ -18,6 +18,8 @@
 \alias{WApred}
 \alias{WATpred}
 \alias{fixUpTol}
+\alias{rdaFit}
+\alias{scores.rdaFit}
 \title{Internal analogue Functions}
 \description{
   Internal analogue functions

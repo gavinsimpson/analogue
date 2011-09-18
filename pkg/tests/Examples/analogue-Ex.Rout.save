@@ -1,5 +1,5 @@
 
-R version 2.13.1 Patched (2011-07-08 r56332)
+R version 2.13.1 Patched (2011-09-13 r57007)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -24,12 +24,12 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-This is vegan 1.92-1
+This is vegan 2.0-0
 Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.7-4
+This is analogue 0.7-5
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -2371,7 +2371,7 @@ attr(,"weighted")
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: gradientDist
-> ### Title: Locations of samples along ordination gradients.
+> ### Title: Positions of samples along a unit-length ordination gradient.
 > ### Aliases: gradientDist gradientDist.default gradientDist.cca
 > ###   gradientDist.prcurve
 > ### Keywords: multivariate utility
@@ -6464,10 +6464,49 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("weightedCor")
+> ### * weightedCor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: weightedCor
+> ### Title: Weighted correlation test of WA reconstruction
+> ### Aliases: weightedCor weightedCor.default print.weightedCor
+> ###   plot.weightedCor
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> data(ImbrieKipp, SumSST, V12.122)
+> 
+> Cor <- weightedCor(ImbrieKipp, env = SumSST,
++                    fossil = V12.122, type = "simulate", sim = 49)
+Simulating 49 Weighted Correlations:
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |=========                                                             |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |================                                                      |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  31%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  35%  |                                                                              |==========================                                            |  37%  |                                                                              |===========================                                           |  39%  |                                                                              |=============================                                         |  41%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  45%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  49%  |                                                                              |====================================                                  |  51%  |                                                                              |=====================================                                 |  53%  |                                                                              |=======================================                               |  55%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  59%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  65%  |                                                                              |===============================================                       |  67%  |                                                                              |=================================================                     |  69%  |                                                                              |==================================================                    |  71%  |                                                                              |===================================================                   |  73%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
+
+> Cor
+
+	Weighted correlation of WA Transfer Function
+
+Call:
+weightedCor(x = ImbrieKipp, env = SumSST, fossil = V12.122, type = "simulate", 
+    sim = 49)
+
+Test Type           : Simulation
+Weighted Correlation: 0.491 (p = 0.56)
+Correlation         : 0.437 (p = < 2.22e-16)
+
+> 
+> plot(Cor)
+> plot(Cor, type = "null")
+> 
+> 
+> 
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.497 1.413 26.934 0 0 
+Time elapsed:  20.463 0.592 21.27 0 0 
 > grDevices::dev.off()
 null device 
           1 
