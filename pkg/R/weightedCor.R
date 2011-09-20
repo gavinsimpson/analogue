@@ -21,21 +21,21 @@
     Args <- head(formals(analogue:::wa.default), -1)
     dots <- list(x = x, y = env, env = NULL, ...)
     Args <- modifyList(Args, dots)
-    Args <- lapply(Args, function(x) if(typeof(x) == "language") {eval(x)[1]} else {x})
-    mod <- do.call(analogue:::waFit, Args)
+    Args <- lapply(Args,
+                   function(x) if(typeof(x) == "language") {eval(x)[1]} else {x})
+    mod <- do.call(waFit, Args)
     opt <- mod$wa.optima
     ## and predictions for fossil samples
     if(Args$tol.dw) {
         pArgs <- list(X = fossil, optima = opt, tol = mod$model.tol,
                       nr = nrow(fossil), nc = ncol(fossil))
-        pFun <- analogue:::WATpred
+        pFun <- WATpred
     } else {
         pArgs <- list(X = fossil, optima = opt)
-        pFun <- analogue:::WApred
+        pFun <- WApred
     }
-    pred <- drop(analogue:::deshrinkPred(do.call(pFun, pArgs),
-                                         mod$coefficients,
-                                         Args$deshrink))
+    pred <- drop(deshrinkPred(do.call(pFun, pArgs), mod$coefficients,
+                              Args$deshrink))
     ## ordination
     ord <- rdaFit(fossil, pred)
     ## axis 1 species scores
@@ -69,9 +69,9 @@
                 rmod <- do.call(analogue:::waFit, Args)
                 ropt <- rmod$wa.optima
                 pArgs$optima <- ropt
-                rpred <- drop(analogue:::deshrinkPred(do.call(pFun, pArgs),
-                                                      rmod$coefficients,
-                                                      Args$deshrink))
+                rpred <- drop(deshrinkPred(do.call(pFun, pArgs),
+                                           rmod$coefficients,
+                                           Args$deshrink))
                 rord <- rdaFit(fossil, rpred)
                 rscrs <- drop(scores(rord, display = "species",
                                      scaling = 0,
