@@ -1,5 +1,12 @@
 analogue Change Log
 
+Version 0.7-6
+
+	* Stratiplot: Handling of absolute data types was broken. Fix
+	applied that should allow this to work if there are only
+	absolute scale variables or a mix or relative and absolute
+	data. All reletaive data should be unaffected.
+
 Version 0.7-5
 
 	* weightedCor: implements one of the tests from Telford & Birks

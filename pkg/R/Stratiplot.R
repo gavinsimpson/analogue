@@ -99,15 +99,14 @@
         ylim <- rev(ylim)
     ## process the column/variable types
     ## If varTypes of length one replicate it to NCOL(x)
-    if((typeLen <- length(varTypes)) != 1L) {
+    if(isTRUE(all.equal(length(varTypes), 1L)))
         varTypes <- rep(varTypes, length = n.vars)
-        ## If typeLen != 1 or NCOL shout warning
-        if(typeLen != n.vars) {
-            warning("Length of 'varTypes' not 1 or equal to number of variables. Recycling or truncating of 'varTypes' as a result.")
-        }
+    ## If typeLen != 1 or NCOL shout warning
+    if(length(varTypes) != n.vars) {
+        warning("Length of 'varTypes' not 1 or equal to number of variables. Recycling or truncating of 'varTypes' as a result.")
     }
     ## Only allow two types of variables: "relative", "absolute"
-    if(any(!(varTypes%in% c("relative", "absolute"))))
+    if(any(!(varTypes %in% c("relative", "absolute"))))
         stop("Ambiguous entry in 'varTypes'.\nMust be one of \"relative\", or \"absolute\"")
     ## compute max abundances per relative column, which is used
     ## to scale the panel widths layout.widths parameter)
@@ -116,7 +115,11 @@
     panelWidths <- max.abun
     ABS <- which(varTypes == "absolute")
     REL <- which(varTypes == "relative")
-    panelWidths[ABS] <- absoluteSize * max(max.abun[REL])
+    if(any(REL)) {
+        panelWidths[ABS] <- absoluteSize * max(max.abun[REL])
+    } else {
+        panelWidths[ABS] <- absoluteSize
+    }
     ## xlim in xyplot call
     xlimits <- lapply(max.abun * 1.05, function(x) c(0, x))
     if(any(ABS)) {
