@@ -7,6 +7,12 @@ Version 0.7-6
 	absolute scale variables or a mix or relative and absolute
 	data. All reletaive data should be unaffected.
 
+	* panel.Stratiplot: gains arguments `gridh` and gridv` which
+	control the number of horizontal and vertical grid lines used
+	on each panel. These correspond to the `h` and `v` arguments of
+	`panel.grid` in the Lattice package. The default is `-1` for
+	both, which attempts to align the grid lines with the tick marks.
+
 Version 0.7-5
 
 	* weightedCor: implements one of the tests from Telford & Birks

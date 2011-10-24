@@ -1,5 +1,5 @@
 
-R version 2.13.1 Patched (2011-09-13 r57007)
+R version 2.13.1 Patched (2011-07-08 r56332)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -29,7 +29,7 @@ Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.7-5
+This is analogue 0.7-6
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -6506,7 +6506,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.463 0.592 21.27 0 0 
+Time elapsed:  33.471 1.19 34.679 0 0 
 > grDevices::dev.off()
 null device 
           1 

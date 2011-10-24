@@ -27,6 +27,7 @@ panel.Stratiplot(x, y,
                  col.zones = plot.line$col,
                  lty.zones = plot.line$lty,
                  lwd.zones = plot.line$lwd,
+                 gridh = -1, gridv = -1,
                  \dots)
 }
 
@@ -61,7 +62,8 @@ panel.Stratiplot(x, y,
     default colours are obtained from \code{plot.symbol} and
     \code{plot.line} using
     \code{\link[lattice]{trellis.par.get}}. \code{col.refline} controls the
-    colour of the reference line drawn at value 0 on the x-axis.}
+    colour of the reference line drawn at value 0 on the x-axis, as well
+    as the colour of the grid lines if drawn.}
   \item{pch, cex, lty, lwd, fill}{other graphical parameters, defaults
     for which are obtained from \code{plot.symbol} and \code{plot.line}
     using \code{\link[lattice]{trellis.par.get}}.}
@@ -73,6 +75,9 @@ panel.Stratiplot(x, y,
     the depth/time (y-)axis.}
   \item{lty.zones, lwd.zones}{line type and width for the zone
     markers. The defaults are obtained from \code{plot.line}.}
+  \item{gridh, gridv}{numeric arguments corresponding to \code{h} and
+    \code{v} of \code{\link{panel.grid}}, which control the number of
+    grid lines drawn.}
   \item{\dots}{extra arguments passed on to the underlying panel
     functions; \code{\link[lattice]{panel.points}},
     \code{\link[lattice]{panel.lines}},

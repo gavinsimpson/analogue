@@ -16,6 +16,7 @@
                                col.zones = plot.line$col,
                                lty.zones = plot.line$lty,
                                lwd.zones = plot.line$lwd,
+                               gridh = -1, gridv = -1,
                                ...) {
     if (all(is.na(x) | is.na(y)))
         return()
@@ -34,7 +35,7 @@
     if ("o" %in% type || "b" %in% type)
         type <- c(type, "p", "l")
     if ("g" %in% type)
-        panel.grid(h = -1, v = -1)
+        panel.grid(h = gridh, v = gridv, col.line = col.refline, ...)
     if("l" %in% type)
         panel.lines(x = x, y = y, col = col.line,
                     lty = lty, lwd = lwd, ...)
