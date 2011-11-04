@@ -495,15 +495,29 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
     
     count = 0;
     dist = 0.0;
+    wsum = 0.0;
+
     for (j=0; j<nc; j++) {
 	if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
 	    if(vtype[j] == 1) {
 		dev = (x[i1] == x[i2]) ? 1 : 0;
 		dist += dev * weights[j];
 	    }
-	    if(vtype[j] == 2) {
-		dev = (x[i1] == x[i2]) ? 1 : 0;
-		dist += dev * weights[j];
+	    if(vtype[j] == 2) { // Asymmetric binary
+		    /*dev = (x[i1] == x[i2]) ? 1 : 0;
+		      dist += dev * weights[j]; */
+		    if((x[i1] != 0) || (x[i2] != 0)) {
+			    // both x1 and x2 not zero for this variables
+			    dev = (x[i1] == x[i2]) ? 1 : 0;
+			    dist += dev * weights[j];
+		    } else {
+			    /* set jth current weight to zero and do not
+			       increment dist as ignoring double zero
+			       We actually subtract the weight as it gets added
+			       later on.
+			    */
+			    wsum -= weights[j];
+		    }
 	    }
 	    if(vtype[j] == 3) {
 		dev = (x[i1] == x[i2]) ? 1 : 0;
@@ -519,6 +533,8 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
 		dist += dev * weights[j];
 	    }
 	    count++;
+	    // only summing weights for non-NA comparisons
+	    wsum += weights[j];
 	}
 	i1 += nr;
 	i2 += nr;
@@ -545,21 +561,21 @@ double xx_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2)
 void xx_mixed(double *x, int *nr, int *nc, double *d, 
 	      int *vtype, double *weights, double *R)
 {
-    int i, j, k, ij;
-    double wsum;
-
-    wsum = 0.0;
-    
-    ij = 0;
-
-    for(k=0; k <*nc; k++) {
-	wsum += weights[k];
-    }
-
-    for(j=0; j < *nr; j++) {
-	for(i=0; i < *nr; i++) {
-	    d[ij++] = xx_MIXED(x, *nr, *nc, i, j, vtype,
-			       weights, R, wsum);
+	int i, j, k, ij;
+	double wsum;
+	
+	wsum = 0.0;
+	
+	ij = 0;
+	
+	for(k=0; k <*nc; k++) {
+		wsum += weights[k];
 	}
-    }
+	
+	for(j=0; j < *nr; j++) {
+		for(i=0; i < *nr; i++) {
+			d[ij++] = xx_MIXED(x, *nr, *nc, i, j, vtype,
+					   weights, R, wsum);
+		}
+	}
 }
