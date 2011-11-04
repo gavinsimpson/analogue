@@ -1,5 +1,5 @@
 
-R version 2.13.1 Patched (2011-07-08 r56332)
+R version 2.14.0 Patched (2011-11-04 r57570)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -24,20 +24,31 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-This is vegan 2.0-0
+This is vegan 2.0-2
 Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.7-6
+This is analogue 0.7-7
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
+> assign(".ExTimings", "analogue-Ex.timings", pos = 'CheckExEnv')
+> cat("name\tuser\tsystem\telapsed\n", file=get(".ExTimings", pos = 'CheckExEnv'))
+> assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   format(x[1L:3L])
++ },
++ pos = 'CheckExEnv')
+> 
 > cleanEx()
 > nameEx("ImbrieKipp")
 > ### * ImbrieKipp
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ImbrieKipp
 > ### Title: Imbrie and Kipp foraminifera training set
 > ### Aliases: ImbrieKipp SumSST WinSST Salinity V12.122
@@ -108,12 +119,16 @@ V23.22     0.00    0.00    0.00       0       0       0  0.65   3.14    0.13
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("ImbrieKipp", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("Pollen")
 > ### * Pollen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: Pollen
 > ### Title: North American Modern Pollen Database
 > ### Aliases: Pollen Biome Climate Location
@@ -131,12 +146,16 @@ V23.22     0.00    0.00    0.00       0       0       0  0.65   3.14    0.13
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("Pollen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("RMSEP")
 > ### * RMSEP
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: RMSEP
 > ### Title: Root mean square error of prediction
 > ### Aliases: RMSEP RMSEP.default RMSEP.mat RMSEP.bootstrap.mat
@@ -238,12 +257,16 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("RMSEP", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("Stratiplot")
 > ### * Stratiplot
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: Stratiplot
 > ### Title: Palaeoecological stratigraphic diagrams
 > ### Aliases: Stratiplot Stratiplot.default Stratiplot.formula
@@ -293,12 +316,16 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("Stratiplot", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("abernethy")
 > ### * abernethy
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: abernethy
 > ### Title: Abernethy Forest Pollen Sequence
 > ### Aliases: abernethy
@@ -365,12 +392,16 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("abernethy", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("analog")
 > ### * analog
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: analog
 > ### Title: Analogue matching
 > ### Aliases: analog analog.default print.analog
@@ -758,12 +789,16 @@ Dissimilarities for k-closest analogues
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("analog", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bayesF")
 > ### * bayesF
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bayesF
 > ### Title: Bayes factors
 > ### Aliases: bayesF print.bayesF plot.bayesF
@@ -845,12 +880,16 @@ Positive: 0.5   Negative: 0.5
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("bayesF", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bootstrap")
 > ### * bootstrap
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bootstrap
 > ### Title: Bootstrap estimation and errors
 > ### Aliases: bootstrap bootstrap.default bootstrap.mat print.bootstrap.mat
@@ -1075,12 +1114,16 @@ Bootstrap residuals:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("bootstrap", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bootstrap.wa")
 > ### * bootstrap.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bootstrap.wa
 > ### Title: Bootstrap estimation and errors for WA models
 > ### Aliases: bootstrap.wa print.bootstrap.wa
@@ -1138,12 +1181,16 @@ Bootstrap sample 100
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("bootstrap.wa", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("chooseTaxa")
 > ### * chooseTaxa
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: chooseTaxa
 > ### Title: Select taxa (variables) on basis of maximum abundance attained
 > ###   and number of occurrences
@@ -1161,12 +1208,16 @@ Bootstrap sample 100
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("chooseTaxa", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("cma")
 > ### * cma
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: cma
 > ### Title: Close modern analogues
 > ### Aliases: cma cma.default cma.analog cma.mat cma.predict.mat print.cma
@@ -1628,12 +1679,16 @@ Samples:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("cma", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("crossval")
 > ### * crossval
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: crossval
 > ### Title: Cross-validation of palaeoecological transfer function models
 > ### Aliases: crossval crossval.wa print.crossval predWA predWAT
@@ -1745,12 +1800,16 @@ No. Bootstraps: 250
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("crossval", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("densityplot.residLen")
 > ### * densityplot.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: densityplot.residLen
 > ### Title: Lattice density plot for residual lengths
 > ### Aliases: densityplot.residLen
@@ -1783,12 +1842,16 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("densityplot.residLen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dissimilarities")
 > ### * dissimilarities
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dissimilarities
 > ### Title: Extract dissimilarity coefficients from models
 > ### Aliases: dissimilarities dissimilarities.analog dissimilarities.mat
@@ -2180,12 +2243,16 @@ Dissimilarities for k-closest analogues
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("dissimilarities", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("distance")
 > ### * distance
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: distance
 > ### Title: Flexibly calculate dissimilarity or distance measures
 > ### Aliases: distance distance.default distance.join
@@ -2248,12 +2315,16 @@ attr(,"class")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("distance", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("fuse")
 > ### * fuse
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: fuse
 > ### Title: Fused dissimilarities
 > ### Aliases: fuse fuse.matrix fuse.dist
@@ -2304,12 +2375,16 @@ Class 'dist'  atomic [1:45] 0.657 0.768 0.834 0.635 0.778 ...
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("fuse", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("getK")
 > ### * getK
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: getK
 > ### Title: Extract and set the number of analogues
 > ### Aliases: getK getK.default getK.mat getK.bootstrap.mat getK.predict.mat
@@ -2364,12 +2439,16 @@ attr(,"weighted")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("getK", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("gradientDist")
 > ### * gradientDist
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: gradientDist
 > ### Title: Positions of samples along a unit-length ordination gradient.
 > ### Aliases: gradientDist gradientDist.default gradientDist.cca
@@ -2403,12 +2482,16 @@ attr(,"class")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("gradientDist", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("hist.residLen")
 > ### * hist.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: hist.residLen
 > ### Title: Histogram plot for residual lengths
 > ### Aliases: hist.residLen
@@ -2441,12 +2524,16 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("hist.residLen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("histogram.residLen")
 > ### * histogram.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: histogram.residLen
 > ### Title: Lattice histogram plot for residual lengths
 > ### Aliases: histogram.residLen
@@ -2479,12 +2566,16 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("histogram.residLen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("join")
 > ### * join
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: join
 > ### Title: Merge species data sets on common columns (species)
 > ### Aliases: join head.join tail.join
@@ -3174,12 +3265,16 @@ $V12.122
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("join", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("logitreg")
 > ### * logitreg
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: logitreg
 > ### Title: Logistic regression models for assessing analogues/non-analogues
 > ### Aliases: logitreg logitreg.default logitreg.analog print.logitreg
@@ -3275,12 +3370,16 @@ Combined       0.0157
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("logitreg", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mat")
 > ### * mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mat
 > ### Title: Modern Analogue Technique transfer function models
 > ### Aliases: mat mat.default mat.formula fitted.mat residuals.mat resid.mat
@@ -3719,9 +3818,423 @@ V12.122  28.0 27.000 -1.00000
 > reconPlot(coreV12.mat, use.labels = TRUE, display.error = "bars",
 +           xlab = "Depth", ylab = "SumSST")
 > 
+> ## fit the MAT model using the squared chord distance measure
+> ## and restrict the number of analogues we fit models for to 1:20
+> ik.mat2 <- mat(ImbrieKipp, SumSST, method = "chord", kmax = 20)
+> ik.mat2
+
+	Modern Analogue Technique
+
+Call:
+mat(x = ImbrieKipp, y = SumSST, method = "chord", kmax = 20) 
+
+Percentiles of the dissimilarities for the training set:
+
+   1%    2%    5%   10%   20% 
+0.220 0.280 0.341 0.414 0.501 
+
+Inferences based on the mean of k-closest analogues:
+
+  k RMSEP    R2 Avg Bias Max Bias
+  1 2.501 0.880    0.321    9.000
+  2 1.875 0.931    0.284    6.000
+  3 1.713 0.941    0.133    5.167
+  4 1.796 0.935    0.177    5.125
+  5 1.748 0.939    0.209    5.100
+  6 1.716 0.943    0.284    5.667
+  7 1.763 0.943    0.381    6.429
+  8 1.831 0.941    0.390    6.625
+  9 1.913 0.940    0.449    7.222
+ 10 2.040 0.935    0.577    7.500
+
+Inferences based on the weighted mean of k-closest analogues:
+
+  k RMSEP    R2 Avg Bias Max Bias
+  1 2.501 0.880    0.321    9.000
+  2 1.894 0.929    0.263    6.183
+  3 1.733 0.940    0.138    5.470
+  4 1.773 0.937    0.173    5.384
+  5 1.750 0.939    0.187    5.366
+  6 1.709 0.942    0.218    5.493
+  7 1.712 0.942    0.254    5.635
+  8 1.758 0.940    0.253    5.693
+  9 1.777 0.939    0.274    5.838
+ 10 1.857 0.935    0.362    5.927
+
+> 
+> ## model summary
+> summary(ik.mat2)
+
+	Modern Analogue Technique
+
+Call:
+mat(x = ImbrieKipp, y = SumSST, method = "chord", kmax = 20) 
+
+Percentiles of the dissimilarities for the training set:
+
+   1%    2%    5%   10%   20% 
+0.220 0.280 0.341 0.414 0.501 
+
+Inferences based on the mean of k-closest analogues:
+
+  k RMSEP   R2 Avg Bias Max Bias
+  1  2.50 0.88     0.32     9.00
+  2  1.87 0.93     0.28     6.00
+  3  1.71 0.94     0.13     5.17
+  4  1.80 0.94     0.18     5.12
+  5  1.75 0.94     0.21     5.10
+  6  1.72 0.94     0.28     5.67
+  7  1.76 0.94     0.38     6.43
+  8  1.83 0.94     0.39     6.62
+  9  1.91 0.94     0.45     7.22
+ 10  2.04 0.93     0.58     7.50
+
+Inferences based on the weighted mean of k-closest analogues:
+
+  k RMSEP   R2 Avg Bias Max Bias
+  1  2.50 0.88     0.32     9.00
+  2  1.89 0.93     0.26     6.18
+  3  1.73 0.94     0.14     5.47
+  4  1.77 0.94     0.17     5.38
+  5  1.75 0.94     0.19     5.37
+  6  1.71 0.94     0.22     5.49
+  7  1.71 0.94     0.25     5.63
+  8  1.76 0.94     0.25     5.69
+  9  1.78 0.94     0.27     5.84
+ 10  1.86 0.94     0.36     5.93
+
+Results for training set
+
+  * (W.)Est and (W.)Resi are based on k=10-closest analogues
+  * minDC is the minimum distance to another sample in the training set
+  * min(W.)Resi is the minimum residual for a k-closest model,
+    where k = 1,...,10. Column k(.W) displays which k has minResi
+
+           Obs    Est   Resi  W.Est   W.Resi  minDC  minResi   k  minW.Resi
+V14.61     2.0   9.50   7.50   7.93   5.9273  0.104   5.1000   5   5.37e+00
+V17.196    5.0   9.20   4.20   6.86   1.8572  0.130   0.1667   3   4.61e-01
+V18.110    5.5   9.15   3.65   7.13   1.6290  0.134   0.5000   1   4.84e-01
+V16.227    7.0   9.00   2.00   7.16   0.1554  0.134   0.1667   3   2.62e-02
+V14.47     7.0   9.00   2.00   8.66   1.6594  0.452   0.0000   4   3.63e-02
+V23.22    10.5   8.65  -1.85   8.68  -1.8229  0.467   0.5000   3   7.43e-01
+V2.12     11.0   8.60  -2.40   5.70  -5.2971  0.119   2.4000  10   5.30e+00
+V23.29    10.0  13.65   3.65  13.33   3.3347  0.467   1.2500   2   1.41e+00
+V12.43    13.0  13.25   0.25  13.31   0.3135  0.490   0.0000   5   1.71e-01
+R9.7      12.0  14.85   2.85  14.29   2.2876  0.432   1.0000   2   4.65e-01
+A157.3    14.0  16.30   2.30  16.04   2.0418  0.407   0.5000   2   3.14e-01
+V23.81    14.5  15.45   0.95  15.40   0.8996  0.299   0.1667   3   8.08e-02
+V23.82    15.0  16.20   1.20  15.84   0.8369  0.299   0.1429   7   1.40e-01
+V12.53    14.5  17.80   3.30  17.76   3.2607  0.442   2.3571   7   2.55e+00
+V23.83    16.0  15.30  -0.70  15.02  -0.9814  0.295   0.7000  10   9.81e-01
+V12.56    18.0  20.90   2.90  20.78   2.7832  0.380   1.0000   2   1.03e+00
+A152.84   20.0  21.60   1.60  21.64   1.6374  0.361   0.1429   7   5.77e-01
+V16.50    18.0  20.50   2.50  20.28   2.2759  0.429   0.0000   1   0.00e+00
+V22.122   19.0  17.95  -1.05  17.58  -1.4223  0.429   1.0500  10   1.42e+00
+V16.41    18.5  23.90   5.40  23.64   5.1402  0.380   2.5000   1   2.50e+00
+V4.32     21.5  23.60   2.10  23.62   2.1185  0.333   1.6250   8   1.73e+00
+V12.66    21.0  21.10   0.10  21.12   0.1228  0.421   0.0000   1   0.00e+00
+V19.245   21.0  23.20   2.20  22.72   1.7177  0.331   0.1667   3   4.41e-01
+V4.8      24.0  23.35  -0.65  23.38  -0.6203  0.280   0.0000   1   0.00e+00
+A180.15   24.0  22.95  -1.05  22.99  -1.0083  0.292   0.0000   1   0.00e+00
+V18.34    23.0  24.35   1.35  24.49   1.4904  0.411   1.3500  10   1.49e+00
+V20.213   24.0  24.57   0.57  24.56   0.5565  0.326   0.0833   6   1.38e-01
+V19.222   23.0  23.00   0.00  23.06   0.0580  0.384   0.0000  10   3.83e-02
+A180.39   23.0  24.25   1.25  24.24   1.2366  0.347   0.4167   6   5.12e-01
+V16.189   24.0  25.89   1.89  25.85   1.8495  0.399   1.0000   1   1.00e+00
+V12.18    25.0  25.39   0.39  25.48   0.4751  0.289   0.3000   9   4.19e-01
+V7.67     26.0  23.45  -2.55  23.76  -2.2436  0.308   0.0000   1   0.00e+00
+V17.165   26.0  24.77  -1.23  24.80  -1.2021  0.308   0.0000   1   0.00e+00
+V19.310   26.0  23.75  -2.25  23.97  -2.0257  0.296   0.0000   1   0.00e+00
+V16.190   25.0  25.32   0.32  25.34   0.3424  0.324   0.0000   2   3.98e-02
+A153.154  26.0  25.67  -0.33  25.73  -0.2694  0.222   0.1000   2   1.11e-01
+V19.308   26.0  25.99  -0.01  25.98  -0.0223  0.222   0.0100  10   2.23e-02
+V22.172   24.5  26.72   2.22  26.71   2.2110  0.307   1.5000   1   1.50e+00
+V10.98    27.0  24.82  -2.18  24.77  -2.2349  0.330   2.0000   1   2.00e+00
+V22.219   26.2  25.65  -0.55  25.63  -0.5709  0.189   0.2000   1   2.00e-01
+V16.33    25.0  26.37   1.37  26.37   1.3703  0.493   0.7333   3   7.48e-01
+V22.204   26.5  26.80   0.30  26.74   0.2362  0.325   0.0000   6   3.12e-02
+V20.167   26.2  26.90   0.70  26.87   0.6732  0.257   0.0333   3   1.17e-02
+V10.89    26.0  26.04   0.04  26.12   0.1184  0.308   0.0400  10   1.18e-01
+V12.79    26.0  26.90   0.90  26.88   0.8813  0.249   0.3750   4   5.16e-01
+V19.216   27.0  25.27  -1.73  25.32  -1.6776  0.363   0.9000   7   9.65e-01
+V14.90    27.0  26.95  -0.05  26.89  -0.1113  0.249   0.0000   4   2.56e-02
+A180.72   27.5  26.75  -0.75  26.74  -0.7623  0.185   0.4286   7   5.18e-01
+V16.21    27.0  26.87  -0.13  26.85  -0.1453  0.247   0.0000   1   0.00e+00
+A180.76   27.0  27.15   0.15  27.16   0.1582  0.233   0.0000   6   3.86e-02
+V15.164   27.0  26.82  -0.18  26.79  -0.2081  0.257   0.0000   1   0.00e+00
+A180.78   27.0  27.20   0.20  27.19   0.1940  0.405   0.0000   5   1.03e-04
+V14.5     27.0  27.02   0.02  27.07   0.0730  0.219   0.0000   1   3.55e-15
+V3.128    29.0  26.72  -2.28  26.69  -2.3050  0.366   2.1500   2   2.17e+00
+A179.13   28.5  26.09  -2.41  26.13  -2.3699  0.327   1.8333   3   1.85e+00
+V9.31     27.5  26.87  -0.63  26.92  -0.5805  0.309   0.0000   1   0.00e+00
+V20.230   27.5  26.87  -0.63  26.90  -0.6015  0.291   0.1667   3   1.77e-01
+V20.7     27.5  27.27  -0.23  27.25  -0.2452  0.431   0.0000   2   1.06e-03
+V20.234   27.0  27.02   0.02  27.08   0.0788  0.228   0.0000   1   0.00e+00
+V18.21    27.0  26.77  -0.23  26.87  -0.1318  0.252   0.0000   1   3.55e-15
+V12.122   28.0  26.92  -1.08  26.94  -1.0561  0.228   0.9000   5   9.17e-01
+          k.W
+V14.61      5
+V17.196     3
+V18.110     2
+V16.227     9
+V14.47      6
+V23.22      3
+V2.12      10
+V23.29      2
+V12.43      5
+R9.7        2
+A157.3      2
+V23.81      4
+V23.82      7
+V12.53      7
+V23.83     10
+V12.56      2
+A152.84     7
+V16.50      1
+V22.122    10
+V16.41      1
+V4.32       8
+V12.66      1
+V19.245     4
+V4.8        1
+A180.15     1
+V18.34     10
+V20.213     6
+V19.222     9
+A180.39     6
+V16.189     1
+V12.18      9
+V7.67       1
+V17.165     1
+V19.310     1
+V16.190     3
+A153.154    2
+V19.308    10
+V22.172     1
+V10.98      1
+V22.219     2
+V16.33      3
+V22.204     7
+V20.167     4
+V10.89     10
+V12.79      4
+V19.216     7
+V14.90      4
+A180.72     7
+V16.21      1
+A180.76     7
+V15.164     1
+A180.78     5
+V14.5       1
+V3.128      2
+A179.13     3
+V9.31       1
+V20.230     3
+V20.7       2
+V20.234     1
+V18.21      1
+V12.122     5
+
+> 
+> ## fitted values
+> fitted(ik.mat2)
+
+	Modern Analogue Technique: Fitted values
+
+No. of analogues (k) : 3 
+User supplied k?     : FALSE 
+Weighted analysis?   : FALSE 
+
+  V14.61  V17.196  V18.110  V16.227   V14.47   V23.22    V2.12   V23.29 
+   7.167    4.833    4.667    7.167    7.667   10.000    4.833   11.833 
+  V12.43     R9.7   A157.3   V23.81   V23.82   V12.53   V23.83   V12.56 
+  13.500   13.667   14.500   14.333   14.167   17.000   14.500   20.667 
+ A152.84   V16.50  V22.122   V16.41    V4.32   V12.66  V19.245     V4.8 
+  22.000   17.167   15.500   23.333   24.000   21.833   20.833   23.833 
+ A180.15   V18.34  V20.213  V19.222  A180.39  V16.189   V12.18    V7.67 
+  23.333   25.333   24.500   23.833   24.000   25.733   26.067   25.333 
+ V17.165  V19.310  V16.190 A153.154  V19.308  V22.172   V10.98  V22.219 
+  25.333   25.333   25.000   25.733   25.733   26.400   24.667   25.667 
+  V16.33  V22.204  V20.167   V10.89   V12.79  V19.216   V14.90  A180.72 
+  25.733   26.000   26.167   27.233   27.000   25.667   26.833   26.667 
+  V16.21  A180.76  V15.164  A180.78    V14.5   V3.128  A179.13    V9.31 
+  26.400   27.167   26.733   26.833   27.333   26.067   26.667   27.167 
+ V20.230    V20.7  V20.234   V18.21  V12.122 
+  27.333   27.333   27.333   27.333   27.000 
+> 
+> ## model residuals
+> resid(ik.mat2)
+
+	Modern Analogue Technique Residuals
+
+No. of analogues (k) : 3 
+User supplied k?     : FALSE 
+Weighted analysis?   : FALSE 
+
+  V14.61  V17.196  V18.110  V16.227   V14.47   V23.22    V2.12   V23.29 
+  5.1667  -0.1667  -0.8333   0.1667   0.6667  -0.5000  -6.1667   1.8333 
+  V12.43     R9.7   A157.3   V23.81   V23.82   V12.53   V23.83   V12.56 
+  0.5000   1.6667   0.5000  -0.1667  -0.8333   2.5000  -1.5000   2.6667 
+ A152.84   V16.50  V22.122   V16.41    V4.32   V12.66  V19.245     V4.8 
+  2.0000  -0.8333  -3.5000   4.8333   2.5000   0.8333  -0.1667  -0.1667 
+ A180.15   V18.34  V20.213  V19.222  A180.39  V16.189   V12.18    V7.67 
+ -0.6667   2.3333   0.5000   0.8333   1.0000   1.7333   1.0667  -0.6667 
+ V17.165  V19.310  V16.190 A153.154  V19.308  V22.172   V10.98  V22.219 
+ -0.6667  -0.6667   0.0000  -0.2667  -0.2667   1.9000  -2.3333  -0.5333 
+  V16.33  V22.204  V20.167   V10.89   V12.79  V19.216   V14.90  A180.72 
+  0.7333  -0.5000  -0.0333   1.2333   1.0000  -1.3333  -0.1667  -0.8333 
+  V16.21  A180.76  V15.164  A180.78    V14.5   V3.128  A179.13    V9.31 
+ -0.6000   0.1667  -0.2667  -0.1667   0.3333  -2.9333  -1.8333  -0.3333 
+ V20.230    V20.7  V20.234   V18.21  V12.122 
+ -0.1667  -0.1667   0.3333   0.3333  -1.0000 
+> 
+> ## draw summary plots of the model
+> par(mfrow = c(2,2))
+> plot(ik.mat2)
+> par(mfrow = c(1,1))
+> 
+> ## reconstruct for the RLGH core data
+> coreV12.mat2 <- predict(ik.mat, V12.122, k = 3)
+> coreV12.mat2
+
+	Modern Analogue Technique predictions
+
+Dissimilarity: chord 
+k-closest analogues: 3,	Chosen automatically? FALSE
+Weighted mean: FALSE 
+Bootstrap estimates: FALSE 
+
+Model error estimates:
+    RMSEP r.squared  avg.bias  max.bias 
+   1.7130    0.9409    0.1328    5.1667 
+
+Predicted values:
+    0    10    20    30    40    50    60    70    80    90   100   110   120 
+27.33 27.33 27.33 26.33 25.90 25.90 25.50 25.83 26.17 26.00 27.00 27.33 26.33 
+  130   140   150   160   170   180   190   200   210   220   230   240   250 
+27.17 26.50 25.57 26.57 26.57 27.23 27.33 26.50 26.83 27.50 27.33 27.73 26.00 
+  260   270   280   290   300   310   320   330   340   350   360   370   380 
+25.90 26.33 26.50 27.33 25.90 26.33 26.33 26.17 25.83 27.07 25.90 25.90 27.50 
+  390   400   410   420   430   440   450   460   470   480   490   500   510 
+26.83 27.00 27.73 27.17 27.50 27.17 27.00 27.40 25.90 26.83 27.67 27.33 27.00 
+  520   530   540   550   560   570   580   590   600   610   620   630   640 
+27.00 25.90 26.07 26.17 27.33 27.33 26.50 25.90 27.17 27.07 26.57 27.17 27.33 
+  650   660   670   680   690   700   710   720   730   740   750   760   770 
+27.17 26.83 27.00 26.83 27.17 26.90 27.40 26.17 27.83 27.00 26.83 26.83 27.40 
+  780   790   800   810   820   830   840   850   860   870   880   890   900 
+27.67 27.33 27.33 26.50 26.83 25.50 26.17 27.00 26.00 25.90 26.33 25.00 26.83 
+  910   920   930   940   950   960   970   980   990  1000  1010  1020  1030 
+26.17 26.50 27.33 27.33 26.73 27.50 27.33 27.33 27.33 26.17 27.33 26.17 26.17 
+ 1040  1050  1060  1070  1080  1090 
+27.00 26.00 26.83 25.50 26.50 26.00 
+> summary(coreV12.mat2)
+
+	Modern Analogue Technique predictions
+
+Dissimilarity: chord 
+k-closest analogues: 3,	Chosen automatically? FALSE
+Weighted mean: FALSE 
+Bootstrap estimates: FALSE 
+
+Model error estimates:
+    RMSEP r.squared  avg.bias  max.bias 
+   1.7130    0.9409    0.1328    5.1667 
+
+Predicted values:
+    0    10    20    30    40    50    60    70    80    90   100   110   120 
+27.33 27.33 27.33 26.33 25.90 25.90 25.50 25.83 26.17 26.00 27.00 27.33 26.33 
+  130   140   150   160   170   180   190   200   210   220   230   240   250 
+27.17 26.50 25.57 26.57 26.57 27.23 27.33 26.50 26.83 27.50 27.33 27.73 26.00 
+  260   270   280   290   300   310   320   330   340   350   360   370   380 
+25.90 26.33 26.50 27.33 25.90 26.33 26.33 26.17 25.83 27.07 25.90 25.90 27.50 
+  390   400   410   420   430   440   450   460   470   480   490   500   510 
+26.83 27.00 27.73 27.17 27.50 27.17 27.00 27.40 25.90 26.83 27.67 27.33 27.00 
+  520   530   540   550   560   570   580   590   600   610   620   630   640 
+27.00 25.90 26.07 26.17 27.33 27.33 26.50 25.90 27.17 27.07 26.57 27.17 27.33 
+  650   660   670   680   690   700   710   720   730   740   750   760   770 
+27.17 26.83 27.00 26.83 27.17 26.90 27.40 26.17 27.83 27.00 26.83 26.83 27.40 
+  780   790   800   810   820   830   840   850   860   870   880   890   900 
+27.67 27.33 27.33 26.50 26.83 25.50 26.17 27.00 26.00 25.90 26.33 25.00 26.83 
+  910   920   930   940   950   960   970   980   990  1000  1010  1020  1030 
+26.17 26.50 27.33 27.33 26.73 27.50 27.33 27.33 27.33 26.17 27.33 26.17 26.17 
+ 1040  1050  1060  1070  1080  1090 
+27.00 26.00 26.83 25.50 26.50 26.00 
+
+Training set assessment:
+
+          Obs    Est    Resid
+V14.61    2.0  7.167  5.16667
+V17.196   5.0  4.833 -0.16667
+V18.110   5.5  4.667 -0.83333
+V16.227   7.0  7.167  0.16667
+V14.47    7.0  7.667  0.66667
+V23.22   10.5 10.000 -0.50000
+V2.12    11.0  4.833 -6.16667
+V23.29   10.0 11.833  1.83333
+V12.43   13.0 13.500  0.50000
+R9.7     12.0 13.667  1.66667
+A157.3   14.0 14.500  0.50000
+V23.81   14.5 14.333 -0.16667
+V23.82   15.0 14.167 -0.83333
+V12.53   14.5 17.000  2.50000
+V23.83   16.0 14.500 -1.50000
+V12.56   18.0 20.667  2.66667
+A152.84  20.0 22.000  2.00000
+V16.50   18.0 17.167 -0.83333
+V22.122  19.0 15.500 -3.50000
+V16.41   18.5 23.333  4.83333
+V4.32    21.5 24.000  2.50000
+V12.66   21.0 21.833  0.83333
+V19.245  21.0 20.833 -0.16667
+V4.8     24.0 23.833 -0.16667
+A180.15  24.0 23.333 -0.66667
+V18.34   23.0 25.333  2.33333
+V20.213  24.0 24.500  0.50000
+V19.222  23.0 23.833  0.83333
+A180.39  23.0 24.000  1.00000
+V16.189  24.0 25.733  1.73333
+V12.18   25.0 26.067  1.06667
+V7.67    26.0 25.333 -0.66667
+V17.165  26.0 25.333 -0.66667
+V19.310  26.0 25.333 -0.66667
+V16.190  25.0 25.000  0.00000
+A153.154 26.0 25.733 -0.26667
+V19.308  26.0 25.733 -0.26667
+V22.172  24.5 26.400  1.90000
+V10.98   27.0 24.667 -2.33333
+V22.219  26.2 25.667 -0.53333
+V16.33   25.0 25.733  0.73333
+V22.204  26.5 26.000 -0.50000
+V20.167  26.2 26.167 -0.03333
+V10.89   26.0 27.233  1.23333
+V12.79   26.0 27.000  1.00000
+V19.216  27.0 25.667 -1.33333
+V14.90   27.0 26.833 -0.16667
+A180.72  27.5 26.667 -0.83333
+V16.21   27.0 26.400 -0.60000
+A180.76  27.0 27.167  0.16667
+V15.164  27.0 26.733 -0.26667
+A180.78  27.0 26.833 -0.16667
+V14.5    27.0 27.333  0.33333
+V3.128   29.0 26.067 -2.93333
+A179.13  28.5 26.667 -1.83333
+V9.31    27.5 27.167 -0.33333
+V20.230  27.5 27.333 -0.16667
+V20.7    27.5 27.333 -0.16667
+V20.234  27.0 27.333  0.33333
+V18.21   27.0 27.333  0.33333
+V12.122  28.0 27.000 -1.00000
+> 
+> ## draw the reconstruction
+> reconPlot(coreV12.mat2, use.labels = TRUE, display.error = "bars",
++           xlab = "Depth", ylab = "SumSST")
 > 
 > 
 > 
+> 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("mcarlo")
@@ -3729,6 +4242,7 @@ V12.122  28.0 27.000 -1.00000
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mcarlo
 > ### Title: Monte Carlo simulation of dissimilarities
 > ### Aliases: mcarlo mcarlo.default mcarlo.mat mcarlo.analog print.mcarlo
@@ -3785,12 +4299,16 @@ Percentiles of simulated distribution:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("mcarlo", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("minDC")
 > ### * minDC
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: minDC
 > ### Title: Extract minimum dissimilarities
 > ### Aliases: minDC minDC.default minDC.predict.mat minDC.analog minDC.wa
@@ -3898,12 +4416,16 @@ Dissimilarity: SQchord
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("minDC", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("optima")
 > ### * optima
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: optima
 > ### Title: Weighted averaging optima and tolerance ranges
 > ### Aliases: optima optima.default print.optima print.tolerance
@@ -4007,12 +4529,16 @@ G.hirsu 3.942135
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("optima", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("pcr")
 > ### * pcr
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: pcr
 > ### Title: Prinicpal component regression transfer function models
 > ### Aliases: pcr pcr.default pcr.formula print.pcr Hellinger ChiSquare
@@ -4244,12 +4770,16 @@ G.hirsu -0.19363169  0.7346868   0.44297993   0.4546855
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("pcr", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("performance")
 > ### * performance
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: performance
 > ### Title: Transfer function model performance statistics
 > ### Aliases: performance print.performance performance.wa
@@ -4385,12 +4915,16 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("performance", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.dissimilarities")
 > ### * plot.dissimilarities
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.dissimilarities
 > ### Title: Plots the distribution of extracted dissimilarities
 > ### Aliases: plot.dissimilarities
@@ -4780,12 +5314,16 @@ Dissimilarities for k-closest analogues
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.dissimilarities", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.mat")
 > ### * plot.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.mat
 > ### Title: Plot diagnostics for a mat object
 > ### Aliases: plot.mat
@@ -5037,12 +5575,16 @@ V12.122     5
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.mcarlo")
 > ### * plot.mcarlo
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.mcarlo
 > ### Title: Plot Monte Carlo simulated dissimilarity distributions
 > ### Aliases: plot.mcarlo
@@ -5099,12 +5641,16 @@ Percentiles of simulated distribution:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.mcarlo", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.minDC")
 > ### * plot.minDC
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.minDC
 > ### Title: Plot of minimum dissimilarity per sample
 > ### Aliases: plot.minDC
@@ -5210,12 +5756,16 @@ Dissimilarity: chord
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.minDC", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.prcurve")
 > ### * plot.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.prcurve
 > ### Title: Plot a fitted principal curve in PCA space
 > ### Aliases: plot.prcurve
@@ -5235,12 +5785,12 @@ Dissimilarity: chord
 +                     vary = TRUE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
-Iteration   1: d.sq: 4283.4420
-Iteration   2: d.sq: 4312.3020
-Iteration   3: d.sq: 4340.7142
-Iteration   4: d.sq: 4355.3973
-Iteration   5: d.sq: 4366.5135
-Iteration   6: d.sq: 4369.9487
+Iteration   1: d.sq: 4283.4308
+Iteration   2: d.sq: 4312.2976
+Iteration   3: d.sq: 4340.6911
+Iteration   4: d.sq: 4355.3876
+Iteration   5: d.sq: 4366.4975
+Iteration   6: d.sq: 4369.9444
 --------------------------------------------------------------------------------
 PC Converged in 6 iterations.
 --------------------------------------------------------------------------------
@@ -5250,12 +5800,16 @@ PC Converged in 6 iterations.
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.prcurve", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.residLen")
 > ### * plot.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.residLen
 > ### Title: Plot method for residual lengths
 > ### Aliases: plot.residLen
@@ -5288,12 +5842,16 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.residLen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.wa")
 > ### * plot.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.wa
 > ### Title: Plot diagnostics for a weighted averaging model
 > ### Aliases: plot.wa
@@ -5429,6 +5987,9 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("plot.wa", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("prcurve")
@@ -5436,6 +5997,7 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: prcurve
 > ### Title: Fits a principal curve to m-dimensional data
 > ### Aliases: prcurve initCurve smoothSpline
@@ -5463,11 +6025,11 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 +                    vary = FALSE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
-Iteration   1: d.sq: 4853.8220
-Iteration   2: d.sq: 5013.5425
-Iteration   3: d.sq: 5110.0108
-Iteration   4: d.sq: 5135.7017
-Iteration   5: d.sq: 5137.9697
+Iteration   1: d.sq: 4853.7911
+Iteration   2: d.sq: 5013.4971
+Iteration   3: d.sq: 5109.9732
+Iteration   4: d.sq: 5135.6541
+Iteration   5: d.sq: 5137.9439
 --------------------------------------------------------------------------------
 PC Converged in 5 iterations.
 --------------------------------------------------------------------------------
@@ -5478,24 +6040,28 @@ PC Converged in 5 iterations.
 +                     vary = TRUE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
-Iteration   1: d.sq: 4283.4420
-Iteration   2: d.sq: 4312.3020
-Iteration   3: d.sq: 4340.7142
-Iteration   4: d.sq: 4355.3973
-Iteration   5: d.sq: 4366.5135
-Iteration   6: d.sq: 4369.9487
+Iteration   1: d.sq: 4283.4308
+Iteration   2: d.sq: 4312.2976
+Iteration   3: d.sq: 4340.6911
+Iteration   4: d.sq: 4355.3876
+Iteration   5: d.sq: 4366.4975
+Iteration   6: d.sq: 4369.9444
 --------------------------------------------------------------------------------
 PC Converged in 6 iterations.
 --------------------------------------------------------------------------------
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("prcurve", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("predict.mat")
 > ### * predict.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: predict.mat
 > ### Title: Predict method for Modern Analogue Technique models
 > ### Aliases: predict.mat print.predict.mat
@@ -5603,12 +6169,16 @@ Predicted values:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("predict.mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("predict.wa")
 > ### * predict.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: predict.wa
 > ### Title: Predict from a weighted average model
 > ### Aliases: predict.wa print.predict.wa
@@ -5641,12 +6211,16 @@ Predicted values:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("predict.wa", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("reconPlot")
 > ### * reconPlot
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: reconPlot
 > ### Title: Stratigraphic plots of palaeoenvironmental reconstructions
 > ### Aliases: reconPlot reconPlot.default reconPlot.predict.mat
@@ -5727,12 +6301,16 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("reconPlot", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("residLen")
 > ### * residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: residLen
 > ### Title: Squared residual length diagnostics
 > ### Aliases: residLen print.residLen fittedY sqrlLinear sqrlUnimodal
@@ -5777,12 +6355,16 @@ Passive:       0.00773  0.00909  0.0107  0.011   0.0123
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("residLen", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("rlgh")
 > ### * rlgh
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: rlgh
 > ### Title: Round Loch of Glenhead Diatoms
 > ### Aliases: rlgh
@@ -5794,12 +6376,16 @@ Passive:       0.00773  0.00909  0.0107  0.011   0.0123
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("rlgh", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("roc")
 > ### * roc
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: roc
 > ### Title: ROC curve analysis
 > ### Aliases: roc roc.default roc.mat roc.analog print.roc summary.roc
@@ -5860,12 +6446,16 @@ No. within: 167   No. outside: 1837
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("roc", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("screeplot")
 > ### * screeplot
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: screeplot
 > ### Title: Screeplots of model results
 > ### Aliases: screeplot.mat screeplot.bootstrap.mat
@@ -5940,12 +6530,16 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("screeplot", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("stdError")
 > ### * stdError
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: stdError
 > ### Title: Standard error of MAT fitted and predicted values
 > ### Aliases: stdError stdError.mat stdError.predict.mat
@@ -6042,12 +6636,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("stdError", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.analog")
 > ### * summary.analog
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.analog
 > ### Title: Summarise analogue matching results
 > ### Aliases: summary.analog print.summary.analog
@@ -6067,12 +6665,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("summary.analog", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.bootstrap.mat")
 > ### * summary.bootstrap.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.bootstrap.mat
 > ### Title: Summarise bootstrap resampling for MAT models
 > ### Aliases: summary.bootstrap.mat print.summary.bootstrap.mat
@@ -6095,12 +6697,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("summary.bootstrap.mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.cma")
 > ### * summary.cma
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.cma
 > ### Title: Summarise the extraction of close modern analogues
 > ### Aliases: summary.cma print.summary.cma
@@ -6125,12 +6731,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("summary.cma", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.mat")
 > ### * summary.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.mat
 > ### Title: Summarise Modern Analogue Technique models
 > ### Aliases: summary.mat print.summary.mat
@@ -6156,12 +6766,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("summary.mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.predict.mat")
 > ### * summary.predict.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.predict.mat
 > ### Title: Summarise MAT model predictions
 > ### Aliases: summary.predict.mat print.summary.predict.mat
@@ -6183,12 +6797,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("summary.predict.mat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("swapdiat")
 > ### * swapdiat
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: swapdiat
 > ### Title: SWAP sub-fossil diatom and pH training set
 > ### Aliases: swapdiat
@@ -6200,12 +6818,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("swapdiat", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("swappH")
 > ### * swappH
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: swappH
 > ### Title: SWAP sub-fossil diatom and pH training set
 > ### Aliases: swappH
@@ -6220,12 +6842,16 @@ attr(,"auto")
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("swappH", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("timetrack")
 > ### * timetrack
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: timetrack
 > ### Title: Timetracks of change in species composition
 > ### Aliases: timetrack print.timetrack plot.timetrack fitted.timetrack
@@ -6265,12 +6891,16 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("timetrack", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("tran")
 > ### * tran
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: tran
 > ### Title: Common data transformations and standardizations
 > ### Aliases: tran tran.default tran.formula
@@ -6306,12 +6936,16 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("tran", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("varExpl")
 > ### * varExpl
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: varExpl
 > ### Title: Variance explained by ordination axes
 > ### Aliases: varExpl varExpl.default varExpl.cca varExpl.prcurve
@@ -6335,12 +6969,16 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("varExpl", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("wa")
 > ### * wa
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: wa
 > ### Title: Weighted averaging transfer functions
 > ### Aliases: wa wa.default wa.formula print.wa fitted.wa residuals.wa
@@ -6463,6 +7101,9 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("wa", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("weightedCor")
@@ -6470,6 +7111,7 @@ model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
 > 
 > flush(stderr()); flush(stdout())
 > 
+> assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: weightedCor
 > ### Title: Weighted correlation test of WA reconstruction
 > ### Aliases: weightedCor weightedCor.default print.weightedCor
@@ -6503,10 +7145,13 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > 
 > 
 > 
+> 
+> assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> cat("weightedCor", get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  33.471 1.19 34.679 0 0 
+Time elapsed:  12.919 0.622 13.687 0 0 
 > grDevices::dev.off()
 null device 
           1 

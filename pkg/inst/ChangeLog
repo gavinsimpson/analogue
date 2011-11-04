@@ -1,5 +1,21 @@
 analogue Change Log
 
+Version 0.7-7
+
+    * mat: new argument `kmax` can be used to limit the number of
+    analogues considered as models when fitting MAT transfer
+    functions. By default, `mat()` considers models with 1 through
+    to n-1 analogues (n = number of sites). `kmax` can control this
+    upper limit which will speed up fitting models, especially for
+    large training sets. Invariably one wouldn't want to average
+    over entire training sets to produce predictions, or even over
+    large numbers of analogues. As such I may set an upper limit for
+    the default value of `kmax` before this is released to CRAN.
+
+    * cumWmean, cummean: as a result of the above addition of `kmax`,
+    these two functions now take a `kmax` argument also. The default
+    behaviour is unchanged however.
+
 Version 0.7-6
 
 	* Stratiplot: Handling of absolute data types was broken. Fix

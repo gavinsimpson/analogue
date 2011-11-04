@@ -16,31 +16,39 @@ mat <- function(x, ...) UseMethod("mat")
 
 mat.default <- function(x, y,
                         method = c("euclidean", "SQeuclidean", "chord",
-                          "SQchord", "bray", "chi.square", "SQchi.square",
-                          "information", "chi.distance", "manhattan",
-                          "kendall", "gower", "alt.gower", "mixed"),
-                        ...)
-  {
+                        "SQchord", "bray", "chi.square", "SQchi.square",
+                        "information", "chi.distance", "manhattan",
+                        "kendall", "gower", "alt.gower", "mixed"),
+                        kmax, ...) {
     dims <- dim(x) # the numbers of samples / species
     site.nams <- rownames(x) # store sample names for later
     .call <- match.call()
     ## need to reset due to method dispatch
     .call[[1]] <- as.name("mat")
     if(missing(method))
-      method <- "euclidean"
+        method <- "euclidean"
     method <- match.arg(method)
     dis <- distance(x, method = method, ...) # calculate the distances
     ## new speed-ups might leave dimnames on dis
-    ##dimnames(dis) <- NULL
     x <- as.matrix(x) # convert to matrix for speed (?)
     nams <- dimnames(x)
     dimnames(x) <- NULL # clear the dimnames for speed (?)
     ## insure sample under test is not chosen as analogue for itself
     diag(dis) <- NA
+    ## process the kmax
+    if(missing(kmax)) {
+        kmax <- nrow(dis) - 1
+    }
+    if(kmax > (nrow(dis) - 1)) {
+        kmax <- nrow(dis) - 1
+    }
+    if(kmax < 1) {
+        kmax <- 1
+    }
     ## drop = FALSE in next calls as we now make sure sample cannot be
     ## chosen as analogue for itself
-    Wmeans <- apply(dis, 2, cumWmean, y, drop = FALSE) # Estimated values
-    means <- apply(dis, 2, cummean, y, drop = FALSE)
+    Wmeans <- apply(dis, 2, cumWmean, y, drop = FALSE, kmax = kmax) # Estimated values
+    means <- apply(dis, 2, cummean, y, drop = FALSE, kmax = kmax)
     minDC <- apply(dis, 2, minDij, drop = FALSE) # minimum Dij per sample
     Werror <- sweep(Wmeans, 2, y, "-") # residuals for Wmeans
     error <- sweep(means, 2, y, "-") # residuals for mean
@@ -57,8 +65,8 @@ mat.default <- function(x, y,
     ## re-apply samples names and n. closest
     colnames(Wmeans) <- colnames(means) <- site.nams
     colnames(Werror) <- colnames(error) <- site.nams
-    rownames(Wmeans) <- rownames(means) <- 1:(dims[1] -1)
-    rownames(Werror) <- rownames(error) <- 1:(dims[1] -1)
+    rownames(Wmeans) <- rownames(means) <-
+        rownames(Werror) <- rownames(error) <- seq_len(kmax)
     dimnames(x) <- nams
     ## return results
     retval <- structure(list(standard = list(est = means, resid = error,
@@ -75,7 +83,7 @@ mat.default <- function(x, y,
                         class = "mat")
     attr(retval, "method") <- method
     retval
-  }
+}
 
 mat.formula <- function(formula, data, subset, na.action,
                         method = c("euclidean", "SQeuclidean", "chord",

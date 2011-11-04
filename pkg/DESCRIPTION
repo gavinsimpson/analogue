@@ -1,7 +1,7 @@
 Package: analogue
 Type: Package
 Title: Analogue and weighted averaging methods for palaeoecology
-Version: 0.7-6
+Version: 0.7-7
 Date: $Date$
 Depends: R (>= 2.10.0), stats, graphics, vegan (>= 1.17-12), lattice, grid, 
          MASS, princurve
@@ -11,4 +11,5 @@ Description: Fits Modern Analogue Technique and Weighted Averaging transfer
   	     function models for prediction of environmental data from species 
 	     data, and related methods used in palaeoecology.
 License: GPL-2
+ByteCompile: true
 URL: http://analogue.r-forge.r-project.org

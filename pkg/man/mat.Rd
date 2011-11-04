@@ -24,7 +24,7 @@ mat(x, \dots)
                "bray", "chi.square", "SQchi.square",
                "information", "chi.distance", "manhattan",
                "kendall", "gower", "alt.gower", "mixed"),
-    \dots)
+    kmax, \dots)
 
 \method{mat}{formula}(formula, data, subset, na.action,
     method = c("euclidean", "SQeuclidean", "chord", "SQchord",
@@ -63,6 +63,12 @@ mat(x, \dots)
     Details, below.}
   \item{model}{logical; If \code{TRUE} the model frame of the fit is
     returned.}
+  \item{kmax}{numeric; limit the maximum number of analogues considered
+    during fitting. By default, \code{kmax} is equal to \eqn{n - 1},
+    where \eqn{n} is the number of sites. For large data sets this is
+    just wasteful as we wouldn't expect to be averaging over the entire
+    training set. \code{kmax} can be used to restrict the upper limit on
+    the number of analogues considered.}
   \item{object}{an object of class \code{\link{mat}}.}
   \item{k}{numeric; the \emph{k}-closest analogue models' for which
     fitted values and residuals are returned. Overides the default stored in
@@ -252,6 +258,34 @@ summary(coreV12.mat)
 
 ## draw the reconstruction
 reconPlot(coreV12.mat, use.labels = TRUE, display.error = "bars",
+          xlab = "Depth", ylab = "SumSST")
+
+## fit the MAT model using the squared chord distance measure
+## and restrict the number of analogues we fit models for to 1:20
+ik.mat2 <- mat(ImbrieKipp, SumSST, method = "chord", kmax = 20)
+ik.mat2
+
+## model summary
+summary(ik.mat2)
+
+## fitted values
+fitted(ik.mat2)
+
+## model residuals
+resid(ik.mat2)
+
+## draw summary plots of the model
+par(mfrow = c(2,2))
+plot(ik.mat2)
+par(mfrow = c(1,1))
+
+## reconstruct for the RLGH core data
+coreV12.mat2 <- predict(ik.mat, V12.122, k = 3)
+coreV12.mat2
+summary(coreV12.mat2)
+
+## draw the reconstruction
+reconPlot(coreV12.mat2, use.labels = TRUE, display.error = "bars",
           xlab = "Depth", ylab = "SumSST")
 
 }

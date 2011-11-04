@@ -21,21 +21,23 @@
 ## drop              - drop spurious zero distance                       ##
 ##                                                                       ##
 ###########################################################################
-cumWmean <- function(weights, y, drop = TRUE)
-  {
-    #if (length(weights) != length(y))
-    #  stop("'y' and 'weights' must have the same length")
+cumWmean <- function(weights, y, drop = TRUE, kmax) {
+    if(missing(kmax))
+        kmax <- length(y)
+    ##if (length(weights) != length(y))
+    ##  stop("'y' and 'weights' must have the same length")
     nas <- is.na(weights)
     ord <- order(weights[!nas])
     if(drop) {
-      weights <- 1 / weights[!nas][ord][-1]
-      env <- y[!nas][ord][-1]
+        weights <- 1 / weights[!nas][ord][-1]
+        env <- y[!nas][ord][-1]
     } else {
-      weights <- 1 / weights[!nas][ord]
-      env <- y[!nas][ord]
+        weights <- 1 / weights[!nas][ord]
+        env <- y[!nas][ord]
     }
-    cumsum(weights * env) / cumsum(weights)
-  }
+    K <- seq_len(kmax)
+    cumsum(weights[K] * env[K]) / cumsum(weights[K])
+}
 ###########################################################################
 ##                                                                       ##
 ## cummean - calculates the cumulative mean of y                         ##
@@ -64,8 +66,9 @@ cumWmean <- function(weights, y, drop = TRUE)
 #    }
 #    cumsum(y) / 1:length(dis)
 #  }
-cummean <- function(dis, y, drop = TRUE)
-{
+cummean <- function(dis, y, drop = TRUE, kmax) {
+    if(missing(kmax))
+        kmax <- length(y)
     nas <- is.na(dis)
     ord <- order(dis[!nas])
     y <- y[!nas][ord]
@@ -74,7 +77,9 @@ cummean <- function(dis, y, drop = TRUE)
         y <- y[-1]
         len <- len - 1
     }
-    cumsum(y) / 1:len
+    K <- seq_len(kmax)
+    ##cumsum(y) / 1:len
+    cumsum(y[K]) / K
 }
 ###########################################################################
 ##                                                                       ##
