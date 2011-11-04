@@ -6,7 +6,6 @@ rdaFit <- function(X, Y, Z, scale = FALSE, ...) {
     X <- data.matrix(X)
     NR <- nrow(X) - 1
     Xbar <- scale(X, center = TRUE, scale = scale)
-    ##SD <- sd(Xbar)
     SD <- sdFun(Xbar)
     if(scale)
         Xbar[is.nan(Xbar)] <- 0
