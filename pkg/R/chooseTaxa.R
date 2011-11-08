@@ -12,7 +12,7 @@ chooseTaxa.default <- function(object, n.occ = 1, max.abun = 0,
     want <- if(isTRUE(all.equal(type, "AND"))) {
         occ.want & abun.want
     } else {
-        occ.want & abun.want
+        occ.want | abun.want
     }
     rname <- rownames(object)
     cname <- colnames(object)
