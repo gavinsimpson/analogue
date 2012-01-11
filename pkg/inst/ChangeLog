@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.8-0
+
+	* Updated Example test checks and packaged for release to CRAN
+	Jan 11, 2012.
+
 Version 0.7-7
 
 	* mat: new argument `kmax` can be used to limit the number of
