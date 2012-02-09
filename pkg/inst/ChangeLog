@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.8-1
+
+	* Replaced instances of `.Internal(sample(....))` with
+	`sample.int(....)` at request of Brian Ripley.
+
 Version 0.8-0
 
 	* Updated Example test checks and packaged for release to CRAN
