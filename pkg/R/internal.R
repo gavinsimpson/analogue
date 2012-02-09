@@ -226,7 +226,6 @@ wmean <- function(spp, env) {
 ##    coef[1] + x * coef[2]
 ##}
 
-
 ## w.tol --- computes weighted standard deviations AKA tolerances
 w.tol <- function(x, env, opt, useN2 = TRUE) {
     ## x   = species abundances

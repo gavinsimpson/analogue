@@ -49,7 +49,7 @@
             if(verbose)
                 setTxtProgressBar(pb, i)
             ## do a k-fold CV
-            pind <- ind[.Internal(sample(N, N, TRUE, NULL))]
+            pind <- ind[sample.int(N, N, replace = FALSE)] ## sure this should be replace = FALSE
             for(k in seq_len(nfold)) {
                 sel <- pind == k   ## sel is samples in leave out group
                 N.oob <- sum(sel) ## N in leave out group
@@ -78,7 +78,7 @@
         for(i in seq_len(nboot)) {
             if(verbose)
                 setTxtProgressBar(pb, i)
-            bSamp <- .Internal(sample(N, N, TRUE, NULL))
+            bSamp <- sample.int(N, N, replace = TRUE)
             sel <- which(!ind %in% bSamp) ## need indices!!!
             N.oob <- NROW(X[sel, , drop = FALSE])
             N.mod <- N - N.oob

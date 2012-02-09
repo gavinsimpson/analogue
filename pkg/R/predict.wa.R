@@ -98,8 +98,7 @@
                     flush.console()
                 }
                 ## bootstrap sample
-                sel <- .Internal(sample(n.train, n.train,
-                                        TRUE, NULL))
+                sel <- sample.int(n.train, n.train, replace = TRUE)
                 nr <- NROW(X[sel, , drop = FALSE]) ## number of samples
                 nr.oob <- NROW(X[-sel, , drop = FALSE])
                 wa.optima <- w.avg(X[sel,,drop = FALSE], ENV[sel])

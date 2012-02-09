@@ -54,9 +54,7 @@ bootstrap.mat <- function(object, newdata, newenv, k, weighted = FALSE,
     for(i in 1:n.boot)
       {
         ## draw a bootstrap sample of size n.train
-        ##samp.boot <- sample(1:n.train, replace = TRUE)
-        samp.boot <- .Internal(sample(n.train, n.train,
-                                      replace = TRUE, prob = NULL))
+          samp.boot <- sample.int(n.train, n.train, replace = TRUE)
         ## store the unique values for subsetting later
         samp.test <- unique(samp.boot)
         ## subset the env data for training set
@@ -373,4 +371,3 @@ print.bootstrap.mat <- function(x, digits = max(3, getOption("digits") - 3),
     cat("\n")
     invisible(x)
   }
-
