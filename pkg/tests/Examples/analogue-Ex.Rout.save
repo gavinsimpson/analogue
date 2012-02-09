@@ -29,7 +29,7 @@ Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.8-0
+This is analogue 0.8-1
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1688,8 +1688,8 @@ Method: kfold
 k: 10
 No. of folds: 1
 
-       R2   avgBias maxBias RMSEP RMSEP2 s1 s2
-1 0.90065 -0.029184 -4.6765 2.214     NA NA NA
+       R2   avgBias maxBias  RMSEP RMSEP2 s1 s2
+1 0.90107 0.0070881 -4.4826 2.2102     NA NA NA
 > 
 > ## n k-fold CV (k == 10, n = 10)
 > cv.nkfold <- crossval(mod, kfold = 10, folds = 10, method = "kfold")
@@ -1702,8 +1702,8 @@ Method: kfold
 k: 10
 No. of folds: 10
 
-       R2   avgBias maxBias  RMSEP RMSEP2      s1     s2
-1 0.90095 -0.018397 -4.4867 2.2103  2.219 0.19676 2.2103
+      R2    avgBias maxBias  RMSEP RMSEP2      s1     s2
+1 0.9009 -0.0095555 -4.4787 2.2111 2.2203 0.20205 2.2111
 > 
 > ## bootstrap with 250 bootstrap samples
 > cv.boot <- crossval(mod, method = "bootstrap", nboot = 250)
@@ -6917,7 +6917,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.603 1.419 27.033 0 0 
+Time elapsed:  23.044 1.291 24.51 0 0 
 > grDevices::dev.off()
 null device 
           1 
