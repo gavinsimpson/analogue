@@ -38,9 +38,14 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
     #             cutoff, "\":\n\tChoose a more suitable value", sep = ""))
     n.samp <- ncol(object$analogs)
     nams <- colnames(object$analogs)
-    close <- apply(object$analogs, 2, function(x) {
-      x <- sort(x)
-      x <- x[x <= cutoff]})
+    ## don't want apply() as that may simplify if all samples have
+    ## same number of analogues - must return a list
+    nc <- ncol(object$analogs)
+    close <- vector("list", nc)
+    for(i in seq_len(nc)) {
+        close[[i]] <- sortByCutoff(object$analogs[, i], cutoff)
+    }
+    names(close) <- colnames(object$analogs)
     if(length(close) == 0)
       close <- vector(mode = "list", length = length(nams))
     each.analogs <- sapply(close, length, USE.NAMES = FALSE)
@@ -73,10 +78,6 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         K <- TRUE
     }
     if(K) {
-        sortByK <- function(x, ks) {
-            x <- sort(x)
-            x[ks]
-        }
         close <- vector(mode = "list", length = n.samp)
         ks <- seq_len(k)
         for(i in seq_along(close)) {
@@ -85,11 +86,14 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         names(each.analogs) <- names(close) <- nams
     } else {
-        sortByCutoff <- function(x, cutoff) {
-            x <- sort(x)
-            x <- x[x <= cutoff]
+        ## don't want apply as that may simplify if all samples have
+        ## same number of analogues - must return a list
+        nc <- ncol(object$Dij)
+        close <- vector("list", nc)
+        for(i in seq_len(nc)) {
+            close[[i]] <-  sortByCutoff(object$Dij[,i], cutoff)
         }
-        close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
+        names(close) <- colnames(object$Dij)
         each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
@@ -127,10 +131,6 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         K <- TRUE
     }
     if(K) {
-        sortByK <- function(x, ks) {
-            x <- sort(x)
-            x[ks]
-        }
         close <- vector(mode = "list", length = n.samp)
         ks <- seq_len(k)
         for(i in seq_along(close)) {
@@ -139,11 +139,14 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         names(each.analogs) <- names(close) <- nams
     } else {
-        sortByCutoff <- function(x, cutoff) {
-            x <- sort(x)
-            x <- x[x <= cutoff]
+        ## don't want apply as that may simplify if all samples have
+        ## same number of analogues - must return a list
+        nc <- ncol(object$Dij)
+        close <- vector("list", nc)
+        for(i in seq_len(nc)) {
+            close[[i]] <-  sortByCutoff(object$Dij[,i], cutoff)
         }
-        close <- apply(object$Dij, 2, sortByCutoff, cutoff = cutoff)
+        names(close) <- colnames(object$Dij)
         each.analogs <- sapply(close, length, USE.NAMES = FALSE)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
@@ -187,4 +190,17 @@ print.cma <- function(x, digits = min(3, getOption("digits") - 4), ...) {
     print(x$n.analogs, digits = digits)
     cat("\n")
     invisible(x)
+}
+
+## two simple functions that now get used more often in the methods above
+## so made full functions (rather than in-line) but not exported so
+## don't need to be documented
+sortByCutoff <- function(x, cutoff) {
+    x <- sort(x)
+    x <- x[x <= cutoff]
+}
+
+sortByK <- function(x, ks) {
+    x <- sort(x)
+    x[ks]
 }

@@ -2,6 +2,10 @@ analogue Change Log
 
 Version 0.8-1
 
+	* cma: if cutoff meant that all analogues returned for all
+	sites, code would return an array instead of the usual list.
+	This is now fixed in all methods.
+
 	* Replaced instances of `.Internal(sample(....))` with
 	`sample.int(....)` at request of Brian Ripley.
 
