@@ -9,6 +9,8 @@ Version 0.8-2
 
 	* Deleted jss.bst from inst/doc
 
+	* Vignettes: these are now in vignettes not inst/docs
+
 Version 0.8-1
 
 	* cma: if cutoff meant that all analogues returned for all
