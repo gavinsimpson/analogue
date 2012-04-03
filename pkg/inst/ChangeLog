@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.8-2
+
+	* Dependencies: analogue now requires R >= 2.15.0
+
+	* Replaced remaining instances of `.Internal`; now use
+	`.colSums` and `.rowSums` from R 2.15.0
+
+	* Deleted jss.bst from inst/doc
+
 Version 0.8-1
 
 	* cma: if cutoff meant that all analogues returned for all
