@@ -1,5 +1,5 @@
 
-R version 2.14.1 Patched (2012-01-10 r58088)
+R version 2.15.0 Patched (2012-03-30 r58877)
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -24,12 +24,12 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-This is vegan 2.0-1
+This is vegan 2.0-3
 Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.8-1
+This is analogue 0.9-0
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1135,6 +1135,42 @@ Bootstrap sample 100
 > performance(ik.boot)
    RMSEP       R2 Avg.Bias Max.Bias 
   2.3846   0.8948  -0.1778  -3.2058 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("caterpillarPlot")
+> ### * caterpillarPlot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: caterpillarPlot
+> ### Title: Caterpillar plot of species' WA optima and tolerance range.
+> ### Aliases: caterpillarPlot
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> data(ImbrieKipp)
+> data(SumSST)
+> 
+> ## default plot
+> caterpillarPlot(ImbrieKipp, SumSST)
+> 
+> ## customisation
+> opttol <-
++     caterpillarPlot(ImbrieKipp, SumSST, col = "red2", bg = "yellow",
++                     xlab = expression(Summer~Sea~Surface~Temperature~(degree*C)))
+> 
+> ## invisibly returns the optima and tolerances
+> head(opttol)
+          Optima Tolerance
+P.obliq 26.94320  1.554762
+G.duter 26.49014  1.998304
+C.nitid 26.41005  1.461725
+G.rubes 26.27479  1.968294
+G.saccu 26.18001  1.979651
+G.mentu 26.13778  2.386584
 > 
 > 
 > 
@@ -6917,7 +6953,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.044 1.291 24.51 0 0 
+Time elapsed:  15.815 0.248 16.505 0 0 
 > grDevices::dev.off()
 null device 
           1 

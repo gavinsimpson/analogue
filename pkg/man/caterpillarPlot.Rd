@@ -1,0 +1,81 @@
+\name{caterpillarPlot}
+\alias{caterpillarPlot}
+
+\title{
+  Caterpillar plot of species' WA optima and tolerance range.
+}
+
+\description{
+  Draws a caterpillar plot of the weighted average optima and tolerance
+  range for each of the species in a data set.
+}
+
+\usage{
+caterpillarPlot(x, env, useN2 = TRUE, decreasing = TRUE, mult = 1,
+                labels, xlab = NULL, pch = 21, bg = "white",
+                col = "black", lcol = col, ...)
+}
+
+
+\arguments{
+  \item{x}{Species data matrix or data frame.}
+  \item{env}{numeric; variable for which optima and tolerances are
+    required.}
+  \item{useN2}{logical; should Hill's N2 values be used to produce
+    un-biased tolerances?}
+  \item{decreasing}{logical; should the sort order of the species be
+    increasing or decreasing?}
+  \item{mult}{numeric; multiplication factor for species' tolerances.}
+  \item{labels}{character; vector of labels for the species names with
+    which to annotate the y-axis. If missing, \code{names(x)} is used.}
+  \item{xlab}{character; the x-axis label. If \code{NULL}, the default,
+    a description of \code{env} is used.}
+  \item{pch, bg, col}{The plotting character to use and its background and
+    foreground colour. See \code{\link{par}}.}
+  \item{lcol}{The colour to use for the tolerance range.}
+  \item{\dots}{Additional graphical arguments to be passed on to
+    plotting functions.}
+}
+
+%\details{
+%%  ~~ If necessary, more details than the description above ~~
+%}
+
+\value{
+  The function results in a plot on the currently active device. A data
+  frame with components \code{Optima} and \code{Tolerance} is returned
+  invisibly.
+}
+
+%\references{}
+
+\author{
+  Gavin L. Simpson
+}
+
+%\note{}
+
+\seealso{
+  For the underlying computations \code{\link{optima}} and
+  \code{\link{tolerance}}.
+}
+
+\examples{
+data(ImbrieKipp)
+data(SumSST)
+
+## default plot
+caterpillarPlot(ImbrieKipp, SumSST)
+
+## customisation
+opttol <-
+    caterpillarPlot(ImbrieKipp, SumSST, col = "red2", bg = "yellow",
+                    xlab = expression(Summer~Sea~Surface~Temperature~(degree*C)))
+
+## invisibly returns the optima and tolerances
+head(opttol)
+}
+
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ hplot }
