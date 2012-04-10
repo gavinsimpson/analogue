@@ -54,6 +54,9 @@ data(SumSST)
 ## WA tolerances
 (tol <- tolerance(ImbrieKipp, SumSST, useN2 = TRUE))
 
+## caterpillar plot
+caterpillarPlot(opt, tol)
+
 ## convert to data frame
 as.data.frame(opt)
 as.data.frame(tol)

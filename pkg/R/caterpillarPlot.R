@@ -1,13 +1,22 @@
-`caterpillarPlot` <- function(x, env, useN2 = TRUE, decreasing = TRUE,
-                              mult = 1, labels, xlab = NULL,
-                              pch = 21, bg = "white", col = "black", lcol = col,
-                              ...) {
+`caterpillarPlot` <- function(x, ...) {
+    UseMethod("caterpillarPlot")
+}
+
+`caterpillarPlot.data.frame` <- function(x, env, useN2 = TRUE, ...) {
     ## compute the optima
     opt <- optima(x = x, env = env)
     ## and tolerances
     tol <- tolerance(x = x, env = env, useN2 = useN2)
 
+    ## do the plot
+    caterpillarPlot.default(x = opt, tol = tol, ...)
+}
+
+`caterpillarPlot.default` <- function(x, tol, mult = 1, decreasing = TRUE,
+                                      labels, xlab = NULL, pch = 21, bg = "white",
+                                      col = "black", lcol = col, ...) {
     ## reorder
+    opt <- x
     ord <- order(opt, decreasing = decreasing)
     opt <- opt[ord]
     tol <- tol[ord]
@@ -17,12 +26,14 @@
     on.exit(par(op))
 
     ## number of species
-    nspp <- ncol(x)
+    nspp <- length(opt)
     yvals <- seq_len(nspp)
 
     ## labels == spp names
     if(missing(labels)) {
         labels <- names(opt)
+        if(is.null(labels))
+            labels <- paste0("Var", yvals)
     }
     linch <- if (!is.null(labels))
         max(strwidth(labels, "inch"), na.rm = TRUE)
@@ -47,6 +58,22 @@
     axis(side = 1, ...)
     axis(side = 2, labels = labels, at = yvals, las = 1, ...)
     box()
+
+    ## return object
     out <- data.frame(Optima = opt, Tolerance = tol)
     invisible(out)
+}
+
+`caterpillarPlot.wa` <- function(x, type = c("observed","model"), ...) {
+    ## which type of tolerances
+    type <- match.arg(type)
+    ## extract the optima and tolerances
+    opt <- x$wa.optima
+    tol <- if(isTRUE(all.equal(type, "observed"))) {
+        x$tolerances
+    } else {
+        x$model.tol
+    }
+    ## do the plot
+    caterpillarPlot.default(x = opt, tol = tol, ...)
 }

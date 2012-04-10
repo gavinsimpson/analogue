@@ -3,7 +3,8 @@ analogue Change Log
 Version 0.9-0
 
 	* caterpillarPlot: new function that draws a caterpillar plot
-	of species WA optima and tolerances.
+	of species WA optima and tolerances. Methods for data frames
+	and wa() fits are available alongside the default method.
 
 Version 0.8-2
 

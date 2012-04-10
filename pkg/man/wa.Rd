@@ -175,6 +175,10 @@ par(mfrow = c(1,2))
 plot(mod)
 par(mfrow = c(1,1))
 
+## caterpillar plot of optima and tolerances
+caterpillarPlot(mod)                 ## observed tolerances
+caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
+
 ## tolerance DW
 mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
            min.tol = 2, small.tol = "min")

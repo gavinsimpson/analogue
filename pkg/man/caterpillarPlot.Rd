@@ -1,5 +1,8 @@
 \name{caterpillarPlot}
 \alias{caterpillarPlot}
+\alias{caterpillarPlot.default}
+\alias{caterpillarPlot.data.frame}
+\alias{caterpillarPlot.wa}
 
 \title{
   Caterpillar plot of species' WA optima and tolerance range.
@@ -11,14 +14,22 @@
 }
 
 \usage{
-caterpillarPlot(x, env, useN2 = TRUE, decreasing = TRUE, mult = 1,
+
+\method{caterpillarPlot}{default}(x, tol, mult = 1, decreasing = TRUE,
                 labels, xlab = NULL, pch = 21, bg = "white",
                 col = "black", lcol = col, ...)
+
+\method{caterpillarPlot}{data.frame}(x, env, useN2 = TRUE, ...)
+
+\method{caterpillarPlot}{wa}(x, type = c("observed","model"), ...)
 }
 
 
 \arguments{
-  \item{x}{Species data matrix or data frame.}
+  \item{x}{For the \code{default} method, a numeric vector of species
+    optima. For the \code{data.frame} method a species data matrix or data
+    frame. For the \code{wa} method an object of class \code{"wa"}.}
+  \item{tol}{numeric; vector of species tolerances.}
   \item{env}{numeric; variable for which optima and tolerances are
     required.}
   \item{useN2}{logical; should Hill's N2 values be used to produce
@@ -33,6 +44,10 @@ caterpillarPlot(x, env, useN2 = TRUE, decreasing = TRUE, mult = 1,
   \item{pch, bg, col}{The plotting character to use and its background and
     foreground colour. See \code{\link{par}}.}
   \item{lcol}{The colour to use for the tolerance range.}
+  \item{type}{character; \code{"observed"} uses the actual tolerances
+    observed from the data. \code{"model"} uses the tolerances used in
+    the WA model where very small tolerances have been reset for some
+    definition of small.}
   \item{\dots}{Additional graphical arguments to be passed on to
     plotting functions.}
 }
