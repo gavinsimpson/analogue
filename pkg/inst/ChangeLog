@@ -1,5 +1,12 @@
 analogue Change Log
 
+Version 0.9-1
+
+	* splitSample: new function to sample a test set from across
+	an environmental gradient by breaking gradient into a series
+	of chunks and sampling approximately equally from within each
+	chunk.
+
 Version 0.9-0
 
 	* caterpillarPlot: new function that draws a caterpillar plot
