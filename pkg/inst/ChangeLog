@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.9-2
+
+	* wa: small tolerances can now be replaced by the mean
+	tolerance of the set of tolerances that are not small.
+
 Version 0.9-1
 
 	* splitSample: new function to sample a test set from across

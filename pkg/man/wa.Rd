@@ -20,13 +20,13 @@ wa(x, \dots)
    deshrink = c("inverse", "classical", "expanded", "none"),
    tol.dw = FALSE, useN2 = TRUE,
    na.tol = c("min","mean","max"),
-   small.tol = c("min","fraction","absolute"),
+   small.tol = c("min","mean","fraction","absolute"),
    min.tol = NULL, f = 0.1, ...)
 
 \method{wa}{formula}(formula, data, subset, na.action,
    deshrink = c("inverse", "classical", "expanded", "none"),
    tol.dw = FALSE, useN2 = TRUE, na.tol = c("min","mean","max"),
-   small.tol = c("min","fraction","absolute"), min.tol = NULL,
+   small.tol = c("min","mean","fraction","absolute"), min.tol = NULL,
    f = 0.1,..., model = FALSE)
 
 \method{fitted}{wa}(object, \dots)
@@ -105,6 +105,9 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
       \code{min.tol}. With this method, the replaced values will be no
       smaller than any other observed tolerance. This is the default in
       \pkg{analogue}.}
+    \item{\code{mean} }{small tolerances are replaced by the average
+      observed tolerance from the set that are greater than, or equal
+      to, \code{min.tol}.}
     \item{\code{fraction} }{small tolerances are replaced by the
       fraction, \code{f}, of the observed environmental gradient in the
       training set, \code{env}.}
@@ -186,6 +189,12 @@ mod2
 
 ## compare actual tolerances to working values
 with(mod2, rbind(tolerances, model.tol))
+
+## tolerance DW
+mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
+           min.tol = 2, small.tol = "mean")
+mod3
+
 }
 \keyword{methods}
 \keyword{models}

@@ -22,7 +22,8 @@ fixUpTol <- function(tol, na.tol, small.tol, min.tol, f, env) {
             switch(small.tol,
                    fraction = frac,
                    absolute = min.tol,
-                   min = min(tol[tol >= min.tol], na.rm = TRUE))
+                   min = min(tol[tol >= min.tol], na.rm = TRUE),
+                   mean = mean(tol[tol >= min.tol], na.rm = TRUE))
     }
-    return(tol)
+    tol
 }

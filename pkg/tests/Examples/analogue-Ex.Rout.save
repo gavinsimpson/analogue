@@ -1,5 +1,5 @@
 
-R version 2.15.0 Patched (2012-03-30 r58877)
+R version 2.15.0 Patched (2012-04-14 r59019) -- "Easter Beagle"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -29,7 +29,7 @@ Loading required package: lattice
 Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
-This is analogue 0.9-0
+This is analogue 0.9-2
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1146,7 +1146,8 @@ Bootstrap sample 100
 > 
 > ### Name: caterpillarPlot
 > ### Title: Caterpillar plot of species' WA optima and tolerance range.
-> ### Aliases: caterpillarPlot
+> ### Aliases: caterpillarPlot caterpillarPlot.default
+> ###   caterpillarPlot.data.frame caterpillarPlot.wa
 > ### Keywords: hplot
 > 
 > ### ** Examples
@@ -4392,6 +4393,9 @@ Dissimilarity: SQchord
    Other   G.quin  G.hirsu 
 5.112464 4.268777 3.942135 
 > 
+> ## caterpillar plot
+> caterpillarPlot(opt, tol)
+> 
 > ## convert to data frame
 > as.data.frame(opt)
               Opt
@@ -4787,6 +4791,11 @@ wa> plot(mod)
 
 wa> par(mfrow = c(1,1))
 
+wa> ## caterpillar plot of optima and tolerances
+wa> caterpillarPlot(mod)                 ## observed tolerances
+
+wa> caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
+
 wa> ## tolerance DW
 wa> mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
 wa+            min.tol = 2, small.tol = "min")
@@ -4824,6 +4833,29 @@ model.tol  4.723884 4.161704 3.43492 3.354021 3.990673 2.386584 2.124799
             C.nitid S.dehis  G.digit    Other   G.quin  G.hirsu
 tolerances 1.461725 3.84473 3.108881 5.112464 4.268777 3.942135
 model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
+
+wa> ## tolerance DW
+wa> mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
+wa+            min.tol = 2, small.tol = "mean")
+
+wa> mod3
+
+	Weighted Averaging Transfer Function
+
+Call:
+wa(formula = SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE, small.tol = "mean",  
+
+     min.tol = 2) 
+
+Deshrinking  : Inverse 
+Tolerance DW : Yes 
+No. samples  : 61 
+No. species  : 27 
+
+Performance:
+     RMSE  R-squared  Avg. Bias  Max. Bias  
+   1.9924     0.9194     0.0000    -2.5992  
+
 > 
 > ## the model performance statistics
 > performance(mod)
@@ -5830,6 +5862,11 @@ wa> plot(mod)
 
 wa> par(mfrow = c(1,1))
 
+wa> ## caterpillar plot of optima and tolerances
+wa> caterpillarPlot(mod)                 ## observed tolerances
+
+wa> caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
+
 wa> ## tolerance DW
 wa> mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
 wa+            min.tol = 2, small.tol = "min")
@@ -5867,6 +5904,29 @@ model.tol  4.723884 4.161704 3.43492 3.354021 3.990673 2.386584 2.124799
             C.nitid S.dehis  G.digit    Other   G.quin  G.hirsu
 tolerances 1.461725 3.84473 3.108881 5.112464 4.268777 3.942135
 model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
+
+wa> ## tolerance DW
+wa> mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
+wa+            min.tol = 2, small.tol = "mean")
+
+wa> mod3
+
+	Weighted Averaging Transfer Function
+
+Call:
+wa(formula = SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE, small.tol = "mean",  
+
+     min.tol = 2) 
+
+Deshrinking  : Inverse 
+Tolerance DW : Yes 
+No. samples  : 61 
+No. species  : 27 
+
+Performance:
+     RMSE  R-squared  Avg. Bias  Max. Bias  
+   1.9924     0.9194     0.0000    -2.5992  
+
 > 
 > ## diagnostics for the WA model
 > par(mfrow = c(1,2))
@@ -6388,6 +6448,67 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > cleanEx()
+> nameEx("splitSample")
+> ### * splitSample
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: splitSample
+> ### Title: Select samples from along an environmental gradient
+> ### Aliases: splitSample
+> ### Keywords: manip utilities
+> 
+> ### ** Examples
+> 
+> data(swappH)
+> 
+> ## take a test set of 20 samples along the pH gradient
+> test1 <- splitSample(swappH, chunk = 10, take = 20)
+> test1
+ [1]  27  29  85 115  43 146 121  93 102   5  64 155  75  44 122  54 162 165 123
+[20] 129
+attr(,"lengths")
+ [1] 2 2 2 2 2 2 2 2 2 2
+> swappH[test1]
+   6.21      61 HOLMEV1   RLGH2    ACH1 SCOATT1    S131   LCSU1    LOD1  115.11 
+  4.616   4.600   4.700   4.800   5.101   5.000   5.220   5.350   5.547   5.682 
+   DOI1   TINK1   GLAS1    ARR1    S141   BYCH1   WHIN1   WOOD1    S151     S21 
+  5.899   5.966   6.240   6.179   6.380   6.440   6.899   6.782   7.250   7.160 
+> 
+> ## take a larger sample where some chunks don't have many samples
+> ## do random filling
+> set.seed(3)
+> test2 <- splitSample(swappH, chunk = 10, take = 70, fill = "random")
+> test2
+ [1]  99  72  17  68  36  21   1  52   7  34 150 151   9 101 149 109 135 105  43
+[20]  76 103 113 108  10  87  60 128  55 157  63  41  71 153  32  77 132  31 154
+[39] 125 110 100  64  75  96 158  30  58  73 145  23 120  20 122  47  86 143  14
+[58]  57 111  46 162 165  74 118 133 129 164  18  45 123
+attr(,"lengths")
+ [1] 7 7 7 7 7 7 7 8 7 6
+> swappH[test2]
+  LJOSV1     FLE1     3.11     ENO1    82.11     4.11     1.21    BUGE1 
+   4.410    4.538    4.600    4.543    4.619    4.381    4.491    4.840 
+     121    80.11 SKOMAKV1    STRO1    17.21    LLGH1     SKE2    NAGA1 
+   4.800    4.730    4.670    4.837    4.912    4.642    5.100    5.038 
+    S271    MACA1     ACH1    GLYN1    LOWT1    RIEC1    MUCK1    18.11 
+   5.130    5.022    5.101    4.920    5.000    5.266    5.417    5.441 
+    IRD1     COR1     S201    CFYN1     UAI1    DIWA1    89.11    FINL1 
+   5.260    5.328    5.490    5.470    5.767    5.720    5.766    5.756 
+   TEAN1       71     GOD1     S241    66.11    TECW1     S171    OCHI1 
+   5.700    5.700    5.660    5.990    5.990    6.060    5.810    5.953 
+   LLDU1     DOI1    GLAS1    LENY1     UIS1    65.21    CLYD1    GARN1 
+   5.800    5.899    6.240    6.240    6.209    6.175    6.140    6.250 
+     S91    44.21     S121    37.11     S141    BARL1    INVA1      S71 
+   6.200    6.600    6.510    6.494    6.380    6.430    6.586    6.460 
+   20.11    CLON1    PARC1    BARE1    WHIN1    WOOD1    GEIR1      S11 
+   6.577    6.942    6.800    6.748    6.899    6.782    6.760    6.840 
+    S251      S21    WHIT1    3.511    ARTH1     S151 
+   6.970    7.160    7.031    7.000    7.093    7.250 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("stdError")
 > ### * stdError
 > 
@@ -6871,6 +6992,10 @@ Performance:
 > plot(mod)
 > par(mfrow = c(1,1))
 > 
+> ## caterpillar plot of optima and tolerances
+> caterpillarPlot(mod)                 ## observed tolerances
+> caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
+> 
 > ## tolerance DW
 > mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
 +            min.tol = 2, small.tol = "min")
@@ -6907,6 +7032,29 @@ model.tol  4.723884 4.161704 3.43492 3.354021 3.990673 2.386584 2.124799
             C.nitid S.dehis  G.digit    Other   G.quin  G.hirsu
 tolerances 1.461725 3.84473 3.108881 5.112464 4.268777 3.942135
 model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
+> 
+> ## tolerance DW
+> mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
++            min.tol = 2, small.tol = "mean")
+> mod3
+
+	Weighted Averaging Transfer Function
+
+Call:
+wa(formula = SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE, small.tol = "mean",  
+
+     min.tol = 2) 
+
+Deshrinking  : Inverse 
+Tolerance DW : Yes 
+No. samples  : 61 
+No. species  : 27 
+
+Performance:
+     RMSE  R-squared  Avg. Bias  Max. Bias  
+   1.9924     0.9194     0.0000    -2.5992  
+
+> 
 > 
 > 
 > 
@@ -6953,7 +7101,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  15.815 0.248 16.505 0 0 
+Time elapsed:  15.256 0.187 16.245 0 0 
 > grDevices::dev.off()
 null device 
           1 
