@@ -12,7 +12,8 @@
 }
 \usage{
 splitSample(env, chunk = 10, take, nchunk,
-            fill = c("head", "tail", "random"))
+            fill = c("head", "tail", "random"),
+            maxit = 1000)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +28,9 @@ splitSample(env, chunk = 10, take, nchunk,
     chunk. See Details.}
   \item{fill}{character; the type of filling of chunks to perform. See
     Details.}
+  \item{maxit}{numeric; maximum number of iterations in which to try to
+    sample \code{take} observations. Basically here to stop the loop
+    going on forever.}
 }
 \details{
   The gradient is split into \code{chunk} sections and samples are

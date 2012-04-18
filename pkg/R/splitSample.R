@@ -12,7 +12,8 @@
 ##                                                                    ##
 ##--------------------------------------------------------------------##
 splitSample <- function(env, chunk = 10, take, nchunk,
-                        fill = c("head","tail","random")) {
+                        fill = c("head","tail","random"),
+                        maxit = 1000) {
     sampFun <- function(ind, x, nchunk) {
         sample(x[[ind]], min(length(x[[ind]]), nchunk[[ind]]))
     }
@@ -33,8 +34,8 @@ splitSample <- function(env, chunk = 10, take, nchunk,
         ## fill in the remainder samples according to fill type
         tooSmall <- lens < nchunk
         nchunk[tooSmall] <- lens[tooSmall]
-        if(any(tooSmall)) {
-            i <- 1
+        if(sum(nchunk) < take) {
+            i <- iter <- 1
             ## vector of chunks that *aren't* too small expanded to length 100
             vec <- if(isTRUE(all.equal(fill, "head"))) {
                 rep(sort(which(!tooSmall)), 100)
@@ -46,10 +47,15 @@ splitSample <- function(env, chunk = 10, take, nchunk,
             ## fill in chunks
             while(sum(nchunk) < take) {
                 want <- vec[i]
+                i <- i + 1
+                iter <- iter + 1
+                if(iter == maxit) {
+                    warning("Failed to allocate all 'take' samples in 'maxit' iterations.")
+                    break
+                }
                 if(lens[want] <= nchunk[want])
                     next
                 nchunk[want] <- nchunk[want] + 1
-                i <- i + 1
                 if(i > 100) ## if used all vec, start again
                     i <- 1
             }
@@ -66,7 +72,7 @@ splitSample <- function(env, chunk = 10, take, nchunk,
     samp <- lapply(ind, FUN = sampFun, x = splt, nchunk = nchunk)
     ## grab the number of samples in each chunk
     lengths <- sapply(samp, length)
-    ## turn sample list intoa vector
+    ## turn sample list into a vector
     samp <- unlist(samp, use.names = FALSE)
     ## assign lengths as attribute
     attr(samp, "lengths") <- lengths
