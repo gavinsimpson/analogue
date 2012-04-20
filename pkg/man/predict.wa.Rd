@@ -48,14 +48,9 @@
     Transactions of the Royal Society of London; Series B}, \strong{327};
   263--278.}
 \author{Gavin L. Simpson and Jari Oksanen (\eqn{k}-fold CV)}
-%\note{ ~~further notes~~ 
-%
-% ~Make other sections like Warning with \section{Warning }{....} ~
-%}
 \seealso{\code{\link{wa}}, \code{\link{predict.mat}},
     \code{\link{performance}}, \code{\link{reconPlot}}.}
 \examples{
-\dontrun{
 ## Imbrie and Kipp
 data(ImbrieKipp)
 data(SumSST)
@@ -68,6 +63,7 @@ data(V12.122)
 V12.122 <- V12.122 / 100
 
 ## predict summer sea-surface temperature for V12.122 core
+set.seed(2)
 v12.pred <- predict(ik.wa, V12.122, CV = "bootstrap", n.boot = 100)
 
 ## draw the fitted reconstruction
@@ -75,7 +71,6 @@ reconPlot(v12.pred, use.labels = TRUE, display = "bars")
 
 ## extract the model performance stats
 performance(v12.pred)
-}
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
