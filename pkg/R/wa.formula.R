@@ -1,5 +1,5 @@
 `wa.formula` <- function(formula, data, subset, na.action,
-                         deshrink = c("inverse", "classical", "expanded", "none"),
+                         deshrink = c("inverse", "classical", "expanded", "none", "monotonic"),
                          tol.dw = FALSE, useN2 = TRUE,
                          na.tol = c("min","mean","max"),
                          small.tol = c("min","mean","fraction","absolute"),

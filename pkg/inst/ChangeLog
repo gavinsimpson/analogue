@@ -1,5 +1,24 @@
 analogue Change Log
 
+Version 0.9-3
+
+	* wa: deshrinking via a monotonic cubic regression spline
+	is now available via `deshrink = "monotonic"`. This uses
+	functions from the *mgcv* package of Simon Wood and as a
+	result, *analogue* now Depends on that package too. The
+	exact nature of the dependency may change before 0.10 is
+	released.
+
+	This idea goes back to ter Braak & Juggins (1993; Hydrobiologia
+	*269/270*, 485--502) and Marchetto (1994; Journal of
+	Paleolimnology *12*, 155--162), but the implementation here
+	uses monotonic constraints after Wood (1994; SIAM Journal on
+	Scientific Computing *15*(5), 1126--1133 and follows Steve
+	Juggins' implementation borrowing code from `?pcls` in *mgcv*.
+
+	* predict.wa: example was enclosed in \dontrun{} without
+	reason. This example is now run.
+
 Version 0.9-2
 
 	* wa: small tolerances can now be replaced by the mean

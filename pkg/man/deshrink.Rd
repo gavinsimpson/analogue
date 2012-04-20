@@ -13,11 +13,13 @@ techniques, whilst \code{deshrinkPred} will deshrink WA estimates for
 new samples given a set of deshrinking coefficients.
 }
 \usage{
-deshrink(env, wa.env, type = c("inverse", "classical",
-                               "expanded", "none"))
+deshrink(env, wa.env,
+         type = c("inverse", "classical", "expanded", "none",
+                  "monotonic"))
 
-deshrinkPred(x, coef, type = c("inverse", "classical",
-                               "expanded", "none"))
+deshrinkPred(x, coef,
+         type = c("inverse", "classical", "expanded", "none",
+                  "monotonic"))
 }
 \arguments{
   \item{env}{numeric; original environmental values.}

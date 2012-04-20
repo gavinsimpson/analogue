@@ -17,14 +17,14 @@
 wa(x, \dots)
 
 \method{wa}{default}(x, env,
-   deshrink = c("inverse", "classical", "expanded", "none"),
+   deshrink = c("inverse", "classical", "expanded", "none", "monotonic"),
    tol.dw = FALSE, useN2 = TRUE,
    na.tol = c("min","mean","max"),
    small.tol = c("min","mean","fraction","absolute"),
    min.tol = NULL, f = 0.1, ...)
 
 \method{wa}{formula}(formula, data, subset, na.action,
-   deshrink = c("inverse", "classical", "expanded", "none"),
+   deshrink = c("inverse", "classical", "expanded", "none", "monotonic"),
    tol.dw = FALSE, useN2 = TRUE, na.tol = c("min","mean","max"),
    small.tol = c("min","mean","fraction","absolute"), min.tol = NULL,
    f = 0.1,..., model = FALSE)
@@ -43,8 +43,8 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
   \item{x}{The species training set data}
   \item{env, y}{The response vector}
   \item{deshrink}{Which deshrinking method to use? One of
-    \code{"inverse"} or \code{"classical"}, \code{"expanded"} or
-    \code{"none"}}
+    \code{"inverse"} or \code{"classical"}, \code{"expanded"},
+      \code{"none"}, or \code{"monotonic"}.}
   \item{tol.dw}{logical; should species with wider tolerances be given
     lower weight?}
   \item{useN2}{logical; should Hill's N2 values be used to produce
@@ -134,7 +134,12 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
   \item{fitted.values}{The fitted values of the response for each of the
     training set samples.}
   \item{residuals}{Model residuals.}
-  \item{coefficients}{Deshrinking coefficients.}
+  \item{coefficients}{Deshrinking coefficients. Note that in the case of
+    \code{deshrink = "monotonic"} this is a list with components \code{sm}
+    (the representation of the smooth term as returned by
+    \code{\link{smoothCon}}) and \code{p} (solutions to the least squares
+    fit with monotonic constraints, the result of a call to
+    \code{\link{pcls}}).}
   \item{rmse}{The RMSE of the model.}
   \item{r.squared}{The coefficient of determination of the observed and
     fitted values of the response.}
@@ -194,6 +199,16 @@ with(mod2, rbind(tolerances, model.tol))
 mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
            min.tol = 2, small.tol = "mean")
 mod3
+
+## fit a WA model with monotonic deshrinking
+mod4 <- wa(SumSST ~., data = ImbrieKipp, deshrink = "monotonic")
+mod4
+
+## extract the fitted values
+fitted(mod4)
+
+## residuals for the training set
+residuals(mod4)
 
 }
 \keyword{methods}
