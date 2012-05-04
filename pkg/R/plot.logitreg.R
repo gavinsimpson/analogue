@@ -57,8 +57,8 @@
         group <- group[1]
         warning("More than 1 'group' specified. Using only the first\nDid you mean to use '\"all'\"")
     }
-    n.groups <- length(x)
-    g.names <- names(x)
+    n.groups <- length(x$models)
+    g.names <- names(x$models)
     GROUP <- c("all", g.names)
     group <- match.arg(group, GROUP)
     conf.type <- match.arg(conf.type)
@@ -74,7 +74,7 @@
             layout(1)
         })
         min <- 0
-        max <- max(x[["Combined"]]$data$Dij)
+        max <- max(x$models[["Combined"]]$data$Dij)
     }
     else {
         n.plot <- 1
@@ -85,7 +85,7 @@
     for (i in seq_len(n.groups)) {
         if (group != "all" && group != g.names[i])
             next
-        pfun(x[[i]], min = min, max = max, npred = npred,
+        pfun(x$models[[i]], min = min, max = max, npred = npred,
              col = col, lwd = lwd, shade = shade, main = g.names[i],
              conf.type = conf.type, conf.int = conf.int, rug = rug,
              ticksize = ticksize, ref.col = ref.col,

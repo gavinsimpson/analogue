@@ -1,5 +1,25 @@
 analogue Change Log
 
+Version 0.9-4
+
+	* logitreg: the returned object has changed. The list of logistic
+	regression models is now returned as component `models`.
+
+	New methods `fitted()` and `predict()` provided for objects of
+	class "logitreg" compute the fitted probabilities for the
+	training set samples and for new (e.g. fossil) samples
+	respectively. The probabilities are in respect to the analogue-
+	ness of samples to the groups in the training set (e.g.
+	vegetation biomes in the case of pollen data).
+
+	These changes allow an analysis similar in spirit to that of
+	Gavin et al (2003, Quaternary Research 60; 356--367) in their
+	Figure 8. Here though logistic regression fits are used rather
+	than the ROC method they employ. Similar methods could be
+	provided for objects fitted by `roc()` but require a little more
+	thought about how to model the likelihood ratios derived from
+	the ROC curves.
+
 Version 0.9-3
 
 	* wa: deshrinking via a monotonic cubic regression spline

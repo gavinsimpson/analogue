@@ -98,7 +98,7 @@ swap.ana <- analog(swapdiat, rlgh, method = "SQchord",
 ## fit the ROC curve to the SWAP diatom data using the AM results
 ## Generate a grouping for the SWAP lakes
 clust <- hclust(as.dist(swap.ana$train), method = "ward")
-grps <- cutree(clust, 12)
+grps <- cutree(clust, 6)
 
 ## fit the logit models to the analog object
 swap.lrm <- logitreg(swap.ana, grps)
@@ -109,6 +109,18 @@ summary(swap.lrm)
 
 ## plot the fitted logit curves
 plot(swap.lrm, conf.type = "polygon")
+
+## extract fitted posterior probabilities for training samples
+## for the individual groups
+fit <- fitted(swap.lrm)
+head(fit)
+
+## compute posterior probabilities of analogue-ness for the rlgh
+## samples. Here we take the dissimilarities between fossil and
+## training samples from the `swap.ana` object rather than re-
+## compute them
+pred <- predict(swap.lrm, newdata = swap.ana$analogs)
+head(pred)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

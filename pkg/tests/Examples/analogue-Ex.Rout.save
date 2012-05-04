@@ -1,5 +1,5 @@
 
-R version 2.15.0 Patched (2012-04-16 r59049) -- "Easter Beagle"
+R version 2.15.0 Patched (2012-04-18 r59085) -- "Easter Beagle"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -31,7 +31,7 @@ Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
 This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
-This is analogue 0.9-3
+This is analogue 0.9-4
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -3253,25 +3253,19 @@ Merged:      268  277
 > ## fit the ROC curve to the SWAP diatom data using the AM results
 > ## Generate a grouping for the SWAP lakes
 > clust <- hclust(as.dist(swap.ana$train), method = "ward")
-> grps <- cutree(clust, 12)
+> grps <- cutree(clust, 6)
 > 
 > ## fit the logit models to the analog object
 > swap.lrm <- logitreg(swap.ana, grps)
 Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-Warning: glm.fit: algorithm did not converge
-Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 > swap.lrm
 
 Object of class: "logitreg"
-Number of models: 13
+Number of models: 7
 
 For groups:
- [1] "1"        "2"        "3"        "4"        "5"        "6"       
- [7] "7"        "8"        "9"        "10"       "11"       "12"      
-[13] "Combined"
+[1] "1"        "2"        "3"        "4"        "5"        "6"        "Combined"
 
 > 
 > ## summary statistics
@@ -3279,38 +3273,44 @@ For groups:
 
 Logit regression models
 
-          In  Out Est.(Dij)  Std.Err  Z-value    p-value Dij(p=0.9)
-1         13  154     -18.8 4.80e+00  -3.9047 9.4353e-05      0.304
-2         15  152     -36.2 1.02e+01  -3.5454 0.00039206      0.429
-3         22  145     -34.1 1.02e+01  -3.3479 0.00081417      0.366
-4         15  152     -24.1 7.15e+00  -3.3699 0.00075189      0.473
-5         13  154     -21.0 7.97e+00  -2.6325 0.00847487      0.395
-6         17  150     -21.5 4.77e+00  -4.4932 7.0156e-06      0.335
-7         15  152     -11.0 2.71e+00  -4.0649 4.8045e-05      0.283
-8          6  161     -40.1 2.59e+01  -1.5477 0.12170414      0.440
-9         16  151     -10.8 2.49e+00  -4.3522 1.3475e-05      0.200
-10        20  147     -47.0 1.60e+01  -2.9408 0.00327391      0.422
-11         9  158   -1280.9 1.26e+05  -0.0102 0.99189657      0.601
-12         6  161     -21.4 8.79e+00  -2.4401 0.01468365      0.599
-Combined 167 1837     -16.6 1.25e+00 -13.2395 < 2.22e-16      0.335
-         Std.Err(Dij)
-1              0.0494
-2              0.0300
-3              0.0264
-4              0.0400
-5              0.0613
-6              0.0371
-7              0.0794
-8              0.0431
-9              0.0795
-10             0.0203
-11             1.3037
-12             0.0702
-Combined       0.0157
+          In Out Est.(Dij) Std.Err Z-value    p-value Dij(p=0.9) Std.Err(Dij)
+1         46 121     -15.8    2.80   -5.63 1.8454e-08      0.338       0.0332
+2         35 132     -32.2    6.87   -4.68 2.8597e-06      0.409       0.0200
+3         22 145     -34.1   10.19   -3.35 0.00081417      0.366       0.0264
+4         24 143     -27.2    6.74   -4.03 5.6098e-05      0.495       0.0274
+5         25 142     -16.2    3.93   -4.12 3.7464e-05      0.461       0.0494
+6         15 152     -11.0    2.71   -4.06 4.8045e-05      0.283       0.0794
+Combined 167 835     -16.2    1.41  -11.51 < 2.22e-16      0.359       0.0166
 
 > 
 > ## plot the fitted logit curves
 > plot(swap.lrm, conf.type = "polygon")
+> 
+> ## extract fitted posterior probabilities for training samples
+> ## for the individual groups
+> fit <- fitted(swap.lrm)
+> head(fit)
+          1           2         3         4         5         6
+1 0.7704741 0.992926550 0.9705455 0.9967696 0.9977100 0.8004397
+2 0.9480710 0.008663829 0.9961969 0.7215776 0.9573624 0.4823301
+3 0.9740472 0.847497770 0.9714598 0.6919208 0.9965144 0.2744509
+4 0.7168113 0.847497770 0.9535765 0.3007374 0.9990662 0.2870750
+5 0.9661203 0.997014448 0.9970177 0.9946234 0.9178795 0.4975797
+6 0.9740472 0.445288611 0.3826365 0.7858915 0.9990662 0.2870750
+> 
+> ## compute posterior probabilities of analogue-ness for the rlgh
+> ## samples. Here we take the dissimilarities between fossil and
+> ## training samples from the `swap.ana` object rather than re-
+> ## compute them
+> pred <- predict(swap.lrm, newdata = swap.ana$analogs)
+> head(pred)
+              1          2         3           4            5          6
+000.3 0.8888987 0.08607136 0.0541194 0.005482089 8.536340e-05 0.03915959
+000.8 0.9508126 0.01931803 0.4638425 0.070408351 1.349192e-05 0.02206208
+001.3 0.9423900 0.04554104 0.7782695 0.043191558 1.474048e-05 0.01984818
+001.8 0.9523237 0.03181413 0.3485667 0.010448649 2.326359e-05 0.02003420
+002.3 0.9372000 0.02182155 0.3034852 0.031319684 1.133939e-05 0.01383880
+002.8 0.9732644 0.05464832 0.5834611 0.027163318 4.119295e-05 0.03144971
 > 
 > 
 > 
@@ -7312,7 +7312,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  16.957 0.457 17.764 0 0 
+Time elapsed:  30.227 0.536 30.769 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -5,7 +5,6 @@
     if(!is.factor(groups))
         groups <- factor(groups)
     lev <- levels(groups)
-    #n.g <- length(lev)
     within <- without <- vector(mode = "list", length = length(lev))
     names(within) <- names(without) <- lev
     models <- vector(mode = "list", length = length(lev) + 1)
@@ -19,7 +18,6 @@
                                 function(x, k) {x[order(x)[k]]}, k = k))
         analogs <- rep(c(TRUE, FALSE), times = c(length(IN), length(OUT)))
         Dij <- c(IN, OUT)
-        #dat <- data.frame(analogs, Dij)
         models[[l]] <- glm(analogs ~ Dij, data = data.frame(analogs, Dij),
                            family = binomial(link = "logit"))
         models[[l]]$Dij <- Dij
@@ -30,21 +28,23 @@
     OUT <- do.call(c, without)
     analogs <- rep(c(TRUE, FALSE), times = c(length(IN), length(OUT)))
     Dij <- c(IN, OUT)
-    #dat <- data.frame(analogs, Dij)
     models[["Combined"]] <- glm(analogs ~ Dij,
                                 data = data.frame(analogs, Dij),
                                 family = binomial(link = "logit"))
     models[["Combined"]]$Dij <- Dij
-    #models <- lapply(models, function(x) {class(x) <- "glm"; x})
-    class(models) <- "logitreg"
-    if(!is.null(attr(object, "method")))
-        attr(models, "method") <- attr(object, "method")
-    return(models)
+    ##class(models) <- "logitreg"
+    out <- list(models = models, groups = groups, method = NULL)
+    class(out) <- "logitreg"
+    if(!is.null(attr(object, "method"))){
+        out$method <- attr(object, "method")
+        ## attr(models, "method") <- attr(object, "method")
+    }
+    out
 }
 
 print.logitreg <- function(x, ...) {
-    nams <- names(x)
-    N <- length(x)
+    nams <- names(x$models)
+    N <- length(x$models)
     cat("\n")
     writeLines(strwrap("Object of class: \"logitreg\""))
     writeLines(strwrap(paste("Number of models:", N)))

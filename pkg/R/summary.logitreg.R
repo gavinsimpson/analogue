@@ -8,7 +8,7 @@
         c(IN, OUT, coefs, unname(dose[1]),
           unname(attr(dose, "SE")[,1]))
     }
-    DF <- t(sapply(object, FOO, p = p, USE.NAMES = FALSE))
+    DF <- t(sapply(object$models, FOO, p = p, USE.NAMES = FALSE))
     DF <- data.frame(DF)
     names(DF) <- c("In","Out","Est.(Dij)","Std.Err", "Z-value","p-value",
                    paste("Dij(p=", format(p), ")", sep = ""),
