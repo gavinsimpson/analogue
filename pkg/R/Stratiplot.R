@@ -75,8 +75,8 @@
             stop("Ambiguous 'length(y)';\nmust be equal to 'nrow(x)' or\n'nrow(x) / number of species'.")
     }
     ## plot parameters
-    maxy <- max(y)
-    miny <- min(y)
+    maxy <- max(y, na.rm = TRUE)
+    miny <- min(y, na.rm = TRUE)
     ## add padYlim * range as per base graphics
     padY <- 0.01
     if(missing(ylim)) {
@@ -85,8 +85,8 @@
         ylim <- c(miny - (padY * diffy), maxy + (padY * diffy))
     } else {
         ## should these be ylim[1] and ylim[2] ???
-        minLim <- min(ylim)
-        maxLim <- max(ylim)
+        minLim <- min(ylim, na.rm = TRUE)
+        maxLim <- max(ylim, na.rm = TRUE)
         ## add padY * range as per base graphics
         diffy <- abs(diff(c(minLim, maxLim)))
         ylim <- if(minLim > maxLim)
@@ -110,13 +110,14 @@
         stop("Ambiguous entry in 'varTypes'.\nMust be one of \"relative\", or \"absolute\"")
     ## compute max abundances per relative column, which is used
     ## to scale the panel widths layout.widths parameter)
-    max.abun <- sapply(x, function(x) round(max(x), 1), USE.NAMES = FALSE)
+    max.abun <- sapply(x, function(x) round(max(x, na.rm = TRUE), 1),
+                       USE.NAMES = FALSE)
     ## absolute panels should be set to absoluteSize of max.abun
     panelWidths <- max.abun
     ABS <- which(varTypes == "absolute")
     REL <- which(varTypes == "relative")
     if(any(REL)) {
-        panelWidths[ABS] <- absoluteSize * max(max.abun[REL])
+        panelWidths[ABS] <- absoluteSize * max(max.abun[REL], na.rm = TRUE)
     } else {
         panelWidths[ABS] <- absoluteSize
     }
@@ -124,8 +125,8 @@
     xlimits <- lapply(max.abun * 1.05, function(x) c(0, x))
     if(any(ABS)) {
         ## but need any "absolute" panels setting to +/- 0.05(range)
-        min.vars <- sapply(x[ABS], min, USE.NAMES = FALSE)
-        max.vars <- sapply(x[ABS], max, USE.NAMES = FALSE)
+        min.vars <- sapply(x[ABS], min, na.rm = TRUE, USE.NAMES = FALSE)
+        max.vars <- sapply(x[ABS], max, na.rm = TRUE, USE.NAMES = FALSE)
         ranges <- (0.04 * (max.vars - min.vars))
         xlimits[ABS] <- as.list(data.frame(t(cbind(min.vars - ranges,
                                                    max.vars + ranges))))
@@ -133,7 +134,8 @@
     ## scales in xyplot call
     scales <- list(cex = 0.75, tck = 0.75,
                    y = list(axs = "r", limits = ylim),
-                   x = list(axs = "r", rot = 45, relation = "free", limits = xlimits))
+                   x = list(axs = "r", rot = 45, relation = "free",
+                   limits = xlimits))
     par.strip.text <- list(cex = 0.75)
     str.max <- 1
     if(!isTRUE(strip)) {
@@ -142,7 +144,9 @@
             convertWidth(grobWidth(textGrob(x, gp = gp)), "lines",
                          valueOnly = TRUE)
         }
-        str.max <- max(sapply(levels(sx$ind), convWidth, gp, USE.NAMES = FALSE))
+        str.max <- max(sapply(levels(sx$ind), convWidth, gp,
+                              USE.NAMES = FALSE),
+                       na.rm = TRUE)
         str.max <- ceiling(str.max) + topPad
     }
     ## Legend specification for Zones

@@ -19,7 +19,8 @@ Stratiplot(x, \dots)
            varTypes = "relative", absoluteSize = 0.5,
            zoneNames = NULL, drawLegend = TRUE, \dots)
 
-\method{Stratiplot}{formula}(formula, data, subset, na.action, type = "l",
+\method{Stratiplot}{formula}(formula, data, subset,
+           na.action = "na.pass", type = "l",
            ylab = NULL, xlab = "", pages = 1, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -44,11 +45,8 @@ Stratiplot(x, \dots)
   \item{subset}{an optional vector specifying a subset of observations
     to be  used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
-    the data contain \code{NA}s. The default is set by the \code{na.action}
-    setting of \code{\link{options}}, and is \code{na.fail} if that is
-    unset. The \sQuote{factory-fresh} default is \code{na.omit}. Another
-    possible value is \code{NULL}, no action. Value \code{na.exclude} can be
-    useful.}
+    the data contain \code{NA}s. The default is \code{"na.pass"} which
+    results in \code{NA} being passed on to the plotting functions.}
   \item{ylab, xlab}{the x- and y-axis labels.}
   \item{pages}{numeric; the number of pages to draw the plot over. May
     be useful for data sets with many species.}
@@ -113,11 +111,20 @@ Stratiplot(x, \dots)
   standard, notation for formulae apply, such as model formulae used in
   \code{\link{lm}}.
 
+  The default for argument \code{na.action} is \code{"na.pass"}, which
+  results in any \code{NA} values being passed on to the plotting
+  code. This allows for plotting of proxies that been measured on
+  different levels of the stratigraphy. Should you wish to have
+  \code{NA} removed from the data before plotting, use \code{na.action =
+  "na.omit"}, though do note this will remove all rows where any
+  column/variable takes the value \code{NA}. See Examples for an
+  illustration of these two techniques.
+
   Note that \code{formula} is \strong{not} passed on to
-  \code{\link[lattice]{xyplot}}. Instead, the formula is parsed and evaluated
-  within \code{Stratiplot} and an appropriate data structure formed to
-  facilitate plotting via \code{\link[lattice]{xyplot}}. As such, the special
-  features of \pkg{Lattice} formulae cannot be used.
+  \code{\link[lattice]{xyplot}}. Instead, the formula is parsed and
+  evaluated within \code{Stratiplot} and an appropriate data structure
+  formed to facilitate plotting via \code{\link[lattice]{xyplot}}. As
+  such, the special features of \pkg{Lattice} formulae cannot be used.
 
   If zones are drawn on the stratigraphic plot, the \code{zoneNames}
   argument can be used to supply a set of names with which to label the
@@ -187,6 +194,16 @@ zone.labs <- c("A","B","C","D","E")
 (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
                    data = V12.122, type = c("poly","g"),
                    zones = Zones, zoneNames = ""))
+
+## Show illustration of NA handling
+set.seed(42)
+dat <- data.frame(Depth = 1:20, LOI = runif(20), TC = NA)
+dat <- within(dat, TC[sample(20, 10)] <- runif(10))
+## default is 'na.action = "na.pass"'
+(Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p")))
+## to remove rows with NA, use 'na.action = "na.omit"'
+(Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
+            na.action = "na.omit"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

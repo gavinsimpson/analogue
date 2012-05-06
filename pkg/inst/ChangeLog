@@ -1,5 +1,17 @@
 analogue Change Log
 
+Version 0.9-5
+
+	* Stratiplot: the formula interface was stripping rows with NAs.
+	This wasn't intended but was the result of not implementing all
+	of the standard non-standard evaluation idiom used by many of R's
+	modelling functions.
+
+	This is now fixed and the default for the `na.action` argument
+	has been changed to `"na.pass"`.
+
+	The default `Stratiplot()` method was working as expected.
+
 Version 0.9-4
 
 	* logitreg: the returned object has changed. The list of logistic

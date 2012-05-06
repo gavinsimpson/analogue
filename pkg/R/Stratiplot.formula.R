@@ -1,4 +1,5 @@
-`Stratiplot.formula` <- function(formula,  data, subset, na.action,
+`Stratiplot.formula` <- function(formula,  data, subset,
+                                 na.action = "na.pass",
                                  type = "l", ylab = NULL, xlab = "",
                                  pages = 1, ...) {
     cl <- match.call()
@@ -8,6 +9,8 @@
     mf <- mf[c(1L, m)]
     mf$drop.unused.levels <- TRUE
     mf[[1L]] <- as.name("model.frame")
+    ## force eval of the na.action argument default
+    mf$na.action <- substitute(na.action)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")

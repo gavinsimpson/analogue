@@ -1,5 +1,5 @@
 
-R version 2.15.0 Patched (2012-04-18 r59085) -- "Easter Beagle"
+R version 2.15.0 Patched (2012-04-14 r59019) -- "Easter Beagle"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -31,7 +31,7 @@ Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
 This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
-This is analogue 0.9-4
+This is analogue 0.9-5
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -292,6 +292,16 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
 +                    data = V12.122, type = c("poly","g"),
 +                    zones = Zones, zoneNames = ""))
+> 
+> ## Show illustration of NA handling
+> set.seed(42)
+> dat <- data.frame(Depth = 1:20, LOI = runif(20), TC = NA)
+> dat <- within(dat, TC[sample(20, 10)] <- runif(10))
+> ## default is 'na.action = "na.pass"'
+> (Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p")))
+> ## to remove rows with NA, use 'na.action = "na.omit"'
+> (Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
++             na.action = "na.omit"))
 > 
 > 
 > 
@@ -7312,7 +7322,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  30.227 0.536 30.769 0 0 
+Time elapsed:  18.804 0.233 19.688 0 0 
 > grDevices::dev.off()
 null device 
           1 
