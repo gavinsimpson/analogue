@@ -12,6 +12,8 @@ Version 0.9-5
 
 	The default `Stratiplot()` method was working as expected.
 
+	* Vignette: typo fixed (reported by Marta Rufio).
+
 Version 0.9-4
 
 	* logitreg: the returned object has changed. The list of logistic

@@ -82,7 +82,7 @@ Palaeoenvironmental reconstruction is a multivariate calibration problem. Calibr
 \begin{equation}
  \mathbf{Y} = f(\mathbf{X}) + \epsilon
 \end{equation}
-where $\mathbf{Y}$ is an $n \times m$ matrix of counts on $m$ species and $\mathbf{Y}$ is an $n \times p$ matrix of $p$ environmental variables for $n$ samples or sites.
+where $\mathbf{Y}$ is an $n \times m$ matrix of counts on $m$ species and $\mathbf{X}$ is an $n \times p$ matrix of $p$ environmental variables for $n$ samples or sites.
 
 In the classical approach to calibration, $f$ is estimated from a set of training data via regression of $\mathbf{Y}$ on $\mathbf{X}$. Given a sample of fossil species data, $y_0$, $f$ is inverted to yield an estimate of the environment, $x_0$, that gave rise to the fossil assemblage. In all but the simplest cases, however, the inverse of $f$ does not exist and must be estimated from the data, for example via numerical optimisation techniques.
 
@@ -333,7 +333,7 @@ A wide range of techniques have been described in the literature for choosing a 
 The most objective way of determining an optimal value for $k$ is to use some form of cross-validation (CV). \pkg{analogue} currently contains functions to implement bootstrapping \citep{122}. Repeated bootstrap samples are drawn from the training set and a MAT model fitted to the selected samples. These models are then used to predict for the out-of-bag (OOB) samples. A RMSEP measure is then calculated by averaging over the OOB predictions. This procedure is the same as bagging \citep{163}, but a different form of RMSEP than the normal definition is used \citep{122}. The $\mathrm{RMSEP_{boot}}$ of the training set is calculated as:
 \begin{equation}\label{rmsep_boot}
 \mathrm{RMSEP_{boot}} = \sqrt{s_1^2 + s_2^2} ,
-\end{equation} 
+\end{equation}
 where $s_1$ is the standard deviation of the OOB residuals and $s_2$ is the mean bias or the mean of the OOB residuals.
 
 The \code{bootstrap} function is used to bootstrap resample the training set from a MAT model. Continuing the RLGH MAT example from earlier, we take 100 bootstrap samples and examine the returned object:
@@ -344,7 +344,7 @@ swap.boot
 @
 The bootstrap procedure suggests that $k = 11$ analogues provides the lowest $\mathrm{RMSEP_{boot}}$.
 
-We cannot directly compare the RMSEP values shown, as a different method was used to calculate the two values. The leave-one-out RMSEP is calculated in the normal way: 
+We cannot directly compare the RMSEP values shown, as a different method was used to calculate the two values. The leave-one-out RMSEP is calculated in the normal way:
 \begin{equation}
  \mathrm{RMSEP_{loo}} = \sqrt{\frac{\sum\limits^n_{i=1}(y_i - \hat{y_i})^2}{n}},
 \end{equation}
@@ -416,7 +416,7 @@ The data plotted in the lower right panel of Figure \ref{plot_roc} is based on t
 O^{+}_{\mathrm{post.}} = \mathrm{LR(+)} \times O^{+}_{\mathrm{pri.}}
 \end{equation}
 where $O^{+}_{\mathrm{pri.}}$ is
-\begin{equation} 
+\begin{equation}
 O^{+}_{\mathrm{pri.}} = \frac{\mathrm{Pr^{+}_{pri.}}}{1 - \mathrm{Pr^{+}_{pri.}}}
 \end{equation}
 and $\mathrm{Pr^{+}_{pri.}}$ is the prior probability of any two samples being analogous \citep{1526}. $\mathrm{Pr^{+}_{pri.}}$ may be set at 0.5 (i.e.~a 50\% probability of two samples being analogues) or may be determined from the observed probability of two samples being analogue (i.e.~in the same group) in the modern training set.
@@ -474,7 +474,7 @@ dists1 <- distance(swapdiat, method = "bray")
 dists2 <- distance(swapdiat, rlgh, method = "bray")
 @
 
-Object \code{dists1} contains the pairwise Bray-Curtis dissimilarities between samples in the SWAP diatom data set, where as \code{dists2} contains the Bray-Cutis dissimilarity between each sample in \code{rlgh} and each sample in \code{swapdiat}. The dissimilarity coefficient used is specified using the \code{method} argument. 
+Object \code{dists1} contains the pairwise Bray-Curtis dissimilarities between samples in the SWAP diatom data set, where as \code{dists2} contains the Bray-Cutis dissimilarity between each sample in \code{rlgh} and each sample in \code{swapdiat}. The dissimilarity coefficient used is specified using the \code{method} argument.
 
 \subsection{Advanced MAT usage}
 
@@ -523,7 +523,7 @@ Now we draw 100 bootstrap samples from the training set and predict for the test
 
 <<testset_boot>>=
 train.mat <- mat(train, train.env, method = "SQchord")
-test.boot <- bootstrap(train.mat, newdata = test, 
+test.boot <- bootstrap(train.mat, newdata = test,
                        newenv = test.env, n.boot = 100)
 test.boot
 @
