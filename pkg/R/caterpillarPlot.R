@@ -2,19 +2,26 @@
     UseMethod("caterpillarPlot")
 }
 
-`caterpillarPlot.data.frame` <- function(x, env, useN2 = TRUE, ...) {
+`caterpillarPlot.data.frame` <- function(x, env, useN2 = TRUE, xlab,
+                                         ...) {
     ## compute the optima
     opt <- optima(x = x, env = env)
     ## and tolerances
     tol <- tolerance(x = x, env = env, useN2 = useN2)
 
+    if(missing(xlab)) {
+        ## grab xlab from env
+        xlab <- deparse(substitute(env))
+    }
+
     ## do the plot
-    caterpillarPlot.default(x = opt, tol = tol, ...)
+    caterpillarPlot.default(x = opt, tol = tol, xlab = xlab, ...)
 }
 
 `caterpillarPlot.default` <- function(x, tol, mult = 1, decreasing = TRUE,
                                       labels, xlab = NULL, pch = 21, bg = "white",
-                                      col = "black", lcol = col, ...) {
+                                      col = "black", lcol = col,
+                                      frame.plot = FALSE, ...) {
     ## reorder
     opt <- x
     ord <- order(opt, decreasing = decreasing)
@@ -41,7 +48,7 @@
     nmai[2L] <- nmai[4L] + linch + 0.1
     par(mai = nmai)
 
-    ## ylab
+    ## xlab
     if(is.null(xlab))
         xlab <- deparse(substitute(env))
 
@@ -51,13 +58,13 @@
 
     ## do the plot
     plot(c(lwr, upr), rep.int(yvals, 2), type = "n", axes = FALSE,
-         ylab = "", xlab = xlab, ylim = range(0, yvals + 1), ...)
+         ylab = "", xlab = xlab, ylim = range(0, yvals + 1),
+         frame.plot = frame.plot, ...)
     abline(h = yvals, lty = 1, lwd = 0.5, col = "lightgray")
     segments(lwr, yvals, upr, yvals, col = lcol, ...)
     points(opt, yvals, pch = pch, bg = bg, col = col, ...)
     axis(side = 1, ...)
     axis(side = 2, labels = labels, at = yvals, las = 1, ...)
-    box()
 
     ## return object
     out <- data.frame(Optima = opt, Tolerance = tol)

@@ -17,9 +17,9 @@
 
 \method{caterpillarPlot}{default}(x, tol, mult = 1, decreasing = TRUE,
                 labels, xlab = NULL, pch = 21, bg = "white",
-                col = "black", lcol = col, ...)
+                col = "black", lcol = col, frame.plot = FALSE, ...)
 
-\method{caterpillarPlot}{data.frame}(x, env, useN2 = TRUE, ...)
+\method{caterpillarPlot}{data.frame}(x, env, useN2 = TRUE, xlab, ...)
 
 \method{caterpillarPlot}{wa}(x, type = c("observed","model"), ...)
 }
@@ -48,6 +48,7 @@
     observed from the data. \code{"model"} uses the tolerances used in
     the WA model where very small tolerances have been reset for some
     definition of small.}
+  \item{frame.plot}{logical; should a box be drawn round the plot?}
   \item{\dots}{Additional graphical arguments to be passed on to
     plotting functions.}
 }
@@ -85,6 +86,7 @@ caterpillarPlot(ImbrieKipp, SumSST)
 ## customisation
 opttol <-
     caterpillarPlot(ImbrieKipp, SumSST, col = "red2", bg = "yellow",
+                    lcol = "blue",
                     xlab = expression(Summer~Sea~Surface~Temperature~(degree*C)))
 
 ## invisibly returns the optima and tolerances

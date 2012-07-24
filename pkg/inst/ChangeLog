@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.9-6
+
+	* caterpillarPlot: now no longer draws a box round the plot.
+
+	Bug fixed so that the data.frame method correctly identies the
+	`env` argument to label the plot with.
+
+	Updated help file.
+
 Version 0.9-5
 
 	* Stratiplot: the formula interface was stripping rows with NAs.
