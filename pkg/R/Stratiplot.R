@@ -18,6 +18,7 @@
                                  absoluteSize = 0.5,
                                  zoneNames = NULL,
                                  drawLegend = TRUE,
+                                 na.action = "na.omit",
                                  ...) {
     ## inline function for custom axis
     axis.VarLabs <- function(side, ...) {
@@ -43,6 +44,7 @@
     ## ylabel
     if(is.null(ylab))
         ylab <- deparse(substitute(y))
+
     ## do we need to sort variables
     if(missing(sort))
         sort <- "none"
@@ -63,9 +65,13 @@
     }
     if(rev.sort)
         ord <- rev(ord)
+    ## apply ordering
     x <- x[, ord]
+
+    ## stack the data
     sx <- stack(x)
-    sx$ind <- factor(sx$ind, levels = colnames(x))
+    sx$ind <- factor(sx$ind, levels = colnames(x)) # add grouping variable
+
     ## check length of y
     if(!isTRUE(all.equal((leny <- length(y)), (nr <- nrow(sx))))) {
         ## if length(y) == nrow(sx)/n.vars, then expand
@@ -74,6 +80,16 @@
         else
             stop("Ambiguous 'length(y)';\nmust be equal to 'nrow(x)' or\n'nrow(x) / number of species'.")
     }
+
+    ## handle NA's, by default NA pass in here fine, but this messes
+    ## up line plots or polygons for example
+    NAFUN <- match.fun(na.action)
+    sx <- NAFUN(sx)
+    ## and apply to `y` too
+    if(!is.null(NAS <- na.action(sx))) {
+        y <- y[-NAS]
+    }
+
     ## plot parameters
     maxy <- max(y, na.rm = TRUE)
     miny <- min(y, na.rm = TRUE)

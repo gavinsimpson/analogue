@@ -1,5 +1,21 @@
 analogue Change Log
 
+Version 0.9-7
+
+	* Stratiplot: In 0.9-5 a change was made to stop stripping NAs
+	when using the formula interface. This means a way of dealing with
+	NAs in the default plotting method is required especially when
+	plotting using lines or poylgons, as Lattice will honour the NA
+	and draw lines and polygons with gaps.
+
+	Stratiplot.default gains argument `na.action` which defaults to
+	`"na.omit"`. Note this is different to the formula method where
+	we *want* NAs to propogate through to the default method for
+	plotting.
+
+	This change allows for datasets collected on different sediment
+	intervals from the same core to be combined in a single diagram.
+
 Version 0.9-6
 
 	* caterpillarPlot: now no longer draws a box round the plot.

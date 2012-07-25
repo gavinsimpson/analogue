@@ -17,7 +17,8 @@ Stratiplot(x, \dots)
            pages = 1, rev = TRUE, ylim, sort = c("none", "wa", "var"),
            svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
            varTypes = "relative", absoluteSize = 0.5,
-           zoneNames = NULL, drawLegend = TRUE, \dots)
+           zoneNames = NULL, drawLegend = TRUE, na.action = "na.omit",
+           \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset,
            na.action = "na.pass", type = "l",
@@ -45,8 +46,11 @@ Stratiplot(x, \dots)
   \item{subset}{an optional vector specifying a subset of observations
     to be  used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
-    the data contain \code{NA}s. The default is \code{"na.pass"} which
-    results in \code{NA} being passed on to the plotting functions.}
+    the data contain \code{NA}s. The default is \code{"na.omit"} for the
+    default method, which strips \code{NA}s from the stacked data,
+    whereas the default for the formula method is \code{"na.pass"} which
+    results in \code{NA} being passed on to the plotting function. See
+    Details for further information.}
   \item{ylab, xlab}{the x- and y-axis labels.}
   \item{pages}{numeric; the number of pages to draw the plot over. May
     be useful for data sets with many species.}
@@ -111,14 +115,29 @@ Stratiplot(x, \dots)
   standard, notation for formulae apply, such as model formulae used in
   \code{\link{lm}}.
 
-  The default for argument \code{na.action} is \code{"na.pass"}, which
-  results in any \code{NA} values being passed on to the plotting
-  code. This allows for plotting of proxies that been measured on
-  different levels of the stratigraphy. Should you wish to have
-  \code{NA} removed from the data before plotting, use \code{na.action =
-  "na.omit"}, though do note this will remove all rows where any
-  column/variable takes the value \code{NA}. See Examples for an
-  illustration of these two techniques.
+  For the formula method the default for argument \code{na.action} is
+  \code{"na.pass"}, which results in any \code{NA} values being passed
+  on to the plotting code. This allows for plotting of proxies that been
+  measured on different levels of the stratigraphy. Should you wish to
+  have \code{NA} removed from the data before plotting, use
+  \code{na.action = "na.omit"}, though do note this will remove all rows
+  where any column/variable takes the value \code{NA}. The default
+  \code{Stratiplot} method, which is used by the formula method for
+  plotting, will strip any \code{NA} values from the data provided to
+  it. This allows the function to correctly handle the situation where
+  proxies are measured on different levels of the core \emph{and} you
+  are displaying the data using lines of polygons. If the \code{NA} were
+  not dropped by \code{Stratiplot.default}, any \code{NA} values would
+  show up as breaks in the line or polygon drawn for each panel.
+
+  In summary, the two methods have different defaults for
+  \code{na.action} to allow them to handle proxies measured on different
+  levels of the same core. This does mean that you can not use the
+  formula interface \strong{and} strip NA's at the
+  \code{Stratiplot.default} level. If you need that level of control use
+  \code{Stratiplot.default} directly by not providing a formula as
+  argument \code{x} and by supplying data for the y-axis via argument
+  \code{y}. See Examples for an illustration of these features.
 
   Note that \code{formula} is \strong{not} passed on to
   \code{\link[lattice]{xyplot}}. Instead, the formula is parsed and
@@ -204,6 +223,26 @@ dat <- within(dat, TC[sample(20, 10)] <- runif(10))
 ## to remove rows with NA, use 'na.action = "na.omit"'
 (Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
             na.action = "na.omit"))
+
+## Example of two proxies measured on different levels of core
+## (Here measurements on alternate levels)
+set.seed(5)
+dat2a <- data.frame(Depth = seq(1, by = 2, length = 20), LOI = runif(20))
+dat2b <- data.frame(Depth = seq(0, by = 2, length = 20), TC = runif(20))
+dat2 <- join(dat2a, dat2b, na.replace = FALSE, split = FALSE)
+dat2 <- dat2[order(dat2$Depth), ]
+head(dat2)
+
+## Default is to allow NA through formula, but drop them when plotting
+(Stratiplot(Depth ~ LOI + TC, data = dat2, type = c("l","p")))
+
+## compare with this if we didn't suppress NA in default Stratiplot
+## method (can't use formula interface for this yet
+(Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
+            na.action = "na.pass"))
+## Notice no lines are draw as there a no "sections" ithout missing
+## levels. If you want/desire this behaviour then you can't use formula
+## interface yet as there is no way to specify the na.action separately
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
