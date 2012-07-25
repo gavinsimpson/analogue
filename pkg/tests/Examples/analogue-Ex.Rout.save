@@ -31,7 +31,7 @@ Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
 This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
-This is analogue 0.9-7
+This is analogue 0.9-8
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -7350,7 +7350,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  16.322 0.207 16.69 0 0 
+Time elapsed:  16.335 0.22 16.705 0 0 
 > grDevices::dev.off()
 null device 
           1 

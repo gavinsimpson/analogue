@@ -11,6 +11,7 @@
                                lwd = plot.line$lwd,
                                lty.smooth = plot.line$lty,
                                lwd.smooth = 2,
+                               lwd.h = 3,
                                fill = plot.symbol$fill,
                                zones = NULL,
                                col.zones = plot.line$col,
@@ -44,7 +45,7 @@
                      col = col.symbol, pch = pch, ...)
     if ("h" %in% type) {
         panel.lines(x = x, y = y, type = "H", col = col.line, lty = lty,
-                    lwd = lwd, ...)
+                    lwd = lwd.h, lineend = "butt", ...)
     }
     if("poly" %in% type)
         panel.polygon(x = c(0, x, 0), y = c(y[1], y, y[length(y)]),

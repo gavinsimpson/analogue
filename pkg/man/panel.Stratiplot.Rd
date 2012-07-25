@@ -22,6 +22,7 @@ panel.Stratiplot(x, y,
                  lwd = plot.line$lwd,
                  lty.smooth = plot.line$lty,
                  lwd.smooth = 2,
+                 lwd.h = 3,
                  fill = plot.symbol$fill,
                  zones = NULL,
                  col.zones = plot.line$col,
@@ -70,7 +71,8 @@ panel.Stratiplot(x, y,
   \item{lty.smooth}{line type for the loess smoother. The default is
     obtained from \code{plot.line} using
     \code{\link[lattice]{trellis.par.get}}.}
-  \item{lwd.smooth}{The line width for the loess smoother.}
+  \item{lwd.smooth,lwd.h}{The line width for the loess smoother and
+    histogram-like bars respectively.}
   \item{zones}{numeric; vector of zone boundary positions on scale of
     the depth/time (y-)axis.}
   \item{lty.zones, lwd.zones}{line type and width for the zone
@@ -100,6 +102,14 @@ panel.Stratiplot(x, y,
   Note that all the arguments controlling the display can be supplied
   directly to a high-level call of the function \code{\link{Stratiplot}}.
 }
+
+\note{
+  Histogram-like bars (\code{type = "h"}) are drawn with \code{lineend =
+  "butt"} to improve their appearance. This can not be changed by the
+  user and you can't include that grid parameter in any call to
+  \code{panel.Stratiplot} that uses \code{type = "h"}.
+}
+
 \author{Gavin L. Simpson}
 
 \seealso{\code{\link{Stratiplot}}, \code{\link{panel.Loess}},

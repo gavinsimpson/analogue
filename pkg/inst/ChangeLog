@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.9-8
+
+	* panel.Stratiplot: `type = "h"` now drawn using `lwd = 3` and with
+	`lineend = "butt"`. The line width can be controled by new argument
+	`lwd.h`.
+
 Version 0.9-7
 
 	* Stratiplot: In 0.9-5 a change was made to stop stripping NAs
