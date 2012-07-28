@@ -63,13 +63,7 @@
 \author{Gavin L. Simpson. Code borrows heavily from \code{\link{plot.lm}}.}
 \seealso{\code{\link{mat}}}
 \examples{
-## continue the RLGH example from ?wa
-example(wa)
-
-## diagnostics for the WA model
-par(mfrow = c(1,2))
-plot(mod)
-par(mfrow = c(1,1))
+## see full example in ?wa
 
 }
 \keyword{hplot}

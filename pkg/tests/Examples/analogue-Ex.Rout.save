@@ -1,5 +1,5 @@
 
-R version 2.15.0 Patched (2012-04-16 r59049) -- "Easter Beagle"
+R version 2.15.1 Patched (2012-07-27 r60018) -- "Roasted Marshmallows"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -30,8 +30,8 @@ Loading required package: grid
 Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
-This is analogue 0.9-8
+This is mgcv 1.7-19. For overview type 'help("mgcv-package")'.
+This is analogue 0.9-9
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -4836,6 +4836,13 @@ wa> caterpillarPlot(mod)                 ## observed tolerances
 
 wa> caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
 
+wa> ## plot diagnostics for the WA model
+wa> par(mfrow = c(1,2))
+
+wa> plot(mod)
+
+wa> par(mfrow = c(1,1))
+
 wa> ## tolerance DW
 wa> mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
 wa+            min.tol = 2, small.tol = "min")
@@ -5884,227 +5891,11 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > ### ** Examples
 > 
-> ## continue the RLGH example from ?wa
-> example(wa)
-
-wa> data(ImbrieKipp)
-
-wa> data(SumSST)
-
-wa> ## fit the WA model
-wa> mod <- wa(SumSST ~., data = ImbrieKipp)
-
-wa> mod
-
-	Weighted Averaging Transfer Function
-
-Call:
-wa(formula = SumSST ~ ., data = ImbrieKipp) 
-
-Deshrinking  : Inverse 
-Tolerance DW : No 
-No. samples  : 61 
-No. species  : 27 
-
-Performance:
-     RMSE  R-squared  Avg. Bias  Max. Bias  
-   2.0188     0.9173     0.0000    -3.8155  
-
-
-wa> ## extract the fitted values
-wa> fitted(mod)
-   V14.61   V17.196   V18.110   V16.227    V14.47    V23.22     V2.12    V23.29 
- 3.730960  3.859921  4.107664  4.293906  8.287580  9.244409  4.076131 13.815481 
-   V12.43      R9.7    A157.3    V23.81    V23.82    V12.53    V23.83    V12.56 
-14.334514 16.521301 15.804396 18.736542 18.289596 18.458708 17.388560 20.401983 
-  A152.84    V16.50   V22.122    V16.41     V4.32    V12.66   V19.245      V4.8 
-19.969421 19.708591 18.781540 22.789225 22.407882 20.785492 22.454368 22.181405 
-  A180.15    V18.34   V20.213   V19.222   A180.39   V16.189    V12.18     V7.67 
-21.562333 23.337938 23.360786 22.844542 24.219277 25.625657 25.498810 23.377913 
-  V17.165   V19.310   V16.190  A153.154   V19.308   V22.172    V10.98   V22.219 
-23.747234 23.112465 24.516578 25.383739 25.796840 26.258495 24.162462 25.464444 
-   V16.33   V22.204   V20.167    V10.89    V12.79   V19.216    V14.90   A180.72 
-26.240175 25.824031 26.677965 26.394526 26.091336 25.719139 25.862682 26.338544 
-   V16.21   A180.76   V15.164   A180.78     V14.5    V3.128   A179.13     V9.31 
-26.789758 26.696906 26.821669 25.987374 26.882435 26.906235 26.515335 26.067970 
-  V20.230     V20.7   V20.234    V18.21   V12.122 
-26.608829 27.231642 26.765410 26.945937 26.833012 
-
-wa> ## residuals for the training set
-wa> residuals(mod)
-     V14.61     V17.196     V18.110     V16.227      V14.47      V23.22 
--1.73095992  1.14007886  1.39233574  2.70609421 -1.28758014  1.25559075 
-      V2.12      V23.29      V12.43        R9.7      A157.3      V23.81 
- 6.92386910 -3.81548071 -1.33451363 -4.52130053 -1.80439553 -4.23654166 
-     V23.82      V12.53      V23.83      V12.56     A152.84      V16.50 
--3.28959647 -3.95870813 -1.38855980 -2.40198307  0.03057864 -1.70859145 
-    V22.122      V16.41       V4.32      V12.66     V19.245        V4.8 
- 0.21846025 -4.28922519 -0.90788238  0.21450778 -1.45436796  1.81859450 
-    A180.15      V18.34     V20.213     V19.222     A180.39     V16.189 
- 2.43766723 -0.33793825  0.63921359  0.15545775 -1.21927713 -1.62565746 
-     V12.18       V7.67     V17.165     V19.310     V16.190    A153.154 
--0.49880978  2.62208666  2.25276621  2.88753454  0.48342160  0.61626144 
-    V19.308     V22.172      V10.98     V22.219      V16.33     V22.204 
- 0.20316050 -1.75849478  2.83753826  0.73555554 -1.24017489  0.67596920 
-    V20.167      V10.89      V12.79     V19.216      V14.90     A180.72 
--0.47796506 -0.39452607 -0.09133632  1.28086084  1.13731805  1.16145583 
-     V16.21     A180.76     V15.164     A180.78       V14.5      V3.128 
- 0.21024193  0.30309427  0.17833109  1.01262616  0.11756523  2.09376547 
-    A179.13       V9.31     V20.230       V20.7     V20.234      V18.21 
- 1.98466463  1.43202977  0.89117138  0.26835826  0.23458963  0.05406326 
-    V12.122 
- 1.16698821 
-
-wa> ## deshrinking coefficients
-wa> coef(mod)
-[1] -5.687554  1.265881
-
-wa> ## diagnostics plots
-wa> par(mfrow = c(1,2))
-
-wa> plot(mod)
-
-wa> par(mfrow = c(1,1))
-
-wa> ## caterpillar plot of optima and tolerances
-wa> caterpillarPlot(mod)                 ## observed tolerances
-
-wa> caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
-
-wa> ## tolerance DW
-wa> mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
-wa+            min.tol = 2, small.tol = "min")
-
-wa> mod2
-
-	Weighted Averaging Transfer Function
-
-Call:
-wa(formula = SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE, small.tol = "min",  
-
-     min.tol = 2) 
-
-Deshrinking  : Inverse 
-Tolerance DW : Yes 
-No. samples  : 61 
-No. species  : 27 
-
-Performance:
-     RMSE  R-squared  Avg. Bias  Max. Bias  
-   2.0268     0.9166     0.0000    -2.4507  
-
-
-wa> ## compare actual tolerances to working values
-wa> with(mod2, rbind(tolerances, model.tol))
-             O.univ  G.cglob  G.ruber  G.tenel  G.saccu  G.rubes   G.pacL
-tolerances 3.746359 1.895600 1.909561 2.124799 1.979651 1.968294 3.941352
-model.tol  3.746359 2.124799 2.124799 2.124799 2.124799 2.124799 3.941352
-             G.pacR G.bullo  G.falco  G.calid  G.aequi  G.gluti  G.duter
-tolerances 5.181162 5.82798 3.109193 2.973112 2.561697 5.898256 1.998304
-model.tol  5.181162 5.82798 3.109193 2.973112 2.561697 5.898256 2.124799
-            G.infla   G.trnL  G.trnR  G.crasf  G.scitu  G.mentu  P.obliq
-tolerances 4.723884 4.161704 3.43492 3.354021 3.990673 2.386584 1.554762
-model.tol  4.723884 4.161704 3.43492 3.354021 3.990673 2.386584 2.124799
-            C.nitid S.dehis  G.digit    Other   G.quin  G.hirsu
-tolerances 1.461725 3.84473 3.108881 5.112464 4.268777 3.942135
-model.tol  2.124799 3.84473 3.108881 5.112464 4.268777 3.942135
-
-wa> ## tolerance DW
-wa> mod3 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
-wa+            min.tol = 2, small.tol = "mean")
-
-wa> mod3
-
-	Weighted Averaging Transfer Function
-
-Call:
-wa(formula = SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE, small.tol = "mean",  
-
-     min.tol = 2) 
-
-Deshrinking  : Inverse 
-Tolerance DW : Yes 
-No. samples  : 61 
-No. species  : 27 
-
-Performance:
-     RMSE  R-squared  Avg. Bias  Max. Bias  
-   1.9924     0.9194     0.0000    -2.5992  
-
-
-wa> ## fit a WA model with monotonic deshrinking
-wa> mod4 <- wa(SumSST ~., data = ImbrieKipp, deshrink = "monotonic")
-
-wa> mod4
-
-	Weighted Averaging Transfer Function
-
-Call:
-wa(formula = SumSST ~ ., data = ImbrieKipp, deshrink = "monotonic") 
-
-Deshrinking  : Monotonic 
-Tolerance DW : No 
-No. samples  : 61 
-No. species  : 27 
-
-Performance:
-     RMSE  R-squared  Avg. Bias  Max. Bias  
-   1.6107     0.9474     0.0000    -3.8985  
-
-
-wa> ## extract the fitted values
-wa> fitted(mod4)
-   V14.61   V17.196   V18.110   V16.227    V14.47    V23.22     V2.12    V23.29 
- 5.898451  5.959142  6.075776  6.163532  8.126549  8.641443  6.060926 11.563327 
-   V12.43      R9.7    A157.3    V23.81    V23.82    V12.53    V23.83    V12.56 
-11.970987 14.010916 13.276208 16.803976 16.168939 16.404646 15.002783 19.397640 
-  A152.84    V16.50   V22.122    V16.41     V4.32    V12.66   V19.245      V4.8 
-18.706537 18.292346 16.869999 22.940318 22.427838 20.008273 22.491527 22.112760 
-  A180.15    V18.34   V20.213   V19.222   A180.39   V16.189    V12.18     V7.67 
-21.211500 23.637275 23.665250 23.012758 24.659931 26.099307 25.975387 23.686165 
-  V17.165   V19.310   V16.190  A153.154   V19.308   V22.172    V10.98   V22.219 
-24.126195 23.356724 24.980999 25.862528 26.266124 26.716472 24.597292 25.941735 
-   V16.33   V22.204   V20.167    V10.89    V12.79   V19.216    V14.90   A180.72 
-26.698566 26.292611 27.127317 26.849545 26.553215 26.190434 26.330267 26.794756 
-   V16.21   A180.76   V15.164   A180.78     V14.5    V3.128   A179.13     V9.31 
-27.236962 27.145893 27.268262 26.451803 27.327863 27.351207 26.967878 26.530415 
-  V20.230     V20.7   V20.234    V18.21   V12.122 
-27.059522 27.670385 27.213081 27.390149 27.279387 
-
-wa> ## residuals for the training set
-wa> residuals(mod4)
-     V14.61     V17.196     V18.110     V16.227      V14.47      V23.22 
--3.89845110 -0.95914236 -0.57577610  0.83646773 -1.12654865  1.85855684 
-      V2.12      V23.29      V12.43        R9.7      A157.3      V23.81 
- 4.93907447 -1.56332718  1.02901346 -2.01091601  0.72379237 -2.30397582 
-     V23.82      V12.53      V23.83      V12.56     A152.84      V16.50 
--1.16893886 -1.90464621  0.99721685 -1.39764003  1.29346294 -0.29234573 
-    V22.122      V16.41       V4.32      V12.66     V19.245        V4.8 
- 2.13000055 -4.44031821 -0.92783839  0.99172654 -1.49152688  1.88724027 
-    A180.15      V18.34     V20.213     V19.222     A180.39     V16.189 
- 2.78850049 -0.63727536  0.33475038 -0.01275751 -1.65993108 -2.09930701 
-     V12.18       V7.67     V17.165     V19.310     V16.190    A153.154 
--0.97538682  2.31383515  1.87380536  2.64327583  0.01900072  0.13747169 
-    V19.308     V22.172      V10.98     V22.219      V16.33     V22.204 
--0.26612390 -2.21647192  2.40270759  0.25826513 -1.69856608  0.20738893 
-    V20.167      V10.89      V12.79     V19.216      V14.90     A180.72 
--0.92731700 -0.84954530 -0.55321548  0.80956624  0.66973330  0.70524398 
-     V16.21     A180.76     V15.164     A180.78       V14.5      V3.128 
--0.23696237 -0.14589252 -0.26826158  0.54819699 -0.32786314  1.64879299 
-    A179.13       V9.31     V20.230       V20.7     V20.234      V18.21 
- 1.53212229  0.96958483  0.44047759 -0.17038549 -0.21308146 -0.39014886 
-    V12.122 
- 0.72061292 
-> 
-> ## diagnostics for the WA model
-> par(mfrow = c(1,2))
-> plot(mod)
-> par(mfrow = c(1,1))
+> ## see full example in ?wa
 > 
 > 
 > 
 > 
-> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("prcurve")
 > ### * prcurve
@@ -6113,7 +5904,7 @@ wa> residuals(mod4)
 > 
 > ### Name: prcurve
 > ### Title: Fits a principal curve to m-dimensional data
-> ### Aliases: prcurve initCurve smoothSpline
+> ### Aliases: prcurve initCurve smoothSpline print.prcurve
 > ### Keywords: multivariate nonparametric smooth
 > 
 > ### ** Examples
@@ -6138,7 +5929,7 @@ wa> residuals(mod4)
 +                    vary = FALSE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
-Iteration   1: d.sq: 4853.7911
+Iteration   1: d.sq: 4853.7912
 Iteration   2: d.sq: 5013.4971
 Iteration   3: d.sq: 5109.9732
 Iteration   4: d.sq: 5135.6541
@@ -7182,6 +6973,11 @@ Performance:
 > caterpillarPlot(mod)                 ## observed tolerances
 > caterpillarPlot(mod, type = "model") ## with tolerances used in WA model
 > 
+> ## plot diagnostics for the WA model
+> par(mfrow = c(1,2))
+> plot(mod)
+> par(mfrow = c(1,1))
+> 
 > ## tolerance DW
 > mod2 <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
 +            min.tol = 2, small.tol = "min")
@@ -7350,7 +7146,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  16.335 0.22 16.705 0 0 
+Time elapsed:  19.235 0.232 19.942 0 0 
 > grDevices::dev.off()
 null device 
           1 

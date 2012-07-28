@@ -17,7 +17,7 @@
 
 \method{caterpillarPlot}{default}(x, tol, mult = 1, decreasing = TRUE,
                 labels, xlab = NULL, pch = 21, bg = "white",
-                col = "black", lcol = col, frame.plot = FALSE, ...)
+                col = "black", lcol = col, lwd = 2, frame.plot = FALSE, ...)
 
 \method{caterpillarPlot}{data.frame}(x, env, useN2 = TRUE, xlab, ...)
 
@@ -43,7 +43,8 @@
     a description of \code{env} is used.}
   \item{pch, bg, col}{The plotting character to use and its background and
     foreground colour. See \code{\link{par}}.}
-  \item{lcol}{The colour to use for the tolerance range.}
+  \item{lcol, lwd}{The colour and line width to use for the tolerance
+    range.}
   \item{type}{character; \code{"observed"} uses the actual tolerances
     observed from the data. \code{"model"} uses the tolerances used in
     the WA model where very small tolerances have been reset for some

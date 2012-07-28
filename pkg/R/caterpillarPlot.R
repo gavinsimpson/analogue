@@ -20,7 +20,7 @@
 
 `caterpillarPlot.default` <- function(x, tol, mult = 1, decreasing = TRUE,
                                       labels, xlab = NULL, pch = 21, bg = "white",
-                                      col = "black", lcol = col,
+                                      col = "black", lcol = col, lwd = 2,
                                       frame.plot = FALSE, ...) {
     ## reorder
     opt <- x
@@ -61,7 +61,7 @@
          ylab = "", xlab = xlab, ylim = range(0, yvals + 1),
          frame.plot = frame.plot, ...)
     abline(h = yvals, lty = 1, lwd = 0.5, col = "lightgray")
-    segments(lwr, yvals, upr, yvals, col = lcol, ...)
+    segments(lwr, yvals, upr, yvals, col = lcol, lwd = lwd, ...)
     points(opt, yvals, pch = pch, bg = bg, col = col, ...)
     axis(side = 1, ...)
     axis(side = 2, labels = labels, at = yvals, las = 1, ...)

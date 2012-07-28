@@ -2,6 +2,7 @@
 \alias{prcurve}
 \alias{initCurve}
 \alias{smoothSpline}
+\alias{print.prcurve}
 
 \title{
 Fits a principal curve to m-dimensional data

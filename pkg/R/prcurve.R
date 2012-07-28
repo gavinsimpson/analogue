@@ -158,3 +158,32 @@ prcurve <- function(X,
     class(config) <- c("prcurve")
     return(config)
 }
+
+`print.prcurve` <- function(x, digits = max(3, getOption("digits") - 3),
+                            ...) {
+    cat("\n")
+    writeLines(strwrap("Principal Curve Fitting", prefix = "\t"))
+    cat("\n")
+    writeLines(strwrap(pasteCall(x$call)))
+    cat("\n")
+    writeLines(strwrap(paste("Algorithm",
+                             ifelse(x$converged, "converged", "failed to converge"),
+                             "after",
+                             x$iter,
+                             ifelse(isTRUE(all.equal(x$iter, 1)),
+                                    "iteration", "iterations"),
+                             sep = " ")))
+    cat("\n")
+    tab <- cbind(c(x$totalDist, x$totalDist - x$dist, x$dist),
+                 c(1.00, (x$totalDist - x$dist) / x$totalDist,
+                   x$dist / x$totalDis))
+    dimnames(tab) <- list(c("Total","Explained","Residual"),
+                          c("SumSq","Proportion"))
+    printCoefmat(tab, digits = digits, na.print = "")
+    cat("\n")
+    writeLines(strwrap(paste("Fitted curve uses",
+                             round(edf <- sum(x$complexity), digits = digits),
+                             ifelse(edf > 1, "degrees", "degree"),
+                             "of freedom.", sep  = " ")))
+    invisible(x)
+}

@@ -93,8 +93,8 @@
     ## plot parameters
     maxy <- max(y, na.rm = TRUE)
     miny <- min(y, na.rm = TRUE)
-    ## add padYlim * range as per base graphics
-    padY <- 0.01
+    ## add padYlim * range as per base graphics - 4% of range
+    padY <- 0.04
     if(missing(ylim)) {
         ##diffy <- padY * (maxy - miny)
         diffy <- maxy - miny
