@@ -31,7 +31,7 @@ Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
 This is mgcv 1.7-19. For overview type 'help("mgcv-package")'.
-This is analogue 0.9-9
+This is analogue 0.9-10
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1186,7 +1186,7 @@ Bootstrap sample 100
 > ### Name: caterpillarPlot
 > ### Title: Caterpillar plot of species' WA optima and tolerance range.
 > ### Aliases: caterpillarPlot caterpillarPlot.default
-> ###   caterpillarPlot.data.frame caterpillarPlot.wa
+> ###   caterpillarPlot.data.frame caterpillarPlot.wa caterpillar
 > ### Keywords: hplot
 > 
 > ### ** Examples
@@ -1199,9 +1199,10 @@ Bootstrap sample 100
 > 
 > ## customisation
 > opttol <-
-+     caterpillarPlot(ImbrieKipp, SumSST, col = "red2", bg = "yellow",
-+                     lcol = "blue",
-+                     xlab = expression(Summer~Sea~Surface~Temperature~(degree*C)))
++     caterpillarPlot(ImbrieKipp, SumSST, col = "red2",
++                     bg = "yellow", lcol = "blue",
++                     xlab = expression(Summer ~ Sea ~ Surface ~
++                                       Temperature~(degree*C)))
 > 
 > ## invisibly returns the optima and tolerances
 > head(opttol)
@@ -1212,6 +1213,9 @@ C.nitid 26.41005  1.461725
 G.rubes 26.27479  1.968294
 G.saccu 26.18001  1.979651
 G.mentu 26.13778  2.386584
+> 
+> ## The short form name may be easier on the typing fingers
+> caterpillar(ImbrieKipp, SumSST)
 > 
 > 
 > 
@@ -7146,7 +7150,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  19.235 0.232 19.942 0 0 
+Time elapsed:  19.233 0.237 20.124 0 0 
 > grDevices::dev.off()
 null device 
           1 

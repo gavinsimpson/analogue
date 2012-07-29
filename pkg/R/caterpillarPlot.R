@@ -1,3 +1,7 @@
+`caterpillar` <- function(x, ...) {
+    UseMethod("caterpillarPlot")
+}
+
 `caterpillarPlot` <- function(x, ...) {
     UseMethod("caterpillarPlot")
 }

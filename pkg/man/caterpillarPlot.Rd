@@ -3,6 +3,7 @@
 \alias{caterpillarPlot.default}
 \alias{caterpillarPlot.data.frame}
 \alias{caterpillarPlot.wa}
+\alias{caterpillar}
 
 \title{
   Caterpillar plot of species' WA optima and tolerance range.
@@ -14,7 +15,6 @@
 }
 
 \usage{
-
 \method{caterpillarPlot}{default}(x, tol, mult = 1, decreasing = TRUE,
                 labels, xlab = NULL, pch = 21, bg = "white",
                 col = "black", lcol = col, lwd = 2, frame.plot = FALSE, ...)
@@ -54,9 +54,13 @@
     plotting functions.}
 }
 
-%\details{
-%%  ~~ If necessary, more details than the description above ~~
-%}
+\details{
+  The function may also be called using the short form name
+  \code{caterpillar}:
+  \preformatted{
+caterpillar(x, ...)
+  }
+}
 
 \value{
   The function results in a plot on the currently active device. A data
@@ -86,12 +90,16 @@ caterpillarPlot(ImbrieKipp, SumSST)
 
 ## customisation
 opttol <-
-    caterpillarPlot(ImbrieKipp, SumSST, col = "red2", bg = "yellow",
-                    lcol = "blue",
-                    xlab = expression(Summer~Sea~Surface~Temperature~(degree*C)))
+    caterpillarPlot(ImbrieKipp, SumSST, col = "red2",
+                    bg = "yellow", lcol = "blue",
+                    xlab = expression(Summer ~ Sea ~ Surface ~
+                                      Temperature~(degree*C)))
 
 ## invisibly returns the optima and tolerances
 head(opttol)
+
+## The short form name may be easier on the typing fingers
+caterpillar(ImbrieKipp, SumSST)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

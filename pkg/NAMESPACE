@@ -20,6 +20,7 @@ import(graphics)
 export(analog,
        bayesF,
        bootstrap,
+       caterpillar,
        caterpillarPlot,
        chooseTaxa,
        cma,
