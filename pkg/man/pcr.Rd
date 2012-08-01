@@ -23,9 +23,9 @@
 
 \method{pcr}{formula}(formula, data, subset, na.action, ..., model = FALSE)
 
-Hellinger(x, apply = FALSE)
+Hellinger(x, ...)
 
-ChiSquare(x, apply = FALSE)
+ChiSquare(x, apply = FALSE, parms)
 
 \method{performance}{pcr}(object, ...)
 
@@ -72,6 +72,9 @@ ChiSquare(x, apply = FALSE)
   \item{model}{logical; If \code{TRUE} the model frame is returned?}
   \item{apply}{logical; should an existing tranformation, using
     pre-computed meta-parameters, be applied?}
+  \item{parms}{list; a named list of parameters computed during model
+    fitting that can be used to apply the transformation during
+    prediction.}
   \item{object}{an object of class \code{"pcr"}.}
   \item{comps}{numeric; which components to return.}
   \item{restrict}{numeric; limit the number of components on the
