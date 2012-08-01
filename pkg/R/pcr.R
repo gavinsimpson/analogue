@@ -10,6 +10,10 @@
     ## convert to matrices for speed
     x <- data.matrix(x)
 
+    ## Store data
+    XX <- x
+    YY <- y
+
     ## dimensions
     Nx <- NROW(x)
     Ny <- length(y)
@@ -18,13 +22,16 @@
     ## Apply a transformation if specified
     fun.supplied <- FALSE
     if(!missing(tranFun)) {
-        FUN <- match.fun(tranFun)
+        tranFun <- match.fun(tranFun)
         x <- tranFun(x)
-        tranParms <- attr(x, "parms")
+        tranParms <- x$parms
+        x <- x$data
+        attr(x, "parms") <- NULL
         fun.supplied <- TRUE
     } else {
-        FUN <- tranParms <- NA
-        tranFun <- "none"
+        tranFun <- function(x, ...) list(data = x, parms = NA)
+        tranParms <- list(NA)
+        ##tranFun <- "none"
     }
 
     ## centre x and y
@@ -37,35 +44,18 @@
     ncomp <- if(missing(ncomp)) {
         min(Nx - 1, Mx)
     } else {
-        if(ncomp < 1 || ncomp > (newcomp <- min(Nx - 1, Mx)))
+        if(ncomp < 1 || ncomp > (newcomp <- min(Nx - 1, Mx))) {
             warning("Invalid 'ncomp'. Resetting to max possible.")
-        newcomp
+            newcomp
+        }
     }
-    S <- seq_len(ncomp)
 
-    ## Storage objects:
-    ## B model coefficients
-    ## fitted.values
-    B <- matrix(0, nrow = Mx, ncol = ncomp)
-    fitted.values <- matrix(0, nrow = Nx, ncol = ncomp)
-
-    ## SVD
-    SVD <- La.svd(x)
-    D <- SVD$d[S]
-    TT <- SVD$u[, S, drop = FALSE] %*% diag(D, nrow = ncomp)
-    P <- t(SVD$vt[S, , drop = FALSE])
-    tQ <- crossprod(TT, y) / (varExpl <- D^2)
-
-    ## compute coefficients
-    for(b in S) {
-        bS <- seq_len(b)
-        B[, b] <- P[, bS, drop = FALSE] %*% tQ[bS, ]
-        fitted.values[, b] <- TT[, bS, drop = FALSE] %*% tQ[bS, ]
-    }
+    ## fit via wrapper
+    FIT <- fitPCR(X = x, Y = y, ncomp = ncomp, n = Nx, m = Mx)
 
     ## other model output
-    residuals <- y - fitted.values
-    fitted.values <- sweep(fitted.values, 2, yMean, "+")
+    residuals <- y - FIT$Yhat
+    fitted.values <- sweep(FIT$Yhat, 2, yMean, "+")
 
     ## model performance
     Y <- y + yMean
@@ -75,37 +65,38 @@
                               RMSE = sqrt(colMeans(residuals^2)))
 
     ## apply some names to prettify to output
-    rownames(performance) <- colnames(B) <- colnames(fitted.values) <-
-        colnames(residuals) <- names(varExpl) <- colnames(TT) <-
-            colnames(P) <- rownames(tQ) <- paste("PC", S, sep = "")
-    rownames(B) <- rownames(P) <- colnames(x)
-    rownames(fitted.values) <- rownames(residuals) <- rownames(TT) <- rownames(x)
+    rownames(performance) <- colnames(FIT$B) <- colnames(fitted.values) <-
+        colnames(residuals) <- names(FIT$varExpl) <- colnames(FIT$TT) <-
+            colnames(FIT$P) <- rownames(FIT$tQ) <- paste0("PC", seq_len(ncomp))
+    rownames(FIT$B) <- rownames(FIT$P) <- colnames(x)
+    rownames(fitted.values) <- rownames(residuals) <- rownames(FIT$TT) <- rownames(x)
 
     ## get and fix up the call
     .call <- match.call()
     .call[[1]] <- as.name("pcr")
-    if(fun.supplied) {
-        ## fix-up the name of the transformation function used,
-        ## needed when formula method called...
-        .call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
-    }
+    ## if(fun.supplied) {
+    ##     ## fix-up the name of the transformation function used,
+    ##     ## needed when formula method called...
+    ##     .call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
+    ## }
 
     ## return object
     Obj <- list(fitted.values = fitted.values,
-                coefficients = B,
+                coefficients = FIT$B,
                 residuals = residuals,
-                scores = TT,
-                loadings = P,
-                Yloadings = t(tQ),
+                scores = FIT$TT,
+                loadings = FIT$P,
+                Yloadings = t(FIT$tQ),
                 xMeans = xMeans,
                 yMean = yMean,
-                varExpl = varExpl,
+                varExpl = FIT$varExpl,
                 totvar = sum(x * x),
                 call = .call,
-                tranFun = FUN,
+                tranFun = tranFun,
                 tranParms = tranParms,
                 performance = performance,
-                ncomp = ncomp)
+                ncomp = ncomp,
+                data = list(x = XX, y = YY))
     class(Obj) <- "pcr"
     Obj
 }
@@ -138,8 +129,8 @@
     Obj$terms <- mt
     if(model)
         Obj$model <- mf
-    .call <- match.call()
-    .call[[1]] <- as.name("pcr")
+    ##.call <- match.call()
+    ##.call[[1]] <- as.name("pcr")
     ## fix-up the name of the transformation function used,
     ## needed when formula method called...
     ##.call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
@@ -147,17 +138,18 @@
     Obj
 }
 
-`Hellinger` <- function(x, apply = FALSE) {
-    tran(x, method = "hellinger")
+`Hellinger` <- function(x, ...) {
+    list(data = tran(x, method = "hellinger"), parms = list(NA))
     ## ignore 'apply' as no meta-parameters
 }
 
-`ChiSquare` <- function(x, apply = FALSE) {
+`ChiSquare` <- function(x, apply = FALSE, parms) {
     if(apply) {
         ## apply pre-computed meta-parameters to transform
         ## test samples to match training samples
-        parms <- attr(x, "parms")
-        x <- with(parms, sqrt(gsum) * x/outer(rsum, sqrt(csum)))
+        ##parms <- attr(x, "parms")
+        res <- list(data = with(parms, sqrt(gsum) * x/outer(rsum, sqrt(csum))),
+                    parms = parms)
     } else {
         ## perform transformation and preserve the meta-parameters
         if (any(x < 0, na.rm = TRUE)) {
@@ -169,8 +161,8 @@
         gsum <- sum(x, na.rm = TRUE)
         rsum <- pmax(k, rowSums(x, na.rm = TRUE))
         csum <- colSums(x, na.rm = TRUE)
-        x <- sqrt(gsum) * x/outer(rsum, sqrt(csum))
-        attr(x, "parms") <- list(gsum = gsum, rsum = rsum, csum = csum)
+        res <- list(data = sqrt(gsum) * x/outer(rsum, sqrt(csum)),
+                    parms = list(gsum = gsum, rsum = rsum, csum = csum))
     }
     x
 }
@@ -187,104 +179,4 @@
     perf <- x$performance[, "RMSE"]
     names(perf) <- rownames(x$performance)
     print(perf)
-}
-
-`screeplot.pcr` <- function(x, restrict = NULL,
-                            display = c("RMSE","avgBias","maxBias","R2"),
-                            xlab = NULL, ylab = NULL, main = NULL, sub = NULL,
-                            ...) {
-    display <- match.arg(display)
-    captions <- c("RMSE", "Average bias", "Maximum bias", "R squared")
-    names(captions) <- c("RMSE", "avgBias", "maxBias", "R2")
-    if (is.null(xlab))
-        xlab <- "No. of components"
-    if (is.null(ylab))
-        ylab <- captions[display]
-    if (is.null(main))
-        main <- deparse(substitute(x))
-    if (is.null(sub)) {
-        cal <- x$call
-        ##if (!is.na(m.f <- match("formula", names(cal)))) {
-        ##    cal <- cal[c(1, m.f)]
-        ##    names(cal)[2] <- ""
-        ##}
-        cc <- deparse(cal, 90)
-        nc <- nchar(cc[1])
-        abbr <- length(cc) > 1 || nc > 90
-        sub <- if (abbr)
-            paste(substr(cc[1], 1, min(90, nc)), "...")
-        else cc[1]
-    }
-    dat <- performance(x)
-    if(!is.null(restrict)) {
-        comps <- min(restrict, x$ncomp)
-    } else {
-        comps <- x$ncomp
-    }
-    Scomps <- seq_len(comps)
-    plot(Scomps, dat[Scomps, display], type = "n", ylab = ylab, xlab = xlab,
-         main = main, sub = sub, ...)
-    if(comps > 20) {
-        lines(Scomps, dat[Scomps, display], type = "b", ...)
-    } else {
-        lines(Scomps, dat[Scomps, display], type = "b", ..., pch = NA)
-        text(Scomps, dat[Scomps, display], labels = as.character(Scomps), cex = 0.8,
-             ...)
-    }
-    invisible()
-}
-
-`performance.pcr` <- function(object, ...) {
-    retval <- object$performance
-    class(retval) <- c("performance","data.frame")
-    retval
-}
-
-`coef.pcr` <- function(object, comps = NULL, ...) {
-    coefs <- object$coefficients
-    nc <- NCOL(coefs)
-    if(is.null(comps))
-        comps <- seq_len(nc)
-    else {
-        if(!is.numeric(comps))
-            stop("Non-numeric selection of components requested.")
-        if(min(comps) < 1 || max(comps) > nc)
-            stop("Requested components outside range of actual components.")
-    }
-    coefs <- coefs[, comps]
-    coefs
-}
-
-`fitted.pcr` <- function(object, comps = NULL, ...) {
-    fits <- object$fitted.values
-    nc <- NCOL(fits)
-    if(is.null(comps))
-        comps <- seq_len(nc)
-    else {
-        if(!is.numeric(comps))
-            stop("Non-numeric selection of components requested.")
-        if(min(comps) < 1 || max(comps) > nc)
-            stop("Requested components outside range of actual components.")
-    }
-    fits <- fits[, comps]
-    fits
-}
-
-`residuals.pcr` <- function(object, comps = NULL, ...) {
-    resi <- object$residuals
-    nc <- NCOL(resi)
-    if(is.null(comps))
-        comps <- seq_len(nc)
-    else {
-        if(!is.numeric(comps))
-            stop("Non-numeric selection of components requested.")
-        if(min(comps) < 1 || max(comps) > nc)
-            stop("Requested components outside range of actual components.")
-    }
-    resi <- resi[, comps]
-    resi
-}
-
-`eigenvals.pcr` <- function(x, ...) {
-    x$varExpl
 }
