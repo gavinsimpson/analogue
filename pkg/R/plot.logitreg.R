@@ -79,7 +79,7 @@
     else {
         n.plot <- 1
         min <- 0
-        max <- max(x[[group]]$data$Dij)
+        max <- max(x$models[[group]]$data$Dij)
         ##xy.nums <- rep(1, 2)
     }
     for (i in seq_len(n.groups)) {

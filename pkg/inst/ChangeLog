@@ -5,6 +5,9 @@ Version 0.9-10
 	* caterpillarPlot: can now be called by the shorter name
 	caterpillar().
 
+	* plot.logitreg: bug would cause plotting to fail if you plotted
+	a single model.
+
 Version 0.9-9
 
 	* prcurve: added a print method.
