@@ -31,17 +31,21 @@
     ords <- apply(object$Dij, 2, getOrd)
     SEQ <- seq_len(ncol(ords))
     ## weights = 1/Dij
-    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
+    wi <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
     ## produce matrix of Env data for each site
     env <- sapply(SEQ, getEnv, object$Dij, ords, k.seq,
                   object$orig.y, USE.NAMES = FALSE)
     ## mean of env of k closest analogues
     ybar <- colMeans(env)
-    wtdSD <- sqrt(colSums(wts * sweep(env, 2, ybar, "-")^2) /
-                  colSums(wts))
+    ## sum weights
+    sum.wi <- colSums(wi)
+    sum.wi2 <- colSums(wi^2)
+    sum2.wi <- sum.wi^2
+    frac <- sum.wi / (sum2.wi - sum.wi2)
+    wtdSD <- sqrt(frac * colSums(wi * sweep(env, 2, ybar, "-")^2))
     names(wtdSD) <- names(object$orig.y)
     class(wtdSD) <- "stdError"
-    return(wtdSD)
+    wtdSD
 }
 
 `stdError.predict.mat` <- function(object, k, ...) {
@@ -69,17 +73,21 @@
     ords <- apply(object$Dij, 2, getOrd)
     SEQ <- seq_len(ncol(ords))
     ## weights = 1/Dij
-    wts <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
+    wi <- 1 / sapply(SEQ, getWts, object$Dij, ords, k.seq, USE.NAMES = FALSE)
     ## produce matrix of Env data for each site
     env <- sapply(SEQ, getEnv, object$Dij, ords, k.seq,
                   object$observed, USE.NAMES = FALSE)
     ## mean of env of k closest analogues
     ybar <- colMeans(env)
-    wtdSD <- sqrt(colSums(wts * sweep(env, 2, ybar, "-")^2) /
-                  colSums(wts))
+    ## sum weights
+    sum.wi <- colSums(wi)
+    sum.wi2 <- colSums(wi^2)
+    sum2.wi <- sum.wi^2
+    frac <- sum.wi / (sum2.wi - sum.wi2)
+    wtdSD <- sqrt(frac * colSums(wi * sweep(env, 2, ybar, "-")^2))
     names(wtdSD) <- colnames(object$predictions$model$predicted)
     class(wtdSD) <- "stdError"
     attr(wtdSD, "k") <- k
     attr(wtdSD, "auto") <- object$auto
-    return(wtdSD)
+    wtdSD
 }

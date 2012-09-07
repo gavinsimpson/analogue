@@ -2,6 +2,8 @@ analogue Change Log
 
 Version 0.9-10
 
+	* stdError: calculation assumed weights summed to 1.
+
 	* caterpillarPlot: can now be called by the shorter name
 	caterpillar().
 
