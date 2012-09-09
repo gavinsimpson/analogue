@@ -2,7 +2,18 @@ analogue Change Log
 
 Version 0.9-10
 
-	* stdError: calculation assumed weights summed to 1.
+	* stdError: Several changes and enhancements:
+
+	Calculation assumed weights summed to 1. New formula as
+	described in Simpson (2012) is now used. (Reported by Steve
+	Juggins)
+
+	Now have a choice whether to use the weighted SD or not. For
+	predictions based on the mean of the k-closest analogues it
+	would be odd to then use a weighted SD to compute the standard
+	error.
+
+	Gained a print method.
 
 	* caterpillarPlot: can now be called by the shorter name
 	caterpillar().
