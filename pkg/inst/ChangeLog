@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.9-11
+
+	* Was loading compiled code both via the package namespace
+	and a .onAttach() call. The latter was removed. Reported by
+	Kurt Hornik.
+
 Version 0.9-10
 
 	* stdError: Several changes and enhancements:
