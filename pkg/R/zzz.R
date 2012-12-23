@@ -6,7 +6,6 @@
 ##                           appendLF = TRUE)
 ## }
 .onAttach <- function(lib, pkg)  {
-    library.dynam("analogue", pkg, lib)
     packageStartupMessage("This is analogue ",
                           utils::packageDescription("analogue",
                                                     field="Version"),
