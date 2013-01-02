@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.10-0
+
+	* Release: Version 0.9-11 plus a minor documentation fix
+	was released to CRAN 2 Jan 2013.
+
 Version 0.9-11
 
 	* Was loading compiled code both via the package namespace

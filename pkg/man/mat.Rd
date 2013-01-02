@@ -279,7 +279,7 @@ par(mfrow = c(2,2))
 plot(ik.mat2)
 par(mfrow = c(1,1))
 
-## reconstruct for the RLGH core data
+## reconstruct for the V12.122 core data
 coreV12.mat2 <- predict(ik.mat, V12.122, k = 3)
 coreV12.mat2
 summary(coreV12.mat2)
