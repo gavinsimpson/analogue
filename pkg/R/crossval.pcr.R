@@ -54,6 +54,7 @@
                 pred[i, j] <- Xi %*% FIT$B[, j, drop = FALSE] + B0
             }
         }
+        pred <- rowMeans(pred, na.rm = TRUE)
     }
     if(identical(method, "kfold")) {
         ## form ncomp, as k-fold we have ceiling(N / nfold) fewer sites
@@ -157,5 +158,6 @@
         }
         pred <- rowMeans(pred, na.rm = TRUE, dims = 2)
     }
+    class(pred) <- "crossval"
     pred
 }
