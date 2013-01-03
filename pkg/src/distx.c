@@ -4,7 +4,7 @@
  * Based on code from vegdist by Jari Oksanen:
  *
  * (C) 2001-2009, Jari Oksanen
- * (C) 2009 Gavin L. Simpson
+ * (C) 2009-2012 Gavin L. Simpson
  *
  * Licene: GPL 2
  */
@@ -519,14 +519,15 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
 			    wsum -= weights[j];
 		    }
 	    }
-	    if(vtype[j] == 3) {
+	    if(vtype[j] == 3) { // Nominal
 		dev = (x[i1] == x[i2]) ? 1 : 0;
 		dist += dev * weights[j];
 	    }
-	    if(vtype[j] == 4) {
-		/* ordinal data current not handled 
-		 * so don't call this yet
-		 */
+	    if(vtype[j] == 4) { // Ordinal
+		/* ordinal data currently handled as Nominal */
+		dev = (x[i1] == x[i2]) ? 1 : 0;
+		dist += dev * weights[j];
+		break;
 	    }
 	    if(vtype[j] == 5) {
 		dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
