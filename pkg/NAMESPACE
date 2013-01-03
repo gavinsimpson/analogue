@@ -29,7 +29,7 @@ export(analog,
        dissim,
        dissimilarities,
        distance,
-       distance3,
+       ##distance3,
        fuse,
        getK,
        gradientDist,
@@ -80,7 +80,7 @@ S3method(dissimilarities, analog)
 S3method(dissimilarities, mat)
 S3method(distance, default)
 S3method(distance, join)
-S3method(distance3, default)
+##S3method(distance3, default)
 S3method(eigenvals, pcr)
 S3method(fuse, dist)
 S3method(fuse, matrix)
