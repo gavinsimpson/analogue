@@ -5,6 +5,10 @@ useDynLib(analogue)
 ##
 ## vegan
 importFrom(vegan, pasteCall, eigenvals, tolerance)
+## mgcv
+importFrom(mgcv, gam, s, smoothCon, mono.con, pcls, Predict.matrix)
+## MASS
+importFrom(MASS, dose.p)
 ## lattice
 importFrom(lattice, densityplot, histogram, panel.refline, panel.grid,
            panel.lines, panel.points, panel.polygon, panel.abline,
