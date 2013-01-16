@@ -1,5 +1,14 @@
 analogue Change Log
 
+Version 0.11-0
+
+	* timetrack: fitted method gains argument `choices` with
+	default `1:2` for extracting the ordinary or passive
+	samples scores on `choices` axes. `plot` method can now draw
+	the passive samples as a line, points or both. The `plot`
+	method also gains an argument `order` that can be used to
+	reorder the passive samples into correct temporal ordering.
+
 Version 0.10-0
 
 	* Release: Version 0.9-11 plus a minor documentation fix

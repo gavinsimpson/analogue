@@ -1,6 +1,6 @@
 `fitted.timetrack` <-
     function(object, type = c("passive", "ordination"),
-             model = NULL, ...)
+             model = NULL, choices = 1:2, ...)
 {
     if(missing(type))
         type <- "passive"
@@ -9,9 +9,10 @@
         if(is.null(object$ordination$CCA)) "CA" else "CCA"
     }
     if(isTRUE(all.equal(type, "passive"))) {
-        fit <- fitted(unclass(object), ...)
+        fit <- fitted(unclass(object), ...)[, choices, drop = FALSE]
     } else {
-        fit <- fitted(object$ordination, model = model, ...)
+        fit <- fitted(object$ordination, model = model,
+                      ...)[, choices, drop = FALSE]
     }
-    return(fit)
+    fit
 }

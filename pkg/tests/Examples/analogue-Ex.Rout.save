@@ -31,7 +31,7 @@ Loading required package: MASS
 Loading required package: princurve
 Loading required package: mgcv
 This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
-This is analogue 0.10-0
+This is analogue 0.11-0
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -6925,7 +6925,12 @@ Eigenvalues for unconstrained axes:
 
 > 
 > ## Plot the timetrack
-> plot(mod)
+> plot(mod, ptype = "b", col = c("forestgreen", "orange"), lwd = 2)
+> 
+> ## Other options (reorder the time track)
+> ord <- rev(seq_len(nrow(rlgh)))
+> plot(mod, choices = 2:3, order = ord, ptype = "b",
++      col = c("forestgreen", "orange"), lwd = 2)
 > 
 > 
 > 
@@ -7265,7 +7270,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.741 0.267 23.803 0 0 
+Time elapsed:  21.537 0.227 22.33 0 0 
 > grDevices::dev.off()
 null device 
           1 

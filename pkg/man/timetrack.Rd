@@ -17,10 +17,12 @@ timetrack(X, passive, env, method = c("cca", "rda"),
           rank = "full", model = c("CCA", "CA"), \dots)
 
 \method{fitted}{timetrack}(object, type = c("passive", "ordination"),
-       model = NULL, \dots)
+       model = NULL, choices = 1:2, \dots)
 
-\method{plot}{timetrack}(x, choices = 1:2, pch = c(1,2),
-     col = c("black","red"), \dots)
+\method{plot}{timetrack}(x, choices = 1:2, order,
+     ptype = c("l", "p", "o", "b"), pch = c(1,2),
+     col = c("black","red"), lty = "solid", lwd = 1,
+     \dots)
 }
 
 \arguments{
@@ -53,12 +55,22 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{type}{character; which fitted values should be returned?}
   \item{choices}{numeric; the length-2 vector of ordination axes to
     plot.}
+  \item{order}{numeric; vector of indices to use to reorder the passive
+    samples. Useful to get passive samples into temporal order for
+    plotting with a line.}
+  \item{ptype}{character; controls how the time track should be
+    drawn. Default is draw the passive samples connected by a line in
+    the order in which they appear in the data. With \code{ptype = "p"}
+    no line is drawn. The other two types have their usual meaning from
+    \code{\link{plot.default}}.}
   \item{pch}{The length-2 vector of plotting characters. The first
     element is used for the ordination samples, the second for the
     passive samples.}
   \item{col}{The length-2 vector of plotting colours. The first
     element is used for the ordination samples, the second for the
     passive samples.}
+  \item{lty, lwd}{graphical parameters for the plotted time track for
+    \code{ptype != "p"}.}
   \item{\dots}{arguments passed to other methods.
     \code{timetrack} passes arguments on to \code{tran} and the
     ordination function given in \code{method}. \code{fitted} passes
@@ -143,7 +155,12 @@ mod <- timetrack(swapdiat, rlgh, transform = "hellinger",
 mod
 
 ## Plot the timetrack
-plot(mod)
+plot(mod, ptype = "b", col = c("forestgreen", "orange"), lwd = 2)
+
+## Other options (reorder the time track)
+ord <- rev(seq_len(nrow(rlgh)))
+plot(mod, choices = 2:3, order = ord, ptype = "b",
+     col = c("forestgreen", "orange"), lwd = 2)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
