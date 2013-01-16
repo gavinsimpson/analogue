@@ -22,10 +22,10 @@ print.summary.bootstrap.mat <- function(x,
                                         digits = max(3, getOption("digits") - 3),
                                         ...)
   {
-    print.bootstrap.mat(x)
+    print.bootstrap.mat(x, digits = digits, ...)
     #print.bootstrap(x)
     cat("\nBootstrap estimated values for training set:\n")
-    with(x$bootstrap, print(estimated[,k], digits = digits))
+    with(x$bootstrap, print(estimated[,k], digits = digits, ...))
     if(!is.null(x$predictions)) {
       cat(paste("\nPredicted values based on a",
                 ifelse(x$weighted, " weighted", ""),
@@ -35,7 +35,7 @@ print.summary.bootstrap.mat <- function(x,
         cat("(k chosen from model with lowest RMSEP)\n\n")
       else
         cat("\n")
-      with(x$predictions$model, print(predicted[k,], digits = digits))
+      with(x$predictions$model, print(predicted[k,], digits = digits, ...))
     }
     if(!is.null(x$predictions)) {
       cat(paste("\nBoostrap predicted values based on a",
@@ -46,7 +46,7 @@ print.summary.bootstrap.mat <- function(x,
         cat("(k chosen from model with lowest RMSEP)\n\n")
       else
         cat("\n")
-      with(x$predictions$bootstrap, print(predicted[,k], digits = digits))
+      with(x$predictions$bootstrap, print(predicted[,k], digits = digits, ...))
     }
     cat("\nTraining set assessment:\n\n")
     k.model <- x$model$k
@@ -59,6 +59,6 @@ print.summary.bootstrap.mat <- function(x,
                       s1 = x$sample.errors$s1[,k.boot],
                       s2 = x$sample.errors$s2[,k.boot],
                       RMSEP = x$sample.errors$rmsep[,k.boot])
-    print(dat, digits = digits)
+    print(dat, digits = digits, ...)
     invisible(x)
   }
