@@ -9,6 +9,17 @@ Version 0.11-0
 	method also gains an argument `order` that can be used to
 	reorder the passive samples into correct temporal ordering.
 
+	* Dependencies: MASS and mgcv moved from Depends: to Imports:
+	reflecting the relatively light use of functions from these
+	packages in analogue. The functions needed are imported in
+	analogue's NAMESPACE file.
+
+	* Tests: code in wa() generates slightly different results
+	under R 3.0.0 (to be). Differences are in the 8th or 9th
+	decimal place so irrelevant, but I was the reference output
+	for the examples was checking to that level of precision.
+	For tests only, the Example in ?wa uses options(digits = 5).
+
 Version 0.10-0
 
 	* Release: Version 0.9-11 plus a minor documentation fix
