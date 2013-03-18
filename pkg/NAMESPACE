@@ -4,21 +4,34 @@ useDynLib(analogue)
 ## Imports
 ##
 ## vegan
-importFrom(vegan, pasteCall, eigenvals, tolerance)
+importFrom(vegan, pasteCall, eigenvals, tolerance, scores)
 ## mgcv
 importFrom(mgcv, gam, s, smoothCon, mono.con, pcls, Predict.matrix)
 ## MASS
 importFrom(MASS, dose.p)
 ## lattice
-importFrom(lattice, densityplot, histogram, panel.refline, panel.grid,
-           panel.lines, panel.points, panel.polygon, panel.abline,
-           trellis.par.get)
+##   -- need here *only* those funs that we define S3 methods for
+##      not the functions from lattice we use as they are covered
+##      by Depends: lattice in DESCRIPTION
+importFrom(lattice, densityplot, histogram)
 ## stats
 import(stats)
 ## utils
 importFrom(utils, head, tail)
 ## graphics
 import(graphics)
+## grid
+importFrom(grid,
+           convertWidth,
+           gpar,
+           grid.layout,
+           grobWidth,
+           frameGrob,
+           placeGrob,
+           rectGrob,
+           textGrob,
+           unit,
+           unit.c)
 
 ## Exports
 export(analog,
@@ -124,6 +137,7 @@ S3method(RMSEP, bootstrap.wa)
 S3method(roc, default)
 S3method(roc, analog)
 S3method(roc, mat)
+S3method(scores, prcurve)
 S3method(stdError, mat)
 S3method(stdError, predict.mat)
 S3method("setK<-", default)
@@ -164,6 +178,7 @@ S3method(plot, cma)
 S3method(plot, dissimilarities)
 S3method(plot, gradientDist)
 S3method(lines, gradientDist)
+S3method(lines, prcurve)
 S3method(points, gradientDist)
 S3method(plot, logitreg)
 S3method(plot, mat)
