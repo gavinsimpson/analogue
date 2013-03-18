@@ -1,5 +1,6 @@
 \name{plot.prcurve}
 \alias{plot.prcurve}
+\alias{lines.prcurve}
 \title{
 Plot a fitted principal curve in PCA space
 }
@@ -8,8 +9,13 @@ Projects the principal curve into PCA space and draws it and the
 underlying data in a biplot.
 }
 \usage{
-\method{plot}{prcurve}(x, data, axes = 1:2, seg = TRUE, col.seg = "forestgreen",
-     col.curve = "red", lwd.curve = 2, ...)
+\method{plot}{prcurve}(x, data, axes = 1:2, segments = TRUE,
+     col = "red", col.seg = "forestgreen", lwd = 2,
+     lwd.seg = 1, ...)
+
+\method{lines}{prcurve}(x, data, axes = 1:2, segments = TRUE,
+      col = "red", col.seg = "forestgreen", lwd = 2,
+      lwd.seg = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,12 +23,13 @@ underlying data in a biplot.
   \item{data}{The data the principal curve was fitted to.}
   \item{axes}{numeric vector of length 2; this is passed to the
     \code{choices} argument of the \code{\link[vegan]{scores}} function.}
-  \item{seg}{logical; should segments be drawn between the observed
+  \item{segments}{logical; should segments be drawn between the observed
     points to the location on the principal curve on to which they
-    project.} 
+    project.}
+  \item{col}{The colour to draw the principal curve in.}
   \item{col.seg}{The colour to draw the segments in.}
-  \item{col.curve}{The colour to draw the principal curve in.}
-  \item{lwd.curve}{The line thickness used to draw the principal curve.}
+  \item{lwd, lwd.seg}{The line thickness used to draw the
+      principal curve and segments respectively.}
   \item{\dots}{additional arguments passed on to \code{points} when
     drawing the observations in PCA space.}
 }
@@ -39,9 +46,11 @@ anything.
 \author{
 Gavin L. Simpson
 }
-%\note{
-%%  ~~further notes~~
-%}
+\note{
+  Note that all plotting is done using \code{scaling == 0} at the
+  moment, and as such the \code{lines()} method only makes sense when
+  added to an underlying PCA in the same scaling. See the Examples.
+}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -58,11 +67,17 @@ abernethy2 <- abernethy[, -(37:38)]
 
 ## Fit the principal curve using varying complexity of smoothers
 ## for each species
-aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
-                    vary = TRUE, penalty = 1.4)
+aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
+                   vary = TRUE, penalty = 1.4)
 
 ## Plot the curve
-plot(aber.pc2, abernethy2)
+plot(aber.pc, abernethy2)
+
+## The lines() method can be used to add the principal curve to an
+## existing plot
+ord <- rda(abernethy2)
+plot(ord)
+lines(aber.pc, data = abernethy2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
