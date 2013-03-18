@@ -16,7 +16,7 @@
 \usage{
 gradientDist(object, \dots)
 
-\method{gradientDist}{default}(object, order, na.rm = TRUE, \dots)
+\method{gradientDist}{default}(object, na.rm = TRUE, \dots)
 
 \method{gradientDist}{cca}(object, na.rm = TRUE, axis = 1L,
              scaling = 0, \dots)
@@ -27,8 +27,6 @@ gradientDist(object, \dots)
 \arguments{
   \item{object}{an R object of an appropriate type. For the default
     method, any R object that can be coerced to a vector.}
-  \item{order}{numeric vector indicating the ordering of points along
-    the gradient.}
   \item{na.rm}{logical; should missing values be removed?}
   \item{axis}{numeric, length 1; the ordination axis to take as the
     gradient.}

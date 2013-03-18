@@ -6,11 +6,8 @@ gradientDist <- function(object, ...) {
     UseMethod("gradientDist")
 }
 
-gradientDist.default <- function(object, order, na.rm = TRUE, ...) {
+gradientDist.default <- function(object, na.rm = TRUE, ...) {
     object <- as.vector(object)
-    if(missing(order))
-        order <- seq_along(object)
-    object <- object[order]
     minD <- min(object, na.rm = na.rm)
     k <- if(any(object < 0, na.rm = na.rm)) {
         minD
@@ -30,6 +27,7 @@ gradientDist.cca <- function(object, na.rm = TRUE, axis = 1L,
                              scaling = 0, ...) {
     if(length(axis) > 1L) {
         axis <- axis[1L]
+        warning("Only the first element of `axis` used.")
     }
     scrs <- as.vector(scores(object, choices = axis, scaling = scaling,
                              display = "sites", ...))
@@ -37,7 +35,6 @@ gradientDist.cca <- function(object, na.rm = TRUE, axis = 1L,
 }
 
 gradientDist.prcurve <- function(object, na.rm = TRUE, ...) {
-    order <- object$tag
-    scrs <- object$lambda
-    gradientDist.default(scrs, order, na.rm = na.rm, ...)
+    scrs <- scores(object)
+    gradientDist.default(scrs, na.rm = na.rm, ...)
 }
