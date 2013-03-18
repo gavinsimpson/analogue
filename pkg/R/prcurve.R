@@ -80,12 +80,15 @@ prcurve <- function(X,
     converged <- (abs((dist.old - config$dist)/dist.old) <=
                   thresh)
     ## Start iterations ----------------------------------------------
+    ### - store fitted smoothers in list
+    smooths <- vector(mode = "list", length = m)
     while (!converged && iter < maxit) {
         iter <- iter + 1L
         for(j in seq_len(m)) {
-            s[, j] <- fitted(smoother(config$lambda, X[, j],
-                                      complexity = complexity[j],
-                                      choose = FALSE, ...))
+          smooths[[j]] <- smoother(config$lambda, X[, j],
+                                   complexity = complexity[j],
+                                   choose = FALSE, ...)
+            s[, j] <- fitted(smooths[[j]])
         }
         ##
         dist.old <- config$dist
@@ -113,19 +116,28 @@ prcurve <- function(X,
     if(finalCV) {
         iter <- iter + 1L
         for(j in seq_len(n)) {
-            sFit <- smoother(config$lambda, X[, j],
-                             cv = TRUE, choose = TRUE, ...)
-            s[, j] <- if(sFit$complexity > maxComp) {
-                ## too complex, turn of CV and refit with max df allowed
-                fitted(smoother(config$lambda, X[, j], cv = FALSE,
-                                choose = FALSE,
-                                complexity = maxComp,
-                                ...))
-            } else {
-                fitted(sFit)
-            }
+          smooths[[j]] <- smoother(config$lambda, X[, j],
+                                   cv = TRUE, choose = TRUE, ...)
+          if(smooths[[j]]$complexity > maxComp) {
+            smooths[[j]] <- smoother(config$lambda, X[, j], cv = FALSE,
+                                     choose = FALSE,
+                                     complexity = maxComp,
+                                     ...)
+          }
+          s[, j] <- fitted(smooths[[j]])
+            ## sFit <- smoother(config$lambda, X[, j],
+            ##                  cv = TRUE, choose = TRUE, ...)
+            ## s[, j] <- if(sFit$complexity > maxComp) {
+            ##     ## too complex, turn of CV and refit with max df allowed
+            ##     fitted(smoother(config$lambda, X[, j], cv = FALSE,
+            ##                     choose = FALSE,
+            ##                     complexity = maxComp,
+            ##                     ...))
+            ## } else {
+            ##     fitted(sFit)
+            ## }
         }
-        config <- get.lam(X, s = config$s, stretch = stretch)
+        config <- get.lam(X, s = s, stretch = stretch)
         class(config) <- "prcurve"
         if(plotit) {
             ## plot the iteration
@@ -154,6 +166,7 @@ prcurve <- function(X,
     config$totalDist <- startConfig$dist
     config$complexity <- complexity
     ## config$fitFUN <- fitFUN
+    config$smooths <- smooths
     config$call <- match.call()
     class(config) <- c("prcurve")
     return(config)

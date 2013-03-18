@@ -24,7 +24,7 @@ smoothSpline <- function(lambda, x, choose = TRUE,
     }
     p <- predict(f, x=lambda)$y
     res <- list(lambda = lambda, x = x, fitted.values = p,
-                complexity = f$df)
+                complexity = f$df, model = f)
     class(res) <- "prcurveSmoother"
     return(res)
 }

@@ -9,6 +9,11 @@ Version 0.11-1
 	a fitted principal curve to be added to an existing PCA
 	plot.
 
+	* prcurve, smoothSpline: `prcurve` now returns a component
+	`smooths`, a list containing the fitted smoothers, one per
+	variable. As a result `smoothSpline` now also returns the
+	fitted `smooth.spline` model.
+
 	* gradientDist: the "prcurve" method was ordering the samples
 	such that they were smooth. No need for the `order` argument
 	now either.

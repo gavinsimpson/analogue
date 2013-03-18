@@ -1,6 +1,6 @@
 
-R version 2.15.2 Patched (2012-12-05 r61228) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R version 2.15.3 RC (2013-02-25 r62062) -- "Security Blanket"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -24,11 +24,10 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-This is vegan 2.0-5
-Loading required package: lattice
-Loading required package: grid
+This is vegan 2.0-6
 Loading required package: princurve
-This is analogue 0.11-0
+Loading required package: lattice
+This is analogue 0.11-1
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5882,7 +5881,7 @@ Dissimilarity: chord
 > 
 > ### Name: plot.prcurve
 > ### Title: Plot a fitted principal curve in PCA space
-> ### Aliases: plot.prcurve
+> ### Aliases: plot.prcurve lines.prcurve
 > ### Keywords: hplot
 > 
 > ### ** Examples
@@ -5895,8 +5894,8 @@ Dissimilarity: chord
 > 
 > ## Fit the principal curve using varying complexity of smoothers
 > ## for each species
-> aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
-+                     vary = TRUE, penalty = 1.4)
+> aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
++                    vary = TRUE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
 Iteration   1: d.sq: 4283.4308
@@ -5910,7 +5909,13 @@ PC Converged in 6 iterations.
 --------------------------------------------------------------------------------
 > 
 > ## Plot the curve
-> plot(aber.pc2, abernethy2)
+> plot(aber.pc, abernethy2)
+> 
+> ## The lines() method can be used to add the principal curve to an
+> ## existing plot
+> ord <- rda(abernethy2)
+> plot(ord)
+> lines(aber.pc, data = abernethy2)
 > 
 > 
 > 
@@ -7261,7 +7266,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.325 0.23 22.692 0 0 
+Time elapsed:  20.031 0.239 21.127 0 0 
 > grDevices::dev.off()
 null device 
           1 
