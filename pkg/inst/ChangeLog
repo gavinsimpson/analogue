@@ -1,5 +1,23 @@
 analogue Change Log
 
+Version 0.11-1
+
+	* scores.prcurve: new function to extract "axis" scores for
+	samples on the fitted principal curve.
+
+	* lines.prcurve: new lower-level plotting function allows
+	a fitted principal curve to be added to an existing PCA
+	plot.
+
+	* gradientDist: the "prcurve" method was ordering the samples
+	such that they were smooth. No need for the `order` argument
+	now either.
+
+	* Namespace: simplified the import from lattice. Added more
+	imports from grid as this package no-longer in Dependencies.
+
+	* Dependencies: grid moved to Imports:
+
 Version 0.11-0
 
 	* timetrack: fitted method gains argument `choices` with
