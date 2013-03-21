@@ -23,6 +23,11 @@ Version 0.11-1
 
 	* Dependencies: grid moved to Imports:
 
+	* distx.c: Uninitialised variable use reported on MacOS X under
+	the clang compiler. Reported by Brian Ripley.
+
+	* Maintainer: Updated the maintainer email address.
+
 Version 0.11-0
 
 	* timetrack: fitted method gains argument `choices` with
