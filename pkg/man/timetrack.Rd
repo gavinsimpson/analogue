@@ -19,10 +19,9 @@ timetrack(X, passive, env, method = c("cca", "rda"),
 \method{fitted}{timetrack}(object, type = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
 
-\method{plot}{timetrack}(x, choices = 1:2, order,
-     ptype = c("l", "p", "o", "b"), pch = c(1,2),
-     col = c("black","red"), lty = "solid", lwd = 1,
-     \dots)
+\method{plot}{timetrack}(x, choices = 1:2, display = c("wa", "lc"),
+     order, ptype = c("l", "p", "o", "b"), pch = c(1,2),
+     col = c("black","red"), lty = "solid", lwd = 1, \dots)
 }
 
 \arguments{
@@ -55,6 +54,8 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{type}{character; which fitted values should be returned?}
   \item{choices}{numeric; the length-2 vector of ordination axes to
     plot.}
+  \item{display}{character; which type of sites scores to display? See
+    \code{\link{scores.cca}} for details.}
   \item{order}{numeric; vector of indices to use to reorder the passive
     samples. Useful to get passive samples into temporal order for
     plotting with a line.}

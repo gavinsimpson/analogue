@@ -1,12 +1,15 @@
-`plot.timetrack` <- function(x, choices = 1:2, order,
+`plot.timetrack` <- function(x, choices = 1:2, 
+                             display = c("wa","lc"),
+                             order,
                              ptype = c("l", "p", "o", "b"),
                              pch = c(1,2),
                              col = c("black","red"),
                              lty = "solid", lwd = 1,
                              ...) {
     ptype <- match.arg(ptype)
+    display <- match.arg(display)
     plt <- plot(x$ord, choices = choices, scaling = x$scaling,
-                type = "p", display = "sites", ...,
+                type = "p", display = display, ...,
                 pch = pch[1], col = col[1])
     pass <- fitted(x, type = "passive", choices = choices)
     if(!missing(order)) {

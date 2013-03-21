@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.11-2
+
+	* timetrack: plot method now allows plotting of "lc" or "wa"
+	site scores for the base ordination. The latter is the default
+	to maintain backwards compatability.
+
 Version 0.11-1
 
 	* scores.prcurve: new function to extract "axis" scores for
