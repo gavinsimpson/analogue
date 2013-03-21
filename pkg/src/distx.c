@@ -237,6 +237,8 @@ double xx_chi_distance(double *x, int nr, int nc, int i1, int i2)
     
     count = 0;
     dist = 0.0;
+    nomin = 0.0;
+
     for (j=0; j<nc; j++) {
 	if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
 	    dev = x[i1] - x[i2];

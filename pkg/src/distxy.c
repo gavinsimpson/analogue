@@ -48,6 +48,7 @@ double xy_euclidean(double *x, double *y, int nr1, int nr2,
     
     count = 0;
     dist = 0.0;
+
     for (j=0; j<nc; j++) {
 	if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    dev = x[i1] - y[i2];
@@ -160,6 +161,8 @@ double xy_chi_square(double *x, double *y, int nr1, int nr2,
     
     count = 0;
     dist = 0.0;
+    dev = 0.0;
+
     for (j=0; j<nc; j++) {
 	if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    if(x[i1] != 0 || y[i2] != 0) {
@@ -186,6 +189,8 @@ double xy_sq_chi_square(double *x, double *y, int nr1, int nr2,
 	
     count = 0;
     dist = 0.0;
+    dev = 0.0;
+
     for (j=0; j<nc; j++) {
 	if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    if(x[i1] != 0 || y[i2] != 0) {
