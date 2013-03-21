@@ -6,7 +6,7 @@ Date: $Date$
 Depends: R (>= 2.15.0), vegan (>= 1.17-12), princurve, lattice
 Imports: mgcv, MASS, stats, graphics, grid
 Author: Gavin L. Simpson, Jari Oksanen
-Maintainer: Gavin L. Simpson <gavin.simpson@ucl.ac.uk>
+Maintainer: Gavin L. Simpson <gavin.simpson@uregina.ca>
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
   	     function models for prediction of environmental data from species 
 	     data, and related methods used in palaeoecology.
