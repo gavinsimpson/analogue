@@ -20,8 +20,8 @@ timetrack(X, passive, env, method = c("cca", "rda"),
 \method{fitted}{timetrack}(object, which = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
 
-\method{scores}{timetrack}(x, which = c("passive", "ordination"),
-       scaling = x$scaling, choices = 1:2, \dots)
+\method{scores}{timetrack}(x, which = c("ordination", "passive"),
+       scaling = x$scaling, choices = 1:2, display = "sites", \dots)
 
 \method{plot}{timetrack}(x, choices = 1:2, display = c("wa", "lc"),
      order, ptype = c("l", "p", "o", "b"), pch = c(1,2),

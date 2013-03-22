@@ -13,6 +13,6 @@
     } else {
         fit <- fitted(object$ordination, model = model,
                       ...)[, choices, drop = FALSE]
-    }
+      }
     fit
 }
