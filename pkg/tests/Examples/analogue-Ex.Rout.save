@@ -27,7 +27,7 @@ Loading required package: permute
 This is vegan 2.0-6
 Loading required package: princurve
 Loading required package: lattice
-This is analogue 0.11-1
+This is analogue 0.11-2
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -6895,6 +6895,7 @@ Merged:      171   30
 > ### Name: timetrack
 > ### Title: Timetracks of change in species composition
 > ### Aliases: timetrack print.timetrack plot.timetrack fitted.timetrack
+> ###   scores.timetrack
 > ### Keywords: methods hplot
 > 
 > ### ** Examples
@@ -6933,6 +6934,56 @@ Eigenvalues for unconstrained axes:
 > ord <- rev(seq_len(nrow(rlgh)))
 > plot(mod, choices = 2:3, order = ord, ptype = "b",
 +      col = c("forestgreen", "orange"), lwd = 2)
+> 
+> ## illustrating use of the formula
+> data(swappH)
+> mod2 <- timetrack(swapdiat, rlgh, env = data.frame(pH = swappH),
++                   transform = "hellinger", method = "rda",
++                   formula = ~ pH)
+> mod2
+
+	Timetrack Ordination
+
+Call: timetrack(X = swapdiat, passive = rlgh, env = data.frame(pH =
+swappH), method = "rda", transform = "hellinger", formula = ~pH)
+
+Ordination Output:
+Call: rda(X = X, Y = mf)
+
+              Inertia Proportion Rank
+Total         0.61631    1.00000     
+Constrained   0.09743    0.15808    1
+Unconstrained 0.51888    0.84192  165
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+   RDA1 
+0.09743 
+
+Eigenvalues for unconstrained axes:
+    PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8 
+0.06026 0.03786 0.03356 0.02876 0.02448 0.02205 0.01854 0.01377 
+(Showed only 8 of all 165 unconstrained eigenvalues)
+
+> plot(mod2)
+> 
+> ## scores and fitted methods
+> head(fitted(mod, type = "passive"))
+            PC1        PC2
+000.3 0.1375142 0.08856751
+000.8 0.1863037 0.08457038
+001.3 0.1908819 0.08600249
+001.8 0.1763641 0.08944730
+002.3 0.1957923 0.08841358
+002.8 0.1765786 0.07861150
+> head(scores(mod, type = "passive"))
+                 PC1          PC2
+1.21    0.2160382637 -0.029893425
+10.21  -0.0348364914  0.021721523
+11      0.2096872141  0.004435281
+113.21 -0.0008560853  0.071167503
+115.11  0.0907404572 -0.015968707
+12.11   0.1220684180 -0.237747308
 > 
 > 
 > 
@@ -7266,7 +7317,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.031 0.239 21.127 0 0 
+Time elapsed:  20.547 0.247 21.325 0 0 
 > grDevices::dev.off()
 null device 
           1 
