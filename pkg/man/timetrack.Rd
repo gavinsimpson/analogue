@@ -3,6 +3,7 @@
 \alias{print.timetrack}
 \alias{plot.timetrack}
 \alias{fitted.timetrack}
+\alias{scores.timetrack}
 
 \title{Timetracks of change in species composition}
 
@@ -16,8 +17,11 @@ timetrack(X, passive, env, method = c("cca", "rda"),
           transform = "none", formula, scaling = 3,
           rank = "full", model = c("CCA", "CA"), \dots)
 
-\method{fitted}{timetrack}(object, type = c("passive", "ordination"),
+\method{fitted}{timetrack}(object, which = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
+
+\method{scores}{timetrack}(x, which = c("passive", "ordination"),
+       scaling = x$scaling, choices = 1:2, \dots)
 
 \method{plot}{timetrack}(x, choices = 1:2, display = c("wa", "lc"),
      order, ptype = c("l", "p", "o", "b"), pch = c(1,2),
@@ -30,9 +34,10 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{passive}{matrix-like object containing the samples to be
     projected into the ordination of \code{X}. Usually a set of sediment
     core samples.}
-  \item{env}{optional vector or matrix of environmental or constraining
+  \item{env}{optional data frame of environmental or constraining
     variables. If provided, a constrained ordination of \code{X} is
-    performed.}
+    performed. If \code{formula} is supplied variables named in
+    \code{formula} are looked up with \code{env}.}
   \item{method}{character, resolving to an ordination function available
     in \pkg{vegan}. Currently only \code{"cca"}, the default, and
     \code{"rda"} are supported.}
@@ -40,9 +45,11 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     both \code{X} and \code{passive}. The transformations are performed
     using \code{tran} and valid options are given by that function's
     \code{method} argument.}
-  \item{formula}{a model formula; if provided, it defines the model
-    formula for the ordination function and is supplied as argument
-  \code{formula} to the ordination function.}
+  \item{formula}{a one-sided model formula; if provided, it defines the
+    right hand side of the model formula for the ordination function and
+    is supplied as argument \code{formula} to the ordination
+    function. E.g.~\code{formula = ~ var1 + var2}. If supplied then
+    \code{env} must also be supplied}
   \item{scaling}{numeric; the ordination scaling to apply. Useful
     options are likely to be \code{1} or \code{3} where the focus is on
     the samples.}
@@ -51,7 +58,7 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{model}{character; see argument of same name in function
     \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
   \item{object, x}{an object of class \code{"timetrack"}.}
-  \item{type}{character; which fitted values should be returned?}
+  \item{which}{character; which fitted values should be returned?}
   \item{choices}{numeric; the length-2 vector of ordination axes to
     plot.}
   \item{display}{character; which type of sites scores to display? See
@@ -104,8 +111,8 @@ timetrack(X, passive, env, method = c("cca", "rda"),
 
 \value{
   The \code{plot} method results in a plot on the currently active
-  device, whilst the \code{fitted} method returns the matrix of fitted
-  locations on the set of ordination axes.
+  device, whilst the \code{fitted} and \code{scores} methods return the
+  matrix of fitted locations on the set of ordination axes.
 
   \code{timetrack} returns an object of class \code{"timetrack"}, a list
   with the following components:
@@ -162,6 +169,18 @@ plot(mod, ptype = "b", col = c("forestgreen", "orange"), lwd = 2)
 ord <- rev(seq_len(nrow(rlgh)))
 plot(mod, choices = 2:3, order = ord, ptype = "b",
      col = c("forestgreen", "orange"), lwd = 2)
+
+## illustrating use of the formula
+data(swappH)
+mod2 <- timetrack(swapdiat, rlgh, env = data.frame(pH = swappH),
+                  transform = "hellinger", method = "rda",
+                  formula = ~ pH)
+mod2
+plot(mod2)
+
+## scores and fitted methods
+head(fitted(mod, type = "passive"))
+head(scores(mod, type = "passive"))
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

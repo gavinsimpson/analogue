@@ -6,6 +6,20 @@ Version 0.11-2
 	site scores for the base ordination. The latter is the default
 	to maintain backwards compatability.
 
+	The `formula` argument was not well implemented; using it would
+	mean that `X`, the main species data, would not be transformed,
+	and you couldn't use direct variables as these would not be found.
+
+	Now `formula` takes a one-sided formula describing the constraints.
+	Variables will be looked up inside the object passed to `env`. As
+	such, `env` needs to be a data frame or an object accepted as the
+	`data` argument in `model.frame()`.
+
+	The `fitted` method has changed slightly. The `type` argument
+	has been renamed `which`.
+
+	* scores: new method for objects of class "timetrack".
+
 	* distanceX: experimental replacement for distance() which uses
 	fast C code for computing dissimilarities via a .Call interface
 	based on base::dist().

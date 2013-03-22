@@ -41,13 +41,21 @@
             formula <- FALSE
             ord <- FUN(X = X, Y = env, ...)
         } else {
-            ord <- FUN(formula = formula, ...)
+          mf <- match.call(expand.dots = FALSE)
+          m <- match(c("X","passive","env","transform","scaling","rank",
+                       "model","method","condition"), names(mf), 0L)
+          mf <- mf[-m]
+          mf[[1]] <- as.name("model.frame")
+          mt <- terms(formula, data = env, simplify = TRUE)
+          mf$formula <- formula(mt, data = env)
+          mf$data <- env
+          dots <- list(...)
+          mf[names(dots)] <- NULL
+          mf <- eval(mf, parent.frame())
+          ord <- FUN(X = X, Y = mf, ...)
         }
     }
     ## process predict args
-    ##if(isTRUE(missing(type)))
-    ##    type <- "wa"
-    ##type <- match.arg(type)
     if(isTRUE(missing(model)))
         model <- "CCA"
     model <- match.arg(model)
@@ -78,11 +86,6 @@
     print(x$ordination, ...)
     invisible(x)
 }
-
-## TODO
-## scores methods - should extract the relevant scores from
-## the 'ordination'
-## plot methods
 
 ## require(analogue)
 ## data(rlgh, swapdiat)
