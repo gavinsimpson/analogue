@@ -1,6 +1,7 @@
 \name{analog}
 \alias{analog}
 \alias{analog.default}
+\alias{analog.distance}
 \alias{print.analog}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Analogue matching}
@@ -19,6 +20,8 @@ analog(x, \dots)
                   "information", "chi.distance", "manhattan",
                   "kendall", "gower", "alt.gower", "mixed"),
        keep.train = TRUE, \dots)
+
+\method{analog}{distance}(x, train = NULL, keep.train = TRUE, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +31,9 @@ analog(x, \dots)
     used. See Details below.}
   \item{keep.train}{logical; should the dissimilarity matrix for the
     training set be stored?}
+  \item{train}{a pre-computed dissimilarity matrix for the training set
+    samples. Objects of classes \code{"dist"}, \code{"vegdist"}, and
+    \code{"distance"} are currently accepted.}
   \item{\dots}{arguments passed to or from other methods.}
 }
 \details{
@@ -105,6 +111,12 @@ V12.122 <- dat[[2]] / 100
 ik.analog <- analog(ImbrieKipp, V12.122, method = "chord")
 ik.analog
 summary(ik.analog)
+
+## Can take pre-computed dissimilarity objects
+d1 <- distance(ImbrieKipp, V12.122)
+d2 <- distance(ImbrieKipp)
+ik <- analog(d1, d2, keep.train = TRUE)
+ik
 
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS

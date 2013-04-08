@@ -131,7 +131,10 @@ distance(x, \dots)
   dissimilarities for the training set \code{x} is returned.
 
   The dissimilarity coefficient used (\code{method}) is returned as
-  attribute \code{"method"}.
+  attribute \code{"method"}. Attribute \code{"type"} indicates whether
+  the object was computed on a single data matrix (\code{"symmetric"})
+  or across two matrices (i.e. the dissimilarties between the rows of
+  two matrices; \code{"asymmetric"}.
 }
 \note{
   The dissimilarities are calculated in native R code. As such, other

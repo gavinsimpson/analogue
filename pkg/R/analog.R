@@ -33,7 +33,27 @@ analog.default <- function(x, y, method = c("euclidean", "SQeuclidean",
     retval <- list(analogs = dissim, train = train,
                    call = .call, method = method)
     class(retval) <- "analog"
-    return(retval)
+    retval
+}
+
+analog.distance <- function(x, train = NULL, keep.train = TRUE, ...) {
+    stopifnot(inherits(x, "distance"))
+    if(!is.null(train)) {
+        if(inherits(train, "dist") || inherits(train, "vegdist")) {
+            train <- as.matrix(train)
+        } else if(!(inherits(train, "distance") &&
+                    isTRUE(all.equal(attr(train, "type"), "symmetric"))))
+            stop("`train` is not of class \"dist\", \"vegdist\", \nor symmetric \"distance\"")
+    }
+    .call <- match.call()
+    .call[[1]] <- as.name("analog")
+    method <- attr(x, "method")
+    tmethod <- attr(train, "method")
+    if(!isTRUE(all.equal(method, tmethod)))
+        warning("\"x\" and \"train\" use different dissimilarity coefficients.\nResults are likely meaningless.")
+    retval <- list(analogs = x, train = train, call = .call, method = method)
+    class(retval) <- "analog"
+    retval
 }
 
 print.analog <- function(x, probs = c(0.01, 0.02, 0.05, 0.1, 0.2),

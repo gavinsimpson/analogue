@@ -20,6 +20,13 @@ Version 0.11-2
 
 	* scores: new method for objects of class "timetrack".
 
+	* analog: gains a method for objects of class "distance".
+
+	* distance: gains a new attribute ('type') which contains an
+	indicator of whether the distance matrix is symmetric (computed
+	on a single matrix) or asymmetric (dissimilarities between samples
+	of two matrices).
+
 	* distanceX: experimental replacement for distance() which uses
 	fast C code for computing dissimilarities via a .Call interface
 	based on base::dist().

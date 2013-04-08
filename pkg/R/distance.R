@@ -286,6 +286,7 @@ distance.default <- function(x, y,
       rownames(res) <- x.names
     }
     attr(res, "method") <- method
+    attr(res, "type") <- if(y.miss) "symmetric" else "asymmetric"
     class(res) <- c("distance","matrix")
     return(res)
   }

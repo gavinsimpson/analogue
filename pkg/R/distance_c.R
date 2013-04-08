@@ -59,6 +59,7 @@ distanceX <- function(x, y, method = "euclidean", weights = NULL, R = NULL,
         if(!as.dist) {
             d <- as.matrix(d)
             attr(d, "method") <- method
+            attr(d, "type") <- "symmetric"
             class(d) <- c("distance","matrix")
         }
     } else { ## two matrices
@@ -102,6 +103,7 @@ distanceX <- function(x, y, method = "euclidean", weights = NULL, R = NULL,
         colnames(d) <- y.names
         rownames(d) <- x.names
         attr(d, "method") <- method
+        attr(d, "type") <- "asymmetric"
         class(d) <- c("distance","matrix")
     }
     d

@@ -82,6 +82,7 @@ export(analog,
 ##
 ## main user-visible functions
 S3method(analog, default)
+S3method(analog, distance)
 S3method(bootstrap, default)
 S3method(bootstrap, mat)
 S3method(bootstrap, wa)

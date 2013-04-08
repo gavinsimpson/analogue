@@ -411,6 +411,7 @@ Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
         colnames(d) <- y.names
         rownames(d) <- x.names
         attr(d, "method") <- method
+        attr(d, "type") <- "asymmetric"
         class(d) <- c("distance","matrix")
     }
     return(d)
