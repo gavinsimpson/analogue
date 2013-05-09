@@ -18,7 +18,8 @@ Version 0.11-2
 	The `fitted` method has changed slightly. The `type` argument
 	has been renamed `which`.
 
-	* scores: new method for objects of class "timetrack".
+	* scores: new methods for objects of class "timetrack" and
+	class "prcurve".
 
 	* analog: gains a method for objects of class "distance".
 
@@ -35,6 +36,10 @@ Version 0.11-2
 	`method = "mixed"` is not hooked up at the moment. It is intended
 	that the next version of analogue (0.12-x) will have this version
 	of the code replace the old mainly R-based distance().
+
+	* predict.wa: deshrinking step sometimes produced a 1 column
+	matrix, which would result in an error. This empty dimension is
+	now dropped.
 
 Version 0.11-1
 

@@ -33,6 +33,10 @@
             pred <- WApred(newdata[,want], object$wa.optima[want])
         }
         pred <- deshrinkPred(pred, coef(object), type = Dtype)
+        ## pred can end up being a 1 col matrix
+        ## FIXME: really should check why, but for now, drop
+        ## empty dimension
+        pred <- drop(pred)
     } else {
         ## CV wanted
         if(identical(CV, "LOO")) {
