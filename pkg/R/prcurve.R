@@ -167,6 +167,7 @@ prcurve <- function(X,
     config$complexity <- complexity
     ## config$fitFUN <- fitFUN
     config$smooths <- smooths
+    names(config$smooths) <- colnames(X)
     config$call <- match.call()
     class(config) <- c("prcurve")
     return(config)
