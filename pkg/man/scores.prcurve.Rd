@@ -15,7 +15,7 @@
 
 \arguments{
   \item{x}{an object of class \code{"prcurve"}, usually from a call to
-    \code{\link{prcurve}}}.
+    \code{\link{prcurve}}.}
   \item{display}{character; which type of scores to
     extract. \code{display = "curve"} returns the position along the curve
     onto which each observation projects; this can be used like a PCA axis
