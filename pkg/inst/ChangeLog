@@ -9,6 +9,10 @@ Version 0.11-3
 	* scores.prcurve: now preserves the rownames on the `lambda`
 	component.
 
+	* sppResponse: new generic function for species responses along
+	gradients. A method is provided for objects of class "prcurve"
+	is the only available method currently.
+
 Version 0.11-2
 
 	* timetrack: plot method now allows plotting of "lc" or "wa"
