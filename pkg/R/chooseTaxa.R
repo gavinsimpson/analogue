@@ -3,7 +3,8 @@ chooseTaxa <- function(object, ...) {
 }
 
 chooseTaxa.default <- function(object, n.occ = 1, max.abun = 0,
-                               type = c("AND","OR"), ...) {
+                               type = c("AND","OR"), value = TRUE,
+                               ...) {
     if(missing(type))
         type <- "AND"
     type <- match.arg(type)
@@ -14,10 +15,14 @@ chooseTaxa.default <- function(object, n.occ = 1, max.abun = 0,
     } else {
         occ.want | abun.want
     }
-    rname <- rownames(object)
-    cname <- colnames(object)
-    object <- object[, want]
-    rownames(object) <- rname
-    colnames(object) <- cname[want]
-    return(object)
+    if(value) {
+        rname <- rownames(object)
+        cname <- colnames(object)
+        object <- object[, want]
+        rownames(object) <- rname
+        colnames(object) <- cname[want]
+    } else {
+        object <- want
+    }
+    object
 }

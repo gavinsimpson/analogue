@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.11-3
+
+	* chooseTaxa: new argument `value` controls whether the data for
+	the selected species or a logical vector indicating which columns
+	(species) met the selection criteria.
+
 Version 0.11-2
 
 	* timetrack: plot method now allows plotting of "lc" or "wa"

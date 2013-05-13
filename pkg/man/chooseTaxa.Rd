@@ -2,7 +2,7 @@
 \alias{chooseTaxa}
 \alias{chooseTaxa.default}
 \title{Select taxa (variables) on basis of maximum abundance attained
-  and number of occurrences}
+  and number of occurrences.}
 \description{
   Select taxa (variables) from an object on the basis of one or both of
   maximum abundance and number of occurrences greater than user-specified
@@ -13,7 +13,7 @@
 chooseTaxa(object, \dots)
 
 \method{chooseTaxa}{default}(object, n.occ = 1, max.abun = 0,
-           type = c("AND","OR"), \dots)
+           type = c("AND","OR"), value = TRUE, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,13 +34,18 @@ chooseTaxa(object, \dots)
   \item{type}{character; one of \code{"AND"} or \code{"OR"}, controlling
     how the criteria \code{n.occ} and \code{max.abun} are combined to
     generate a subset of the variables in \code{object}.}
+  \item{value}{logical; should the data for the selected taxa be
+    returned? If \code{TRUE}, the default, the data for the chosen taxa
+    are returned. If \code{FALSE}, a logical vector is returned,
+    indicating which taxa met the selection criteria.}
   \item{\dots}{arguments passed on to subsequent methods.}
 }
 %\details{
 %}
 \value{
-  Returns the supplied data frame or matrix with a subset of columns
-  (taxa) that meet the criteria chosen.
+  If \code{value = TRUE},  returns the supplied data frame or matrix
+  with a subset of columns (taxa) that meet the criteria chosen. If
+  \code{value = FALSE}, a logical vector is returned.
 }
 %\references{
 %}
@@ -52,6 +57,9 @@ data(ImbrieKipp)
 IK2 <- chooseTaxa(ImbrieKipp, n.occ = 5)
 dim(ImbrieKipp)
 dim(IK2)
+
+## return a logical vector to select species/columns
+chooseTaxa(ImbrieKipp, n.occ = 5, value = FALSE)
 }
 \keyword{methods}
 \keyword{multivariate}
