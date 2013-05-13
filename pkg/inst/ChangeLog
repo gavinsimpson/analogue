@@ -11,7 +11,8 @@ Version 0.11-3
 
 	* sppResponse: new generic function for species responses along
 	gradients. A method is provided for objects of class "prcurve"
-	is the only available method currently.
+	is the only available method currently. A `plot()` method for
+	`sppResponse()` objects is also provided.
 
 Version 0.11-2
 
