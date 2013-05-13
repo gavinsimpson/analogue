@@ -47,7 +47,7 @@ export(analog,
        dissimilarities,
        distance,
        distance3,
-       #distanceX,
+       distanceX,
        fuse,
        getK,
        gradientDist,
@@ -68,6 +68,7 @@ export(analog,
        splitSample,
        roc,
        smoothSpline,
+       sppResponse,
        Stratiplot,
        stdError,
        timetrack,
@@ -141,6 +142,7 @@ S3method(roc, analog)
 S3method(roc, mat)
 S3method(scores, prcurve)
 S3method(scores, timetrack)
+S3method(sppResponse, prcurve)
 S3method(stdError, mat)
 S3method(stdError, predict.mat)
 S3method("setK<-", default)
@@ -189,6 +191,7 @@ S3method(plot, mcarlo)
 S3method(plot, prcurve)
 S3method(plot, residLen)
 S3method(plot, roc)
+S3method(plot, sppResponse)
 S3method(plot, timetrack)
 S3method(plot, wa)
 S3method(plot, weightedCor)
