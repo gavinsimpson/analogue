@@ -4,6 +4,8 @@
   ## return position along the curve?
   if (isTRUE(all.equal(display, "curve"))) {
     ret <- matrix(x$lambda, ncol = 1)
+    rownames(ret) <- names(x$lambda)
+    colnames(ret) <- "PrC"
   }
   ## return coordinates of curve in each dimension
   if (isTRUE(all.equal(display, "dimensions"))) {
