@@ -6,6 +6,9 @@ Version 0.11-3
 	the selected species or a logical vector indicating which columns
 	(species) met the selection criteria.
 
+	* scores.prcurve: now preserves the rownames on the `lambda`
+	component.
+
 Version 0.11-2
 
 	* timetrack: plot method now allows plotting of "lc" or "wa"
