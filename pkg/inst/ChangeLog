@@ -14,6 +14,11 @@ Version 0.11-3
 	is the only available method currently. A `plot()` method for
 	`sppResponse()` objects is also provided.
 
+	* rankDC: new function to compute the rank correlation between
+	gradient distances (e.g. environmental variables) and distances
+	in species composition. Has both base and Lattice graphics plot
+	methods (the latter via `dotplot()`).
+
 Version 0.11-2
 
 	* timetrack: plot method now allows plotting of "lc" or "wa"
