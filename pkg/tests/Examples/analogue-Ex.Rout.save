@@ -1,8 +1,7 @@
 
-R version 2.15.3 RC (2013-02-25 r62062) -- "Security Blanket"
+R version 3.0.1 (2013-05-16) -- "Good Sport"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -24,12 +23,12 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-This is vegan 2.0-6
+This is vegan 2.0-7
 Loading required package: princurve
 Loading required package: lattice
-This is analogue 0.11-2
+This is analogue 0.11-3
 > 
-> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("ImbrieKipp")
 > ### * ImbrieKipp
@@ -408,7 +407,7 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > ### Name: analog
 > ### Title: Analogue matching
-> ### Aliases: analog analog.default print.analog
+> ### Aliases: analog analog.default analog.distance print.analog
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -788,6 +787,46 @@ Dissimilarities for k-closest analogues
   0.911
   0.911
   0.911
+
+> 
+> ## Can take pre-computed dissimilarity objects
+> d1 <- distance(ImbrieKipp, V12.122)
+> d2 <- distance(ImbrieKipp)
+> ik <- analog(d1, d2, keep.train = TRUE)
+> ik
+
+	Analogue matching for fossil samples
+
+Call: analog(x = d1, train = d2, keep.train = TRUE) 
+Dissimilarity: euclidean 
+
+Percentiles of the dissimilarities for the training set:
+
+    1%     2%     5%    10%    20% 
+0.0669 0.0956 0.1304 0.1739 0.2341 
+
+	Minimum dissimilarity per sample
+
+Dissimilarity: euclidean 
+
+    0    10    20    30    40    50    60    70    80    90   100   110   120 
+0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 
+  130   140   150   160   170   180   190   200   210   220   230   240   250 
+0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.297 0.296 0.297 0.296 
+  260   270   280   290   300   310   320   330   340   350   360   370   380 
+0.296 0.297 0.296 0.297 0.296 0.297 0.296 0.296 0.296 0.296 0.296 0.296 0.296 
+  390   400   410   420   430   440   450   460   470   480   490   500   510 
+0.296 0.296 0.296 0.296 0.296 0.296 0.297 0.296 0.296 0.296 0.297 0.296 0.297 
+  520   530   540   550   560   570   580   590   600   610   620   630   640 
+0.296 0.296 0.295 0.296 0.296 0.296 0.296 0.296 0.296 0.297 0.297 0.296 0.297 
+  650   660   670   680   690   700   710   720   730   740   750   760   770 
+0.296 0.296 0.296 0.297 0.296 0.296 0.296 0.296 0.297 0.296 0.297 0.296 0.296 
+  780   790   800   810   820   830   840   850   860   870   880   890   900 
+0.297 0.297 0.296 0.296 0.297 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 
+  910   920   930   940   950   960   970   980   990  1000  1010  1020  1030 
+0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.296 0.297 0.296 0.296 
+ 1040  1050  1060  1070  1080  1090 
+0.296 0.296 0.297 0.296 0.296 0.296 
 
 > 
 > 
@@ -1223,7 +1262,7 @@ G.mentu 26.13778  2.386584
 > 
 > ### Name: chooseTaxa
 > ### Title: Select taxa (variables) on basis of maximum abundance attained
-> ###   and number of occurrences
+> ###   and number of occurrences.
 > ### Aliases: chooseTaxa chooseTaxa.default
 > ### Keywords: methods multivariate
 > 
@@ -1235,6 +1274,15 @@ G.mentu 26.13778  2.386584
 [1] 61 27
 > dim(IK2)
 [1] 61 27
+> 
+> ## return a logical vector to select species/columns
+> chooseTaxa(ImbrieKipp, n.occ = 5, value = FALSE)
+ O.univ G.cglob G.ruber G.tenel G.saccu G.rubes  G.pacL  G.pacR G.bullo G.falco 
+   TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE 
+G.calid G.aequi G.gluti G.duter G.infla  G.trnL  G.trnR G.crasf G.scitu G.mentu 
+   TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE 
+P.obliq C.nitid S.dehis G.digit   Other  G.quin G.hirsu 
+   TRUE    TRUE    TRUE    TRUE    TRUE    TRUE    TRUE 
 > 
 > 
 > 
@@ -2297,6 +2345,7 @@ Dissimilarities for k-closest analogues
   ..$ : chr [1:20] "A" "B" "C" "D" ...
   ..$ : chr [1:10] "a" "b" "c" "d" ...
  - attr(*, "method")= chr "euclidean"
+ - attr(*, "type")= chr "asymmetric"
  - attr(*, "class")= chr [1:2] "distance" "matrix"
 > 
 > ## calculate Gower's general coefficient for mixed data
@@ -2315,6 +2364,8 @@ Dissimilarities for k-closest analogues
 [1] 0.3380952
 attr(,"method")
 [1] "mixed"
+attr(,"type")
+[1] "asymmetric"
 attr(,"class")
 [1] "distance" "matrix"  
 > 
@@ -2333,7 +2384,7 @@ attr(,"class")
 > 
 > ### Name: distance3
 > ### Title: Flexibly calculate dissimilarity or distance measures
-> ### Aliases: distance3 distance3.default
+> ### Aliases: distance3 distanceX distance3.default
 > ### Keywords: multivariate methods
 > 
 > ### ** Examples
@@ -2364,6 +2415,8 @@ attr(,"class")
 > ## Using distance on an object of class join
 > #dists <- distance3(join(train, fossil))
 > #str(dists)
+> dists <- distance(join(train, fossil))
+> ##distsX <- distanceX(join(train, fossil))
 > 
 > ## calculate Gower's general coefficient for mixed data
 > ## first, make a couple of variables factors
@@ -2382,12 +2435,16 @@ attr(,"class")
 [1,] 0.3380952
 attr(,"method")
 [1] "mixed"
+attr(,"type")
+[1] "asymmetric"
 attr(,"class")
 [1] "distance" "matrix"  
 > distance(x1, x2, method = "mixed", R = Rj)
 [1] 0.3380952
 attr(,"method")
 [1] "mixed"
+attr(,"type")
+[1] "asymmetric"
 attr(,"class")
 [1] "distance" "matrix"  
 > 
@@ -5044,7 +5101,7 @@ wa>
 > ## the model performance statistics
 > performance(mod)
       RMSE         R2   Avg.Bias   Max.Bias 
- 2.019e+00  9.173e-01  2.228e-14 -3.815e+00 
+ 2.019e+00  9.173e-01  2.854e-15 -3.815e+00 
 > 
 > 
 > 
@@ -6008,7 +6065,7 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 +                    vary = FALSE, penalty = 1.4)
 --------------------------------------------------------------------------------
 Initial curve: d.sq: 103233.4502
-Iteration   1: d.sq: 4853.7912
+Iteration   1: d.sq: 4853.7911
 Iteration   2: d.sq: 5013.4971
 Iteration   3: d.sq: 5109.9732
 Iteration   4: d.sq: 5135.6541
@@ -6200,6 +6257,34 @@ Performance:
 > performance(v12.pred)
    RMSEP       R2 Avg.Bias Max.Bias 
   2.3617   0.8989  -0.1483  -3.2158 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rankDC")
+> ### * rankDC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rankDC
+> ### Title: Rank correlation between environmental and species
+> ###   dissimilarities.
+> ### Aliases: rankDC print.rankDC plot.rankDC dotplot.rankDC
+> ### Keywords: hplot methods utilities multivariate
+> 
+> ### ** Examples
+> 
+> data(swappH)
+> data(swapdiat)
+> 
+> rc <- rankDC(swappH, swapdiat, dc = c("chord","euclidean","gower"))
+> 
+> ## base plot uses dotchart()
+> plot(rc)
+> 
+> ## lattice version of the base plot
+> dotplot(rc)
 > 
 > 
 > 
@@ -6424,6 +6509,62 @@ No. within: 167   No. outside: 1837
 > 
 > 
 > cleanEx()
+> nameEx("scores.prcurve")
+> ### * scores.prcurve
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scores.prcurve
+> ### Title: 'scores' method for principal curve objects of class
+> ###   '"prcurve"'.
+> ### Aliases: scores.prcurve
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+> ## Load the Abernethy Forest data set
+> data(abernethy)
+> 
+> ## Remove the Depth and Age variables
+> abernethy2 <- abernethy[, -(37:38)]
+> 
+> ## Fit the principal curve using varying complexity of smoothers
+> ## for each species
+> aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
++                    vary = TRUE, penalty = 1.4)
+--------------------------------------------------------------------------------
+Initial curve: d.sq: 103233.4502
+Iteration   1: d.sq: 4283.4308
+Iteration   2: d.sq: 4312.2976
+Iteration   3: d.sq: 4340.6911
+Iteration   4: d.sq: 4355.3876
+Iteration   5: d.sq: 4366.4975
+Iteration   6: d.sq: 4369.9444
+--------------------------------------------------------------------------------
+PC Converged in 6 iterations.
+--------------------------------------------------------------------------------
+> 
+> ## Extract position on the curve
+> pos <- scores(aber.pc, display = "curve")
+> head(pos)
+       PrC
+1 251.3134
+2 253.7651
+3 273.9467
+4 267.3053
+5 286.3480
+6 277.9563
+> 
+> ## Extract the coordinates of the curve
+> coord <- scores(aber.pc, display = "dimensions")
+> dim(coord)
+[1] 49 36
+> all.equal(dim(coord), dim(abernethy2))
+[1] TRUE
+> 
+> 
+> 
+> cleanEx()
 > nameEx("screeplot")
 > ### * screeplot
 > 
@@ -6561,6 +6702,46 @@ attr(,"lengths")
    6.577    6.942    6.800    6.748    6.899    6.782    6.760    6.840 
     S251      S21    WHIT1    3.511    ARTH1     S151 
    6.970    7.160    7.031    7.000    7.093    7.250 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sppResponse.prcurve")
+> ### * sppResponse.prcurve
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sppResponse
+> ### Title: Species responses along gradients.
+> ### Aliases: sppResponse sppResponse.prcurve
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+> ## Load the Abernethy Forest data set
+> data(abernethy)
+> 
+> ## Remove the Depth and Age variables
+> abernethy2 <- abernethy[, -(37:38)]
+> 
+> ## Fit the principal curve using varying complexity of smoothers
+> ## for each species
+> aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
++                    vary = TRUE, penalty = 1.4)
+--------------------------------------------------------------------------------
+Initial curve: d.sq: 103233.4502
+Iteration   1: d.sq: 4283.4308
+Iteration   2: d.sq: 4312.2976
+Iteration   3: d.sq: 4340.6911
+Iteration   4: d.sq: 4355.3876
+Iteration   5: d.sq: 4366.4975
+Iteration   6: d.sq: 4369.9444
+--------------------------------------------------------------------------------
+PC Converged in 6 iterations.
+--------------------------------------------------------------------------------
+> 
+> ## Extract the fitted species response curves
+> resp <- sppResponse(aber.pc)
 > 
 > 
 > 
@@ -7316,8 +7497,9 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > 
 > ### * <FOOTER>
 > ###
-> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.547 0.247 21.325 0 0 
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  19.461 0.18 19.653 0 0 
 > grDevices::dev.off()
 null device 
           1 
