@@ -1,16 +1,11 @@
 TODO
 ====
 
-	* Written documentation in the form of a vignette. - DONE in 0.5-0
-		
-	* A formula method for 'mat' - DONE in 0.3-4
-	
-	* Thorough code review, testing and consistency
-	checking - this will be the first widely
-	advertised release.
-	
-	* Need to consistently have functions store DC Method as an 
-	attribute. Good to write an extractor function and have all
-	functions use that.
-
-	* Speed-up distance() - move it to C
+ * Written documentation in the form of a vignette. - DONE in 0.5-0
+ * A formula method for 'mat' - DONE in 0.3-4
+ * Thorough code review, testing and consistency checking - this will be the
+   first widely advertised release.
+ * Need to consistently have functions store DC Method as an attribute. Good to 
+   write an extractor function and have all functions use that.
+ * Speed-up distance() - move it to C
+ * plot.prcurve: needs to stop passing arguments on to other plotting functions.
