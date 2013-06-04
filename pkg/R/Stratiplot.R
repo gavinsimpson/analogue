@@ -19,18 +19,25 @@
                                  zoneNames = NULL,
                                  drawLegend = TRUE,
                                  na.action = "na.omit",
+                                 labelAt = NULL,
+                                 labelRot = 60,
                                  ...) {
     ## inline function for custom axis
     axis.VarLabs <- function(side, ...) {
         if(isTRUE(all.equal(side, "top"))) {
             M <- function(lims) min(lims) + (diff(lims) / 2)
             xlim <- current.panel.limits()$xlim
-            panel.axis(side = side, outside = TRUE, #at = 0,
-                       at = M(xlim),
+            if (is.null(labelAt)) {
+                at <- M(xlim)
+            } else {
+                at <- rep(labelAt, 1)
+            }
+            panel.axis(side = side, outside = TRUE,
+                       at = at,
                        tck = 1, line.col = "black",
                        text.col = "black",
                        labels = levels(sx$ind)[which.packet()],
-                       rot = 60)
+                       rot = labelRot)
         } else {
             axis.default(side = side, ...)
         }

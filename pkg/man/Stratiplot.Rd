@@ -18,6 +18,7 @@ Stratiplot(x, \dots)
            svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
            varTypes = "relative", absoluteSize = 0.5,
            zoneNames = NULL, drawLegend = TRUE, na.action = "na.omit",
+           labelAt = NULL, labelRot = 60,
            \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset,
@@ -95,6 +96,14 @@ Stratiplot(x, \dots)
     to label the zone legend, if drawn (see argument
     \code{drawLegend}). See Details.} 
   \item{drawLegend}{logical; should a legend for the zones}
+  \item{labelAt, labelRot}{these control the placement and rotation,
+    respectively, of the variable labels. \code{labelAt} is the
+    coordinate at which the label is drawn; currently only one value is
+    used so you can't place labels in different locations depending on
+    which panel is drawn. This will be fixed in a future version. The
+    default location for the label is the panel mid-point.
+    \code{labelAt} controls the rotation of the label; it is a numeric
+    value in degree.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}

@@ -19,6 +19,10 @@ Version 0.11-3
 	in species composition. Has both base and Lattice graphics plot
 	methods (the latter via `dotplot()`).
 
+	* Stratiplot: new arguments `labelAt` and `labelRot` allow the
+	placement and rotation variable labels to be controlled, when not
+	using a strip.
+
 Version 0.11-2
 
 	* timetrack: plot method now allows plotting of "lc" or "wa"
