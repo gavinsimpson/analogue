@@ -85,9 +85,9 @@ prcurve <- function(X,
     while (!converged && iter < maxit) {
         iter <- iter + 1L
         for(j in seq_len(m)) {
-          smooths[[j]] <- smoother(config$lambda, X[, j],
-                                   complexity = complexity[j],
-                                   choose = FALSE, ...)
+            smooths[[j]] <- smoother(config$lambda, X[, j],
+                                     complexity = complexity[j],
+                                     choose = FALSE, ...)
             s[, j] <- fitted(smooths[[j]])
         }
         ##
