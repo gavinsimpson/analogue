@@ -6,6 +6,10 @@ Version 0.11-3
 	the selected species or a logical vector indicating which columns
 	(species) met the selection criteria.
 
+	New argument `na.rm = FALSE` to control whether or not `NA`s are
+	excluded from the calculation of abundance and occurrence. Suggested
+	by Michael Burstert.
+
 	* scores.prcurve: now preserves the rownames on the `lambda`
 	component.
 

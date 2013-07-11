@@ -13,7 +13,8 @@
 chooseTaxa(object, \dots)
 
 \method{chooseTaxa}{default}(object, n.occ = 1, max.abun = 0,
-           type = c("AND","OR"), value = TRUE, \dots)
+           type = c("AND","OR"), value = TRUE, na.rm = FALSE,
+           \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,6 +39,8 @@ chooseTaxa(object, \dots)
     returned? If \code{TRUE}, the default, the data for the chosen taxa
     are returned. If \code{FALSE}, a logical vector is returned,
     indicating which taxa met the selection criteria.}
+  \item{na.rm}{logical; should missing values \code{NA}s be excluded
+    from the calculation of abundances and occurrence?}
   \item{\dots}{arguments passed on to subsequent methods.}
 }
 %\details{

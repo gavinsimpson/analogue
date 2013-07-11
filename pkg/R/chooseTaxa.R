@@ -4,12 +4,15 @@ chooseTaxa <- function(object, ...) {
 
 chooseTaxa.default <- function(object, n.occ = 1, max.abun = 0,
                                type = c("AND","OR"), value = TRUE,
-                               ...) {
+                               na.rm = FALSE, ...) {
     if(missing(type))
         type <- "AND"
     type <- match.arg(type)
-    occ.want <- colSums(object > 0) >= n.occ
-    abun.want <- apply(object, 2, max) >= max.abun
+    ## issue a warning if any values in object are NA
+    if(any(is.na(object)))
+        warning("'NA's present in data; results may not be what you expect.\nConsider using 'na.rm = TRUE'.")
+    occ.want <- colSums(object > 0, na.rm = na.rm) >= n.occ
+    abun.want <- apply(object, 2, max, na.rm = na.rm) >= max.abun
     want <- if(isTRUE(all.equal(type, "AND"))) {
         occ.want & abun.want
     } else {
