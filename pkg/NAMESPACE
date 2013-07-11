@@ -32,6 +32,10 @@ importFrom(grid,
            textGrob,
            unit,
            unit.c)
+## brglm
+importFrom(brglm,
+           brglm,
+           brglm.control)
 
 ## Exports
 export(analog,

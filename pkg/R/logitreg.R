@@ -1,10 +1,17 @@
 `logitreg` <- function(object, groups, k = 1, ...)
     UseMethod("logitreg")
 
-`logitreg.default` <- function(object, groups, k = 1, ...) {
+`logitreg.default` <- function(object, groups, k = 1, biasReduced = FALSE,
+                               ...) {
     if(!is.factor(groups))
         groups <- factor(groups)
     lev <- levels(groups)
+    ## bias reduced fitting via brglm?
+    if(biasReduced) {
+        FIT <- brglm
+    } else {
+        FIT <- glm
+    }
     within <- without <- vector(mode = "list", length = length(lev))
     names(within) <- names(without) <- lev
     models <- vector(mode = "list", length = length(lev) + 1)
@@ -18,8 +25,8 @@
                                 function(x, k) {x[order(x)[k]]}, k = k))
         analogs <- rep(c(TRUE, FALSE), times = c(length(IN), length(OUT)))
         Dij <- c(IN, OUT)
-        models[[l]] <- glm(analogs ~ Dij, data = data.frame(analogs, Dij),
-                           family = binomial(link = "logit"))
+        models[[l]] <- FIT(analogs ~ Dij, data = data.frame(analogs, Dij),
+                           family = binomial(link = "logit"), ...)
         models[[l]]$Dij <- Dij
         within[[l]] <- IN
         without[[l]] <- OUT
@@ -28,9 +35,9 @@
     OUT <- do.call(c, without)
     analogs <- rep(c(TRUE, FALSE), times = c(length(IN), length(OUT)))
     Dij <- c(IN, OUT)
-    models[["Combined"]] <- glm(analogs ~ Dij,
+    models[["Combined"]] <- FIT(analogs ~ Dij,
                                 data = data.frame(analogs, Dij),
-                                family = binomial(link = "logit"))
+                                family = binomial(link = "logit"), ...)
     models[["Combined"]]$Dij <- Dij
     ##class(models) <- "logitreg"
     out <- list(models = models, groups = groups, method = NULL)
