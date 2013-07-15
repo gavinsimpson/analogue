@@ -13,7 +13,7 @@
   the dissimilarity between the two samples.
 }
 \usage{
-logitreg(object, groups, k = 1, ...)
+logitreg(object, groups, k = 1, biasReduced = FALSE, ...)
 
 \method{logitreg}{default}(object, groups, k = 1, ...)
 
@@ -30,8 +30,17 @@ logitreg(object, groups, k = 1, ...)
   the group membership for each sample in \code{object}.}
   \item{k}{numeric; the \code{k} closest analogues to use in the model
     fitting.}
+  \item{biasReduced}{logical; should Firth's method for bias reduced
+    logistic regression be used to fit the models? If \code{TRUE}, model
+    fits are performed via \code{\link{brglm}}. The default,
+    \code{FALSE}, indicates that models will be fitted via the standard
+    \code{\link{glm}} function.}
   \item{p}{probability at which to predict the dose needed.}
-  \item{\dots}{arguments passed to other methods.}
+  \item{\dots}{arguments passed to other methods. These arguments are
+    passed on to \code{\link{glm}} or \code{\link{brglm}}. See their
+    respective helps pages for details. Note that \code{logitreg} sets
+    internally the \code{formula}, \code{data}, and \code{family}
+    arguments and hence can not be specified by the user.}
 }
 \details{
   Fits logistic regression models to each level of \code{group} to
@@ -42,6 +51,13 @@ logitreg(object, groups, k = 1, ...)
   probability that two sites are analogues, conditional upon
   dissimilarity, that can also be done less directly using
   \code{\link{roc}} and \code{\link{bayesF}}.
+
+  Often, the number of true analogues in the training set is small, both
+  in absolute terms and as a proportion of comparisons. Logistic
+  regression is known to suffer from a small-sample bias. Firth's method
+  of bias reduction is a general solution to this problem and is
+  implemented in \code{logitreg} through the \pkg{brglm} package of
+  Ioannis Kosmidis.
 }
 \value{
   \code{logitreg} returns an object of class \code{"logitreg"}; a list
@@ -65,7 +81,10 @@ logitreg(object, groups, k = 1, ...)
     its standard error. These are computed using
     \code{\link[MASS]{dose.p}}.}
 }
-%\references{ ~put references to the literature/web site here ~ }
+\references{
+  Firth, D. (1993). Bias reduction of maximum likelihood
+  estimates. \emph{Biometrika} \strong{80}, 27-38.
+}
 \author{Gavin L. Simpson}
 \note{
   The function may generate warnings from function
@@ -78,7 +97,8 @@ logitreg(object, groups, k = 1, ...)
   the reference cited therein which \strong{may} indicate problems with
   the fitted models, such as (quasi-)complete separation.
 }
-\seealso{\code{\link{roc}}, \code{\link{bayesF}}, \code{\link{glm}}. }
+\seealso{\code{\link{roc}}, \code{\link{bayesF}}, \code{\link{glm}}, and
+  \code{\link{brglm}}.}
 \examples{
 ## load the example data
 data(swapdiat, swappH, rlgh)
@@ -121,6 +141,11 @@ head(fit)
 ## compute them
 pred <- predict(swap.lrm, newdata = swap.ana$analogs)
 head(pred)
+
+## Bias reduction
+## fit the logit models to the analog object
+swap.brlrm <- logitreg(swap.ana, grps, biasReduced = TRUE)
+summary(swap.brlrm)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
