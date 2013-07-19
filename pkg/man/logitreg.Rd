@@ -13,9 +13,10 @@
   the dissimilarity between the two samples.
 }
 \usage{
-logitreg(object, groups, k = 1, biasReduced = FALSE, ...)
+logitreg(object, groups, k = 1, ...)
 
-\method{logitreg}{default}(object, groups, k = 1, ...)
+\method{logitreg}{default}(object, groups, k = 1,
+         biasReduced = FALSE, ...)
 
 \method{logitreg}{analog}(object, groups, k = 1, ...)
 
