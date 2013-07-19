@@ -4,7 +4,7 @@ useDynLib(analogue)
 ## Imports
 ##
 ## vegan
-importFrom(vegan, pasteCall, eigenvals, tolerance, scores)
+importFrom(vegan, pasteCall, eigenvals, tolerance, scores, ordirgl)
 ## mgcv
 importFrom(mgcv, gam, s, smoothCon, mono.con, pcls, Predict.matrix)
 ## MASS
@@ -36,6 +36,11 @@ importFrom(grid,
 importFrom(brglm,
            brglm,
            brglm.control)
+## rgl
+importFrom(rgl,
+           plot3d,
+           lines3d,
+           decorate3d)
 
 ## Exports
 export(analog,
@@ -202,6 +207,7 @@ S3method(plot, sppResponse)
 S3method(plot, timetrack)
 S3method(plot, wa)
 S3method(plot, weightedCor)
+S3method(plot3d, prcurve)
 S3method(reconPlot, default)
 S3method(reconPlot, predict.mat)
 S3method(reconPlot, predict.wa)

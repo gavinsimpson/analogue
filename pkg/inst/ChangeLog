@@ -5,6 +5,9 @@ Version 0.11-4
 	* logitreg: fitting is now possible using Firth's bias reduction
 	technique via the brglm package.
 
+	* plot3d.prcurve: dynamic 3D plot of the data in PCA space with
+	the fitted principal curve superimposed.
+
 Version 0.11-3
 
 	* chooseTaxa: new argument `value` controls whether the data for
