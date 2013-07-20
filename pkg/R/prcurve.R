@@ -49,11 +49,24 @@ prcurve <- function(X,
     ## Vary degrees of freedom per variable?
     if(missing(complexity)) {
         complexity <- numeric(length = m)
-        for(j in seq_along(complexity)) {
-            complexity[j] <- smoother(config$lambda, X[, j],
-                                      choose = TRUE, ...)$complexity
+        if (trace){ ## set up progress bar
+            writeLines("\n   Determining initial DFs for each variable...")
+            pb <- txtProgressBar(max = m, style = 3)
         }
-        if(!vary) {
+        for(j in seq_along(complexity)) {
+            if(trace) { ## update progress
+                setTxtProgressBar(pb, j)
+            }
+            ## fit the mode & grab DF
+            complexity[j] <-
+                smoother(config$lambda, X[, j], choose = TRUE, ...)$complexity
+        }
+        if (trace) { ## finalise the progress bar
+            close(pb)
+            writeLines("\n")
+        }
+
+        if(!vary) { ## median complexity for all vars
             complexity <- rep(median(complexity), m)
         }
     } else {
@@ -70,10 +83,21 @@ prcurve <- function(X,
     ##
     iter <- 0L
     if(trace) {
-        writeLines(strwrap(tmp <- paste(rep("-", options("width")[[1]]),
-                                        collapse = "")))
-        writeLines(sprintf("Initial curve: d.sq: %.4f", config$dist))
+        ##writeLines(strwrap(tmp <- paste(rep("-", options("width")[[1]]),
+        ##                                collapse = "")))
+        writeLines("Fitting Principal Curve:\n")
+        writeLines(sprintf("Initial curve: d.sq: %.3f", config$dist))
     }
+
+    ## vary == FALSE needs to set some things for smoothers like GAM
+    ## which will select smoothness even if complexity stated
+    smooths <- c("smoothGAM")
+    if(!vary && (deparse(substitute(smoother)) %in% smooths)) {
+        CHOOSE <- TRUE
+    } else {
+        CHOOSE <- FALSE
+    }
+
     ##dist.raw <- sum(diag(var(X))) * (NROW(X) - 1)
     dist.old <- sum(diag(var(X)))
     s <- matrix(NA, nrow = n, ncol = m)
@@ -87,7 +111,7 @@ prcurve <- function(X,
         for(j in seq_len(m)) {
             smooths[[j]] <- smoother(config$lambda, X[, j],
                                      complexity = complexity[j],
-                                     choose = FALSE, ...)
+                                     choose = CHOOSE, ...)
             s[, j] <- fitted(smooths[[j]])
         }
         ##
@@ -108,7 +132,7 @@ prcurve <- function(X,
         if (trace)
             writeLines(sprintf(paste("Iteration %",
                                      max(3, nchar(maxit)),
-                                     "i: d.sq: %.4f", sep = ""),
+                                     "i: d.sq: %.3f", sep = ""),
                                iter, config$dist))
     }
     ## End iterations ------------------------------------------------
@@ -149,14 +173,14 @@ prcurve <- function(X,
                                "CV", config$dist))
     }
     if(trace){
-        writeLines(strwrap(tmp))
+        cat("\n")
         if(converged) {
             writeLines(strwrap(paste("PC Converged in", iter, "iterations.")))
         } else {
             writeLines(strwrap(paste("PC did not converge after", iter,
                                      "iterations.")))
         }
-        writeLines(strwrap(tmp))
+        cat("\n")
     }
     names(config$tag) <- names(config$lambda) <-
         rownames(config$s) <- rownames(X)

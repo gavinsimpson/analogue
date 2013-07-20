@@ -1,7 +1,6 @@
 \name{prcurve}
 \alias{prcurve}
 \alias{initCurve}
-\alias{smoothSpline}
 \alias{print.prcurve}
 
 \title{
@@ -21,10 +20,6 @@ prcurve(X, method = c("ca", "pca", "random", "user"), start = NULL,
 
 initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
           axis = 1, start)
-
-smoothSpline(lambda, x, choose = TRUE, complexity, ...,
-             penalty = 1, cv = FALSE, keep.data = FALSE,
-             control.spar = list(low = 0))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -39,11 +34,13 @@ smoothSpline(lambda, x, choose = TRUE, complexity, ...,
   \item{start}{numeric vector specifying the initial curve when
     \code{method = "user"}. Must be of length \code{nrow(X)}.}
   \item{smoother}{function; the choice of smoother used to fit the
-    principal curve. Currently, the only option is \code{smoothSpline}
-    which is a wrapper to \code{\link{smooth.spline}}.}
+    principal curve. Currently, the only options are
+    \code{smoothSpline}, which is a wrapper to
+    \code{\link{smooth.spline}}, and \code{smoothGAM}, which is a
+    wrapper to  \code{\link[mgcv]{gam}}.}
   \item{complexity}{numeric; the complexity of the fitted smooth
     functions.
-
+    
     The function passed as argument \code{smoother} should arrange for
     this argument to be passed on to relevant aspect of the underlying
     smoother. In the case of \code{smoothSpline}, complexity is the
@@ -73,26 +70,8 @@ smoothSpline(lambda, x, choose = TRUE, complexity, ...,
   \item{plotit}{logical; should the fitting process be plotted? If
     \code{TRUE}, then the fitted principal curve and observations in
     \code{X} are plotted in principal component space.}
-  \item{\dots}{arguments passed on to lower functions. In the case of
-    \code{prcurve}, these additional arguments are passed solely on to
-    the function \code{smoother}.
-
-    In \code{smoothSpline}, \dots is passed on the the underlying
-    function \code{\link{smooth.spline}} and users should read that
-    function's help page for further details.
-  }
-  \item{lambda}{the current projection function; the position that each
-    sample projects to on the current principal curve. This is the
-    predictor variable or covariate in the smooth function.}
-  \item{x}{numeric vector; a column from \code{X} used as the response
-    variable in the smooth function. The principal curve algorithm fits
-    a separate scatterplot smoother (or similar smoother) to each
-    variable in \code{X} in turn as the response.}
-  \item{choose}{logical; should the underlying smoother function be
-    allowed to choose the degree of smooth complexity for each variable
-    in \code{X}?}
-  \item{penalty, cv, keep.data, control.spar}{arguments to
-    \code{\link{smooth.spline}}.}
+  \item{\dots}{additional arguments are passed solely on to the function
+    \code{smoother}.}
 }
 %\details{
 %TODO
@@ -128,23 +107,16 @@ smoothSpline(lambda, x, choose = TRUE, complexity, ...,
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-%}
+\seealso{
+  \code{\link{smoothGAM}} and \code{\link{smoothSpline}} for the
+  wrappers fitting smooth functions to each variable.
+}
 \examples{
+## Load Abernethy Forest data set
 data(abernethy)
-
-## Plot the most common taxa
-Stratiplot(Age ~ . - Depth, data =
-           chooseTaxa(abernethy, max.abun = 15, n.occ = 10),
-           type = c("g","poly"), sort = "wa")
 
 ## Remove the Depth and Age variables
 abernethy2 <- abernethy[, -(37:38)]
-
-## Fit PCA and CA
-aber.pca <- rda(abernethy2)
-aber.ca <- cca(abernethy2)
 
 ## Fit the principal curve using the median complexity over
 ## all species
@@ -155,6 +127,10 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
 ## for each species
 aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
                     vary = TRUE, penalty = 1.4)
+
+## Fit principal curve using a GAM - currently slow ~10secs
+aber.pc3 <- prcurve(abernethy2, method = "ca", trace = TRUE,
+                    vary = TRUE, smoother = smoothGAM, bs = "cr")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
