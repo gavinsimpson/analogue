@@ -128,9 +128,11 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
 aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
                     vary = TRUE, penalty = 1.4)
 
+\dontrun{
 ## Fit principal curve using a GAM - currently slow ~10secs
 aber.pc3 <- prcurve(abernethy2, method = "ca", trace = TRUE,
                     vary = TRUE, smoother = smoothGAM, bs = "cr")
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
