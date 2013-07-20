@@ -86,20 +86,17 @@ data(ImbrieKipp)
 data(SumSST)
 
 ## default plot
-caterpillarPlot(ImbrieKipp, SumSST)
+caterpillar(ImbrieKipp, SumSST)
 
 ## customisation
 opttol <-
-    caterpillarPlot(ImbrieKipp, SumSST, col = "red2",
-                    bg = "yellow", lcol = "blue",
-                    xlab = expression(Summer ~ Sea ~ Surface ~
-                                      Temperature~(degree*C)))
+    caterpillar(ImbrieKipp, SumSST, col = "red2",
+                bg = "yellow", lcol = "blue",
+                xlab = expression(Summer ~ Sea ~ Surface ~
+                                 Temperature~(degree*C)))
 
 ## invisibly returns the optima and tolerances
 head(opttol)
-
-## The short form name may be easier on the typing fingers
-caterpillar(ImbrieKipp, SumSST)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

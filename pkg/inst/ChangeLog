@@ -26,6 +26,9 @@ Version 0.11-4
 	estimates of smooth complexities. Residual variance printed to
 	fewer decimal places.
 
+	* Streamlined some of the documentation to avoid runnning the same
+	code many times.
+
 Version 0.11-3
 
 	* chooseTaxa: new argument `value` controls whether the data for

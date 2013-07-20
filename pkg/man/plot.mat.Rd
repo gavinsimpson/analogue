@@ -92,8 +92,6 @@ V12.122 <- dat[[2]] / 100
 
 ## MAT
 ik.mat <- mat(ImbrieKipp, SumSST, method = "chord")
-ik.mat
-summary(ik.mat)
 
 ## summary plot of MAT model
 layout(matrix(1:4, ncol = 2, byrow = TRUE))

@@ -37,8 +37,12 @@ performance(object, ...)
 \seealso{\code{\link{wa}}, \code{\link{predict.wa}},
   \code{\link{bootstrap.wa}}.}
 \examples{
-## continue the example from ?wa
-example(wa)
+data(ImbrieKipp)
+data(SumSST)
+
+## fit the WA model
+mod <- wa(SumSST ~., data = ImbrieKipp)
+mod
 
 ## the model performance statistics
 performance(mod)

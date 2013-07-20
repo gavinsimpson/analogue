@@ -251,7 +251,7 @@ par(mfrow = c(2,2))
 plot(ik.mat)
 par(mfrow = c(1,1))
 
-## reconstruct for the RLGH core data
+## reconstruct for the V12.122 core data
 coreV12.mat <- predict(ik.mat, V12.122, k = 3)
 coreV12.mat
 summary(coreV12.mat)
@@ -264,29 +264,6 @@ reconPlot(coreV12.mat, use.labels = TRUE, display.error = "bars",
 ## and restrict the number of analogues we fit models for to 1:20
 ik.mat2 <- mat(ImbrieKipp, SumSST, method = "chord", kmax = 20)
 ik.mat2
-
-## model summary
-summary(ik.mat2)
-
-## fitted values
-fitted(ik.mat2)
-
-## model residuals
-resid(ik.mat2)
-
-## draw summary plots of the model
-par(mfrow = c(2,2))
-plot(ik.mat2)
-par(mfrow = c(1,1))
-
-## reconstruct for the V12.122 core data
-coreV12.mat2 <- predict(ik.mat, V12.122, k = 3)
-coreV12.mat2
-summary(coreV12.mat2)
-
-## draw the reconstruction
-reconPlot(coreV12.mat2, use.labels = TRUE, display.error = "bars",
-          xlab = "Depth", ylab = "SumSST")
 
 }
 \keyword{models}% at least one, from doc/KEYWORDS
