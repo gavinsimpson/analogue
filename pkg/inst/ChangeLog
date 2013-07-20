@@ -10,6 +10,22 @@ Version 0.11-4
 	* plot3d.prcurve: dynamic 3D plot of the data in PCA space with
 	the fitted principal curve superimposed.
 
+	* smoothGAM: new smooth function plugin for `prcurve`. Allows
+	fitting principal curves via individual GAM models using
+	`mgcv::gam` as the engine. The main advantage is that data sets
+	with non-Gaussian errors can now be handled more appropriately,
+	such as handling count data correctly.
+
+	`smoothGAM` is much slower than `smoothSpline` currently, although
+	there is potential for speeding this up via pre-computing some of
+	the GAM terms. As an example, the Abernethy Forest example in
+	`?prcurve` takes ~10 seconds on my 2-year old laptop.
+
+	* prcurve: improvements to the printed output during fitting (i.e.
+	with `trace = TRUE`) displays a progress bar during initial
+	estimates of smooth complexities. Residual variance printed to
+	fewer decimal places.
+
 Version 0.11-3
 
 	* chooseTaxa: new argument `value` controls whether the data for
