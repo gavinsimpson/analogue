@@ -10,9 +10,9 @@
     }
     DF <- t(sapply(object$models, FOO, p = p, USE.NAMES = FALSE))
     DF <- data.frame(DF)
-    names(DF) <- c("In","Out","Est.(Dij)","Std.Err", "Z-value","p-value",
+    names(DF) <- c("In","Out","E[Dij]","SE", "Z","p-value",
                    paste("Dij(p=", format(p), ")", sep = ""),
-                   "Std.Err(Dij)")
+                   "SE (Dij)")
     class(DF) <- "summary.logitreg"
     DF
 }
