@@ -1,10 +1,10 @@
-## smoothSpline: smootherFcn supplied to principal.curve
+## smoothSpline: smootherFcn supplied to prcurve
 ## again a wrapper but allow us to specify De'ath's recommended
 ## smoother strategy
-smoothSpline <- function(lambda, x, choose = TRUE,
-                         complexity, ..., penalty = 1,
-                         cv = FALSE, keep.data = FALSE,
-                         control.spar = list(low = 0)) {
+`smoothSpline` <- function(lambda, x, choose = TRUE,
+                           complexity, ..., penalty = 1,
+                           cv = FALSE, keep.data = FALSE,
+                           control.spar = list(low = 0)) {
     ## complexity is the 'df' argument
     ## choose selects whether to use fixed complexity or allow
     ## underlying fitting function to return complexity
@@ -26,5 +26,5 @@ smoothSpline <- function(lambda, x, choose = TRUE,
     res <- list(lambda = lambda, x = x, fitted.values = p,
                 complexity = f$df, model = f)
     class(res) <- "prcurveSmoother"
-    return(res)
+    res
 }
