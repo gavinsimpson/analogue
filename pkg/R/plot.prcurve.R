@@ -1,17 +1,17 @@
 ## plot a principle curve in PCA space
-plot.prcurve <- function(x, data, axes = 1:2,
+plot.prcurve <- function(x, axes = 1:2,
+                         scaling = 0,
                          segments = TRUE,
                          col = "red",
                          col.seg = "forestgreen",
                          lwd = 2, lwd.seg = 1, ...) {
-    scl <- 0
-    ordi <- rda(data)
-    pred <- predict(ordi, x$s, type = "wa", scaling = scl)[,axes]
-    scrs <- scores(ordi, display = "sites", scaling = scl,
+    pred <- predict(x$ordination, x$s, type = "wa",
+                    scaling = scaling)[,axes]
+    scrs <- scores(x$ordination, display = "sites", scaling = scaling,
                    choices = axes)
     xlim <- range(scrs[,1], pred[,1])
     ylim <- range(scrs[,2], pred[,2])
-    plot(ordi, display = "sites", scaling = scl, type = "n",
+    plot(x$ordination, display = "sites", scaling = scaling, type = "n",
          xlim = xlim, ylim = ylim, choices = axes, ...)
     points(scrs, ...)
     if(segments)

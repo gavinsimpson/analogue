@@ -9,20 +9,24 @@ Projects the principal curve into PCA space and draws it and the
 underlying data in a biplot.
 }
 \usage{
-\method{plot}{prcurve}(x, data, axes = 1:2, segments = TRUE,
+\method{plot}{prcurve}(x, axes = 1:2, scaling = 0, segments = TRUE,
      col = "red", col.seg = "forestgreen", lwd = 2,
      lwd.seg = 1, ...)
 
-\method{lines}{prcurve}(x, data, axes = 1:2, segments = TRUE,
+\method{lines}{prcurve}(x, axes = 1:2, scaling = 0, segments = TRUE,
       col = "red", col.seg = "forestgreen", lwd = 2,
       lwd.seg = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class \code{"prcurve"}.}
-  \item{data}{The data the principal curve was fitted to.}
   \item{axes}{numeric vector of length 2; this is passed to the
-    \code{choices} argument of the \code{\link[vegan]{scores}} function.}
+    \code{choices} argument of the \code{\link[vegan]{scores}}
+    function.}
+  \item{scaling}{numeric; the scaling to use. See
+    \code{\link{scores.rda}} for the available options. The default is
+    not to scale the scores, but \code{scaling = 1} might be a useful
+    alternative.}
   \item{segments}{logical; should segments be drawn between the observed
     points to the location on the principal curve on to which they
     project.}
@@ -46,11 +50,11 @@ anything.
 \author{
 Gavin L. Simpson
 }
-\note{
-  Note that all plotting is done using \code{scaling == 0} at the
-  moment, and as such the \code{lines()} method only makes sense when
-  added to an underlying PCA in the same scaling. See the Examples.
-}
+%% \note{
+%%   Note that all plotting is done using \code{scaling == 0} at the
+%%   moment, and as such the \code{lines()} method only makes sense when
+%%   added to an underlying PCA in the same scaling. See the Examples.
+%% }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -71,13 +75,13 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
                    vary = TRUE, penalty = 1.4)
 
 ## Plot the curve
-plot(aber.pc, abernethy2)
+plot(aber.pc)
 
 ## The lines() method can be used to add the principal curve to an
 ## existing plot
 ord <- rda(abernethy2)
-plot(ord)
-lines(aber.pc, data = abernethy2)
+plot(ord, scaling = 1)
+lines(aber.pc, scaling = 1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

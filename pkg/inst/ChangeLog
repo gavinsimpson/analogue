@@ -26,9 +26,22 @@ Version 0.11-4
 	estimates of smooth complexities. Residual variance printed to
 	fewer decimal places.
 
+	Now returns components `ordination` and `data`, the PCA ordination
+	(resulting from `rda()`) and the original data used to fit the
+	curve, respectively. This simplifies the `plot` and `lines`
+	methods for example.
+
 	* residuals.prcurve: new `residuals` method for principal curves
 	extracting or computing various types of residual for a fitted
 	curve.
+
+	* plot.prcurve, lines.prcurve: much improved following the
+	addition of new components in the object returned by `prcurve`.
+	No longer need to supply the original data used to fit the curve.
+
+	The scaling to use for the plot can now be specified via new
+	argument `scaling`. This makes the `lines` method more broadly
+	useful.
 
 	* Streamlined some of the documentation to avoid runnning the same
 	code many times.
