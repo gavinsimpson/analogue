@@ -26,6 +26,10 @@ Version 0.11-4
 	estimates of smooth complexities. Residual variance printed to
 	fewer decimal places.
 
+	* residuals.prcurve: new `residuals` method for principal curves
+	extracting or computing various types of residual for a fitted
+	curve.
+
 	* Streamlined some of the documentation to avoid runnning the same
 	code many times.
 

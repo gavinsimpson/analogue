@@ -92,6 +92,10 @@ initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
   \item{complexity}{numeric vector; the complexity of the smoother
     fitted to each variable in \code{X}.}
   \item{call}{the matched call.}
+  \item{ordination}{an object of class \code{"rda"}, the result of a
+    call to \code{\link{rda}}. This is a principal components analysis
+    of the input data \code{X}.}
+  \item{data}{a copy of the data used to fit the principal curve.}
 }
 %\references{
 %% ~put references to the literature/web site here ~

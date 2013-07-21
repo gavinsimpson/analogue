@@ -182,6 +182,9 @@ prcurve <- function(X,
         }
         cat("\n")
     }
+    ## fit a PCA and store in result
+    ord <- rda(X)
+    ## prepare objects for return
     names(config$tag) <- names(config$lambda) <-
         rownames(config$s) <- rownames(X)
     colnames(config$s) <- names(complexity) <- colnames(X)
@@ -193,8 +196,10 @@ prcurve <- function(X,
     config$smooths <- smooths
     names(config$smooths) <- colnames(X)
     config$call <- match.call()
+    config$ordination <- ord
+    config$data <- X
     class(config) <- c("prcurve")
-    return(config)
+    config
 }
 
 `print.prcurve` <- function(x, digits = max(3, getOption("digits") - 3),
