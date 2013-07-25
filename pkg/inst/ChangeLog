@@ -43,6 +43,13 @@ Version 0.11-4
 	argument `scaling`. This makes the `lines` method more broadly
 	useful.
 
+	* chooseTaxa: would drop empty dimensions if conditions resulted
+	in just a single taxon being selected. Reported by Michael
+	Burstert.
+
+	The warning about `NA`s was also being issued even if
+	`na.rm = TRUE` was used. Now fixed.
+
 	* Streamlined some of the documentation to avoid runnning the same
 	code many times.
 
