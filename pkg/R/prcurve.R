@@ -40,6 +40,10 @@ prcurve <- function(X,
     ## data stats
     n <- NROW(X) ## number of observations
     m <- NCOL(X) ## number of variables
+
+    ## fit a PCA and store in result
+    ord <- rda(X)
+
     ## starting configuration
     config <- startConfig <- initCurve(X, method = method,
                                        rank = rank,
@@ -127,8 +131,13 @@ prcurve <- function(X,
         ## Converged?
         converged <- (abs((dist.old - config$dist)/dist.old) <=
                       thresh)
-        if(plotit)
-            plot(config, X, sub = paste("Iteration:", iter))
+        if(plotit) {
+            ## plot the iteration -- need to add some components
+            ## because of changes to plot method
+            config$data <- X
+            config$ordination <- ord
+            plot(config, sub = paste("Iteration:", iter))
+        }
         if (trace)
             writeLines(sprintf(paste("Iteration %",
                                      max(3, nchar(maxit)),
@@ -164,8 +173,11 @@ prcurve <- function(X,
         config <- get.lam(X, s = s, stretch = stretch)
         class(config) <- "prcurve"
         if(plotit) {
-            ## plot the iteration
-            plot(config, X)
+            ## plot the iteration -- need to add some components
+            ## because of changes to plot method
+            config$data <- X
+            config$ordination <- ord
+            plot(config)
         }
         if (trace)
             writeLines(sprintf(paste("Iteration %", max(3, nchar(maxit)),
@@ -182,8 +194,6 @@ prcurve <- function(X,
         }
         cat("\n")
     }
-    ## fit a PCA and store in result
-    ord <- rda(X)
     ## prepare objects for return
     names(config$tag) <- names(config$lambda) <-
         rownames(config$s) <- rownames(X)
