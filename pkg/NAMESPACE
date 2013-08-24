@@ -41,6 +41,9 @@ importFrom(rgl,
            plot3d,
            lines3d,
            decorate3d)
+## princurve
+importFrom(princurve,
+           get.lam)
 
 ## Exports
 export(analog,

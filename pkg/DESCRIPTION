@@ -3,8 +3,8 @@ Type: Package
 Title: Analogue and weighted averaging methods for palaeoecology
 Version: 0.11-4
 Date: $Date$
-Depends: R (>= 2.15.0), vegan (>= 1.17-12), princurve, lattice, rgl
-Imports: mgcv, MASS, stats, graphics, grid, brglm
+Depends: R (>= 2.15.0), vegan (>= 1.17-12), lattice, rgl
+Imports: mgcv, MASS, stats, graphics, grid, brglm, princurve
 Author: Gavin L. Simpson, Jari Oksanen
 Maintainer: Gavin L. Simpson <gavin.simpson@uregina.ca>
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
