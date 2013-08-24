@@ -90,6 +90,7 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
 
 ## 3D plot of data with curve superimposed
 plot3d(aber.pc, abernethy2)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
