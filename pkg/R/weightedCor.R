@@ -66,7 +66,8 @@
                 if(verbose)
                     setTxtProgressBar(pb, i)
                 Args$y <- unifs[i,]
-                rmod <- do.call(analogue:::waFit, Args)
+                ##rmod <- do.call(analogue:::waFit, Args)
+                rmod <- do.call(waFit, Args)
                 ropt <- rmod$wa.optima
                 pArgs$optima <- ropt
                 rpred <- drop(deshrinkPred(do.call(pFun, pArgs),
