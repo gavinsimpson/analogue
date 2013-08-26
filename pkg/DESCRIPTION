@@ -6,6 +6,11 @@ Date: $Date$
 Depends: R (>= 2.15.0), vegan (>= 1.17-12), lattice, rgl
 Imports: mgcv, MASS, stats, graphics, grid, brglm, princurve
 Author: Gavin L. Simpson, Jari Oksanen
+Authors@R: c(person(given = c("Gavin", "L."), family = "Simpson",
+                    role = c("aut", "cre"),
+                    email = "gavin.simpson@uregina.ca"),
+             person(given = "Jari", family = "Oksanen",
+                    role = "aut"))
 Maintainer: Gavin L. Simpson <gavin.simpson@uregina.ca>
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
   	     function models for prediction of environmental data from species 
