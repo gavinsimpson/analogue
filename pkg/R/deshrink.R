@@ -21,7 +21,7 @@
         return(list(coefficients = coef, env = pred))
     }
     ## deshrink to equal SD
-    ## A bit like in vegan:::wascores, but wascores uses
+    ## A bit like in vegan's wascores, but wascores uses
     ## weighted sd which would need row and column sums in the
     ## function call, and this would make the function API
     ## incompatible with other *.deshrink functions.

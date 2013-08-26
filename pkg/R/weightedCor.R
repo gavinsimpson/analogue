@@ -18,7 +18,7 @@
     x <- x[, nams]
     fossil <- fossil[, nams]
     ## WA model and optima
-    Args <- head(formals(analogue:::wa.default), -1)
+    Args <- head(formals(wa.default), -1)
     dots <- list(x = x, y = env, env = NULL, ...)
     Args <- modifyList(Args, dots)
     Args <- lapply(Args,
@@ -66,7 +66,6 @@
                 if(verbose)
                     setTxtProgressBar(pb, i)
                 Args$y <- unifs[i,]
-                ##rmod <- do.call(analogue:::waFit, Args)
                 rmod <- do.call(waFit, Args)
                 ropt <- rmod$wa.optima
                 pArgs$optima <- ropt
