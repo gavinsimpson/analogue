@@ -1,5 +1,6 @@
 \name{distance3}
 \alias{distance3}
+\alias{distanceX}
 \alias{distance3.default}
 \concept{dissimilarity}
 \concept{dissimilarity coefficient}
@@ -188,6 +189,8 @@ stopifnot(isTRUE(all.equal(test.o, test)))
 ## Using distance on an object of class join
 #dists <- distance3(join(train, fossil))
 #str(dists)
+dists <- distance(join(train, fossil))
+##distsX <- distanceX(join(train, fossil))
 
 ## calculate Gower's general coefficient for mixed data
 ## first, make a couple of variables factors
