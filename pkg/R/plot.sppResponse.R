@@ -12,6 +12,10 @@
   if (noMain) {
     nams <- names(x)
   }
+
+  ## process which - this could be logical
+  if (is.logical(which))
+      which <- which(which) ## yeah, really!
   
   for (i in which) {
     ox <- x[[i]]$observed$gradient
