@@ -118,7 +118,7 @@ Section \ref{using_analogue} contains a worked example providing an overview of 
 \section[Using analogue]{Using \pkg{analogue}}\label{using_analogue}
 This section contains a worked example of how to use the \pkg{analogue} package to fit MAT transfer function models and to perform analogue matching. The \pkg{analogue} package first has to be loaded before it can be used:
 
-<<>>=
+<<loadPackage>>=
 library("analogue")
 @
 
@@ -126,7 +126,7 @@ The version of \pkg{analogue} installed is printed if the package has been succe
 
 To illustrate \pkg{analogue}, the Surface Waters Acidification Project (SWAP) diatom:pH training set is used \citep{swapredbook}, along with diatom counts from a sediment core taken from the Round Loch of Glenhead, Galloway, Scotland \citep{604}. The data sets also need to be loaded before they can be used:
 \label{join}
-<<>>=
+<<loadData>>=
 data(swapdiat, swappH, rlgh, package = "analogue")
 @
 
@@ -141,7 +141,7 @@ MAT transfer functions are built using the generic function \code{mat}. The defa
 
 The data frame of diatom counts (\code{x}), must have the same columns (species) as the data frame of counts for the sediment core for which MAT reconstructions are required. To ensure that both data frames have the same set of columns, the \code{join} function is used to merge the two data sets.
 
-<<>>=
+<<joinData>>=
 dat <- join(swapdiat, rlgh, verbose = TRUE)
 @
 
@@ -151,14 +151,14 @@ An alternative to merging the two data sets would be to select only the intersec
 
 By convention, dissimilarity coefficients are defined for proportional data. As the data used in this example are percentages we need to convert them to proportions. We extract each of the merged data sets (the components of \code{dat}) back into the training set and the fossil set, converting the data into proportions as we do so.
 
-<<>>=
+<<convertToPercent>>=
 swapdiat <- dat$swapdiat / 100
 rlgh <- dat$rlgh / 100
 @
 
 The data are now ready for analysis. We will fit a MAT model to the SWAP training set using the squared chord distance (SCD) coefficient:
 
-<<>>=
+<<applyMat>>=
 swap.mat <- mat(swapdiat, swappH, method = "SQchord")
 @
 
