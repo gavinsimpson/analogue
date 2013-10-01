@@ -20,7 +20,7 @@ mat.default <- function(x, y,
                         "information", "chi.distance", "manhattan",
                         "kendall", "gower", "alt.gower", "mixed"),
                         kmax, ...) {
-    dims <- dim(x) # the numbers of samples / species
+    ##dims <- dim(x) # the numbers of samples / species
     site.nams <- rownames(x) # store sample names for later
     .call <- match.call()
     ## need to reset due to method dispatch
