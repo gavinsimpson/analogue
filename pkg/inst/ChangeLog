@@ -55,6 +55,9 @@ Version 0.11-4
 
 	* plot.sppResponse: accepts a logical vector for argument `which`.
 
+	* wa: now warns if species with no information are removed from
+	the analysis, which proceeds as it always has.
+
 Version 0.11-3
 
 	* chooseTaxa: new argument `value` controls whether the data for

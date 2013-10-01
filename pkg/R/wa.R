@@ -12,8 +12,10 @@
     x <- as.matrix(x)
     env <- as.numeric(env)
     ## drop species with no information
-    if(any(csum <- colSums(x) == 0))
+    if(any(csum <- colSums(x) == 0)) {
         x <- x[, !csum, drop = FALSE]
+        warning("Some species contained no data. These have been deleted.")
+    }
     if(missing(deshrink))
         deshrink <- "inverse"
     deshrink <- match.arg(deshrink)
