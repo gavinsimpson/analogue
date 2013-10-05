@@ -172,7 +172,7 @@ The percentiles of the distribution of SCD values for the training set are displ
 
 A more detailed summary of the results may be displayed using the \code{summary} method:
 
-<<results=hide>>=
+<<summarySwapMat, results=hide>>=
 summary(swap.mat)
 @
 
@@ -190,7 +190,7 @@ par(opar)
 
 Before using this model to reconstruct pH for the RLGH core, the number of analogues, $k$, to use in the reconstructions must be determined. A simple way of choosing $k$ is to select $k$ from the model with lowest RMSEP. In the printed results shown above, the model with the lowest RMSEP was a model with $k = 10$ closest analogues for both the mean and weighted mean indices. We should check this number however, as the displayed lists were restricted to show only the $k = 1,\ldots,10$ closest analogues. Whenever $k$ is not specified, the functions in \pkg{analogue} automatically choose the model with lowest RMSEP. The simplest way to check this is to the use the \code{getK} extractor function:
 
-<<>>=
+<<printSwapMat>>=
 getK(swap.mat)
 @
 
@@ -210,7 +210,7 @@ This choice of $k$ is generally not strongly biased despite being determined \te
 
 This model can now be used to reconstruct past pH values for the RLGH core. The \code{predict} method of \code{mat} can be used for reconstructions:
 
-<<results=hide>>=
+<<rlghPred, results=hide>>=
 rlgh.mat <- predict(swap.mat, rlgh, k = 10)
 rlgh.mat
 @
@@ -233,7 +233,7 @@ The argument \code{use.labels = TRUE} instructs the function to take the names c
 
 If we are interested in how reliable our reconstructed values are, a useful descriptor is the minimum dissimilarity between a core sample and the training set samples (minDC). If there are no close modern analogues in the training set for certain fossil samples, we will have less faith in the MAT reconstructions for those fossil samples than for samples that do have close modern analogues. The \code{minDC} function can be used to extract the minimum dissimilarity for each fossil sample:
 
-<<>>=
+<<minDijRLGH>>=
 rlgh.mdc <- minDC(rlgh.mat)
 @
 
@@ -258,7 +258,7 @@ Analogue matching (AM) is a more general version of MAT and the two techniques a
 
 Returning to the RLGH example, in AM all we are interested in is identifying those samples from the modern training set that are close modern analogues for samples from the RLGH core. In particular, we define the reference condition or period for acidified lakes to be immediately prior to the onset of the industrial revolution, \emph{c.}~1800. We accept that this period is not the ``natural'' state of the RLGH as many UK surface waters have experienced several thousand years of human impact, but this reference condition is appropriate for assessing recovery from recent acidification resulting from the burning of fossil fuels for energy generation and industrial activities. We use \code{analog}, this time with the chord distance (CD) measure and select only those samples from the reference period of the RLGH (samples 25--37):
 
-<<>>=
+<<swapAnalogue>>=
 rlgh.ref <- rlgh[25:37, ]
 swap.ana <- analog(swapdiat, rlgh.ref, method = "chord")
 swap.ana
