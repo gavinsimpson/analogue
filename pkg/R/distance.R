@@ -11,9 +11,9 @@
 ##                                                                       ##
 ###########################################################################
 ## x = training data, y = fossil data
-distance <- function(x, ...) UseMethod("distance")
+oldDistance <- function(x, ...) UseMethod("distance")
 
-distance.join <- function(x, ...)
+oldDistance.join <- function(x, ...)
   {
     if(!inherits(x, "join"))
       stop("This method should only be used on objects of class 'join'")
@@ -26,7 +26,7 @@ distance.join <- function(x, ...)
     }
   }
 
-distance.default <- function(x, y,
+oldDistance.default <- function(x, y,
                              method = c("euclidean", "SQeuclidean", "chord",
                                "SQchord", "bray", "chi.square", "SQchi.square",
                                "information", "chi.distance", "manhattan",

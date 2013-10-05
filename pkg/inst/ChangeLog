@@ -1,5 +1,26 @@
 analogue Change Log
 
+Version 0.11-6
+
+	* distance3: removed - redundant attempt to improve `distance()`.
+
+	* distance: `newDistance()` -> `distance()`
+	            `distance()`    -> `oldDistance()`
+
+	This implements the change suggested in 0.11-5. `distance()` is
+	now using the compiled C versions of the dissimilarity code.
+
+Version 0.11-5
+
+	* newDistance: (yet another) new distance() replacement to
+	interface with fast C versions of the dissimilarity code. This
+	one *will* replace `distance()` in version 0.12-0, where upon it
+	will be renamed to `distance()` and the current `distance()` will
+	be renamed to `oldDistance()`.
+
+	* Unit tests: started adding unit tests using the **testthat**
+	package. Hence **analogue** now `Suggests: testthat`.
+
 Version 0.11-4
 
 	* logitreg: fitting is now possible using Firth's bias reduction

@@ -311,7 +311,7 @@ double xy_alt_gower(double *x, double *y, int nr1, int nr2,
 
 /* Driver */
 
-static double (*distfun)(double*, double*, int, int, int, 
+static double (*xy_distfun)(double*, double*, int, int, int, 
 			 int, int);
 
 void xy_distance(double *x, double *y, int *nr1, int *nr2,
@@ -320,37 +320,37 @@ void xy_distance(double *x, double *y, int *nr1, int *nr2,
     int i, j, ij;
     switch(*method) {
     case EUCLIDEAN:
-	distfun = xy_euclidean;
+	xy_distfun = xy_euclidean;
 	break;
     case SQEUCLIDEAN:
-	distfun = xy_sq_euclidean;
+	xy_distfun = xy_sq_euclidean;
 	break;
     case CHORD:
-	distfun = xy_chord;
+	xy_distfun = xy_chord;
 	break;
     case SQCHORD:
-	distfun = xy_sq_chord;
+	xy_distfun = xy_sq_chord;
 	break;
     case BRAY:
-	distfun = xy_bray;
+	xy_distfun = xy_bray;
 	break;
     case CHISQUARE:
-	distfun = xy_chi_square;
+	xy_distfun = xy_chi_square;
 	break;
     case SQCHISQUARE:
-	distfun = xy_sq_chi_square;
+	xy_distfun = xy_sq_chi_square;
 	break;
     case INFORMATION:
-	distfun = xy_information;
+	xy_distfun = xy_information;
 	break;
     case MANHATTAN:
-	distfun = xy_manhattan;
+	xy_distfun = xy_manhattan;
 	break;
     case GOWER:
-	distfun = xy_gower;
+	xy_distfun = xy_gower;
 	break;
     case ALTGOWER:
-	distfun = xy_alt_gower;
+	xy_distfun = xy_alt_gower;
 	break;
     default:
 	error("Unknown distance in the internal C function");
@@ -359,7 +359,7 @@ void xy_distance(double *x, double *y, int *nr1, int *nr2,
     ij = 0;
     for (j=0; j < *nr1; j++)
 	for (i=0; i < *nr2; i++) {
-	    d[ij++] = distfun(x, y, *nr1, *nr2, *nc, j, i);
+	    d[ij++] = xy_distfun(x, y, *nr1, *nr2, *nc, j, i);
 	}
 }
 

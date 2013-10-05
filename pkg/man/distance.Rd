@@ -2,31 +2,43 @@
 \alias{distance}
 \alias{distance.default}
 \alias{distance.join}
+\alias{oldDistance}
+\alias{oldDistance.default}
+\alias{oldDistance.join}
 \concept{dissimilarity}
 \concept{dissimilarity coefficient}
 \concept{similarity}
 %- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Flexibly calculate dissimilarity or distance measures }
+
 \description{
   Flexibly calculates distance or dissimilarity measures between a
   training set \code{x} and a fossil or test set \code{y}. If
   \code{y} is not supplied then the pairwise dissimilarities between
   samples in the training set, \code{x}, are calculated.
+
 }
 \usage{
 
 distance(x, \dots)
 
-\method{distance}{default}(x, y, method = c("euclidean", "SQeuclidean",
-         "chord", "SQchord", "bray", "chi.square",
-         "SQchi.square", "information", "chi.distance",
-         "manhattan", "kendall", "gower", "alt.gower",
-         "mixed"),
-         fast = TRUE,
-         weights = NULL, R = NULL, \dots)
+\method{distance}{default}(x, y, method = "euclidean", weights = NULL,
+         R = NULL, dist = FALSE, \dots)
 
 \method{distance}{join}(x, \dots)
+
+oldDistance(x, \dots)
+\method{oldDistance}{default}(x, y, method = c("euclidean", "SQeuclidean",
+            "chord", "SQchord", "bray", "chi.square",
+            "SQchi.square", "information", "chi.distance",
+            "manhattan", "kendall", "gower", "alt.gower",
+            "mixed"),
+            fast = TRUE,
+            weights = NULL, R = NULL, \dots)
+\method{oldDistance}{join}(x, \dots)
 }
+
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{data frame or matrix containing the training set samples, or
@@ -35,10 +47,12 @@ distance(x, \dots)
     samples.}
   \item{method}{character; which choice of dissimilarity coefficient to
     use. One of the listed options. See Details below.}
-  \item{fast}{logical; should fast versions of the dissimilarities be
-    calculated? See details below.}
   \item{weights}{numeric; vector of weights for each descriptor.}
   \item{R}{numeric; vector of ranges for each descriptor.}
+  \item{dist}{logical; should the dissimilarity matrix be returned as
+    an object of class \code{"dist"}? Ignored if \code{y} is supplied.}
+  \item{fast}{logical; should fast versions of the dissimilarities be
+    calculated? See details below.}
   \item{\dots}{arguments passed to other methods}
 }
 \details{
@@ -128,7 +142,9 @@ distance(x, \dots)
   A matrix of dissimilarities where columns are the samples in
   \code{y} and the rows the samples in \code{x}. If \code{y} is
   not provided then a square, symmetric matrix of pairwise sample
-  dissimilarities for the training set \code{x} is returned.
+  dissimilarities for the training set \code{x} is returned, unless
+  argument \code{dist} is \code{TRUE}, in which case an object of class
+  \code{"dist"} is returned. See \code{\link{dist}}.
 
   The dissimilarity coefficient used (\code{method}) is returned as
   attribute \code{"method"}. Attribute \code{"type"} indicates whether
@@ -195,8 +211,7 @@ distance(x, \dots)
 \seealso{\code{\link[vegan]{vegdist}} in package \pkg{vegan},
   \code{\link[cluster]{daisy}} in package \pkg{cluster}, and
   \code{\link[stats]{dist}} provide comparable functionality for the
-  case of missing \code{y} and are implemented in compiled code, so
-  will be faster.}
+  case of missing \code{y}.}
 \examples{
 ## simple example using dummy data
 train <- data.frame(matrix(abs(runif(200)), ncol = 10))
@@ -226,14 +241,14 @@ str(dists)
 fossil[,4] <- factor(sample(rep(1:4, length = 10), 10))
 train[,4] <- factor(sample(rep(1:4, length = 20), 20))
 ## now fit the mixed coefficient
-test3 <- distance(train, fossil, "mixed")
+#test3 <- distance(train, fossil, "mixed")
 
 ## Example from page 260 of Legendre & Legendre (1998)
 x1 <- t(c(2,2,NA,2,2,4,2,6))
 x2 <- t(c(1,3,3,1,2,2,2,5))
 Rj <- c(1,4,2,4,1,3,2,5) # supplied ranges
 
-distance(x1, x2, method = "mixed", R = Rj)
+#distance(x1, x2, method = "mixed", R = Rj)
 
 ## note this gives 1 - 0.66 (not 0.66 as the answer in
 ## Legendre & Legendre) as this is expressed as a

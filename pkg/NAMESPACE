@@ -57,9 +57,9 @@ export(analog,
        deshrink,
        dissim,
        dissimilarities,
-       distance,
-       distance3,
-       distanceX,
+       distance, oldDistance, ## oldDistance is the original R-only code
+       #distance3,
+       #distanceX,
        fuse,
        getK,
        gradientDist,
@@ -114,7 +114,9 @@ S3method(dissimilarities, analog)
 S3method(dissimilarities, mat)
 S3method(distance, default)
 S3method(distance, join)
-S3method(distance3, default)
+S3method(oldDistance, default)
+S3method(oldDistance, join)
+#S3method(distance3, default)
 S3method(eigenvals, pcr)
 S3method(fuse, dist)
 S3method(fuse, matrix)
