@@ -11,7 +11,7 @@
 ##                                                                       ##
 ###########################################################################
 ## x = training data, y = fossil data
-oldDistance <- function(x, ...) UseMethod("distance")
+oldDistance <- function(x, ...) UseMethod("oldDistance")
 
 oldDistance.join <- function(x, ...)
   {

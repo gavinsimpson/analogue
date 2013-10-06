@@ -89,7 +89,7 @@ distance.join <- function(x, ...) {
             if(is.data.frame(x)) {
                 xType <- sapply(x, data.class, USE.NAMES = FALSE)
             } else {
-                xType <- rep("numeric", n.vars)
+                xType <- rep("numeric", nc)
                 names(xType) <- colnames(x)
             }
             ## Record the variable types
@@ -102,7 +102,7 @@ distance.join <- function(x, ...) {
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
-                     paste(pColl(which(ina)), collapse = ", "))
+                     paste(which(ina), collapse = ", "))
 
             ## convert to matrix, preserving factor info as numeric
             x <- data.matrix(x)
@@ -230,7 +230,74 @@ distance.join <- function(x, ...) {
                     PACKAGE = "analogue")$d
         }
         if(DCOEF == 14L) { ## "mixed"
-            ## TODO
+            if(is.null(weights))
+                weights <- rep(1, nc)
+            else {
+                if(length(weights) != nc)
+                    stop("'weights' must be of length 'ncol(x)'")
+            }
+            ## process vtypes
+            if(is.data.frame(x)) {
+                xType <- sapply(x, data.class, USE.NAMES = FALSE)
+                ##x <- data.matrix(x)
+            } else {
+                xType <- rep("numeric", nc)
+                names(xType) <- colnames(x)
+            }
+            if(is.data.frame(y)) {
+                yType <- sapply(y, data.class, USE.NAMES = FALSE)
+                ##y <- data.matrix(y)
+            } else {
+                yType <- rep("numeric", nc)
+                names(yType) <- colnames(y)
+            }
+            ## x and y should have same column types
+            if(!isTRUE(all.equal(xType, yType)))
+                stop("Variable types in 'x' and 'y' differ.
+Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
+
+            ## Record the variable types
+            xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
+            ## save which are ordinal for rank conversion below - TODO
+            xType[(ordinal <- xType == "ordered")] <- "O"
+            xType[xType == "factor"] <- "N"
+            xType[xType == "logical"] <- "A"
+            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType <- match(xType, typeCodes)
+            if (any(ina <- is.na(xType)))
+                stop("invalid type ", xType[ina], " for column numbers ",
+                     paste(which(ina), collapse = ", "))
+
+            ## Convert to matrices from now on
+            ## also takes care of ordinal == metric as all factors
+            ## are converted to internal numeric codes
+            x <- data.matrix(x)
+            y <- data.matrix(y)
+
+            ## Compute range Rj
+            XY <- rbind(x, y)
+            if(is.null(R)) {
+                maxi <- apply(XY, 2, max, na.rm = TRUE)
+                mini <- apply(XY, 2, min, na.rm = TRUE)
+                R <- maxi - mini
+            } else {
+                if(length(R) != nc)
+                    stop("'R' must be of length 'ncol(x)'")
+            }
+
+            ## call the C code
+            d <- .C("xy_mixed",
+                    x = as.double(x),
+                    y = as.double(y),
+                    nr1 = as.integer(nrx),
+                    nr2 = as.integer(nry),
+                    nc = as.integer(nc),
+                    d = as.double(d),
+                    vtype = as.integer(xType),
+                    weights = as.double(weights),
+                    R = as.double(R),
+                    NAOK = as.integer(TRUE),
+                    PACKAGE = "analogue")$d
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {
