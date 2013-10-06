@@ -79,7 +79,56 @@ distance.join <- function(x, ...) {
                     PACKAGE = "analogue")$d
         }
         if(DCOEF == 14L) { ## "mixed"
-            ## TODO
+            if(is.null(weights))
+                weights <- rep(1, nc)
+            else {
+                if(length(weights) != nc)
+                    stop("'weights' must be of length 'ncol(x)'")
+            }
+            ## process vtypes
+            if(is.data.frame(x)) {
+                xType <- sapply(x, data.class, USE.NAMES = FALSE)
+            } else {
+                xType <- rep("numeric", n.vars)
+                names(xType) <- colnames(x)
+            }
+            ## Record the variable types
+            xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
+            ## save which are ordinal for rank conversion below - TODO
+            xType[(ordinal <- xType == "ordered")] <- "O"
+            xType[xType == "factor"] <- "N"
+            xType[xType == "logical"] <- "A"
+            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType <- match(xType, typeCodes)
+            if (any(ina <- is.na(xType)))
+                stop("invalid type ", xType[ina], " for column numbers ",
+                     paste(pColl(which(ina)), collapse = ", "))
+
+            ## convert to matrix, preserving factor info as numeric
+            x <- data.matrix(x)
+
+            ## Compute range Rj
+            if(is.null(R)) {
+                maxi <- apply(x, 2, max, na.rm = TRUE)
+                mini <- apply(x, 2, min, na.rm = TRUE)
+                R <- maxi - mini
+            } else {
+                if(length(R) != nc)
+                    stop("'R' must be of length 'ncol(x)'")
+            }
+
+            ## call the C code
+            d <- .C("xx_mixed",
+                    x = as.double(x),
+                    nr = as.integer(nr),
+                    nc = as.integer(nc),
+                    d = as.double(d),
+                    diag = as.integer(FALSE),
+                    vtype = as.integer(xType),
+                    weights = as.double(weights),
+                    R = as.double(R),
+                    NAOK = as.integer(TRUE),
+                    PACKAGE = "analogue")$d
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {

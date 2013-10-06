@@ -496,74 +496,76 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
 		int *vtype, double *weights, double *R, 
 		double wsum)
 {
-    double dist, dev;
-    int count, j;
-    
-    count = 0;
-    dist = 0.0;
-    wsum = 0.0;
-
-    for (j=0; j<nc; j++) {
-	if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
-	    if(vtype[j] == 1) {
-		dev = (x[i1] == x[i2]) ? 1 : 0;
-		dist += dev * weights[j];
-	    }
-	    if(vtype[j] == 2) { // Asymmetric binary
-		    /*dev = (x[i1] == x[i2]) ? 1 : 0;
-		      dist += dev * weights[j]; */
-		    if((x[i1] != 0) || (x[i2] != 0)) {
-			    // both x1 and x2 not zero for this variables
-			    dev = (x[i1] == x[i2]) ? 1 : 0;
-			    dist += dev * weights[j];
-		    } else {
-			    /* set jth current weight to zero and do not
-			       increment dist as ignoring double zero
-			       We actually subtract the weight as it gets added
-			       later on.
-			    */
-			    wsum -= weights[j];
-		    }
-	    }
-	    if(vtype[j] == 3) { // Nominal
-		dev = (x[i1] == x[i2]) ? 1 : 0;
-		dist += dev * weights[j];
-	    }
-	    if(vtype[j] == 4) { // Ordinal
-		/* ordinal data currently handled as Nominal */
-		dev = (x[i1] == x[i2]) ? 1 : 0;
-		dist += dev * weights[j];
-		break;
-	    }
-	    if(vtype[j] == 5) {
-		dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
-		dist += dev * weights[j];
-	    }
-	    count++;
-	    // only summing weights for non-NA comparisons
-	    wsum += weights[j];
+  double dist, dev;
+  int count, j;
+  
+  count = 0;
+  dist = 0.0;
+  wsum = 0.0;
+  
+  for (j=0; j<nc; j++) {
+    if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+      if(vtype[j] == 1) {
+	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dist += dev * weights[j];
+      }
+      if(vtype[j] == 2) { // Asymmetric binary
+	/*dev = (x[i1] == x[i2]) ? 1 : 0;
+	  dist += dev * weights[j]; */
+	if((x[i1] != 0) || (x[i2] != 0)) {
+	  // both x1 and x2 not zero for this variables
+	  dev = (x[i1] == x[i2]) ? 1 : 0;
+	  dist += dev * weights[j];
+	} else {
+	  /* set jth current weight to zero and do not
+	     increment dist as ignoring double zero
+	     We actually subtract the weight as it gets added
+	     later on.
+	  */
+	  wsum -= weights[j];
 	}
-	i1 += nr;
-	i2 += nr;
+      }
+      if(vtype[j] == 3) { // Nominal
+	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dist += dev * weights[j];
+      }
+      if(vtype[j] == 4) { // Ordinal
+	/* ordinal data currently handled as Nominal */
+	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dist += dev * weights[j];
+	break;
+      }
+      if(vtype[j] == 5) {
+	dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
+	dist += dev * weights[j];
+      }
+      count++;
+      // only summing weights for non-NA comparisons
+      wsum += weights[j];
     }
-    if (count == 0) return NA_REAL;
-    return 1 - (dist / wsum);
+    i1 += nr;
+    i2 += nr;
+  }
+  if (count == 0) return NA_REAL;
+  return 1 - (dist / wsum);
 }
 
+/*
 double xx_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2)
 {
-    int k;
-    double ti;
+int k;
+double ti;
 
-    ti = 0.0;
+ti = 0.0;
 
-    for (k=0; k<nc; k++) {
-	ti += (x[i1] == y[i2]) ? 1.0 : 0.0;
-	i1 += nr1;
-	i2 += nr2;
-    }
-    return ti;
+for (k=0; k<nc; k++) {
+ti += (x[i1] == y[i2]) ? 1.0 : 0.0;
+i1 += nr1;
+i2 += nr2;
 }
+return ti;
+}
+*/
 
 void xx_mixed(double *x, int *nr, int *nc, double *d, 
 	      int *diag, int *vtype, double *weights, double *R)
