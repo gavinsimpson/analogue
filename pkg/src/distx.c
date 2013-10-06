@@ -505,13 +505,13 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
   
   for (j=0; j<nc; j++) {
     if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+      // Symmetric binary
       if(vtype[j] == 1) {
 	dev = (x[i1] == x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
-      if(vtype[j] == 2) { // Asymmetric binary
-	/*dev = (x[i1] == x[i2]) ? 1 : 0;
-	  dist += dev * weights[j]; */
+      // Asymmetric binary
+      if(vtype[j] == 2) {
 	if((x[i1] != 0) || (x[i2] != 0)) {
 	  // both x1 and x2 not zero for this variables
 	  dev = (x[i1] == x[i2]) ? 1 : 0;
@@ -525,16 +525,19 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
 	  wsum -= weights[j];
 	}
       }
-      if(vtype[j] == 3) { // Nominal
+      // Nominal
+      if(vtype[j] == 3) {
 	dev = (x[i1] == x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
-      if(vtype[j] == 4) { // Ordinal
+      // Ordinal
+      if(vtype[j] == 4) {
 	/* ordinal data currently handled as Nominal */
 	dev = (x[i1] == x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
 	break;
       }
+      // Quantitative
       if(vtype[j] == 5) {
 	dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
 	dist += dev * weights[j];
