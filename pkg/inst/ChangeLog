@@ -10,6 +10,12 @@ Version 0.11-6
 	This implements the change suggested in 0.11-5. `distance()` is
 	now using the compiled C versions of the dissimilarity code.
 
+	* oldDistance: (was `distance()`) fixed a bug in the x-only case
+	where `method = "kendall"`.
+
+	* Vignette: Updated some details regarding C versions of
+	dissimilarity coefs.
+
 Version 0.11-5
 
 	* newDistance: (yet another) new distance() replacement to
