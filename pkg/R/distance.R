@@ -83,7 +83,14 @@ oldDistance.default <- function(x, y,
       }
     kendall <- function(x, y, maxi)
       {
-        sum(maxi - pmin(x, y))
+          ## the sum in the else isn't right if x == y
+          ## then the dissimilarity should be 0
+          out <- if (isTRUE(all.equal(sum(x-y), 0))) {
+              0
+          } else {
+              sum(maxi - pmin(x, y))
+          }
+          out
       }
     gower <- function(x, y, maxi, mini)
       {
@@ -215,7 +222,8 @@ oldDistance.default <- function(x, y,
         } else {
             apply(y, 2, max, na.rm = NA.RM)
         }
-        maxi <- apply(rbind(maxX, maxY), 2, max, na.rm = NA.RM)
+        ##maxi <- apply(rbind(maxX, maxY), 2, max, na.rm = NA.RM)
+        maxi <- pmax(maxX, maxY)
         if(method %in% c("gower", "alt.gower", "mixed")) {
             ## need the mins of each variable
             ## need to account for a single site (matrix with 1 row)
