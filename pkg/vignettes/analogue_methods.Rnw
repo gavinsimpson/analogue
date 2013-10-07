@@ -432,7 +432,7 @@ The workhorse function used by \code{plot.roc} to draw the posterior probability
 We briefly describe some of the other features of the \pkg{analogue} package.
 
 \subsection{Dissimilarity coefficients}\label{dissims}
-Analogue provides a wide range of dissimilarity coefficients via the \code{distance} function. A list of the coefficients provided is shown in Table \ref{dissim_tab}. All the dissimilarity coefficients are coded in pure \proglang{R} code. As such, \code{distance} will not be as quick as other similar functions available in \proglang{R}, such as \code{dist}, or \code{vegdist} in \pkg{vegan}, where the computations are done in compiled \proglang{C} code. Where there is overlap with coefficients available explicitly or indirectly (via transformation), in functions \code{dist} or \code{vegdist}, these faster functions are used by default, but only if no second argument \code{y} is supplied.
+Analogue provides a wide range of dissimilarity coefficients via the \code{distance} function. A list of the coefficients provided is shown in Table \ref{dissim_tab}. In early versions of \pkg{analogue}, all the dissimilarity coefficients were written in pure \proglang{R} code. As such, \code{distance} was not particulalry efficient compared to other similar functions available in \proglang{R}, such as \code{dist}, or \code{vegdist} in \pkg{vegan}. Starting with version 0.11-6 of \pkg{analogue} all dissimilarity coeficients are now computed using fast \proglang{C} functions modelled after \code{dist}, or \code{vegdist} in \pkg{vegan}. The first publicly-available version of \pkg{analogue} on CRAN employing the faster version of \code{distance} is version 0.12-0. The old behaviour is retained for compatibility under function \code{oldDistance}.
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\arraystretch}{1.25}
@@ -642,11 +642,11 @@ Several of the standard \proglang{R} model utility functions have methods for \c
 \section{Final remarks and future development plans}\label{future_plans}
 The functionality of \proglang{R} package \pkg{analogue} has been demonstrated and explained using the SWAP diatom:pH data set and diatom counts from the RLGH sediment core. The SWAP dataset is a relatively large data set compared to those routinely produced in palaeoecological studies, and as such represents a real-world example of the type of data used in the field.
 
-\pkg{analogue} is still in the early stages of planned development. The main functionality for generating MAT transfer functions and reconstructions and for performing AM is already implemented, but several areas of development remain.
-
-As mentioned above, faster \proglang{C} versions of the dissimilarity calculations are planned to speed up the functions for use on large problems. Also, the package code has yet to receive any rigorous optimisation in terms of memory usage or computation time. Once the feature set has stabilised sufficiently, a code review will be performed to identify bottlenecks and to improve the implementation where possible.
+\pkg{analogue} is still under active development. The main functionality for generating MAT transfer functions and reconstructions and for performing AM is already implemented, but several areas of development remain.
 
 It will be noticeable that the functionality is more comprehensive for MAT transfer functions than for analogue matching. This is purely a function of legacy; MAT models have been used in palaeoecology for over 20 years, but analogue matching (in the sense presented in this paper) is a much newer topic and exactly how the results of AM are used in informing conservation policy is an area of ongoing research. As new developments are proposed, they will be added to future versions of \pkg{analogue}.
+
+Since this published version of this paper appeared, \pkg{analogue} has been extended in a number of areas. Notably, MAT has since been joined by weighted averaging and principal components regression transfer function methods. With principal components regression, the ability to apply ecologically-meaningful transformations \emph{sensu} \citet{legendre-gallagher} is a novel approach.
 
 \section*{Acknowledgements}
 Support, in part, for the development of this package was provided by the European Union Sixth Framework Programme integrated project Euro-limpacs (GOCE-CT-2003-505540). The author wishes to thank Viv Jones for permission to use the RLGH core data and to distribute these data with \pkg{analogue}. Two anonymous reviewers and the guest editors provided numerous comments and suggestions that have improved both the manuscript and the package.
