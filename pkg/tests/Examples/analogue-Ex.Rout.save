@@ -1,5 +1,5 @@
 
-R version 3.0.2 Patched (2013-09-26 r64005) -- "Frisbee Sailing"
+R version 3.0.2 Patched (2013-10-07 r64035) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -20,18 +20,6 @@ Type 'q()' to quit R.
 > pkgname <- "analogue"
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
-> base::assign(".ExTimings", "analogue-Ex.timings", pos = 'CheckExEnv')
-> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
-> base::assign(".format_ptime",
-+ function(x) {
-+   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
-+   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
-+   options(OutDec = '.')
-+   format(x[1L:3L], digits = 7L)
-+ },
-+ pos = 'CheckExEnv')
-> 
-> ### * </HEADER>
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
@@ -47,7 +35,6 @@ This is analogue 0.11-6
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ImbrieKipp
 > ### Title: Imbrie and Kipp foraminifera training set
 > ### Aliases: ImbrieKipp SumSST WinSST Salinity V12.122
@@ -118,15 +105,12 @@ V23.22     0.00    0.00    0.00       0       0       0  0.65   3.14    0.13
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("ImbrieKipp", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("Pollen")
 > ### * Pollen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: Pollen
 > ### Title: North American Modern Pollen Database
 > ### Aliases: Pollen Biome Climate Location
@@ -144,15 +128,12 @@ V23.22     0.00    0.00    0.00       0       0       0  0.65   3.14    0.13
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("Pollen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("RMSEP")
 > ### * RMSEP
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: RMSEP
 > ### Title: Root mean square error of prediction
 > ### Aliases: RMSEP RMSEP.default RMSEP.mat RMSEP.bootstrap.mat
@@ -254,15 +235,12 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("RMSEP", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("Stratiplot")
 > ### * Stratiplot
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: Stratiplot
 > ### Title: Palaeoecological stratigraphic diagrams
 > ### Aliases: Stratiplot Stratiplot.default Stratiplot.formula
@@ -349,15 +327,12 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("Stratiplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("abernethy")
 > ### * abernethy
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: abernethy
 > ### Title: Abernethy Forest Pollen Sequence
 > ### Aliases: abernethy
@@ -424,15 +399,12 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("abernethy", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("analog")
 > ### * analog
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: analog
 > ### Title: Analogue matching
 > ### Aliases: analog analog.default analog.distance print.analog
@@ -860,15 +832,12 @@ Dissimilarity: euclidean
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("analog", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bayesF")
 > ### * bayesF
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bayesF
 > ### Title: Bayes factors
 > ### Aliases: bayesF print.bayesF plot.bayesF
@@ -950,15 +919,12 @@ Positive: 0.5   Negative: 0.5
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("bayesF", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bootstrap")
 > ### * bootstrap
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bootstrap
 > ### Title: Bootstrap estimation and errors
 > ### Aliases: bootstrap bootstrap.default bootstrap.mat print.bootstrap.mat
@@ -1183,15 +1149,12 @@ Bootstrap residuals:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("bootstrap", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bootstrap.wa")
 > ### * bootstrap.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bootstrap.wa
 > ### Title: Bootstrap estimation and errors for WA models
 > ### Aliases: bootstrap.wa print.bootstrap.wa
@@ -1249,15 +1212,12 @@ Bootstrap sample 100
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("bootstrap.wa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("caterpillarPlot")
 > ### * caterpillarPlot
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: caterpillarPlot
 > ### Title: Caterpillar plot of species' WA optima and tolerance range.
 > ### Aliases: caterpillarPlot caterpillarPlot.default
@@ -1291,15 +1251,12 @@ G.mentu 26.13778  2.386584
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("caterpillarPlot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("chooseTaxa")
 > ### * chooseTaxa
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: chooseTaxa
 > ### Title: Select taxa (variables) on basis of maximum abundance attained
 > ###   and number of occurrences.
@@ -1326,15 +1283,12 @@ P.obliq C.nitid S.dehis G.digit   Other  G.quin G.hirsu
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("chooseTaxa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("cma")
 > ### * cma
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: cma
 > ### Title: Close modern analogues
 > ### Aliases: cma cma.default cma.analog cma.mat cma.predict.mat print.cma
@@ -1796,15 +1750,12 @@ Samples:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("cma", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("crossval")
 > ### * crossval
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: crossval
 > ### Title: Cross-validation of palaeoecological transfer function models
 > ### Aliases: crossval crossval.wa print.crossval predWA predWAT
@@ -1916,15 +1867,12 @@ No. Bootstraps: 250
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("crossval", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("densityplot.residLen")
 > ### * densityplot.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: densityplot.residLen
 > ### Title: Lattice density plot for residual lengths
 > ### Aliases: densityplot.residLen
@@ -1957,15 +1905,12 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("densityplot.residLen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dissimilarities")
 > ### * dissimilarities
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dissimilarities
 > ### Title: Extract dissimilarity coefficients from models
 > ### Aliases: dissimilarities dissimilarities.analog dissimilarities.mat
@@ -2357,15 +2302,12 @@ Dissimilarities for k-closest analogues
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("dissimilarities", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("distance")
 > ### * distance
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: distance
 > ### Title: Flexibly calculate dissimilarity or distance measures
 > ### Aliases: distance distance.default distance.join oldDistance
@@ -2433,15 +2375,12 @@ attr(,"type")
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("distance", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("fuse")
 > ### * fuse
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: fuse
 > ### Title: Fused dissimilarities
 > ### Aliases: fuse fuse.matrix fuse.dist
@@ -2492,15 +2431,12 @@ Class 'dist'  atomic [1:45] 0.657 0.768 0.834 0.635 0.778 ...
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("fuse", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("getK")
 > ### * getK
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: getK
 > ### Title: Extract and set the number of analogues
 > ### Aliases: getK getK.default getK.mat getK.bootstrap.mat getK.predict.mat
@@ -2555,15 +2491,12 @@ attr(,"weighted")
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("getK", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("gradientDist")
 > ### * gradientDist
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: gradientDist
 > ### Title: Positions of samples along a unit-length ordination gradient.
 > ### Aliases: gradientDist gradientDist.default gradientDist.cca
@@ -2597,15 +2530,12 @@ attr(,"class")
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("gradientDist", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("hist.residLen")
 > ### * hist.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: hist.residLen
 > ### Title: Histogram plot for residual lengths
 > ### Aliases: hist.residLen
@@ -2638,15 +2568,12 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("hist.residLen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("histogram.residLen")
 > ### * histogram.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: histogram.residLen
 > ### Title: Lattice histogram plot for residual lengths
 > ### Aliases: histogram.residLen
@@ -2679,15 +2606,12 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("histogram.residLen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("join")
 > ### * join
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: join
 > ### Title: Merge species data sets on common columns (species)
 > ### Aliases: join head.join tail.join
@@ -3377,15 +3301,12 @@ $V12.122
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("join", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("logitreg")
 > ### * logitreg
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: logitreg
 > ### Title: Logistic regression models for assessing analogues/non-analogues
 > ### Aliases: logitreg logitreg.default logitreg.analog print.logitreg
@@ -3498,15 +3419,12 @@ Combined 167 835  -16.0 1.38 -11.55 < 2.22e-16      0.357   0.0167
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("logitreg", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mat")
 > ### * mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mat
 > ### Title: Modern Analogue Technique transfer function models
 > ### Aliases: mat mat.default mat.formula fitted.mat residuals.mat resid.mat
@@ -3992,8 +3910,6 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("mcarlo")
@@ -4001,7 +3917,6 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mcarlo
 > ### Title: Monte Carlo simulation of dissimilarities
 > ### Aliases: mcarlo mcarlo.default mcarlo.mat mcarlo.analog print.mcarlo
@@ -4058,15 +3973,12 @@ Percentiles of simulated distribution:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("mcarlo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("minDC")
 > ### * minDC
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: minDC
 > ### Title: Extract minimum dissimilarities
 > ### Aliases: minDC minDC.default minDC.predict.mat minDC.analog minDC.wa
@@ -4174,15 +4086,12 @@ Dissimilarity: SQchord
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("minDC", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("optima")
 > ### * optima
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: optima
 > ### Title: Weighted averaging optima and tolerance ranges
 > ### Aliases: optima optima.default print.optima print.tolerance
@@ -4289,15 +4198,12 @@ G.hirsu 3.942135
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("optima", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("pcr")
 > ### * pcr
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: pcr
 > ### Title: Prinicpal component regression transfer function models
 > ### Aliases: pcr pcr.default pcr.formula print.pcr Hellinger ChiSquare
@@ -4529,15 +4435,12 @@ G.hirsu -0.19363169  0.7346868   0.44297993   0.4546855
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("pcr", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("performance")
 > ### * performance
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: performance
 > ### Title: Transfer function model performance statistics
 > ### Aliases: performance print.performance performance.wa
@@ -4571,19 +4474,16 @@ Performance:
 > ## the model performance statistics
 > performance(mod)
       RMSE         R2   Avg.Bias   Max.Bias 
- 2.019e+00  9.173e-01  2.854e-15 -3.815e+00 
+ 2.019e+00  9.173e-01  2.228e-14 -3.815e+00 
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("performance", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.dissimilarities")
 > ### * plot.dissimilarities
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.dissimilarities
 > ### Title: Plots the distribution of extracted dissimilarities
 > ### Aliases: plot.dissimilarities
@@ -4973,15 +4873,12 @@ Dissimilarities for k-closest analogues
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.dissimilarities", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.mat")
 > ### * plot.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.mat
 > ### Title: Plot diagnostics for a mat object
 > ### Aliases: plot.mat
@@ -5021,15 +4918,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.mcarlo")
 > ### * plot.mcarlo
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.mcarlo
 > ### Title: Plot Monte Carlo simulated dissimilarity distributions
 > ### Aliases: plot.mcarlo
@@ -5086,15 +4980,12 @@ Percentiles of simulated distribution:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.mcarlo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.minDC")
 > ### * plot.minDC
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.minDC
 > ### Title: Plot of minimum dissimilarity per sample
 > ### Aliases: plot.minDC
@@ -5200,15 +5091,12 @@ Dissimilarity: chord
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.minDC", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.prcurve")
 > ### * plot.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.prcurve
 > ### Title: Plot a fitted principal curve in PCA space
 > ### Aliases: plot.prcurve lines.prcurve
@@ -5255,15 +5143,12 @@ PC Converged in 6 iterations.
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.residLen")
 > ### * plot.residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.residLen
 > ### Title: Plot method for residual lengths
 > ### Aliases: plot.residLen
@@ -5296,15 +5181,12 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.residLen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.wa")
 > ### * plot.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.wa
 > ### Title: Plot diagnostics for a weighted averaging model
 > ### Aliases: plot.wa
@@ -5317,15 +5199,12 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot.wa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot3d.prcurve")
 > ### * plot3d.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot3d.prcurve
 > ### Title: Interactive 3D plof of a principal curve in principal coordinate
 > ###   space
@@ -5366,15 +5245,12 @@ PC Converged in 5 iterations.
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("plot3d.prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("prcurve")
 > ### * prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: prcurve
 > ### Title: Fits a principal curve to m-dimensional data
 > ### Aliases: prcurve initCurve print.prcurve
@@ -5439,15 +5315,12 @@ PC Converged in 6 iterations.
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("predict.mat")
 > ### * predict.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: predict.mat
 > ### Title: Predict method for Modern Analogue Technique models
 > ### Aliases: predict.mat print.predict.mat
@@ -5555,15 +5428,12 @@ Predicted values:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("predict.mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("predict.wa")
 > ### * predict.wa
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: predict.wa
 > ### Title: Predict from a weighted average model
 > ### Aliases: predict.wa print.predict.wa
@@ -5614,15 +5484,12 @@ Performance:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("predict.wa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("rankDC")
 > ### * rankDC
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: rankDC
 > ### Title: Rank correlation between environmental and species
 > ###   dissimilarities.
@@ -5645,15 +5512,12 @@ Performance:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("rankDC", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("reconPlot")
 > ### * reconPlot
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: reconPlot
 > ### Title: Stratigraphic plots of palaeoenvironmental reconstructions
 > ### Aliases: reconPlot reconPlot.default reconPlot.predict.mat
@@ -5734,15 +5598,12 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("reconPlot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("residLen")
 > ### * residLen
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: residLen
 > ### Title: Squared residual length diagnostics
 > ### Aliases: residLen print.residLen fittedY sqrlLinear sqrlUnimodal
@@ -5787,15 +5648,12 @@ Passive:       0.00773  0.00909  0.0107  0.011   0.0123
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("residLen", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("residuals.prcurve")
 > ### * residuals.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: residuals.prcurve
 > ### Title: Residuals of a principal curve fit.
 > ### Aliases: residuals.prcurve resid.prcurve
@@ -6238,15 +6096,12 @@ Passive:       0.00773  0.00909  0.0107  0.011   0.0123
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("residuals.prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("rlgh")
 > ### * rlgh
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: rlgh
 > ### Title: Round Loch of Glenhead Diatoms
 > ### Aliases: rlgh
@@ -6258,15 +6113,12 @@ Passive:       0.00773  0.00909  0.0107  0.011   0.0123
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("rlgh", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("roc")
 > ### * roc
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: roc
 > ### Title: ROC curve analysis
 > ### Aliases: roc roc.default roc.mat roc.analog print.roc summary.roc
@@ -6327,15 +6179,12 @@ No. within: 167   No. outside: 1837
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("roc", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("scores.prcurve")
 > ### * scores.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: scores.prcurve
 > ### Title: 'scores' method for principal curve objects of class
 > ###   '"prcurve"'.
@@ -6392,15 +6241,12 @@ PC Converged in 6 iterations.
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("scores.prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("screeplot")
 > ### * screeplot
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: screeplot
 > ### Title: Screeplots of model results
 > ### Aliases: screeplot.mat screeplot.bootstrap.mat
@@ -6475,15 +6321,12 @@ Inferences based on the weighted mean of k-closest analogues:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("screeplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("splitSample")
 > ### * splitSample
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: splitSample
 > ### Title: Select samples from along an environmental gradient
 > ### Aliases: splitSample
@@ -6539,15 +6382,12 @@ attr(,"lengths")
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("splitSample", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("sppResponse.prcurve")
 > ### * sppResponse.prcurve
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: sppResponse
 > ### Title: Species responses along gradients.
 > ### Aliases: sppResponse sppResponse.prcurve
@@ -6588,15 +6428,12 @@ PC Converged in 6 iterations.
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("sppResponse.prcurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("stdError")
 > ### * stdError
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: stdError
 > ### Title: Standard error of MAT fitted and predicted values
 > ### Aliases: stdError stdError.mat stdError.predict.mat
@@ -6735,15 +6572,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("stdError", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.analog")
 > ### * summary.analog
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.analog
 > ### Title: Summarise analogue matching results
 > ### Aliases: summary.analog print.summary.analog
@@ -6763,15 +6597,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("summary.analog", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.bootstrap.mat")
 > ### * summary.bootstrap.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.bootstrap.mat
 > ### Title: Summarise bootstrap resampling for MAT models
 > ### Aliases: summary.bootstrap.mat print.summary.bootstrap.mat
@@ -6794,15 +6625,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("summary.bootstrap.mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.cma")
 > ### * summary.cma
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.cma
 > ### Title: Summarise the extraction of close modern analogues
 > ### Aliases: summary.cma print.summary.cma
@@ -6827,15 +6655,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("summary.cma", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.mat")
 > ### * summary.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.mat
 > ### Title: Summarise Modern Analogue Technique models
 > ### Aliases: summary.mat print.summary.mat
@@ -6861,15 +6686,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("summary.mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("summary.predict.mat")
 > ### * summary.predict.mat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.predict.mat
 > ### Title: Summarise MAT model predictions
 > ### Aliases: summary.predict.mat print.summary.predict.mat
@@ -6891,15 +6713,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("summary.predict.mat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("swapdiat")
 > ### * swapdiat
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: swapdiat
 > ### Title: SWAP sub-fossil diatom and pH training set
 > ### Aliases: swapdiat
@@ -6911,15 +6730,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("swapdiat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("swappH")
 > ### * swappH
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: swappH
 > ### Title: SWAP sub-fossil diatom and pH training set
 > ### Aliases: swappH
@@ -6934,15 +6750,12 @@ Merged:      171   30
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("swappH", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("timetrack")
 > ### * timetrack
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: timetrack
 > ### Title: Timetracks of change in species composition
 > ### Aliases: timetrack print.timetrack plot.timetrack fitted.timetrack
@@ -7038,15 +6851,12 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("timetrack", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("tran")
 > ### * tran
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: tran
 > ### Title: Common data transformations and standardizations
 > ### Aliases: tran tran.default tran.formula
@@ -7082,15 +6892,12 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("tran", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("varExpl")
 > ### * varExpl
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: varExpl
 > ### Title: Variance explained by ordination axes
 > ### Aliases: varExpl varExpl.default varExpl.cca varExpl.prcurve
@@ -7114,15 +6921,12 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("varExpl", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("wa")
 > ### * wa
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: wa
 > ### Title: Weighted averaging transfer functions
 > ### Aliases: wa wa.default wa.formula print.wa fitted.wa residuals.wa
@@ -7334,8 +7138,6 @@ Performance:
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("wa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("weightedCor")
@@ -7343,7 +7145,6 @@ Performance:
 > 
 > flush(stderr()); flush(stdout())
 > 
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: weightedCor
 > ### Title: Weighted correlation test of WA reconstruction
 > ### Aliases: weightedCor weightedCor.default print.weightedCor
@@ -7377,13 +7178,11 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > 
 > 
 > 
-> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-> base::cat("weightedCor", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.727 0.324 23.679 0.003 0.003 
+Time elapsed:  18.977 0.45 19.605 0.001 0.002 
 > grDevices::dev.off()
 null device 
           1 
