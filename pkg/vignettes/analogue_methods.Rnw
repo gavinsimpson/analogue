@@ -9,7 +9,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% almost as usual
-\author{Gavin L. Simpson\\Environmental Change Research Centre --- UCL}
+\author{Gavin L. Simpson\\Institute of Environmental Change and Society --- University of Regina}
 \title{Analogue Methods in Palaeoecology:\\ Using the \pkg{analogue} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -38,15 +38,15 @@
 %% The address of (at least) one author should be given
 %% in the following format:
 %\Address{
-%  Gavin L. Simpson\\
-%  Environmental Change Research Centre\\
-%  UCL Department of Geography\\
-%  Pearson Building\\
-%  Gower Street\\
-%  London, UK, WC1E 6BT\\
-%  E-mail: \email{gavin.simpson@ucl.ac.uk}\\
-%  URL: \url{http://www.homepages.ucl.ac.uk/~ucfagls/}
-%}
+  % Gavin L. Simpson\\
+  % Insitutute of Environmental Change and Society\\
+  % University of Regina\\
+  % 3737 Wascana Parkway\\
+  % Regina\\
+  % SK, S4S 0A2, Canada\\
+  % %%E-mail: \email{ucfagls\@gmail.com}\\
+  % URL: \url{http://www.fromthebottomoftheheap.net/}
+%} 
 %% It is also possible to add a telephone and fax number
 %% before the e-mail in the following format:
 %% Telephone: +43/1/31336-5053
