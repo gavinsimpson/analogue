@@ -220,7 +220,7 @@ distance.join <- function(x, ...) {
         }
         if(DCOEF == 11L) { ## "kendall"
             x <- data.matrix(x)
-            x <- data.matrix(y)
+            y <- data.matrix(y)
             XY <- rbind(x, y)
             maxi <- apply(XY, 2, max)
             d <- .C("xy_kendall", x = as.double(x), y = as.double(y),
