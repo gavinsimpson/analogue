@@ -16,6 +16,10 @@ Version 0.11-6
 	* Vignette: Updated some details regarding C versions of
 	dissimilarity coefs.
 
+	* performance: a tweak to the print method to zap values that
+	are effectively 0. Only affects vectors of performance statistics
+	not data frames of stats.
+
 Version 0.11-5
 
 	* newDistance: (yet another) new distance() replacement to
@@ -197,8 +201,8 @@ Version 0.11-0
 
 	* Tests: code in wa() generates slightly different results
 	under R 3.0.0 (to be). Differences are in the 8th or 9th
-	decimal place so irrelevant, but I was the reference output
-	for the examples was checking to that level of precision.
+	decimal place so irrelevant, but I was using the reference
+	output for the examples was checking to that level of precision.
 	For tests only, the Example in ?wa uses options(digits = 5).
 
 Version 0.10-0

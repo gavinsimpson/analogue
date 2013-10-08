@@ -4,10 +4,11 @@
     if(inherits(x, "data.frame")) {
         print.data.frame(x, digits = digits, ...)
     } else {
+        x <- zapsmall(x, digits = digits)
         perf.names <- names(x)
         attributes(x) <- NULL
         names(x) <- perf.names
-        print.default(x, digits = digits, ...) # x was round(x, 4)
+        print.default(x, digits = digits, ...)
     }
     invisible(x)
 }

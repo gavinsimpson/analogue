@@ -1,5 +1,5 @@
 
-R version 3.0.2 Patched (2013-10-07 r64035) -- "Frisbee Sailing"
+R version 3.0.2 Patched (2013-09-26 r64005) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -1208,7 +1208,7 @@ Bootstrap sample 100
 > ## performance statistics
 > performance(ik.boot)
    RMSEP       R2 Avg.Bias Max.Bias 
-  2.3846   0.8948  -0.1778  -3.2058 
+   2.385    0.895   -0.178   -3.206 
 > 
 > 
 > 
@@ -4473,8 +4473,8 @@ Performance:
 > 
 > ## the model performance statistics
 > performance(mod)
-      RMSE         R2   Avg.Bias   Max.Bias 
- 2.019e+00  9.173e-01  2.228e-14 -3.815e+00 
+    RMSE       R2 Avg.Bias Max.Bias 
+   2.019    0.917    0.000   -3.815 
 > 
 > 
 > 
@@ -5479,7 +5479,7 @@ Performance:
 > ## extract the model performance stats
 > performance(v12.pred)
    RMSEP       R2 Avg.Bias Max.Bias 
-  2.3617   0.8989  -0.1483  -3.2158 
+   2.362    0.899   -0.148   -3.216 
 > 
 > 
 > 
@@ -7182,7 +7182,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  18.977 0.45 19.605 0.001 0.002 
+Time elapsed:  22.917 0.33 23.65 0 0.004 
 > grDevices::dev.off()
 null device 
           1 
