@@ -17,7 +17,7 @@
         want <- spp.names[want]
         newdata <- newdata[, want, drop = FALSE]
         ## apply transformation to newdata
-        newdata <- obj$tranFun(newdata)
+        newdata <- object$tranFun(newdata)
         ## do predictions
         ## matrix of predictions
         pred <- matrix(ncol = length(ncomp), nrow = Np)
