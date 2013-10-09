@@ -23,6 +23,9 @@ Version 0.11-6
 	* predict.pcr: Apply transformation function and stop is any form
 	of crossvalidation is selected (as not yet implemented).
 
+	* crossval.pcr: leave-one-out CV was incorrectly averaging over
+	components.
+
 Version 0.11-5
 
 	* newDistance: (yet another) new distance() replacement to
