@@ -20,6 +20,9 @@ Version 0.11-6
 	are effectively 0. Only affects vectors of performance statistics
 	not data frames of stats.
 
+	* predict.pcr: Apply transformation function and stop is any form
+	of crossvalidation is selected (as not yet implemented).
+
 Version 0.11-5
 
 	* newDistance: (yet another) new distance() replacement to

@@ -16,6 +16,8 @@
         want <- (spp.names <- colnames(object$data$x)) %in% colnames(newdata)
         want <- spp.names[want]
         newdata <- newdata[, want, drop = FALSE]
+        ## apply transformation to newdata
+        newdata <- obj$tranFun(newdata)
         ## do predictions
         ## matrix of predictions
         pred <- matrix(ncol = length(ncomp), nrow = Np)
@@ -23,8 +25,11 @@
             B0 <- object$yMean - object$xMeans %*% B[, j]
             pred[, j] <- newdata %*% B[, j] + rep(B0, Np)
         }
+    } else {
+        stop("Other methods of crossvalidation not yet implemented")
     }
     rownames(pred) <- newSamp
     colnames(pred) <- paste0("PC", ncomp)
     pred
 }
+
