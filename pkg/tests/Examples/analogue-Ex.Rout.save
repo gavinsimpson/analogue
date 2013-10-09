@@ -5429,6 +5429,47 @@ Predicted values:
 > 
 > 
 > cleanEx()
+> nameEx("predict.pcr")
+> ### * predict.pcr
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.pcr
+> ### Title: Predicted values from a principal components regression
+> ### Aliases: predict.pcr
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+> ## Load the Imbrie & Kipp data and
+> ## summer sea-surface temperatures
+> data(ImbrieKipp)
+> data(SumSST)
+> 
+> ## choose 10 samples to act as a test set, for illustration
+> take <- c(5,58,31,51,42,28,30,57,8,50)
+> 
+> ## normal interface and apply Hellinger transformation
+> mod <- pcr(ImbrieKipp[-take, ], SumSST[-take], tranFun = Hellinger)
+> 
+> ## predictions
+> predict(mod, ImbrieKipp[take, ], ncomp = 1:4)
+             PC1       PC2       PC3       PC4
+V14.47  10.34383  8.964025  8.816845  8.700079
+V20.7   28.37448 26.720456 26.781783 26.619102
+V12.18  26.20249 26.438019 26.250313 26.405603
+V15.164 28.73089 27.389314 27.464025 27.556603
+V22.204 26.62995 26.287830 26.489270 26.472449
+V19.222 22.51833 23.657659 23.610868 23.537830
+V16.189 26.73964 26.671009 26.551076 26.529436
+V20.230 28.03053 26.819795 27.094141 27.094730
+V23.29  11.45795 11.373413 11.816852 12.136959
+A180.76 28.15434 26.970442 27.221069 27.230316
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("predict.wa")
 > ### * predict.wa
 > 
@@ -7182,7 +7223,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.917 0.33 23.65 0 0.004 
+Time elapsed:  23.269 0.335 24.256 0.001 0.003 
 > grDevices::dev.off()
 null device 
           1 
