@@ -5,14 +5,15 @@
 
 \description{
   Calculates predicted values from a fitted principal components
-  regression model. Leave-one-out, bootstrap of n-fold crossvalidated
-  predictions are also intended (but not yet implemented).
+  regression model. Leave-one-out, bootstrap or n k-fold crossvalidated
+  predictions are also implemented.
 }
 
 \usage{
 \method{predict}{pcr}(object, newdata, ncomp = seq_along(object$ncomp),
-        CV = c("none", "LOO", "bootstrap", "nfold"),
-        verbose = FALSE, nboot = 100, nfold = 5, \dots)
+        CV = c("none", "LOO", "bootstrap", "kfold"),
+        verbose = FALSE, nboot = 100, kfold = 10, folds = 5,
+        \dots)
 }
 
 \arguments{
@@ -21,16 +22,15 @@
   \item{newdata}{data frame of new observations for which predictions
     are sought.}
   \item{ncomp}{numeric; the PCR components for which predictions are
-    sought. Can be a vector in which case predictions for multiple
-    components are computed.}
+    sought. If \code{ncomp = c}, predictions for components \code{1:c}
+    are produced.}
   \item{CV}{character; the type of crossvalidation required. Currently,
     no crossvalidation methods are implemented.}
   \item{verbose}{logical; should progress on crossvalidation be printed
     to the console?}
-  \item{nboot}{numeric; the number of bootstrap samples to draw, or in
-    the case of \code{CV = "nfold"} the number of repeats of n-fold CV
-    to perform.}
-  \item{nfold}{numeric; the number of folds to split data into.}
+  \item{nboot}{numeric; the number of bootstrap samples to draw.}
+  \item{kfold}{numeric; the number of folds to split data into.}
+  \item{folds}{numeric; the number of repetitions of k-fold CV.}
   \item{\dots}{arguments passed to other methods.}
 }
 
@@ -63,7 +63,12 @@ take <- c(5,58,31,51,42,28,30,57,8,50)
 mod <- pcr(ImbrieKipp[-take, ], SumSST[-take], tranFun = Hellinger)
 
 ## predictions
-predict(mod, ImbrieKipp[take, ], ncomp = 1:4)
+predict(mod, ImbrieKipp[take, ], ncomp = 4)
+
+## predictions
+set.seed(123)
+predict(mod, ImbrieKipp[take, ], ncomp = 4, CV = "bootstrap",
+        nboot = 100)
 
 }
 \keyword{methods}

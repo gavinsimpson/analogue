@@ -21,6 +21,8 @@
             if(ncomp < 1 || ncomp > (newcomp <- min(nr - 1, M))) {
                 warning("'ncomp' inappropriate for LOO CV. Resetting to max possible.")
                 newcomp
+            } else {
+                ncomp
             }
         }
         ## matrix of predictions
@@ -54,7 +56,6 @@
                 pred[i, j] <- Xi %*% FIT$B[, j, drop = FALSE] + B0
             }
         }
-        ##pred <- rowMeans(pred, na.rm = TRUE)
     }
     if(identical(method, "kfold")) {
         ## form ncomp, as k-fold we have ceiling(N / nfold) fewer sites
@@ -65,6 +66,8 @@
             if(ncomp < 1 || ncomp > maxComp) {
                 warning("'ncomp' inappropriate for k-fold CV. Resetting to max possible.")
                 maxComp
+            } else {
+                ncomp
             }
         }
         pred <- array(NA, dim = c(N, ncomp, folds))
@@ -108,17 +111,18 @@
                 }
             }
         }
-        pred <- rowMeans(pred, na.rm = TRUE, dims = 2)
     }
     if(identical(method, "bootstrap")) {
-        ## form ncomp, as k-fold we have ceiling(N / nfold) fewer sites
+        ## form ncomp, as if this was a standard training set setting.
         maxComp <- min(N - 1, M)
         ncomp <- if(missing(ncomp)) {
-            maxComp## uses nr which already has 1 removed
+            maxComp
         } else {
             if(ncomp < 1 || ncomp > maxComp) {
                 warning("'ncomp' inappropriate for bootstrap CV. Resetting to max possible.")
                 maxComp
+            } else {
+                ncomp
             }
         }
         pred <- array(NA, dim = c(N, ncomp, nboot))
@@ -136,28 +140,78 @@
             bSamp <- sample.int(N, N, replace = TRUE)
             sel <- which(!ind %in% bSamp) ## need indices!!!
             N.oob <- NROW(x[sel, , drop = FALSE])
-            N.mod <- N - N.oob ## not sure I need this
+            ##N.mod <- N - N.oob ## not sure I need this
             ## apply transformation to X[-sel, ]
-            TRAN <- obj$tranFun(x[-sel, , drop = FALSE])
+            TRAN <- obj$tranFun(x[bSamp, , drop = FALSE])
             X <- TRAN$data
             ## apply transformation to OOB samples, using parms from above
             Xi <- obj$tranFun(x[sel, , drop = FALSE], apply = TRUE,
                               parms = TRAN$parms)$data
             ## centre the training data
             Xbar <- colMeans(X)
-            ybar <- mean(y[-sel])
+            ybar <- mean(y[bSamp])
             X <- sweep(X, 2, Xbar, "-")
-            Y <- y[-sel] - ybar
+            Y <- y[bSamp] - ybar
             ## fit model to subset
-            FIT <- fitPCR(X = X, Y = Y, ncomp = ncomp, n = N.mod, m = M)
+            FIT <- fitPCR(X = X, Y = Y, ncomp = ncomp, n = N, m = M)
             ## predict for 1:ncomps components
             for(j in nc) {
                 B0 <- obj$yMean - obj$xMeans %*% FIT$B[, j, drop = FALSE]
-                pred[sel, j, i] <- Xi %*% FIT$B[, j, drop = FALSE] + rep(B0, N.oob)
+                pred[sel, j, i] <- Xi %*% FIT$B[, j, drop = FALSE] +
+                    rep(B0, N.oob)
             }
         }
-        pred <- rowMeans(pred, na.rm = TRUE, dims = 2)
     }
-    class(pred) <- "crossval"
-    pred
+
+    ## fitted values and derived stats
+    if(identical(method, "none")) {
+        fitted <- pred
+    } else if(method %in% c("","")) {
+        rowMeans(pred, na.rm = TRUE, dims = 2)
+    } else {
+        fitted <- rowMeans(pred)
+    }
+    residuals <- y - fitted                               ## residuals
+    maxBias <- apply(residuals, 2, maxBias, y, n = 10)    ## maxBias
+    avgBias <- colMeans(residuals)                        ## avgBias
+    r2 <- apply(fitted, cor, y)
+    ## s1 & s2 components for model and training set
+    ns <- rowSums(!is.na(pred), dims = 2)
+    s1.train <- t(sqrt(rowSums((pred - as.vector(fitted))^2,
+                               na.rm = TRUE, dims = 2) / as.vector(ns - 1)))
+    s1 <- sqrt(colMeans(s1.train^2))
+    s2 <- sqrt(colMeans(residuals^2, na.rm = TRUE))
+    s2.train <- sweep(pred, c(2,1), y, "-")
+    s2.train <- sqrt(t(rowMeans(s2.train^2, na.rm = TRUE, dims = 2)))
+
+    ## RMSEP
+    rmsep.train <- sqrt(s1.train^2 + s2.train^2)
+    rmsep <- sqrt(s1^2 + s2^2)
+    rmsep2 <- sqrt(mean(residuals^2))
+    performance <- data.frame(comp = ncomp,
+                              R2 = r2,
+                              avgBias = avgBias,
+                              maxBias = maxBias,
+                              RMSEP = rmsep,
+                              RMSEP2 = rmsep2,
+                              s1 = s1,
+                              s2 = s2)
+
+    ## more additions to the call
+    .call <- match.call()
+    .call[[1]] <- as.name("crossval")
+
+    ## return object
+    out <- list(fitted.values = fitted,
+                residuals = residuals,
+                rmsep = rmsep.train,
+                s1 = s1.train,
+                s2 = s2.train,
+                performance = performance,
+                call = .call,
+                CVparams = list(method = method, nboot = nboot,
+                nfold = nfold, folds = folds))
+
+    class(out) <- "crossval"
+    out
 }
