@@ -24,9 +24,9 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.0-9
+This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.11-6
+This is analogue 0.11-99
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5453,7 +5453,7 @@ Predicted values:
 > mod <- pcr(ImbrieKipp[-take, ], SumSST[-take], tranFun = Hellinger)
 > 
 > ## predictions
-> predict(mod, ImbrieKipp[take, ], ncomp = 1:4)
+> predict(mod, ImbrieKipp[take, ], ncomp = 4)
              PC1       PC2       PC3       PC4
 V14.47  10.34383  8.964025  8.816845  8.700079
 V20.7   28.37448 26.720456 26.781783 26.619102
@@ -5465,6 +5465,22 @@ V16.189 26.73964 26.671009 26.551076 26.529436
 V20.230 28.03053 26.819795 27.094141 27.094730
 V23.29  11.45795 11.373413 11.816852 12.136959
 A180.76 28.15434 26.970442 27.221069 27.230316
+> 
+> ## predictions
+> set.seed(123)
+> predict(mod, ImbrieKipp[take, ], ncomp = 4, CV = "bootstrap",
++         nboot = 100)
+             PC1       PC2       PC3       PC4
+V14.47  10.86146  9.108554  8.796106  8.721006
+V20.7   27.93000 26.680977 26.738630 26.619345
+V12.18  26.09875 26.452455 26.273816 26.340640
+V15.164 28.31861 27.344207 27.415372 27.455231
+V22.204 26.44229 26.237016 26.479955 26.523139
+V19.222 22.69438 23.664213 23.651692 23.626940
+V16.189 26.56779 26.665168 26.550892 26.443218
+V20.230 27.67475 26.752244 27.058222 27.096922
+V23.29  12.11350 11.412378 11.789892 12.165228
+A180.76 27.79627 26.907033 27.191718 27.251444
 > 
 > 
 > 
@@ -6856,9 +6872,9 @@ Ordination Output:
 Call: rda(X = X, Y = mf)
 
               Inertia Proportion Rank
-Total         0.61631    1.00000     
-Constrained   0.09743    0.15808    1
-Unconstrained 0.51888    0.84192  165
+Total          0.6163     1.0000     
+Constrained    0.0974     0.1581    1
+Unconstrained  0.5189     0.8419  165
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -7223,7 +7239,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.269 0.335 24.256 0.001 0.003 
+Time elapsed:  22.285 0.434 23.459 0.001 0.003 
 > grDevices::dev.off()
 null device 
           1 

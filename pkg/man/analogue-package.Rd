@@ -14,7 +14,7 @@ Fits Modern Analogue Technique and Weighted Averaging transfer
 \tabular{ll}{
 Package: \tab analogue\cr
 Type: \tab Package\cr
-Version: \tab 0.11-6\cr
+Version: \tab 0.11-99\cr
 Date: \tab $Date: 2013-10-05 15:11:52 -0600 (Sat, 05 Oct 2013) $\cr
 Depends: \tab R (>= 2.15.0), vegan (>= 1.17-12), lattice, rgl\cr
 Imports: \tab mgcv, MASS, stats, graphics, grid, brglm, princurve\cr
@@ -30,8 +30,8 @@ NeedsCompilation: \tab yes\cr
 License: \tab GPL-2\cr
 ByteCompile: \tab true\cr
 URL: \tab http://analogue.r-forge.r-project.org\cr
-Packaged: \tab 2013-10-14 20:41:41 UTC; gavin\cr
-Built: \tab R 3.0.2; x86_64-unknown-linux-gnu; 2013-10-14 20:41:48 UTC; unix\cr
+Packaged: \tab 2013-12-13 05:23:57 UTC; gavin\cr
+Built: \tab R 3.0.2; x86_64-unknown-linux-gnu; 2013-12-13 05:27:27 UTC; unix\cr
 }
 
 Index:
@@ -42,7 +42,8 @@ RMSEP                   Root mean square error of prediction
 Stratiplot              Palaeoecological stratigraphic diagrams
 abernethy               Abernethy Forest Pollen Sequence
 analog                  Analogue matching
-analogue-package        Analogue methods for palaeoecology
+analogue-package        Analogue and weighted averaging methods for
+                        palaeoecology
 bayesF                  Bayes factors
 bootstrap               Bootstrap estimation and errors
 bootstrap.wa            Bootstrap estimation and errors for WA models
