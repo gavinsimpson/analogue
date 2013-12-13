@@ -4,6 +4,9 @@ Version 0.11-99
 
 	* Preparing for the 0.12-0 release.
 
+	* NEWS: analogue now has an `inst/NEWS.Rd` file highlight the major
+	changes in the upcoming 0.12-0 release.
+
 Version 0.11-6
 
 	* distance3: removed - redundant attempt to improve `distance()`.
