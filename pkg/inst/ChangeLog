@@ -1,5 +1,11 @@
 analogue Change Log
 
+Version 0.13-0 Development branch opened 16 December 2013
+
+	* predict.pcr: internal function was calling `fitPCR()` via
+	`analogue:::fitPCR()`, which is not required nor was it intended.
+	Reported by Brian Ripley.
+
 Version 0.12-0
 
 	* Released to CRAN December 13th 2013
