@@ -26,7 +26,7 @@ Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.12-0
+This is analogue 0.13-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5285,6 +5285,10 @@ Iteration   5: d.sq: 5137.944
 PC Converged in 5 iterations.
 
 > 
+> ## Extract fitted values
+> fit <- fitted(aber.pc) ## locations on curve
+> abun <- fitted(aber.pc, type = "smooths") ## fitted response
+> 
 > ## Fit the principal curve using varying complexity of smoothers
 > ## for each species
 > aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
@@ -5306,6 +5310,10 @@ Iteration   6: d.sq: 4369.944
 
 PC Converged in 6 iterations.
 
+> 
+> ## Predict new locations
+> take <- abernethy2[1:10, ]
+> pred <- predict(aber.pc2, take)
 > 
 > ## Not run: 
 > ##D ## Fit principal curve using a GAM - currently slow ~10secs
@@ -7239,7 +7247,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.357 0.334 23.687 0.003 0.003 
+Time elapsed:  21.822 0.288 23.53 0.002 0.002 
 > grDevices::dev.off()
 null device 
           1 

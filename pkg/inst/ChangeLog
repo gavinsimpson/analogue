@@ -10,6 +10,9 @@ Version 0.13-0 Development branch opened 16 December 2013
 	for new observations on the same set of variables. Useful for
 	adding passive species.
 
+	* fitted.prcurve: new function to return the fitted locations on
+	the principal curve or the fitted values of the response.
+
 Version 0.12-0
 
 	* Released to CRAN December 13th 2013
