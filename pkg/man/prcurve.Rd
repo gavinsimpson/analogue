@@ -132,6 +132,10 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
 aber.pc2 <- prcurve(abernethy2, method = "ca", trace = TRUE,
                     vary = TRUE, penalty = 1.4)
 
+## Predict new locations
+take <- abernethy2[1:10, ]
+pred <- predict(aber.pc2, take)
+
 \dontrun{
 ## Fit principal curve using a GAM - currently slow ~10secs
 aber.pc3 <- prcurve(abernethy2, method = "ca", trace = TRUE,

@@ -23,7 +23,7 @@ prcurve <- function(X,
                     ## latent = FALSE,
                     ...) {
     ## X should be a matrix, attempt to coerce
-    if(!isTRUE(all.equal(class(X), "matrix")))
+    if(!isTRUE(inherits(X, "matrix")))
         X <- data.matrix(X)
     ## set/select default method for starting configuration
     if(missing(method))
@@ -208,6 +208,7 @@ prcurve <- function(X,
     config$call <- match.call()
     config$ordination <- ord
     config$data <- X
+    config$stretch <- stretch
     class(config) <- c("prcurve")
     config
 }

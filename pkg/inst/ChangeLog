@@ -6,6 +6,10 @@ Version 0.13-0 Development branch opened 16 December 2013
 	`analogue:::fitPCR()`, which is not required nor was it intended.
 	Reported by Brian Ripley.
 
+	* predict.prcurve: new function to predict locations on the curve
+	for new observations on the same set of variables. Useful for
+	adding passive species.
+
 Version 0.12-0
 
 	* Released to CRAN December 13th 2013
