@@ -1,5 +1,4 @@
-`plot3d.prcurve` <- function(x, data, scale = FALSE,
-                             choices = 1:3, display = "sites",
+`plot3d.prcurve` <- function(x, choices = 1:3, display = "sites",
                              scaling = 0,
                              lcol = "darkorange", lwd = 2,
                              decorate = TRUE,
@@ -17,7 +16,8 @@
         }
     }
     ## do ordination
-    ord <- rda(data, scale = scale)
+    ## ord <- rda(x$data, scale = scale)
+    ord <- x$ordination ## this is now stored
     ## process labels
     if(missing(xlab) || is.null(xlab))
         xlab <- paste0("PC", choices[1])

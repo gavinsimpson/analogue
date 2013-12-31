@@ -26,7 +26,7 @@ Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.13-0
+This is analogue 0.13-1
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5240,7 +5240,7 @@ PC Converged in 5 iterations.
 
 > 
 > ## 3D plot of data with curve superimposed
-> plot3d(aber.pc, abernethy2)
+> plot3d(aber.pc)
 > 
 > 
 > 
@@ -7247,7 +7247,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.822 0.288 23.53 0.002 0.002 
+Time elapsed:  22.251 0.337 24.003 0.001 0.002 
 > grDevices::dev.off()
 null device 
           1 

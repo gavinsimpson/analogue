@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.13-1 Opened 24 December 2013
+
+	* plot3d.prcuve: was not using the `data` & `ordination` objects
+	stored within the fitted `prcurve` object.
+
 Version 0.13-0 Development branch opened 16 December 2013
 
 	* predict.pcr: internal function was calling `fitPCR()` via

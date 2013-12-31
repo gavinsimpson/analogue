@@ -8,23 +8,15 @@
   using the \pkg{rgl} package and functions from \pkg{vegan}.
 }
 \usage{
-\method{plot3d}{prcurve}(x, data, scale = FALSE, choices = 1:3,
-       display = "sites", scaling = 0, lcol = "darkorange", lwd = 2,
-       decorate = TRUE, xlab = NULL, ylab = NULL, zlab = NULL,
-       main = NULL, ...)
+\method{plot3d}{prcurve}(x, choices = 1:3, display = "sites", scaling = 0,
+       lcol = "darkorange", lwd = 2, decorate = TRUE, xlab = NULL,
+       ylab = NULL, zlab = NULL, main = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
     an object of class \code{"prcurve"} resulting from a call to
     \code{\link{prcurve}}.
-  }
-  \item{data}{
-    the data used to fit the principal curve.
-  }
-  \item{scale}{
-    logical; should the variables in \code{data} be scaled to zero mean
-    and unit variance?
   }
   \item{choices}{
     numeric vector of length 3; the ordination axes to plot.
@@ -89,7 +81,7 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
                    vary = FALSE, penalty = 1.4)
 
 ## 3D plot of data with curve superimposed
-plot3d(aber.pc, abernethy2)
+plot3d(aber.pc)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
