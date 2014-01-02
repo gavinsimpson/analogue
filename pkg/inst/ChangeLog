@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.13-2 Opened 1 Jan 2014
+
+	* prcurve: uses `dev.hold()` & `dev.flush()` to smooth graphics
+	flicker during fitting with `plotit = TRUE`,
+
 Version 0.13-1 Opened 24 December 2013
 
 	* plot3d.prcuve: was not using the `data` & `ordination` objects
