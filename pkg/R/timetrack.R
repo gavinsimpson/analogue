@@ -22,8 +22,8 @@
     X <- X[, tmp]
     passive <- passive[, tmp]
     ## check what type of ordination is required
-    if(isTRUE(missing(method)))
-        method <- "cca"
+    ##if(isTRUE(missing(method)))
+    ##    method <- "cca"
     method <- match.arg(method)
     FUN <- match.fun(method)
     ## if no env do unconstrained
