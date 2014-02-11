@@ -53,19 +53,6 @@ cumWmean <- function(weights, y, drop = TRUE, kmax) {
 ## drop              - drop spurious zero distance                       ##
 ##                                                                       ##
 ###########################################################################
-#cummean <- function(dis, y, drop = TRUE)
-#  {
-#    nas <- is.na(dis)
-#    ord <- order(dis[!nas])
-#    if(drop) {
-#      dis <- dis[!nas][ord][-1]
-#      y <- y[!nas][ord][-1]
-#    } else {
-#      dis <- dis[!nas][ord]
-#      y <- y[!nas][ord]
-#    }
-#    cumsum(y) / 1:length(dis)
-#  }
 cummean <- function(dis, y, drop = TRUE, kmax) {
     if(missing(kmax))
         kmax <- length(y)
@@ -118,12 +105,6 @@ minDij <- function(x, drop = TRUE)
 ## n                 - number of sections to break env gradient into     ##
 ##                                                                       ##
 ###########################################################################
-##maxBias <- function(error, y, n = 10)
-##  {
-##    groups <- cut(y, breaks = n, labels = 1:n)
-##    bias <- aggregate(error, list(group = groups), mean)$x
-##    bias[which.max(abs(bias))]
-##  }
 maxBias <- function(error, y, n = 10)
   {
     groups <- cut.default(y, breaks = n, labels = 1:n)
@@ -167,12 +148,11 @@ wmean <- function(spp, env) {
 ## w.avg - fast weighted mean function with no checks
 `w.avg` <- function(x, env) {
     opt <- ColSums(x * env) / ColSums(x)
-    ##opt <- .colSums(x * env) / .colSums(x)
     names(opt) <- colnames(x)
     opt
 }
 
-## fast rowSums and colSums functiosn without the checking
+## fast rowSums and colSums functions without the checking
 `RowSums` <- function(x, na.rm = FALSE) {
     dn <- dim(x)
     p <- dn[2]
@@ -187,17 +167,11 @@ wmean <- function(spp, env) {
     .colSums(x, n, dn, na.rm)
 }
 
-## deshrinking function given deshrinking coefs and a method
-##`deshrink.pred` <- function(x, coef) {
-##    coef[1] + x * coef[2]
-##}
-
 ## w.tol --- computes weighted standard deviations AKA tolerances
 w.tol <- function(x, env, opt, useN2 = TRUE) {
     ## x   = species abundances
     ## env = vector of response var
     ## opt = weighted average optima
-    ##tol <- sqrt(ColSums(x * outer(env, opt, "-")^2) / ColSums(x))
     nr <- NROW(x)
     nc <- NCOL(x)
     tol <- .C("WTOL", x = as.double(env), w = as.double(x),
