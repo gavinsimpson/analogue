@@ -28,5 +28,5 @@
     } else {
         points(pass, pch = pch[2], col = col[2], ...)
     }
-    invisible()
+    invisible(x$ord)
 }
