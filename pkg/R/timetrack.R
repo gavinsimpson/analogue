@@ -5,7 +5,9 @@
                         transform = "none",
                         formula, ##type = c("wa","lc"),
                         scaling = 3, rank = "full",
-                        model = c("CCA", "CA"), ...) {
+                        ##model = c("CCA", "CA"),
+                        ...) {
+    origX <- X ## store for later
     namX <- deparse(substitute(X))
     namP <- deparse(substitute(passive))
     ## Apply a transformation - let tran deal with arg matching
@@ -56,9 +58,9 @@
         }
     }
     ## process predict args
-    if(isTRUE(missing(model)))
-        model <- "CCA"
-    model <- match.arg(model)
+    ##if(isTRUE(missing(model)))
+    ##    model <- "CCA"
+    ##model <- match.arg(model)
     ## fitted values for passive
     pred <- predict(ord, newdata = passive, type = "wa",
                     scaling = scaling, model = "CCA", rank = rank)
@@ -69,10 +71,11 @@
     ## return object
     res <- list(ordination = ord, fitted.values = pred,
                 method = method, formula = formula, #type = type,
-                scaling = scaling, rank = rank, model = model,
-                labels = nams, call = match.call())
+                scaling = scaling, rank = rank, ##model = model,
+                labels = nams, call = match.call(),
+                X = origX, transform = transform)
     class(res) <- "timetrack"
-    return(res)
+    res
 }
 
 `print.timetrack` <- function(x, ...) {

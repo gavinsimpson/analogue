@@ -1,5 +1,21 @@
 analogue Change Log
 
+Version 0.13-3 Opened 11 Feb 2014
+
+	* timetrack: A number of additions added and improvements made:
+
+		o New `predict()` method allows additional passive points
+		  to be located in the timetrack space.
+
+		o New `points()` method to allow drawing of points for
+		  training or passive samples on an existing plot.
+
+		o The `plot()` method can now suppress plotting of all
+		  points, for a clean canvas with axes/labelling ready to
+		  accept additional plotting function calls.
+
+	These changes were made following a query by Andrew Medeiros.
+
 Version 0.13-2 Opened 1 Jan 2014
 
 	* prcurve: uses `dev.hold()` & `dev.flush()` to smooth graphics

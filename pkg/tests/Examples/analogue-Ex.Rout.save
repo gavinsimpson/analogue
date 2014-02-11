@@ -1,5 +1,5 @@
 
-R version 3.0.2 Patched (2013-09-26 r64005) -- "Frisbee Sailing"
+R version 3.0.2 Patched (2013-10-07 r64035) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -26,7 +26,7 @@ Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.13-2
+This is analogue 0.13-3
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -6823,8 +6823,8 @@ Merged:      171   30
 > 
 > ### Name: timetrack
 > ### Title: Timetracks of change in species composition
-> ### Aliases: timetrack print.timetrack plot.timetrack fitted.timetrack
-> ###   scores.timetrack
+> ### Aliases: timetrack print.timetrack plot.timetrack points.timetrack
+> ###   fitted.timetrack scores.timetrack predict.timetrack
 > ### Keywords: methods hplot
 > 
 > ### ** Examples
@@ -6913,6 +6913,22 @@ Eigenvalues for unconstrained axes:
 113.21 -0.0008560853  0.071167503
 115.11  0.0907404572 -0.015968707
 12.11   0.1220684180 -0.237747308
+> 
+> ## predict locations in timetrack for new observations
+> take <- rlgh[1:50, ]
+> take <- take[ , colSums(take) > 0]
+> mod3 <- predict(mod, newdata = take)
+> class(mod3) ## returns a timetrack object
+[1] "timetrack"
+> take <- rlgh[-(1:50), ]
+> take <- take[ , colSums(take) > 0]
+> mod4 <- predict(mod, newdata = take)
+> 
+> ## build a plot up from base parts
+> plot(mod, type = "n", ptype = "n")
+> points(mod, which = "ordination", col = "grey", pch = 19, cex = 0.7)
+> points(mod3, which = "passive", col = "red")
+> points(mod4, which = "passive", col = "blue")
 > 
 > 
 > 
@@ -7247,7 +7263,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.712 0.38 23.116 0.001 0.002 
+Time elapsed:  17.35 0.299 17.92 0.001 0.002 
 > grDevices::dev.off()
 null device 
           1 

@@ -2,8 +2,10 @@
 \alias{timetrack}
 \alias{print.timetrack}
 \alias{plot.timetrack}
+\alias{points.timetrack}
 \alias{fitted.timetrack}
 \alias{scores.timetrack}
+\alias{predict.timetrack}
 
 \title{Timetracks of change in species composition}
 
@@ -15,17 +17,23 @@
 \usage{
 timetrack(X, passive, env, method = c("cca", "rda"),
           transform = "none", formula, scaling = 3,
-          rank = "full", model = c("CCA", "CA"), \dots)
+          rank = "full", \dots)
 
 \method{fitted}{timetrack}(object, which = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
+
+\method{predict}{timetrack}(object, newdata, \dots)
 
 \method{scores}{timetrack}(x, which = c("ordination", "passive"),
        scaling = x$scaling, choices = 1:2, display = "sites", \dots)
 
 \method{plot}{timetrack}(x, choices = 1:2, display = c("wa", "lc"),
-     order, ptype = c("l", "p", "o", "b"), pch = c(1,2),
-     col = c("black","red"), lty = "solid", lwd = 1, \dots)
+     order, type = c("p", "n"), ptype = c("l", "p", "o", "b", "n"),
+     pch = c(1,2), col = c("black","red"), lty = "solid", lwd = 1,
+     xlim = NULL, ylim = NULL, \dots)
+
+\method{points}{timetrack}(x, choices = 1:2, which = c("passive", "ordination"),
+      display = c("wa","lc"), order, \dots)
 }
 
 \arguments{
@@ -55,21 +63,37 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     the samples.}
   \item{rank}{character; see argument of same name in function
     \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
-  \item{model}{character; see argument of same name in function
-    \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
   \item{object, x}{an object of class \code{"timetrack"}.}
   \item{which}{character; which fitted values should be returned?}
+  \item{model}{character; which ordination component should be used for
+    the fitted values; the constrained or unconstrained part? See
+    \code{\link{fitted.cca}} for details, but essentially, one of
+    \code{"CCA"} for the constrained part and \code{"CA"} for the
+    unconstrained part. If \code{NULL}, the default, \code{"CA"} is used
+    unless the underlying ordination was constrained, in which case
+    \code{"CCA"} is used.}
   \item{choices}{numeric; the length-2 vector of ordination axes to
     plot.}
+  \item{newdata}{a data frame of new observations for which locations in
+    the plot (or a timetrack) are required. This need not have exactly
+    the same set of species as the fitted ordination as internally only
+    those species in \code{newdata} that were included in the data used
+    for the ordination will be retained. In addition, if a
+    transformation was applied to the species data used to fit the
+    ordination, the same transformation will be automatically applied to
+    \code{newdata} using \code{\link{tran}}.}
   \item{display}{character; which type of sites scores to display? See
     \code{\link{scores.cca}} for details.}
   \item{order}{numeric; vector of indices to use to reorder the passive
     samples. Useful to get passive samples into temporal order for
     plotting with a line.}
+  \item{type}{character; the type of plotting required for the training
+    set samples. Options are \code{"p"} for points or \code{"n"} to not
+    draw training set samples.}
   \item{ptype}{character; controls how the time track should be
     drawn. Default is draw the passive samples connected by a line in
     the order in which they appear in the data. With \code{ptype = "p"}
-    no line is drawn. The other two types have their usual meaning from
+    no line is drawn. The other types have their usual meaning from
     \code{\link{plot.default}}.}
   \item{pch}{The length-2 vector of plotting characters. The first
     element is used for the ordination samples, the second for the
@@ -79,12 +103,14 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     passive samples.}
   \item{lty, lwd}{graphical parameters for the plotted time track for
     \code{ptype != "p"}.}
+  \item{xlim, ylim}{user specified axis limits for the plot.}
   \item{\dots}{arguments passed to other methods.
     \code{timetrack} passes arguments on to \code{tran} and the
     ordination function given in \code{method}. \code{fitted} passes
     arguments on to other \code{fitted} methods as
     appropriate. \code{plot} passes arguments on to the underlying
-    plotting functions.}
+    plotting functions. \code{predict} passes arguments on to
+    \code{\link{tran}} for use in applyign the transformation.}
 }
 
 \details{
@@ -132,21 +158,13 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{labels }{a list of names for the \code{X}, \code{passive}, and
     \code{env} arguments.}
   \item{call }{The matched function call.}
+  \item{X}{The training data.}
+  \item{transform}{The transformation applied, if any.}
 }
-
-%\references{
-%% ~put references to the literature/web site here ~
-%}
 
 \author{
-Gavin L. Simpson
+  Gavin L. Simpson
 }
-
-%\note{
-%%  ~~further notes~~
-%}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
   \code{\link[vegan]{cca}} and \code{\link[vegan]{rda}} for the
@@ -181,9 +199,22 @@ plot(mod2)
 ## scores and fitted methods
 head(fitted(mod, type = "passive"))
 head(scores(mod, type = "passive"))
+
+## predict locations in timetrack for new observations
+take <- rlgh[1:50, ]
+take <- take[ , colSums(take) > 0]
+mod3 <- predict(mod, newdata = take)
+class(mod3) ## returns a timetrack object
+take <- rlgh[-(1:50), ]
+take <- take[ , colSums(take) > 0]
+mod4 <- predict(mod, newdata = take)
+
+## build a plot up from base parts
+plot(mod, type = "n", ptype = "n")
+points(mod, which = "ordination", col = "grey", pch = 19, cex = 0.7)
+points(mod3, which = "passive", col = "red")
+points(mod4, which = "passive", col = "blue")
 }
 
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{methods}
 \keyword{hplot}
