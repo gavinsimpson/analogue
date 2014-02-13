@@ -41,12 +41,12 @@
     y <- y - yMean
 
     ## How many components?
-    ncomp <- if(missing(ncomp)) {
-        min(Nx - 1, Mx)
+    if(missing(ncomp)) {
+        ncomp <- min(Nx - 1, Mx)
     } else {
         if(ncomp < 1 || ncomp > (newcomp <- min(Nx - 1, Mx))) {
             warning("Invalid 'ncomp'. Resetting to max possible.")
-            newcomp
+            ncomp <- newcomp
         }
     }
 

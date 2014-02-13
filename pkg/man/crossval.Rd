@@ -1,9 +1,10 @@
 \name{crossval}
 \alias{crossval}
 \alias{crossval.wa}
+\alias{crossval.pcr}
 \alias{print.crossval}
-\alias{predWA}
-\alias{predWAT}
+%\alias{predWA}
+%\alias{predWAT}
 \title{Cross-validation of palaeoecological transfer function models}
 \description{
   Performs leave-one-out, \emph{k}-fold, \emph{n} \emph{k}-fold and
@@ -16,11 +17,17 @@ crossval(obj, ...)
          nboot = 100, nfold = 10, folds = 5,
          verbose = getOption("verbose"), ...)
 
+\method{crossval}{pcr}(obj, method = c("LOO","kfold","bootstrap"),
+         ncomp, nboot = 100, nfold = 10, folds = 5,
+         verbose = getOption("verbose"), ...)
+
 }
 \arguments{
   \item{obj}{A fitted transfer function model. Currently, only objects
-    of class \code{"wa"} are supported.}
+    of class \code{\link{wa}} and \code{\link{pcr}} are supported.}
   \item{method}{character; type of cross-validation.}
+  \item{ncomp}{numeric; number of components to fit, as in models with
+    \code{1:ncomp} components.}
   \item{nboot}{numeric; number of bootstrap samples.}
   \item{nfold}{numeric; number of chunks into which the training data
     are split. The \emph{k} in \emph{k}-fold.}
@@ -66,11 +73,11 @@ cv.loo <- crossval(mod)
 cv.loo
 
 ## k-fold CV (k == 10)
-cv.kfold <- crossval(mod, kfold = 10, folds = 1, method = "kfold")
+cv.kfold <- crossval(mod, method = "kfold", kfold = 10, folds = 1)
 cv.kfold
 
 ## n k-fold CV (k == 10, n = 10)
-cv.nkfold <- crossval(mod, kfold = 10, folds = 10, method = "kfold")
+cv.nkfold <- crossval(mod, method = "kfold", kfold = 10, folds = 10)
 cv.nkfold
 
 ## bootstrap with 250 bootstrap samples
@@ -81,5 +88,10 @@ cv.boot
 fitted(cv.boot)
 resid(cv.boot)
 
+## Principal Components Regression
+mpcr <- pcr(SumSST ~., data = ImbrieKipp, ncomp = 10)
+crossval(mpcr, method = "kfold", kfold = 10, folds = 2, ncomp = 10)
+
+crossval(mpcr, method = "bootstrap", nboot = 250, ncomp = 10)
 }
 \keyword{methods}

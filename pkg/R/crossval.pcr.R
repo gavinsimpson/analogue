@@ -42,7 +42,8 @@
             TRAN <- obj$tranFun(x[-i, , drop = FALSE])
             X <- TRAN$data
             ## apply transformation to X[i, ], using parms from above
-            Xi <- obj$tranFun(x[i, , drop = FALSE], apply = TRUE, parms = TRAN$parms)$data
+            Xi <- obj$tranFun(x[i, , drop = FALSE], apply = TRUE,
+                              parms = TRAN$parms)$data
             ## centre the training data
             Xbar <- colMeans(X)
             ybar <- mean(y[-i])
@@ -166,36 +167,45 @@
     ## fitted values and derived stats
     if(identical(method, "none")) {
         fitted <- pred
-    } else if(method %in% c("","")) {
-        rowMeans(pred, na.rm = TRUE, dims = 2)
+    } else if(method %in% c("kfold","bootstrap")) {
+        fitted <- rowMeans(pred, na.rm = TRUE, dims = 2)
     } else {
         fitted <- rowMeans(pred)
     }
     residuals <- y - fitted                               ## residuals
     maxBias <- apply(residuals, 2, maxBias, y, n = 10)    ## maxBias
     avgBias <- colMeans(residuals)                        ## avgBias
-    r2 <- apply(fitted, cor, y)
+    r2 <- apply(fitted, 2, cor, y)
     ## s1 & s2 components for model and training set
     ns <- rowSums(!is.na(pred), dims = 2)
-    s1.train <- t(sqrt(rowSums((pred - as.vector(fitted))^2,
-                               na.rm = TRUE, dims = 2) / as.vector(ns - 1)))
+    s1.train <- sqrt(rowSums((pred - as.vector(fitted))^2,
+                             na.rm = TRUE, dims = 2) / as.vector(ns - 1))
     s1 <- sqrt(colMeans(s1.train^2))
     s2 <- sqrt(colMeans(residuals^2, na.rm = TRUE))
-    s2.train <- sweep(pred, c(2,1), y, "-")
-    s2.train <- sqrt(t(rowMeans(s2.train^2, na.rm = TRUE, dims = 2)))
+    ## s2.train <- sweep(pred, 1, y, "-")
+    ## s2.train <- sqrt(rowMeans(s2.train^2, na.rm = TRUE, dims = 2))
 
     ## RMSEP
-    rmsep.train <- sqrt(s1.train^2 + s2.train^2)
-    rmsep <- sqrt(s1^2 + s2^2)
-    rmsep2 <- sqrt(mean(residuals^2))
-    performance <- data.frame(comp = ncomp,
+    ## rmsep.train <- sqrt(s1.train^2 + s2.train^2)
+    rmsep2 <- sqrt(s1^2 + s2^2)
+    rmsep <- sqrt(colMeans(residuals^2, na.rm = TRUE))
+    fill <- rep(NA, ncomp)
+    performance <- data.frame(comp = seq_len(ncomp),
                               R2 = r2,
                               avgBias = avgBias,
                               maxBias = maxBias,
                               RMSEP = rmsep,
-                              RMSEP2 = rmsep2,
-                              s1 = s1,
-                              s2 = s2)
+                              RMSEP2 = fill,
+                              s1 = fill,
+                              s2 = fill)
+    ## add in the bits we can only do if bootstrapping or multiple fold
+    ## k-fold CV
+    if(identical(method, "bootstrap") ||
+       (identical(method, "kfold") && folds > 1)) {
+        performance$s1 <- s1
+        performance$s2 <- s2
+        performance$RMSEP2 <- rmsep2
+    }
 
     ## more additions to the call
     .call <- match.call()
@@ -204,9 +214,9 @@
     ## return object
     out <- list(fitted.values = fitted,
                 residuals = residuals,
-                rmsep = rmsep.train,
-                s1 = s1.train,
-                s2 = s2.train,
+                ##rmsep = rmsep.train, ## technically not in crossval.wa
+                ##s1 = s1.train,       ## so shoould they be in here?
+                ##s2 = s2.train,       ## need to formalise the crossval class
                 performance = performance,
                 call = .call,
                 CVparams = list(method = method, nboot = nboot,

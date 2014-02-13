@@ -1758,7 +1758,7 @@ Samples:
 > 
 > ### Name: crossval
 > ### Title: Cross-validation of palaeoecological transfer function models
-> ### Aliases: crossval crossval.wa print.crossval predWA predWAT
+> ### Aliases: crossval crossval.wa crossval.pcr print.crossval
 > ### Keywords: methods
 > 
 > ### ** Examples
@@ -1800,7 +1800,7 @@ Method: LOO
 1 0.90028 -0.013652 -4.5985 2.2179     NA NA NA
 > 
 > ## k-fold CV (k == 10)
-> cv.kfold <- crossval(mod, kfold = 10, folds = 1, method = "kfold")
+> cv.kfold <- crossval(mod, method = "kfold", kfold = 10, folds = 1)
 > cv.kfold
 	Model Cross-validation:
 
@@ -1814,7 +1814,7 @@ No. of folds: 1
 1 0.90107 0.0070881 -4.4826 2.2102     NA NA NA
 > 
 > ## n k-fold CV (k == 10, n = 10)
-> cv.nkfold <- crossval(mod, kfold = 10, folds = 10, method = "kfold")
+> cv.nkfold <- crossval(mod, method = "kfold", kfold = 10, folds = 10)
 > cv.nkfold
 	Model Cross-validation:
 
@@ -1864,6 +1864,29 @@ No. Bootstraps: 250
 [55]  2.06405926  1.47563233  0.88025973  0.30226739  0.22736763  0.07008432
 [61]  1.18109032
 > 
+> ## Principal Components Regression
+> mpcr <- pcr(SumSST ~., data = ImbrieKipp, ncomp = 10)
+> crossval(mpcr, method = "kfold", kfold = 10, folds = 2, ncomp = 10)
+	Model Cross-validation:
+
+crossval(obj = mpcr, method = "kfold", ncomp = 10, folds = 2, 
+    kfold = 10)
+
+Method: kfold
+k: 10
+No. of folds: 2
+
+   comp      R2   avgBias maxBias  RMSEP RMSEP2      s1     s2
+1     1 0.93102 -0.082069 -6.0751 2.5707 2.6306 0.55799 2.5707
+2     2 0.95154 -0.034190 -5.3449 2.1593 2.1665 0.17708 2.1593
+3     3 0.95452 -0.071033 -4.7328 2.0950 2.1092 0.24471 2.0950
+4     4 0.95506 -0.054893 -4.7586 2.0822 2.0957 0.23782 2.0822
+5     5 0.95565 -0.054278 -5.1491 2.0684 2.0891 0.29338 2.0684
+6     6 0.95568 -0.088115 -5.1732 2.0689 2.0916 0.30691 2.0689
+7     7 0.95473 -0.045325 -4.8739 2.0887 2.1143 0.32838 2.0887
+8     8 0.95818 -0.039048 -5.0150 2.0097 2.0350 0.31945 2.0097
+9     9 0.95742 -0.083771 -5.1489 2.0288 2.0585 0.34841 2.0288
+10   10 0.95784 -0.055376 -4.9774 2.0176 2.0499 0.36230 2.0176
 > 
 > 
 > 
@@ -7263,7 +7286,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  17.35 0.299 17.92 0.001 0.002 
+Time elapsed:  17.431 0.285 17.846 0 0.003 
 > grDevices::dev.off()
 null device 
           1 
