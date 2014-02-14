@@ -4,6 +4,7 @@
 \alias{performance.wa}
 \alias{performance.predict.wa}
 \alias{performance.bootstrap.wa}
+\alias{performance.crossval}
 \title{Transfer function model performance statistics}
 \description{
   A simple extractor function to access the model performance statistics
@@ -11,20 +12,26 @@
 }
 \usage{
 performance(object, ...)
-
-\method{performance}{wa}(object, ...)
-
-\method{performance}{predict.wa}(object, ...)
-
-\method{performance}{bootstrap.wa}(object, ...)
 }
 \arguments{
   \item{object}{A transfer function object.}
   \item{\dots}{Arguments passed to other methods. Currently ignored.}
 }
-%\details{
-%  ~~ If necessary, more details than the description above ~~
-%}
+\details{
+  \code{performance} is a generic function for use with a number of
+  fitted models objects in \pkg{analogue}. The available methods are:
+
+  \itemize{
+    \item{\code{\link{wa}}}{Weighted Averaging Models.}
+    \item{\code{\link{predict.wa}}}{Predictions from a Weighted Average
+      Model.}
+    \item{\code{\link{pcr}}}{Principal Component Regression models.}
+    \item{\code{\link{bootstrap.wa}}}{Bootstrapped Weighted Averaging
+      Models.}
+    \item{\code{\link{crossval}}}{Cross-validated models fitted via
+      \code{\link{crossval}}.}
+  }
+}
 \value{
   A named vector containing the extracted model performance statistics.
 }

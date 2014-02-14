@@ -8,6 +8,9 @@ Version 0.13-4 13 Feb 2014
 	* predict.pcr: would set argument `ncomp` incorrectly (in the
 	wrong form) if not supplied.
 
+	* performance.crossval: A new emthod for objects of class
+	`"crossval"`.
+
 Version 0.13-3 Opened 11 Feb 2014
 
 	* timetrack: A number of additions added and improvements made:
