@@ -164,7 +164,7 @@
         res <- list(data = sqrt(gsum) * x/outer(rsum, sqrt(csum)),
                     parms = list(gsum = gsum, rsum = rsum, csum = csum))
     }
-    x
+    res ##return
 }
 
 `print.pcr` <- function(x, digits = min(getOption("digits"), 4), ...) {
