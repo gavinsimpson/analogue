@@ -74,6 +74,7 @@
         pred <- array(NA, dim = c(N, ncomp, folds))
         if(verbose) {
             writeLines("\n   n k-fold Cross-validation:")
+            ii <- 1
             pb <- txtProgressBar(min = 0, max = folds * nfold, style = 3)
             on.exit(close(pb))
             on.exit(cat("\n"), add = TRUE)
@@ -86,8 +87,10 @@
             pind <- ind[sample.int(N, N, replace = FALSE)]
             ## the main k-fold CV loop
             for(k in seq_len(nfold)) {
-                if(verbose)
-                    setTxtProgressBar(pb, i * k)
+                if(verbose) {
+                    setTxtProgressBar(pb, ii)
+                    ii <- ii + 1
+                }
                 sel <- pind == k   ## sel is samples in leave out group
                 N.oob <- sum(sel) ## N in leave out group
                 N.mod <- sum(!sel)  ## N in the model

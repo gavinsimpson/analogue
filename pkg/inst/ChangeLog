@@ -5,6 +5,9 @@ Version 0.13-4 13 Feb 2014
 	* crossval.pcr: Fixed a number of bugs in the method for PCR
 	related to k-fold cross validation, which were causing errors.
 
+	Fix the verbose printing of the progress bar, which would reset
+	between repeats in k-fold CV.
+
 	* predict.pcr: would set argument `ncomp` incorrectly (in the
 	wrong form) if not supplied.
 
