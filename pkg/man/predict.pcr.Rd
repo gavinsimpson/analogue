@@ -10,7 +10,7 @@
 }
 
 \usage{
-\method{predict}{pcr}(object, newdata, ncomp = seq_along(object$ncomp),
+\method{predict}{pcr}(object, newdata, ncomp = object$ncomp,
         CV = c("none", "LOO", "bootstrap", "kfold"),
         verbose = FALSE, nboot = 100, kfold = 10, folds = 5,
         \dots)

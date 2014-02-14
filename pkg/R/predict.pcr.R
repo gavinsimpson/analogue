@@ -1,4 +1,4 @@
-`predict.pcr` <- function(object, newdata, ncomp = seq_along(object$ncomp),
+`predict.pcr` <- function(object, newdata, ncomp = object$ncomp,
                           CV = c("none", "LOO", "bootstrap", "kfold"),
                           verbose = FALSE, nboot = 100, kfold = 10,
                           folds = 5, ...) {

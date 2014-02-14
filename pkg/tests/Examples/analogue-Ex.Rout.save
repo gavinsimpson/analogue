@@ -26,7 +26,7 @@ Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.13-3
+This is analogue 0.13-4
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1887,6 +1887,26 @@ No. of folds: 2
 8     8 0.95818 -0.039048 -5.0150 2.0097 2.0350 0.31945 2.0097
 9     9 0.95742 -0.083771 -5.1489 2.0288 2.0585 0.34841 2.0288
 10   10 0.95784 -0.055376 -4.9774 2.0176 2.0499 0.36230 2.0176
+> 
+> crossval(mpcr, method = "bootstrap", nboot = 250, ncomp = 10)
+	Model Cross-validation:
+
+crossval(obj = mpcr, method = "bootstrap", ncomp = 10, nboot = 250)
+
+Method: bootstrap
+No. Bootstraps: 250
+
+   comp      R2   avgBias maxBias  RMSEP RMSEP2      s1     s2
+1     1 0.94633 -0.098164 -6.3331 2.3477 2.7404 1.41352 2.3477
+2     2 0.95203 -0.041775 -5.3330 2.1490 2.2467 0.65548 2.1490
+3     3 0.95520 -0.044662 -4.4128 2.0789 2.1797 0.65524 2.0789
+4     4 0.95557 -0.047229 -4.4156 2.0703 2.1880 0.70792 2.0703
+5     5 0.95740 -0.047406 -4.9908 2.0281 2.1796 0.79856 2.0281
+6     6 0.95716 -0.055633 -4.8585 2.0336 2.2021 0.84479 2.0336
+7     7 0.95816 -0.052451 -4.7913 2.0102 2.1975 0.88769 2.0102
+8     8 0.95978 -0.031075 -4.8303 1.9712 2.1437 0.84254 1.9712
+9     9 0.96015 -0.031626 -4.9102 1.9622 2.1470 0.87149 1.9622
+10   10 0.96116 -0.029623 -4.8634 1.9379 2.1373 0.90148 1.9379
 > 
 > 
 > 
@@ -7286,7 +7306,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  17.431 0.285 17.846 0 0.003 
+Time elapsed:  17.799 0.401 18.495 0 0.002 
 > grDevices::dev.off()
 null device 
           1 

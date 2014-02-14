@@ -5,6 +5,9 @@ Version 0.13-4 13 Feb 2014
 	* crossval.pcr: Fixed a number of bugs in the method for PCR
 	related to k-fold cross validation, which were causing errors.
 
+	* predict.pcr: would set argument `ncomp` incorrectly (in the
+	wrong form) if not supplied.
+
 Version 0.13-3 Opened 11 Feb 2014
 
 	* timetrack: A number of additions added and improvements made:
