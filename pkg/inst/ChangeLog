@@ -11,6 +11,9 @@ Version 0.13-4 13 Feb 2014
 	* performance.crossval: A new emthod for objects of class
 	`"crossval"`.
 
+	* ChiSquare: Wasn't returning the list it created including
+	transformation parameters.
+
 Version 0.13-3 Opened 11 Feb 2014
 
 	* timetrack: A number of additions added and improvements made:
