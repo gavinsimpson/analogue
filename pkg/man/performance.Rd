@@ -22,13 +22,13 @@ performance(object, ...)
   fitted models objects in \pkg{analogue}. The available methods are:
 
   \itemize{
-    \item{\code{\link{wa}}}{Weighted Averaging Models.}
-    \item{\code{\link{predict.wa}}}{Predictions from a Weighted Average
+    \item{\code{\link{wa}} }{Weighted Averaging Models.}
+    \item{\code{\link{predict.wa}} }{Predictions from a Weighted Average
       Model.}
-    \item{\code{\link{pcr}}}{Principal Component Regression models.}
-    \item{\code{\link{bootstrap.wa}}}{Bootstrapped Weighted Averaging
+    \item{\code{\link{pcr}} }{Principal Component Regression models.}
+    \item{\code{\link{bootstrap.wa}} }{Bootstrapped Weighted Averaging
       Models.}
-    \item{\code{\link{crossval}}}{Cross-validated models fitted via
+    \item{\code{\link{crossval}} }{Cross-validated models fitted via
       \code{\link{crossval}}.}
   }
 }
