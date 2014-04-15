@@ -37,7 +37,7 @@
         optimal <- as.numeric(names(max.roc <- which.max(roc.values)))
         names(FPE) <- names(TPF) <- names(roc.values) <- NULL
         wilcox <- wilcox.test(IN, OUT, conf.int = FALSE)
-        AUC <- 1 - (wilcox$statistic / (n.OUT * n.OUT))
+        AUC <- 1 - (wilcox$statistic / (n.IN * n.OUT))
         AUC2 <- AUC^2
         q1 <- AUC / (2-AUC)
         q2 <- (2 * AUC2) / (1 + AUC)
