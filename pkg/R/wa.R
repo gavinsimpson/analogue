@@ -16,6 +16,12 @@
         x <- x[, !csum, drop = FALSE]
         warning("Some species contained no data. These have been deleted.")
     }
+    ## drop samples with no species
+    if(any(rsum <- rowSums(x) == 0)) {
+        x <- x[!rsum, , drop = FALSE]
+        env <- env[!rsum]
+        warning("Some sites contained no data. These have been deleted.")
+    }
     if(missing(deshrink))
         deshrink <- "inverse"
     deshrink <- match.arg(deshrink)
@@ -67,5 +73,5 @@
                      min.tol = min.tol,
                      f = f))
     class(res) <- "wa"
-    return(res)
+    res
 }
