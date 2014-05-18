@@ -1,3 +1,4 @@
 LICENSE
 ^\.travis\.yml$
-www
+^travis-tool\.sh
+www/
