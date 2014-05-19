@@ -28,6 +28,6 @@ notifications:
 env:
    global:
      - CRAN: http://cran.rstudio.com
-     - R_BUILD_ARGS=" --compact-vignettes" 
+     - R_BUILD_ARGS=" --compact-vignettes=gs+qpdf" 
      - R_CHECK_ARGS="--as-cran"
      - BOOTSTRAP_LATEX="1"
