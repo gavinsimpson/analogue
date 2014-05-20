@@ -46,7 +46,7 @@
   % SK, S4S 0A2, Canada\\
   % %%E-mail: \email{ucfagls\@gmail.com}\\
   % URL: \url{http://www.fromthebottomoftheheap.net/}
-%} 
+%}
 %% It is also possible to add a telephone and fax number
 %% before the e-mail in the following format:
 %% Telephone: +43/1/31336-5053
