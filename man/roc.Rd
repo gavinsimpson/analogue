@@ -141,7 +141,8 @@ swap.ana <- analog(swapdiat, rlgh, method = "SQchord",
 
 ## fit the ROC curve to the SWAP diatom data using the AM results
 ## Generate a grouping for the SWAP lakes
-clust <- hclust(as.dist(swap.ana$train), method = "ward")
+METHOD <- if (getRversion() < "3.1.0") {"ward"} else {"ward.D"}
+clust <- hclust(as.dist(swap.ana$train), method = METHOD)
 grps <- cutree(clust, 12)
 
 ## fit the ROC curve
