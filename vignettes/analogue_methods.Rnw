@@ -1,14 +1,9 @@
-\documentclass[article,shortnames]{Z}
-\usepackage{thumbpdf}
+\documentclass[article,shortnames,nojss]{jss}
 
 %\VignetteIndexEntry{Analogue Methods in Palaeoecology}
 %\VignettePackage{analogue}
 %\VignetteDepends{vegan}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% almost as usual
 \author{Gavin L. Simpson\\Institute of Environmental Change and Society --- University of Regina}
 \title{Analogue Methods in Palaeoecology:\\ Using the \pkg{analogue} Package}
 
@@ -25,38 +20,10 @@
 \Plainkeywords{analogue matching, palaeoecology, modern analogue technique, dissimilarity, R} %% without formatting
 %% at least one keyword must be supplied
 
-%% publication information
-%% NOTE: This needs to filled out ONLY IF THE PAPER WAS ACCEPTED.
-%% If it was not (yet) accepted, leave them commented.
-%% \Volume{13}
-%% \Issue{9}
-%% \Month{September}
-%% \Year{2004}
-%% \Submitdate{2004-09-29}
-%% \Acceptdate{2004-09-29}
-
-%% The address of (at least) one author should be given
-%% in the following format:
-%\Address{
-  % Gavin L. Simpson\\
-  % Insitutute of Environmental Change and Society\\
-  % University of Regina\\
-  % 3737 Wascana Parkway\\
-  % Regina\\
-  % SK, S4S 0A2, Canada\\
-  % %%E-mail: \email{ucfagls\@gmail.com}\\
-  % URL: \url{http://www.fromthebottomoftheheap.net/}
-%}
-%% It is also possible to add a telephone and fax number
-%% before the e-mail in the following format:
-%% Telephone: +43/1/31336-5053
-%% Fax: +43/1/31336-734
-
 %% for those who use Sweave please include the following line (with % symbols):
 %% need no \usepackage{Sweave.sty}
 
 %% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \begin{document}
 
