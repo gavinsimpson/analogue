@@ -150,6 +150,10 @@
         ##parms <- attr(x, "parms")
         res <- list(data = with(parms, sqrt(gsum) * x/outer(rsum, sqrt(csum))),
                     parms = parms)
+        ## take only variables in x for which we have parms
+        ## match on attr(parms, "variables")
+        data <- sqrt(parms$gsum) * x / outer(parms$rsum, sqrt(parms$csum))
+        res <- list(data = data, parms = parms)
     } else {
         ## perform transformation and preserve the meta-parameters
         if (any(x < 0, na.rm = TRUE)) {
@@ -161,8 +165,10 @@
         gsum <- sum(x, na.rm = TRUE)
         rsum <- pmax(k, rowSums(x, na.rm = TRUE))
         csum <- colSums(x, na.rm = TRUE)
+        parms <- list(gsum = gsum, rsum = rsum, csum = csum)
+        attr(parms, "variables") <- colnames(x)
         res <- list(data = sqrt(gsum) * x/outer(rsum, sqrt(csum)),
-                    parms = list(gsum = gsum, rsum = rsum, csum = csum))
+                    parms = parms)
     }
     res ##return
 }
