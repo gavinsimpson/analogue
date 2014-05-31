@@ -33,7 +33,7 @@ timetrack(X, passive, env, method = c("cca", "rda"),
      xlim = NULL, ylim = NULL, \dots)
 
 \method{points}{timetrack}(x, choices = 1:2, which = c("passive", "ordination"),
-      display = c("wa","lc"), order, \dots)
+       display = c("wa","lc"), order, \dots)
 }
 
 \arguments{
