@@ -1,6 +1,6 @@
 
-R version 3.0.2 Patched (2013-10-07 r64035) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.1.0 Patched (2014-05-29 r65795) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -26,7 +26,7 @@ Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
 Loading required package: rgl
-This is analogue 0.13-4
+This is analogue 0.13-5
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -870,7 +870,8 @@ Merged:      268  277
 > 
 > ## fit the ROC curve to the SWAP diatom data using the AM results
 > ## Generate a grouping for the SWAP lakes
-> clust <- hclust(as.dist(swap.ana$train), method = "ward")
+> METHOD <- if (getRversion() < "3.1.0") {"ward"} else {"ward.D"}
+> clust <- hclust(as.dist(swap.ana$train), method = METHOD)
 > grps <- cutree(clust, 12)
 > 
 > ## fit the ROC curve
@@ -883,7 +884,7 @@ Discrimination for all groups:
 
 Optimal Dissimilarity = 0.575 
 
-AUC = 0.998, p-value: < 2.22e-16
+AUC = 0.974, p-value: < 2.22e-16
 No. within: 167   No. outside: 1837 
 
 > 
@@ -3383,7 +3384,8 @@ Merged:      268  277
 > 
 > ## fit the ROC curve to the SWAP diatom data using the AM results
 > ## Generate a grouping for the SWAP lakes
-> clust <- hclust(as.dist(swap.ana$train), method = "ward")
+> METHOD <- if (getRversion() < "3.1.0") {"ward"} else {"ward.D"}
+> clust <- hclust(as.dist(swap.ana$train), method = METHOD)
 > grps <- cutree(clust, 6)
 > 
 > ## fit the logit models to the analog object
@@ -4239,6 +4241,18 @@ Other   5.112464
 G.quin  4.268777
 G.hirsu 3.942135
 > 
+> ## bootstrap WA optima - 100 resamples too low for SD & pCI
+> bopt <- optima(ImbrieKipp, SumSST, boot = TRUE, nboot = 100)
+> head(bopt)
+          Optima  optBoot     optSD     2.5%    97.5%
+O.univ  24.33723 24.43556 0.6520349 23.16890 25.38180
+G.cglob 25.72608 25.73901 0.3693470 25.10997 26.39830
+G.ruber 26.06781 26.08493 0.2194281 25.65242 26.49674
+G.tenel 25.57479 25.51535 0.4521986 24.57122 26.27378
+G.saccu 26.18001 26.23577 0.2603136 25.67568 26.68661
+G.rubes 26.27479 26.23109 0.2738244 25.74904 26.72047
+> 
+> 
 > 
 > 
 > cleanEx()
@@ -4487,7 +4501,7 @@ G.hirsu -0.19363169  0.7346868   0.44297993   0.4546855
 > ### Name: performance
 > ### Title: Transfer function model performance statistics
 > ### Aliases: performance print.performance performance.wa
-> ###   performance.predict.wa performance.bootstrap.wa
+> ###   performance.predict.wa performance.bootstrap.wa performance.crossval
 > ### Keywords: methods utilities
 > 
 > ### ** Examples
@@ -6260,7 +6274,8 @@ Merged:      268  277
 > 
 > ## fit the ROC curve to the SWAP diatom data using the AM results
 > ## Generate a grouping for the SWAP lakes
-> clust <- hclust(as.dist(swap.ana$train), method = "ward")
+> METHOD <- if (getRversion() < "3.1.0") {"ward"} else {"ward.D"}
+> clust <- hclust(as.dist(swap.ana$train), method = METHOD)
 > grps <- cutree(clust, 12)
 > 
 > ## fit the ROC curve
@@ -6273,7 +6288,7 @@ Discrimination for all groups:
 
 Optimal Dissimilarity = 0.575 
 
-AUC = 0.998, p-value: < 2.22e-16
+AUC = 0.974, p-value: < 2.22e-16
 No. within: 167   No. outside: 1837 
 
 > 
@@ -7306,7 +7321,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  17.799 0.401 18.495 0 0.002 
+Time elapsed:  21.865 0.163 22.23 0 0.002 
 > grDevices::dev.off()
 null device 
           1 
