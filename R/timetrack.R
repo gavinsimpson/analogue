@@ -6,6 +6,7 @@
                         formula, ##type = c("wa","lc"),
                         scaling = 3, rank = "full",
                         ##model = c("CCA", "CA"),
+                        join = "left",
                         ...) {
     origX <- X ## store for later
     namX <- deparse(substitute(X))
@@ -16,7 +17,7 @@
         passive <- tran(passive, method = transform, ...)
     }
     ## merge X and passive
-    dat <- join(X, passive, type = "left")
+    dat <- join(X, passive, type = join)
     X <- dat[[1]]
     passive <- dat[[2]]
     ## common set of species

@@ -17,7 +17,7 @@
 \usage{
 timetrack(X, passive, env, method = c("cca", "rda"),
           transform = "none", formula, scaling = 3,
-          rank = "full", \dots)
+          rank = "full", join = "left", \dots)
 
 \method{fitted}{timetrack}(object, which = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
@@ -63,6 +63,9 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     the samples.}
   \item{rank}{character; see argument of same name in function
     \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
+  \item{join}{character; the tpe of join to perform. See
+    \code{\link{join}} for details of possible choices, but the default,
+    \code{"left"} is most generally applicable.}
   \item{object, x}{an object of class \code{"timetrack"}.}
   \item{which}{character; which fitted values should be returned?}
   \item{model}{character; which ordination component should be used for
