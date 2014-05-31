@@ -2,6 +2,8 @@ analogue Change Log
 
 Version 0.13-5
 
+	* optima: added bootstrap estimates of species WA optima.
+
 	* roc: fix a bug in the computation of AUC from the U statistic.
 
 Version 0.13-4 13 Feb 2014
