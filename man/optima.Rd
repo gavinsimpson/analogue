@@ -15,7 +15,8 @@
 \usage{
 optima(x, ...)
 
-\method{optima}{default}(x, env, ...)
+\method{optima}{default}(x, env, boot = FALSE, nboot = 1000,
+       alpha = 0.05, ...)
 
 \method{tolerance}{default}(x, env, useN2 = TRUE, ...)
 }
@@ -24,6 +25,11 @@ optima(x, ...)
   \item{x}{Species data matrix or data frame.}
   \item{env}{Numeric; variable for which optima or tolerances are
     required.}
+  \item{boot, nboot}{logical (\code{boot}), numeric (\code{nboot});
+    should bootstrap resampling be employed to estimate the optima, and
+    if so how many bootstrap samples to draw?}
+  \item{alpha}{numeric; 1 - \code{alpha} gives the coverage for the
+    percentile bootstrap confidence interval.}
   \item{useN2}{logical; should Hill's N2 values be used to produce
     un-biased tolerances?}
   \item{\dots}{Arguments passed to other methods.}
@@ -60,6 +66,11 @@ caterpillarPlot(opt, tol)
 ## convert to data frame
 as.data.frame(opt)
 as.data.frame(tol)
+
+## bootstrap WA optima - 100 resamples too low for SD & pCI
+bopt <- optima(ImbrieKipp, SumSST, boot = TRUE, nboot = 100)
+head(bopt)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

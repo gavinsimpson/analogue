@@ -3,10 +3,14 @@
 
 `as.data.frame.optima` <- function(x, row.names = NULL,
                                    ...) {
-    if(is.null(row.names))
-        row.names <- names(x)
-    res <- data.frame(Opt = as.numeric(x), row.names = row.names,
-                      ...)
+    if (is.matrix(x)) {
+        res <- as.data.frame(x)
+    } else {
+        if(is.null(row.names))
+            row.names <- names(x)
+        res <- data.frame(Opt = as.numeric(x), row.names = row.names,
+                          ...)
+    }
     res
 }
 
