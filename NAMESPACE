@@ -68,6 +68,7 @@ export(analog,
        mat,
        mcarlo,
        minDC,
+       n2,
        optima,
        panel.Loess,
        panel.Stratiplot,
@@ -141,6 +142,7 @@ S3method(minDC, default)
 S3method(minDC, predict.mat)
 S3method(minDC, analog)
 S3method(minDC, wa)
+S3method(n2, default)
 S3method(optima, default)
 S3method(pcr, default)
 S3method(pcr, formula)
