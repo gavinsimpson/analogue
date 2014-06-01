@@ -4132,6 +4132,31 @@ Dissimilarity: SQchord
 > 
 > 
 > cleanEx()
+> nameEx("n2")
+> ### * n2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: n2
+> ### Title: Calculate Hill's N2 diversity measure
+> ### Aliases: n2 n2.default
+> ### Keywords: methods multivariate utilities
+> 
+> ### ** Examples
+> 
+> data(swapdiat)
+> sppN2 <- n2(swapdiat, "species")
+> head(sppN2)
+   AC001A    AC002A    AC004A    AC013A    AC014A    AC014B 
+ 8.248589 12.128209 10.997128 46.072440  3.025195  9.190233 
+> sampN2 <- n2(swapdiat, "sites")
+> head(sampN2)
+     1.21     10.21        11    113.21    115.11     12.11 
+15.501849 11.026197  6.702897 10.712509 11.370488 15.094376 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("optima")
 > ### * optima
 > 
@@ -7321,7 +7346,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.865 0.163 22.23 0 0.002 
+Time elapsed:  22.28 0.154 22.628 0.001 0.001 
 > grDevices::dev.off()
 null device 
           1 
