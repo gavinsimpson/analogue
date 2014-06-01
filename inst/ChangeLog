@@ -2,6 +2,9 @@ analogue Change Log
 
 Version 0.13-5
 
+	* n2: new utility function to compute Hill's N2 for sites
+	or species.
+
 	* optima: added bootstrap estimates of species WA optima.
 
 	* roc: fix a bug in the computation of AUC from the U statistic.
