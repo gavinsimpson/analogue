@@ -1,11 +1,11 @@
-`Plot3d` <- function(x, choices = 1:3, display = "sites",
+`plot3d.prcurve` <- function(x, choices = 1:3, display = "sites",
                              scaling = 0,
                              lcol = "darkorange", lwd = 2,
                              decorate = TRUE,
                              xlab = NULL, ylab = NULL, zlab = NULL,
                              main = NULL, ...) {
     if (!require("rgl")) {
-        stop("Package 'rgl' required but not installed.\nRun\n\t'install.packages(\"rgl\")\nto use 'Plot3d()'.")
+        stop("Package 'rgl' required but not installed.\nRun\n\t'install.packages(\"rgl\")\nto use 'plot3d()'.")
     }
     ## check choices
     if(!missing(choices)) {

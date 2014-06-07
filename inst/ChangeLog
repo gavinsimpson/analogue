@@ -1,5 +1,16 @@
 analogue Change Log
 
+Version 0.13-6
+
+	* Plot3d: new name for the previous `plot3d.prcurve()` method.
+	Renamed to avoid having to export a method from the namespace,
+	which allows **rgl** to be relegated to Suggests.
+
+	* plot3d.prcurve: deprecated this S3 method and removed **rgl**
+	from the package dependencies. **rgl** is now in Suggests, which
+	means it is not needed to install the package. This seems to be
+	causing some problems for Mac OS users.
+
 Version 0.13-5
 
 	* n2: new utility function to compute Hill's N2 for sites

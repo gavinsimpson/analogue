@@ -25,8 +25,7 @@ Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
-Loading required package: rgl
-This is analogue 0.13-5
+This is analogue 0.13-6
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5287,10 +5286,10 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: plot3d.prcurve
-> ### Title: Interactive 3D plof of a principal curve in principal coordinate
+> ### Name: Plot3d
+> ### Title: Interactive 3D plot of a principal curve in principal coordinate
 > ###   space
-> ### Aliases: plot3d.prcurve
+> ### Aliases: Plot3d
 > ### Keywords: dynamic graphics
 > 
 > ### ** Examples
@@ -5322,12 +5321,17 @@ PC Converged in 5 iterations.
 
 > 
 > ## 3D plot of data with curve superimposed
-> plot3d(aber.pc)
+> ## plot3d.prcurve(aber.pc) # now deprecated, instead use
+> Plot3d(aber.pc)
+Loading required package: rgl
 > 
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:rgl’
+
 > nameEx("prcurve")
 > ### * prcurve
 > 
@@ -7346,7 +7350,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.28 0.154 22.628 0.001 0.001 
+Time elapsed:  22.055 0.164 22.426 0 0.003 
 > grDevices::dev.off()
 null device 
           1 

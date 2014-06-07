@@ -1,5 +1,5 @@
-\name{Plot3d}
-\alias{Plot3d}
+\name{plot3d.prcurve-deprecated}
+\alias{plot3d.prcurve}
 
 \title{Interactive 3D plot of a principal curve in principal coordinate
   space}
@@ -8,12 +8,9 @@
   using the \pkg{rgl} package and functions from \pkg{vegan}.
 }
 \usage{
-Plot3d(x, choices = 1:3, display = "sites", scaling = 0,
-       lcol = "darkorange", lwd = 2, decorate = TRUE, xlab = NULL,
-       ylab = NULL, zlab = NULL, main = NULL, ...)
-%% \method{plot3d}{prcurve}(x, choices = 1:3, display = "sites", scaling = 0,
-%%        lcol = "darkorange", lwd = 2, decorate = TRUE, xlab = NULL,
-%%        ylab = NULL, zlab = NULL, main = NULL, ...)
+plot3d.prcurve(x, choices = 1:3, display = "sites", scaling = 0,
+               lcol = "darkorange", lwd = 2, decorate = TRUE, xlab = NULL,
+               ylab = NULL, zlab = NULL, main = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,7 +35,7 @@ Plot3d(x, choices = 1:3, display = "sites", scaling = 0,
     labels?
   }
   \item{xlab, ylab, zlab, main}{
-    Labels for the plot.
+    Labels for the plot, to be drawn using \code{decorate3d}.
   }
   \item{\dots}{
     Arguments passed to other functions. In particular, argments are
@@ -70,22 +67,6 @@ Plot3d(x, choices = 1:3, display = "sites", scaling = 0,
 
 \seealso{
   \code{\link{ordirgl}}, \code{\link{prcurve}}.
-}
-\examples{
-data(abernethy)
-
-## Remove the Depth and Age variables
-abernethy2 <- abernethy[, -(37:38)]
-
-## Fit the principal curve using the median complexity over
-## all species
-aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
-                   vary = FALSE, penalty = 1.4)
-
-## 3D plot of data with curve superimposed
-## plot3d.prcurve(aber.pc) # now deprecated, instead use
-Plot3d(aber.pc)
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
