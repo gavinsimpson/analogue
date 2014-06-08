@@ -147,9 +147,6 @@
     if(apply) {
         ## apply pre-computed meta-parameters to transform
         ## test samples to match training samples
-        ##parms <- attr(x, "parms")
-        res <- list(data = with(parms, sqrt(gsum) * x/outer(rsum, sqrt(csum))),
-                    parms = parms)
         ## take only variables in x for which we have parms
         ## match on attr(parms, "variables")
         data <- sqrt(parms$gsum) * x / outer(parms$rsum, sqrt(parms$csum))
