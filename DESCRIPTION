@@ -12,11 +12,11 @@ Authors@R: c(person(given = c("Gavin", "L."), family = "Simpson",
              person(given = "Jari", family = "Oksanen",
                     role = "aut"))
 Maintainer: Gavin L. Simpson <ucfagls@gmail.com>
-BugReports: http://r-forge.r-project.org/tracker/?func=browse&group_id=69&atid=338
+BugReports: https://github.com/gavinsimpson/analogue/issues
 NeedsCompilation: yes
 Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
   	     function models for prediction of environmental data from species 
 	     data, and related methods used in palaeoecology.
 License: GPL-2
 ByteCompile: true
-URL: http://analogue.r-forge.r-project.org
+URL: https://github.com/gavinsimpson/analogue
