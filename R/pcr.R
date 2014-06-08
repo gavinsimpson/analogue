@@ -74,11 +74,6 @@
     ## get and fix up the call
     .call <- match.call()
     .call[[1]] <- as.name("pcr")
-    ## if(fun.supplied) {
-    ##     ## fix-up the name of the transformation function used,
-    ##     ## needed when formula method called...
-    ##     .call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
-    ## }
 
     ## return object
     Obj <- list(fitted.values = fitted.values,
@@ -129,11 +124,6 @@
     Obj$terms <- mt
     if(model)
         Obj$model <- mf
-    ##.call <- match.call()
-    ##.call[[1]] <- as.name("pcr")
-    ## fix-up the name of the transformation function used,
-    ## needed when formula method called...
-    ##.call[[which(names(.call) == "tranFun")]] <- as.name(deparse(substitute(tranFun)))
     Obj$call <- .call
     Obj
 }
