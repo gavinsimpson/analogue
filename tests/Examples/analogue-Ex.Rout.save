@@ -1918,7 +1918,7 @@ No. Bootstraps: 250
 > 
 > ### Name: densityplot.residLen
 > ### Title: Lattice density plot for residual lengths
-> ### Aliases: densityplot.residLen
+> ### Aliases: densityplot.residLen densityplot
 > ### Keywords: hplot methods
 > 
 > ### ** Examples
@@ -2619,7 +2619,7 @@ Passive:      1.004 1.50 1.87 2.17 2.55
 > 
 > ### Name: histogram.residLen
 > ### Title: Lattice histogram plot for residual lengths
-> ### Aliases: histogram.residLen
+> ### Aliases: histogram.residLen histogram
 > ### Keywords: hplot methods
 > 
 > ### ** Examples
@@ -5644,7 +5644,7 @@ Performance:
 > ### Name: rankDC
 > ### Title: Rank correlation between environmental and species
 > ###   dissimilarities.
-> ### Aliases: rankDC print.rankDC plot.rankDC dotplot.rankDC
+> ### Aliases: rankDC print.rankDC plot.rankDC dotplot.rankDC dotplot
 > ### Keywords: hplot methods utilities multivariate
 > 
 > ### ** Examples
@@ -7350,7 +7350,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.055 0.164 22.426 0 0.003 
+Time elapsed:  21.979 0.184 22.405 0 0.004 
 > grDevices::dev.off()
 null device 
           1 

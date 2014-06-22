@@ -3,6 +3,8 @@
 \alias{print.rankDC}
 \alias{plot.rankDC}
 \alias{dotplot.rankDC}
+% for the generic exported from the namespace as lattice is now Imports
+\alias{dotplot}
 
 \title{Rank correlation between environmental and species dissimilarities.}
 \description{
@@ -53,7 +55,8 @@ rankDC(g, y, dc = c("chord", "bray", "euclidean", "chi.square", "gower"),
   vegan package.}
 
 \seealso{
-  \code{\link{rankindex}} from package vegan.
+  \code{\link{rankindex}} from package vegan. For the
+  \code{dotplot} method, see \code{\link[lattice]{dotplot}}. 
 }
 \examples{
 data(swappH)

@@ -1,5 +1,6 @@
 \name{histogram.residLen}
 \alias{histogram.residLen}
+\alias{histogram} % for the generic that is now exported as lattice is Imports
 \title{Lattice histogram plot for residual lengths}
 \description{
   Lattice \code{\link[lattice]{histogram}} method for

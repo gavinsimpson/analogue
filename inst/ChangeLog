@@ -11,6 +11,10 @@ Version 0.13-6
 	means it is not needed to install the package. This seems to be
 	causing some problems for Mac OS users.
 
+	* Imports: lattice moved from Depends to Imports. analogue now
+	exports the generics densityplot, dotplot, and histogram imported
+	from the lattice namespace.
+
 Version 0.13-5
 
 	* n2: new utility function to compute Hill's N2 for sites

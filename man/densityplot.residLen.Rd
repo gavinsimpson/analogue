@@ -1,5 +1,6 @@
 \name{densityplot.residLen}
 \alias{densityplot.residLen}
+\alias{densityplot} % for the generic that is now exported as lattice is Imports
 \title{Lattice density plot for residual lengths}
 \description{
   Lattice \code{\link[lattice]{densityplot}} method for
