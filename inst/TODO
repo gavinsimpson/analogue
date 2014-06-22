@@ -7,5 +7,7 @@ TODO
    first widely advertised release.
  * Need to consistently have functions store DC Method as an attribute. Good to 
    write an extractor function and have all functions use that.
- * Speed-up distance() - move it to C
+ * Speed-up distance() - move it to C - DONE in 0.12-0
  * plot.prcurve: needs to stop passing arguments on to other plotting functions.
+ * Add a flexible GLM-based transfer function model which can do GLR plus
+   other distributions for the response - particularly count models.
