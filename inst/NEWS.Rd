@@ -2,6 +2,102 @@
 \title{Latest changes to the \pkg{analogue} package}
 \encoding{UTF-8}
 
+\section{Changes in version 0.14-0}{
+
+  \subsection{General summary}{
+
+    \itemize{
+      \item Version 0.14-0 is less of an update than that provided by
+      version 0.12-0 and sees a continuation of the changes to
+      dependencies to have packaes in Imports rather than Depends.
+
+      \item The main development of \pkg{analogue} now takes place on
+      \href{https://github.com/gavinsimpson/analogue/}{github} and bugs
+      and feature requests should be posted there. The Travis continuous
+      integration system is used to automatically check the package as
+      new code is checked in.
+
+      \item There are several new functions and methods and a few bug
+      fixes, the details of which are given below.
+
+      \item The main user-visible change over 0.12-0 is the deprecation
+      of the \code{plot3d.prcurve} method. The functionality is now in
+      new function \code{Plot3d} and \code{plot3d.prcurve} is deprecated
+      and if called needs to use the full function name. This change is
+      to make \pkg{analogue} easier to install on MacOS X as now
+      \pkg{rgl} is not needed to install analogue. If you want to plot
+      the principal curve in an interactive 3d view, you'll need to get
+      \pkg{rgl} installed first.
+    }
+
+  } % general
+
+  \subsection{New Features}{
+
+    \itemize{
+      \item \code{n2} is a new utility function to calculate Hill's N2
+      for sites and species.
+
+      \item \code{optima} can now compute bootstrap WA optima and
+      uncertainty.
+
+      \item \code{performance} has a new method for objects of class
+      \code{crossval}.
+
+      \item \code{timetrack} had several improvements including a new
+      \code{precict} method, which allows further points to be added to
+      an existing timetrack, a \code{points} method to allow the
+      addition of data to an existing timetrack plot, and the
+      \code{plot} method can create a blank plotting region allowing
+      greater customisation.
+
+      \item \code{prcurve} gets \code{predict} and \code{fitted} methods
+      to predict locations of new samples on the principal curve and
+      extract the locations of the training samples respectively.
+    }
+
+  } % new features
+
+  \subsection{Bug Fixes}{
+
+    \itemize{
+      \item The calculation of AUC in \code{roc} wasn't working
+      correctly in some circumstances with just a couple of groups.
+
+      \item \code{crossval.pcr} had a number of bugs in the k-fold CV
+      routine which were leading to errors and the function not working.
+
+      The progress bar was not being updated correctly either.
+
+      \item \code{predict.pcr} was setting \code{ncomp} incorrectly if
+      not supplied by the user.
+
+      \item \code{ChiSquare} wasn't returning the transformation
+      parameters required to transform leave-out data during
+      crossvalidation or new samples for which predictions were
+      required.
+
+      \item \code{plot3d.prcurve} was not using the \code{data} and
+      \code{ordination} components of the returned object. Note this
+      function is now deprecated; see earlier note above.
+
+      \item \code{predict.pcr} was incorrectly calling the internal
+      function \code{fitPCR} with the \code{:::} operator.
+  
+    }
+    
+  }
+
+  \subsection{DEPRECATED}{
+    
+    \itemize{
+      \item \code{plot3d.prcurve} is deprecated. Functionality is in new
+      function \code{Plot3d}.
+    }
+    
+  } % deprecated
+}
+  
 \section{Changes in version 0.12-0}{
 
   \subsection{General summary}{
