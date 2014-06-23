@@ -24,6 +24,7 @@ analog.default <- function(x, y, method = c("euclidean", "SQeuclidean",
     ##      If we convert prematurely to matrices, we have
     ##      have problems if data contains factors, which we
     ##      allow with method = "mixed".
+    method <- match.arg(method)
     dissim <- distance(x = x, y = y, method = method)
     train <- NULL
     if(keep.train)
