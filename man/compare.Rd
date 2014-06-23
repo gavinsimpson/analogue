@@ -4,10 +4,13 @@
 
 \title{Compare proxies across two data sets}
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  \code{compare()} compares a proxy dataset with a training set or other
+  data set that is considered to be the master. A range of metrics is
+  returned, currently for samples only.
 }
 \usage{
 compare(x, \dots)
+
 \method{compare}{default}(x, y, env, ordination = "rda",
         method = "chord", transform = NULL, ...)
 }
@@ -41,5 +44,6 @@ compare(ImbrieKipp, V12.122, env = SumSST, ordination = "rda",
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ methods }
+\keyword{ utility }
+\keyword{ multivariate }
