@@ -64,6 +64,7 @@ export(
     caterpillarPlot,
     chooseTaxa,
     cma,
+    compare,
     crossval,
     deshrink,
     dissim,
@@ -122,6 +123,7 @@ S3method(cma, analog)
 S3method(cma, default)
 S3method(cma, predict.mat)
 S3method(cma, mat)
+S3method(compare, default)
 S3method(crossval, pcr)
 S3method(crossval, wa)
 S3method(densityplot, residLen)
