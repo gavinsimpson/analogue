@@ -24,7 +24,7 @@
  * Principal curves
 
 ## Bugs, feature requests
-Bug reports and feature requests should be filed on [R-forge](https://r-forge.r-project.org/tracker/?atid=338&group_id=69&func=browse).
+Bug reports and feature requests should be filed as [issues](https://github.com/gavinsimpson/analogue/issues).
 
 ## Licence
 analogue is released under the [GNU General Public Licence Version 2](http://www.gnu.org/licenses/gpl-2.0.html).
