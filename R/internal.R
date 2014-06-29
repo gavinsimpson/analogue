@@ -210,10 +210,21 @@
     tol
 }
 
+##' @title Quickly compute Hill's N2 for species
+##'
+##' @description A fast-ish version of Hill's N2 for species using
+##' \code{\link{.colSums}}.
+##'
+##' @param x matrix of species abundances.
+##'
+##' @return A vector of N2 values, one per species. Species missing
+##' from a set of samples will have an infinite N2.
+##'
+##' @section Warning; must only be called once the data have been
+##' checked as this calls out to C code via \code{\link{.colSums}}.
+##'
+##' @author Gavin L. Simpson
 `sppN2` <- function(x) {
-    ## quickly compute Hill's N2 for species
-    ## x = species abundances
-    ## ONLY call within an existing function
     tot <- ColSums(x)
     x <- sweep(x, 2, tot, "/")
     x <- x^2
