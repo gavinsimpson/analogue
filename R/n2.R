@@ -13,6 +13,7 @@
     }
     pj <- sumFun(x)
     pj <- sumFun(sweep(x, MARGIN, pj, "/")^2, na.rm = TRUE)
-    N2 <- 1 / pj
+    N2 <- 1 / pj ## pj == 0, hence 1 / 0 == Inf, if spp missing
+    N2[is.infinite(N2)] <- 0L
     N2
 }
