@@ -112,6 +112,9 @@
 ##' @param spp vector of species abundances; the weights.
 ##' @param env vector of gradient values.
 ##'
+##' @description \code{wmean()} is for a vector of species abundances
+##' only.
+##'
 ##' @return The weighted mean of \code{env}.
 ##'
 ##' @author Gavin L. Simpson
@@ -119,7 +122,17 @@
   sum(env * spp) / sum(spp)
 }
 
-## w.avg - fast weighted mean function with no checks
+##' @title Fast weighted mean function with no checks in column sums
+##'
+##' @param x numeric matrix; weights, the species abundances say.
+##' @param env numeric; vector of gradient values.
+##'
+##' @description \code{w.avg()} is for a matrix of species abundances.
+##'
+##' @return Numeric vector of length \code{ncol(x)} containing the
+##' weighted means of the gradient values for eah column of \code{x}.
+##'
+##' @author Gavin L. Simpson
 `w.avg` <- function(x, env) {
     opt <- ColSums(x * env) / ColSums(x)
     names(opt) <- colnames(x)
