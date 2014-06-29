@@ -15,7 +15,7 @@
 ##' @return a numeric vector of length \code{kmax}.
 ##'
 ##' @author Gavin L. Simpson
-cumWmean <- function(weights, y, drop = TRUE, kmax) {
+`cumWmean` <- function(weights, y, drop = TRUE, kmax) {
     ## as weights are the distances, I could probably combine
     ## mean and weighted mean versions of this function?
     if(missing(kmax))
@@ -45,7 +45,7 @@ cumWmean <- function(weights, y, drop = TRUE, kmax) {
 ##' @return a numeric vector of length \code{kmax}.
 ##'
 ##' @author Gavin L. Simpson
-cummean <- function(dis, y, drop = TRUE, kmax) {
+`cummean` <- function(dis, y, drop = TRUE, kmax) {
     if(missing(kmax))
         kmax <- length(y)
     nas <- is.na(dis)
@@ -70,7 +70,7 @@ cummean <- function(dis, y, drop = TRUE, kmax) {
 ##' @return The minimum, non-zero distance, a vector of length 1.
 ##'
 ##' @author Gavin L. Simpson
-minDij <- function(x, drop = TRUE) {
+`minDij` <- function(x, drop = TRUE) {
     ord <- order(x)
     if(drop)
         x[ord][2] # we don't want the first zero distance
@@ -88,7 +88,7 @@ minDij <- function(x, drop = TRUE) {
 ##' the largest residual in each of the \code{n} setions of the gradient.
 ##'
 ##' @author Gavin L. Simpson
-maxBias <- function(error, y, n = 10) {
+`maxBias` <- function(error, y, n = 10) {
     groups <- cut.default(y, breaks = n, labels = 1:n)
     bias <- tapply(error, groups, mean)
     bias[which.max(abs(bias))]
@@ -101,7 +101,7 @@ maxBias <- function(error, y, n = 10) {
 ##' @return The capitalise string
 ##'
 ##' @author Gavin L. Simpson
-.simpleCap <- function(x) {
+`.simpleCap` <- function(x) {
   s <- strsplit(x, " ")[[1]]
   paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "",
         collapse = " ")
@@ -115,7 +115,7 @@ maxBias <- function(error, y, n = 10) {
 ##' @return The weighted mean of \code{env}.
 ##'
 ##' @author Gavin L. Simpson
-wmean <- function(spp, env) {
+`wmean` <- function(spp, env) {
   sum(env * spp) / sum(spp)
 }
 
