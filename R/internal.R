@@ -94,23 +94,19 @@ maxBias <- function(error, y, n = 10) {
     bias[which.max(abs(bias))]
 }
 
-###########################################################################
-##                                                                       ##
-## .simpleCap - simple capitalisation function from ?toupper             ##
-##                                                                       ##
-## Created       : 16-Feb-2007                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 16-Feb-2007                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## x - string to be capitalised                                          ##
-##                                                                       ##
-###########################################################################
+##' @title Simple capitalisation function from ?toupper
+##'
+##' @param x string to be capitalised
+##'
+##' @return The capitalise string
+##'
+##' @author Gavin L. Simpson
 .simpleCap <- function(x) {
   s <- strsplit(x, " ")[[1]]
-  paste(toupper(substring(s, 1,1)), substring(s, 2), sep="", collapse=" ")
+  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "",
+        collapse = " ")
 }
+
 ###########################################################################
 ##                                                                       ##
 ## wmean - simple, quick version of weighted.mean                        ##
