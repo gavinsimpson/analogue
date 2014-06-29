@@ -107,21 +107,16 @@ maxBias <- function(error, y, n = 10) {
         collapse = " ")
 }
 
-###########################################################################
-##                                                                       ##
-## wmean - simple, quick version of weighted.mean                        ##
-##                                                                       ##
-## Created       : 16-Feb-2007                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 16-Feb-2007                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## x - string to be capitalised                                          ##
-##                                                                       ##
-###########################################################################
+##' @title Simple, quicker version of weighted.mean
+##'
+##' @param spp vector of species abundances; the weights.
+##' @param env vector of gradient values.
+##'
+##' @return The weighted mean of \code{env}.
+##'
+##' @author Gavin L. Simpson
 wmean <- function(spp, env) {
-  sum(env * spp)/sum(spp)
+  sum(env * spp) / sum(spp)
 }
 
 ## w.avg - fast weighted mean function with no checks
