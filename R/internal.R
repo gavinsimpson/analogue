@@ -60,28 +60,23 @@ cummean <- function(dis, y, drop = TRUE, kmax) {
     cumsum(y[K]) / K
 }
 
-###########################################################################
-##                                                                       ##
-## minDij - returns the non-zero minimum distance                        ##
-##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## x                 - the vector of distances for which the non-zero    ##
-##                     minimum is required                               ##
-##                                                                       ##
-###########################################################################
-minDij <- function(x, drop = TRUE)
-  {
+##' @title Return the non-zero minimum of a vector of distances
+##'
+##' @param x the vector of distances for which the non-zero minimum is
+##' required
+##' @param drop logical; should the trivial (zero) distance of site
+##' with itself be dropped?
+##'
+##' @return The minimum, non-zero distance, a vector of length 1.
+##'
+##' @author Gavin L. Simpson
+minDij <- function(x, drop = TRUE) {
     ord <- order(x)
     if(drop)
-      x[ord][2] # we don't want the first zero distance
+        x[ord][2] # we don't want the first zero distance
     else
-      x[ord][1]
-  }
+        x[ord][1]
+}
 ###########################################################################
 ##                                                                       ##
 ## maxBias - returns the maximum bias statistic of mat residuals         ##
