@@ -181,18 +181,29 @@
     .colSums(x, n, dn, na.rm)
 }
 
-## w.tol --- computes weighted standard deviations AKA tolerances
-w.tol <- function(x, env, opt, useN2 = TRUE) {
-    ## x   = species abundances
-    ## env = vector of response var
-    ## opt = weighted average optima
+##' @title Computes weighted standard deviations AKA tolerances
+##' @param x matrix of species abundances.
+##' @param env vector of gradient values.
+##' @param opt vector of weighted average optima for the proxies
+##' (columns) of \code{x}.
+##' @param useN2 logical; should the tolerance be scaled by its N2
+##' value in the data set.
+##'
+##' @return A numeric vector of species tolerance values.
+##'
+##' @author Gavin Simpson
+`w.tol` <- function(x, env, opt, useN2 = TRUE) {
     nr <- NROW(x)
     nc <- NCOL(x)
-    tol <- .C("WTOL", x = as.double(env), w = as.double(x),
+    tol <- .C("WTOL",
+              x = as.double(env),
+              w = as.double(x),
               opt = as.double(opt),
-              nr = as.integer(nr), nc = as.integer(nc),
-              stat = double(nc), NAOK = FALSE,
-              PACKAGE="analogue")$stat
+              nr = as.integer(nr),
+              nc = as.integer(nc),
+              stat = double(nc),
+              NAOK = FALSE,
+              PACKAGE = "analogue")$stat
     if(useN2)
         tol <- tol / sqrt(1 - (1 / sppN2(x)))
     names(tol) <- colnames(x)
