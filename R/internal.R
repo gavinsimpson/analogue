@@ -5,23 +5,19 @@
 ##                                                                       ##
 ###########################################################################
 
-###########################################################################
-##                                                                       ##
-## cumWmean - calculates the cumulative weighted mean of y               ##
-##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## weights           - the weights to use                                ##
-## y                 - the vector of values to calculate weighted mean   ##
-##                     of                                                ##
-## drop              - drop spurious zero distance                       ##
-##                                                                       ##
-###########################################################################
+##' @title Cumulative weighted mean for a vector of distances
+##'
+##' @param weights numeric vector of weights
+##' @param y numeric vector to calculate the weighted mean of
+##' @param drop logical; drop spurious zero distance
+##' @param kmax numeric; upper limit on number of analogues to include
+##'
+##' @return a numeric vector of length \code{kmax}.
+##' 
+##' @author Gavin L. Simpson
 cumWmean <- function(weights, y, drop = TRUE, kmax) {
+    ## as weights are the distances, I could probably combine
+    ## mean and weighted mean versions of this function?
     if(missing(kmax))
         kmax <- length(y)
     ##if (length(weights) != length(y))
@@ -46,7 +42,7 @@ cumWmean <- function(weights, y, drop = TRUE, kmax) {
 ##' @param drop logical; drop spurious zero distance
 ##' @param kmax numeric; upper limit on number of analogues to include
 ##'
-##' @return a numeric vector of length \code{kmax}
+##' @return a numeric vector of length \code{kmax}.
 ##'
 ##' @author Gavin L. Simpson
 cummean <- function(dis, y, drop = TRUE, kmax) {
