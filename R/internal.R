@@ -13,7 +13,7 @@
 ##' @param kmax numeric; upper limit on number of analogues to include
 ##'
 ##' @return a numeric vector of length \code{kmax}.
-##' 
+##'
 ##' @author Gavin L. Simpson
 cumWmean <- function(weights, y, drop = TRUE, kmax) {
     ## as weights are the distances, I could probably combine
@@ -59,6 +59,7 @@ cummean <- function(dis, y, drop = TRUE, kmax) {
     K <- seq_len(kmax)
     cumsum(y[K]) / K
 }
+
 ###########################################################################
 ##                                                                       ##
 ## minDij - returns the non-zero minimum distance                        ##
