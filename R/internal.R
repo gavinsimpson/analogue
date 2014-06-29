@@ -139,7 +139,20 @@
     opt
 }
 
-## fast rowSums and colSums functions without the checking
+##' @title Fast rowSums() without any checks.
+##'
+##' @description Drop in replacement for \code{\link{rowSums}} but
+##' without any of the sanity checks of that function. Used when these
+##' checks have already be done up front, such as during repeated
+##' bootstrap estimation
+##'
+##' @param x matrix.
+##' @param na.rm logical; should missing values be removed from the
+##' calculation?
+##'
+##' @return numeric vector containing the sums of the rows.
+##'
+##' @author Gavin L. Simpson
 `RowSums` <- function(x, na.rm = FALSE) {
     dn <- dim(x)
     p <- dn[2]
@@ -147,6 +160,20 @@
     .rowSums(x, dn, p, na.rm)
 }
 
+##' @title Fast colSums() without any checks.
+##'
+##' @description Drop in replacement for \code{\link{colSums}} but
+##' without any of the sanity checks of that function. Used when these
+##' checks have already be done up front, such as during repeated
+##' bootstrap estimation
+##'
+##' @param x matrix.
+##' @param na.rm logical; should missing values be removed from the
+##' calculation?
+##'
+##' @return numeric vector containing the sums of the columns.
+##'
+##' @author Gavin L. Simpson
 `ColSums` <- function(x, na.rm = FALSE) {
     dn <- dim(x)
     n <- dn[1]
