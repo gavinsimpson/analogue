@@ -38,21 +38,17 @@ cumWmean <- function(weights, y, drop = TRUE, kmax) {
     K <- seq_len(kmax)
     cumsum(weights[K] * env[K]) / cumsum(weights[K])
 }
-###########################################################################
-##                                                                       ##
-## cummean - calculates the cumulative mean of y                         ##
-##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## dis               - the distances to sort by                          ##
-## y                 - the vector of values to calculate mean of         ##
-## drop              - drop spurious zero distance                       ##
-##                                                                       ##
-###########################################################################
+
+##' @title Cumulative mean for a vector of distances
+##'
+##' @param dis the distances to sort by
+##' @param y the vector of values to calculate mean of
+##' @param drop logical; drop spurious zero distance
+##' @param kmax numeric; upper limit on number of analogues to include
+##'
+##' @return a numeric vector of length \code{kmax}
+##'
+##' @author Gavin L. Simpson
 cummean <- function(dis, y, drop = TRUE, kmax) {
     if(missing(kmax))
         kmax <- length(y)
@@ -65,7 +61,6 @@ cummean <- function(dis, y, drop = TRUE, kmax) {
         len <- len - 1
     }
     K <- seq_len(kmax)
-    ##cumsum(y) / 1:len
     cumsum(y[K]) / K
 }
 ###########################################################################
