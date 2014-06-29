@@ -77,27 +77,23 @@ minDij <- function(x, drop = TRUE) {
     else
         x[ord][1]
 }
-###########################################################################
-##                                                                       ##
-## maxBias - returns the maximum bias statistic of mat residuals         ##
-##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## error             - model residuals                                   ##
-## y                 - the vector original observed env data             ##
-## n                 - number of sections to break env gradient into     ##
-##                                                                       ##
-###########################################################################
-maxBias <- function(error, y, n = 10)
-  {
+
+##' @title The maximum bias statistic of transfer function residuals
+##'
+##' @param error numeric vector of model residuals
+##' @param y numeric vector of observed environmental data
+##' @param n numeric; number of sections to cut environmental gradient into
+##'
+##' @return A numeric vector of length \code{n} containing the value of
+##' the largest residual in each of the \code{n} setions of the gradient.
+##'
+##' @author Gavin L. Simpson
+maxBias <- function(error, y, n = 10) {
     groups <- cut.default(y, breaks = n, labels = 1:n)
     bias <- tapply(error, groups, mean)
     bias[which.max(abs(bias))]
-  }
+}
+
 ###########################################################################
 ##                                                                       ##
 ## .simpleCap - simple capitalisation function from ?toupper             ##
