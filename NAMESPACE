@@ -72,6 +72,7 @@ export(
     distance, oldDistance, ## oldDistance is the original R-only code
                                         #distance3,
                                         #distanceX,
+    evenSample,
     fuse,
     getK,
     gradientDist,

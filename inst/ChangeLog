@@ -11,6 +11,9 @@ Version 0.13-6
 	means it is not needed to install the package. This seems to be
 	causing some problems for Mac OS users.
 
+	* evenSample: new function returns the number of samples per
+	gradient segment.
+
 	* Imports: lattice moved from Depends to Imports. analogue now
 	exports the generics densityplot, dotplot, and histogram imported
 	from the lattice namespace.
