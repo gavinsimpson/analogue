@@ -31,3 +31,16 @@
     class(Nseg) <- "evenSample"
     Nseg
 }
+
+
+`print.evenSample` <- function(x, ...) {
+    attrs <- attributes(x)
+    attributes(x) <- NULL
+    x <- unclass(x)
+    names(x) <- attrs[["dimnames"]][[1]]
+    cat("\n")
+    writeLines(strwrap(paste0("Gradient: ", attrs[["gradient"]], "; ",
+                              "Segments: ", attrs[["numSegments"]])))
+    cat("\nNumber of samples per segment:\n")
+    print(x)
+}
