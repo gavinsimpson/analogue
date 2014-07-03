@@ -28,6 +28,7 @@
     Nseg <- tapply(grad, segs, length)
     attr(Nseg, "gradient") <- deparse(substitute(grad))
     attr(Nseg, "numSegments") <- n
+    attr(Nseg, "breaks") <- segs
     class(Nseg) <- "evenSample"
     Nseg
 }
