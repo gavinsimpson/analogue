@@ -2,3 +2,4 @@ LICENSE
 ^\.travis\.yml$
 ^travis-tool\.sh
 www/
+^appveyor\.yml$
