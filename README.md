@@ -1,8 +1,10 @@
 # analogue
 
-[![Build Status](https://travis-ci.org/gavinsimpson/analogue.svg?branch=master)](https://travis-ci.org/gavinsimpson/analogue)
+## Build status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/hc8dbxrim2nj3c1i/branch/master)](https://ci.appveyor.com/project/gavinsimpson/analogue/branch/master)
+Linux       | Windows
+------------|------------
+[![Build Status](https://travis-ci.org/gavinsimpson/analogue.svg?branch=master)](https://travis-ci.org/gavinsimpson/analogue) | [![Build status](https://ci.appveyor.com/api/projects/status/hc8dbxrim2nj3c1i/branch/master)](https://ci.appveyor.com/project/gavinsimpson/analogue/branch/master)
 
 ## What is analogue?
 **analogue** is an R package for use with palaeoecological data. Originally, **analogue** was intended as an R implementation of analogue methods such as analogue matching, <acronym title="Receiver Operator Characteristic">ROC</acronym> curves, and <acronym title="Modern Analogue Technique">MAT</acronym> transfer function models, and the computation of dissimilarity coefficients. Since then the scope of the package has grown to include a number of other methods applicable to data routinely encountered in palaeoecology and palaeolimnology.
