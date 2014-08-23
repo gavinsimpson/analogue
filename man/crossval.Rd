@@ -80,8 +80,8 @@ cv.kfold
 cv.nkfold <- crossval(mod, method = "kfold", kfold = 10, folds = 10)
 cv.nkfold
 
-## bootstrap with 250 bootstrap samples
-cv.boot <- crossval(mod, method = "bootstrap", nboot = 250)
+## bootstrap with 100 bootstrap samples
+cv.boot <- crossval(mod, method = "bootstrap", nboot = 100)
 cv.boot
 
 ## extract fitted values and residuals
@@ -92,6 +92,6 @@ resid(cv.boot)
 mpcr <- pcr(SumSST ~., data = ImbrieKipp, ncomp = 10)
 crossval(mpcr, method = "kfold", kfold = 10, folds = 2, ncomp = 10)
 
-crossval(mpcr, method = "bootstrap", nboot = 250, ncomp = 10)
+crossval(mpcr, method = "bootstrap", nboot = 100, ncomp = 10)
 }
 \keyword{methods}
