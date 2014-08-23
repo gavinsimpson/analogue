@@ -39,7 +39,8 @@ evenSample(grad, n = 10)
 
 \examples{
 data(SumSST)
-evenSample(SumSST) ## not an even sample...
+ev <- evenSample(SumSST) ## not an even sample...
+plot(ev)
 }
 
 \keyword{ utilities }

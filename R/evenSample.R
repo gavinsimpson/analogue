@@ -22,26 +22,36 @@
 ##'
 ##' @examples
 ##' data(SumSST)
-##' evenSample(SumSST)  ## not an even sample...
+##' ev <- evenSample(SumSST)  ## not an even sample...
+##' ev
+##' plot(ev)
 `evenSample` <- function(grad, n = 10) {
-    segs <- cut(grad, breaks = n) ##, labels = paste0("seg", seq_len(n)))
-    Nseg <- tapply(grad, segs, length)
+    r <- range(grad)
+    d <- diff(r)
+    brks <- seq.int(r[1L], r[2L], length.out = n + 1)
+    r <- r + (c(-1,1) * (d/1000))
+    brks[c(1L, n + 1)] <- r
+    segs <- findInterval(grad, brks)
+    H <- hist(grad, breaks = brks, plot = FALSE)
+    Nseg <- H$counts
     attr(Nseg, "gradient") <- deparse(substitute(grad))
     attr(Nseg, "numSegments") <- n
-    attr(Nseg, "breaks") <- segs
+    attr(Nseg, "breaks") <- brks
     class(Nseg) <- "evenSample"
     Nseg
 }
 
 
-`print.evenSample` <- function(x, ...) {
+`print.evenSample` <- function(x, digits = getOption("digits"), ...) {
     attrs <- attributes(x)
     attributes(x) <- NULL
     x <- unclass(x)
-    names(x) <- attrs[["dimnames"]][[1]]
-    cat("\n")
-    writeLines(strwrap(paste0("Gradient: ", attrs[["gradient"]], "; ",
-                              "Segments: ", attrs[["numSegments"]])))
-    cat("\nNumber of samples per segment:\n")
-    print(x)
+    names(x) <- seq_along(x)
+    writeLines(strwrap(paste("Gradient:", attrs[["gradient"]]), prefix = "\n"))
+    writeLines(strwrap(paste("Segments:", attrs[["numSegments"]])))
+    writeLines(strwrap("Number of samples per segment:", prefix = "\n"),
+               sep = "\n\n")
+    xx <- format(x, digits = digits, justify = "none")
+    print(xx, quote = FALSE, right = TRUE, ...)
+    invisible(x)
 }
