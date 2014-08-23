@@ -7,7 +7,7 @@
   \subsection{General summary}{
 
     \itemize{
-      \item Version 0.14-0 is less of an update than that provided by
+      \item Version 0.14-0 is less of a major update than that provided by
       version 0.12-0 and sees a continuation of the changes to
       dependencies to have packaes in Imports rather than Depends.
 
@@ -54,6 +54,9 @@
       \item \code{prcurve} gets \code{predict} and \code{fitted} methods
       to predict locations of new samples on the principal curve and
       extract the locations of the training samples respectively.
+
+      \item \code{evenSample} is a utility function to look at the
+      evenness of the distribution of samples along a gradient.
     }
 
   } % new features

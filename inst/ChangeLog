@@ -12,7 +12,7 @@ Version 0.13-6
 	causing some problems for Mac OS users.
 
 	* evenSample: new function returns the number of samples per
-	gradient segment.
+	gradient segment. Has a `plot()` method.
 
 	* Imports: lattice moved from Depends to Imports. analogue now
 	exports the generics densityplot, dotplot, and histogram imported
