@@ -57,6 +57,10 @@
 
       \item \code{evenSample} is a utility function to look at the
       evenness of the distribution of samples along a gradient.
+
+      \item Data sets \code{Pollen}, \code{Biome}, \code{Climate}, and
+      \code{Location} from the North American Modern Pollen Database
+      have been updated to version 1.7.3 of the data base. 
     }
 
   } % new features
