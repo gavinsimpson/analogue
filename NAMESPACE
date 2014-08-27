@@ -4,9 +4,12 @@ useDynLib(analogue)
 ## Imports
 ##
 ## vegan
-importFrom(vegan, pasteCall, eigenvals, tolerance, scores, ordirgl)
+importFrom(vegan,
+           pasteCall, eigenvals, tolerance, scores, ordirgl,
+           cca, rda, vegdist, wisconsin, decostand)
 ## mgcv
-importFrom(mgcv, gam, s, smoothCon, mono.con, pcls, Predict.matrix)
+importFrom(mgcv,
+           gam, s, smoothCon, mono.con, pcls, Predict.matrix)
 ## MASS
 importFrom(MASS, dose.p)
 ## lattice
@@ -16,7 +19,19 @@ importFrom(MASS, dose.p)
 importFrom(lattice,
            densityplot,
            dotplot,
-           histogram)
+           histogram,
+           xyplot,
+           current.panel.limits,
+           panel.axis,
+           which.packet,
+           axis.default,
+           trellis.par.get,
+           panel.refline,
+           panel.grid,
+           panel.lines,
+           panel.points,
+           panel.polygon,
+           panel.abline)
 ## stats
 import(stats)
 ## utils
