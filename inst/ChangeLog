@@ -1,5 +1,9 @@
 analogue Change Log
 
+Version 0.14-0
+
+	* Released to CRAN 28th August 2014
+
 Version 0.13-6
 
 	* Plot3d: new name for the previous `plot3d.prcurve()` method.
