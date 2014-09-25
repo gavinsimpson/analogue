@@ -1,5 +1,5 @@
 
-R version 3.1.1 Patched (2014-07-11 r66127) -- "Sock it to Me"
+R version 3.1.1 Patched (2014-08-21 r66455) -- "Sock it to Me"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -25,7 +25,7 @@ Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
 This is vegan 2.0-10
-This is analogue 0.14-0
+This is analogue 0.15-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -7499,7 +7499,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.133 0.195 26.597 0 0.005 
+Time elapsed:  33.058 0.485 33.806 0 0.006 
 > grDevices::dev.off()
 null device 
           1 
