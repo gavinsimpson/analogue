@@ -8,6 +8,9 @@ Version 0.15-0
 	  `method = "log1p"` for accurate computation of log(1 + x)
 	  where |x| << 1 using `log1p()`.
 
+	  `method = "expm1"` for accurate computation of exp(x) - 1
+	  where |x| << 1 using `expm1()`.
+
 Version 0.14-0
 
 	* Released to CRAN 28th August 2014

@@ -16,7 +16,7 @@
                 "pa","missing", "hellinger", "chi.square", "wisconsin",
                 "pcent2prop", "prop2pcent", "logRatio", "power",
                 "rowCentre", "colCentre", "rowCenter", "colCenter",
-                "log1p")
+                "log1p", "expm1")
     method <- match.arg(method, METHOD)
     ## account for non-British spelling
     american <- c("rowCenter", "colCenter")
@@ -52,7 +52,8 @@
                     power = x^p,
                     rowCentre = x - rowMeans(x),
                     colCentre = x - colMeans(x),
-                    log1p = log1p(x)
+                    log1p = log1p(x),
+                    expm1 = expm1(x)
                     )
     }
     if(wasDF)
