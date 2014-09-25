@@ -20,8 +20,8 @@
     method <- match.arg(method, METHOD)
     ## account for non-British spelling
     american <- c("rowCenter", "colCenter")
-    method <- if (any(ind <-  american == method)) {
-        american[ind]
+    if (any(ind <-  american == method)) {
+        method <- american[ind]
     }
     if(method %in% c("freq", "standardize","range","pa","hellinger",
                      "chi.square","wisconsin")) {
