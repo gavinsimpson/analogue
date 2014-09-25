@@ -1,5 +1,10 @@
 analogue Change Log
 
+Version 0.15-0
+
+	* tran: now has `method = "colCenter"` for centering by
+	columns.
+
 Version 0.14-0
 
 	* Released to CRAN 28th August 2014

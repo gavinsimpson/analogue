@@ -100,6 +100,9 @@
     \item \code{rowCenter}: Centres \code{x} by rows through the
     subtraction of the corresponding row mean from the observations in
     the row.
+    \item \code{colCenter}: Centres \code{x} by columns through the
+     subtraction of the corresponding column mean from the observations
+     in the row.
   }
 }
 \value{

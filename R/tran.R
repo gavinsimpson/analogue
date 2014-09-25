@@ -15,7 +15,7 @@
                 "center", "standardize", "range", "percent", "proportion",
                 "pa","missing", "hellinger", "chi.square", "wisconsin",
                 "pcent2prop", "prop2pcent", "logRatio", "power",
-                "rowCenter")
+                "rowCenter", "colCenter")
     method <- match.arg(method, METHOD)
     if(method %in% c("freq", "standardize","range","pa","hellinger",
                      "chi.square","wisconsin")) {
@@ -44,7 +44,8 @@
                                 x <- log(x, base = base)
                                 x - rowMeans(x)},
                     power = x^p,
-                    rowCenter = x - rowMeans(x)
+                    rowCenter = x - rowMeans(x),
+                    colCenter = x - colMeans(x)
                     )
     }
     if(wasDF)
