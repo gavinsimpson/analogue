@@ -62,6 +62,9 @@
     \code{b} and the \code{base} of the logarithms. The transformation
     applied is \eqn{x^* = \log_{\mathrm{base}}(ax + b)}{x* =
       log[base](ax + b).}
+    \item \code{log1p}: computes \eqn{log(1+x)} accurately also for
+     \eqn{|x| << 1} via \code{\link{log1p}}. Note the arguments \code{a}
+     and \code{b} have no effect in this method.
     \item \code{reciprocal}: returns the multiplicative inverse or
     reciprocal, \eqn{1/x}, of the observed values.
     \item \code{freq}: divide by column (variable, species)  maximum and

@@ -3,7 +3,10 @@ analogue Change Log
 Version 0.15-0
 
 	* tran: now has `method = "colCenter"` for centering by
-	columns.
+	columns. Also gains:
+
+	  `method = "log1p"` for accurate computation of log(1 + x)
+	  where |x| << 1 using `log1p()`.
 
 Version 0.14-0
 
