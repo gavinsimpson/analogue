@@ -97,12 +97,12 @@
     Aitchison's Log Ratio Analysis (LRA), a means of dealing with closed
     compositional data such as common in palaeoecology (Aitchison, 1983).
     \item \code{power}: applies a power tranformation.
-    \item \code{rowCenter}: Centres \code{x} by rows through the
-    subtraction of the corresponding row mean from the observations in
-    the row.
-    \item \code{colCenter}: Centres \code{x} by columns through the
-     subtraction of the corresponding column mean from the observations
-     in the row.
+    \item \code{rowCentre}, \code{rowCenter}: Centres \code{x} by rows
+     through the subtraction of the corresponding row mean from the
+     observations in the row.
+    \item \code{colCentre} \code{colCenter}: Centres \code{x} by columns
+     through the subtraction of the corresponding column mean from the
+     observations in the row.
   }
 }
 \value{
