@@ -15,7 +15,7 @@
                 "center", "standardize", "range", "percent", "proportion",
                 "pa","missing", "hellinger", "chi.square", "wisconsin",
                 "pcent2prop", "prop2pcent", "logRatio", "power",
-                "rowCentre", "colCentre", "rowCenter", "colCenter")
+                "rowCenter")
     method <- match.arg(method, METHOD)
     ## account for non-British spelling
     american <- c("rowCenter", "colCenter")
@@ -49,8 +49,7 @@
                                 x <- log(x, base = base)
                                 x - rowMeans(x)},
                     power = x^p,
-                    rowCentre = x - rowMeans(x),
-                    colCentre = x - colMeans(x)
+                    rowCentre = x - rowMeans(x)
                     )
     }
     if(wasDF)
