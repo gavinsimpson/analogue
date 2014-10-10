@@ -64,8 +64,8 @@ rdaFit <- function(X, Y, Z, scale = FALSE, ...) {
                     QR = Q, Xbar = Xbar)
         u <- matrix(0, nrow=nrow(sol$u), ncol=0)
         v <- matrix(0, nrow=nrow(sol$v), ncol=0)
-        RDA$u <- RDA$u.eig <- RDA$wa <- u
-        RDA$v <- RDA$v.eig <- v
+        RDA$u <- RDA$wa <- u
+        RDA$v <- v
         RDA$biplot <- matrix(0, 0, 0)
         RDA$alias <- colnames(Yr)
     }
