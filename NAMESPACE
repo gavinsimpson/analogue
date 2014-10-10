@@ -5,7 +5,7 @@ useDynLib(analogue)
 ##
 ## vegan
 importFrom(vegan,
-           pasteCall, eigenvals, tolerance, scores, ordirgl,
+           pasteCall, eigenvals, tolerance, scores,
            cca, rda, vegdist, wisconsin, decostand)
 ## mgcv
 importFrom(mgcv,
@@ -54,11 +54,6 @@ importFrom(grid,
 importFrom(brglm,
            brglm,
            brglm.control)
-## rgl
-## importFrom(rgl,
-##            plot3d,
-##            lines3d,
-##            decorate3d)
 
 ## princurve
 importFrom(princurve,
@@ -102,9 +97,7 @@ export(
     panel.Stratiplot,
     pcr,
     performance,
-    plot3d.prcurve,
-    Plot3d,
-    prcurve, ##randomWA,
+    prcurve,                            # randomWA,
     reconPlot,
     residLen,
     RMSEP,
@@ -254,7 +247,6 @@ S3method(plot, timetrack)
 S3method(points, timetrack)
 S3method(plot, wa)
 S3method(plot, weightedCor)
-##S3method(plot3d, prcurve)
 S3method(reconPlot, default)
 S3method(reconPlot, predict.mat)
 S3method(reconPlot, predict.wa)
