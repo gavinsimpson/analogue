@@ -54,9 +54,9 @@
   \itemize{
     \item \code{sqrt}: take the square roots of the observed values.
     \item \code{cubert}: take the cube root of the observed values.
-    \item \code{rootroot}: take the fourthe root of the observed
-    values. This is also known as the root root transformation (Field et
-    al 1982).
+    \item \code{rootroot}: take the fourth root of the observed
+     values. This is also known as the root root transformation (Field
+     et al 1982).
     \item \code{log}: take the logarithms of the observed values. The
     tansformation applied can be modified by constants \code{a} and
     \code{b} and the \code{base} of the logarithms. The transformation
