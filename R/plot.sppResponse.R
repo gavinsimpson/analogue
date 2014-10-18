@@ -31,6 +31,5 @@
         lines(fx, fy, col = lcol, lwd = lwd, ...)
     }
 
-    invisible(list(observed = list(x = ox, y = oy),
-                   fitted = list(x = fx, y = fy)))
+    invisible()
 }
