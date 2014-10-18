@@ -1,5 +1,5 @@
 
-R version 3.1.1 Patched (2014-08-21 r66455) -- "Sock it to Me"
+R version 3.1.1 Patched (2014-09-17 r66626) -- "Sock it to Me"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -6676,6 +6676,12 @@ PC Converged in 6 iterations.
 > ## Extract the fitted species response curves
 > resp <- sppResponse(aber.pc)
 > 
+> ## Look at only the most abundant/frequently occurring taxa
+> take <- chooseTaxa(abernethy2, max.abun = 25, n.occ = 10, value = FALSE)
+> layout(matrix(1:12, ncol = 3))  	# split device into panels 
+> plot(resp, which = take)
+> layout(1)				# reset device
+> 
 > 
 > 
 > cleanEx()
@@ -7448,7 +7454,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  32.323 0.409 32.922 0 0 
+Time elapsed:  24.423 0.193 24.705 0 0 
 > grDevices::dev.off()
 null device 
           1 
