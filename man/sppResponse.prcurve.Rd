@@ -40,7 +40,7 @@ sppResponse(x, ...)
 \seealso{
   \code{\link{prcurve}} for one function that can be used with
   \code{sppResponse}. A \code{\link{plot}} method is available; see
-  \code{plot.sppResponse} for details.
+  \code{\link{plot.sppResponse}} for details.
 }
 \examples{
 ## Load the Abernethy Forest data set
@@ -56,6 +56,12 @@ aber.pc <- prcurve(abernethy2, method = "ca", trace = TRUE,
 
 ## Extract the fitted species response curves
 resp <- sppResponse(aber.pc)
+
+## Look at only the most abundant/frequently occurring taxa
+take <- chooseTaxa(abernethy2, max.abun = 25, n.occ = 10, value = FALSE)
+layout(matrix(1:12, ncol = 3))  	# split device into panels 
+plot(resp, which = take)
+layout(1)				# reset device
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
