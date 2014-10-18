@@ -11,6 +11,8 @@ Version 0.15-0
 	  `method = "expm1"` for accurate computation of exp(x) - 1
 	  where |x| << 1 using `expm1()`.
 
+	* plot.sppResponse: now documented.
+
 	* Plot3d, plot3d.prcurve: These functions are now removed
 	from analogue. `plot3d.prcurve` is available in the new
 	analogueExtra package.
