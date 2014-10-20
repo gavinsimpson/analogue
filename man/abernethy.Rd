@@ -36,8 +36,7 @@ data(abernethy)
 head(abernethy)
 
 (plt <- Stratiplot(Age ~ . - Depth,
-                   data = chooseTaxa(abernethy, n.occ = 5,
-                                     max.abun = 10),
+                   data = chooseTaxa(abernethy, n.occ = 5, max.abun = 10),
                    type = "poly"))
 }
 \keyword{datasets}
