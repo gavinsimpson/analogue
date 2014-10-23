@@ -18,7 +18,7 @@ Stratiplot(x, \dots)
            svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
            varTypes = "relative", absoluteSize = 0.5,
            zoneNames = NULL, drawLegend = TRUE, na.action = "na.omit",
-           labelAt = NULL, labelRot = 60,
+           labelAt = NULL, labelRot = 60, yticks,
            \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset,
@@ -104,6 +104,12 @@ Stratiplot(x, \dots)
     default location for the label is the panel mid-point.
     \code{labelAt} controls the rotation of the label; it is a numeric
     value in degree.}
+  \item{yticks}{This is passed to the \code{scales} argument of
+    \code{\link{xyplot}} as component \code{at}. This should be a
+    numeric vector of tick locations for the y (depth/age) axis. Setting
+    this to \code{NULL} or \code{FALSE} suppresses ticks on the y
+    axis. The default uses \code{TRUE}, which uses the default choices
+    for \code{at} used by \code{\link{xyplot}}.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}
