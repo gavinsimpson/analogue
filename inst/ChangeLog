@@ -13,6 +13,9 @@ Version 0.15-0
 
 	* plot.sppResponse: now documented.
 
+	* Stratiplot: new argument `yticks` allows user-specified tick
+	locations on the y axis (age/depth).
+
 	* Plot3d, plot3d.prcurve: These functions are now removed
 	from analogue. `plot3d.prcurve` is available in the new
 	analogueExtra package.

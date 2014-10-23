@@ -21,6 +21,7 @@
                                  na.action = "na.omit",
                                  labelAt = NULL,
                                  labelRot = 60,
+                                 yticks,
                                  ...) {
     ## inline function for custom axis
     axis.VarLabs <- function(side, ...) {
@@ -155,8 +156,12 @@
                                                    max.vars + ranges))))
     }
     ## scales in xyplot call
+    ## handle custom tick locations for y-axis
+    if (missing(yticks)) {
+        yticks <- TRUE
+    }
     scales <- list(cex = 0.75, tck = 0.75,
-                   y = list(axs = "r", limits = ylim),
+                   y = list(axs = "r", limits = ylim, at = yticks),
                    x = list(axs = "r", rot = 45, relation = "free",
                    limits = xlimits))
     par.strip.text <- list(cex = 0.75)
