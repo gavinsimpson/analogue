@@ -2,6 +2,33 @@
 \title{Latest changes to the \pkg{analogue} package}
 \encoding{UTF-8}
 
+\section{Changes in version 0.16-0}{
+  \subsection{General Summary}{
+    \itemize{
+      \item Version 0.16-0 is an unplanned release owing to changes that
+      were made to \pkg{vegan} in version 2.2-0. The main user-visible
+      change is that \code{Plot3d()} has been removed from
+      \pkg{analogue} and is now available from the new package
+      \pkg{analogueExtra} which is also on CRAN.
+    }
+  } % general
+
+  \subsection{New Features}{
+    \itemize{
+      \item \code{tran()} no has \code{method = "colCenter"} for centering
+      by columns, \code{method = "log1p"} for accurate computation of
+      log(1 + x) where |x| << 1 using \code{log1p()}, and \code{method =
+	"expm1"} for accurate computation of exp(x) - 1 where |x| << 1 using
+      \code{expm1()}.
+      
+      \item The \code{plot.sppResponse} method is now documented.
+      
+      \item \code{Stratiplot()} has new argument \code{yticks}, which
+      allows user-specified tick locations on the y axis (age/depth).
+    }
+  }
+}
+
 \section{Changes in version 0.14-0}{
 
   \subsection{General summary}{
