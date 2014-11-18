@@ -25,7 +25,7 @@ Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
 This is vegan 2.2-0
-This is analogue 0.15-0
+This is analogue 0.16-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -7453,7 +7453,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  33.389 0.565 34.215 0 0 
+Time elapsed:  36.198 0.607 37.074 0 0 
 > grDevices::dev.off()
 null device 
           1 
