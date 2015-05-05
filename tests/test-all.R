@@ -4,4 +4,4 @@
 library("testthat")
 
 ## Runs the tests in tests/testthat
-test_package("analogue")
+test_check("analogue")
