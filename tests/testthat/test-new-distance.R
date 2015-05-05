@@ -2,7 +2,7 @@
 
 ## load packages
 library("testthat")
-library_if_available("analogue")
+library("analogue")
 
 context("Testing distance compiled code")
 
