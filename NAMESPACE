@@ -255,6 +255,7 @@ S3method(screeplot, mat)
 S3method(screeplot, pcr)
 S3method(Stratiplot, default)
 S3method(Stratiplot, formula)
+S3method(Stratiplot, matrix)
 ## print
 S3method(print, analog)
 S3method(print, bayesF)
