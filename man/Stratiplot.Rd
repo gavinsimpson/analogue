@@ -2,6 +2,7 @@
 \alias{Stratiplot}
 \alias{Stratiplot.default}
 \alias{Stratiplot.formula}
+\alias{Stratiplot.matrix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Palaeoecological stratigraphic diagrams}
 \description{
@@ -258,6 +259,10 @@ head(dat2)
 ## Notice no lines are draw as there a no "sections" ithout missing
 ## levels. If you want/desire this behaviour then you can't use formula
 ## interface yet as there is no way to specify the na.action separately
+
+## Works with matrices
+M <- as.matrix(V12.122)
+Stratiplot(M, Depths, type = c("h"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
