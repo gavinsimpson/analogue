@@ -108,6 +108,7 @@
     \item \code{colCentre} \code{colCenter}: Centres \code{x} by columns
      through the subtraction of the corresponding column mean from the
      observations in the row.
+    \item \code{none} \code{none}: no transformation is applied.
   }
 }
 \value{
