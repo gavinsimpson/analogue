@@ -16,7 +16,7 @@
                 "pa","missing", "hellinger", "chi.square", "wisconsin",
                 "pcent2prop", "prop2pcent", "logRatio", "power",
                 "rowCentre", "colCentre", "rowCenter", "colCenter",
-                "log1p", "expm1")
+                "log1p", "expm1", "none")
     method <- match.arg(method, METHOD)
     ## account for non-British spelling
     american <- c("rowCenter", "colCenter")
@@ -53,14 +53,15 @@
                     rowCentre = x - rowMeans(x),
                     colCentre = x - colMeans(x),
                     log1p = log1p(x),
-                    expm1 = expm1(x)
+                    expm1 = expm1(x),
+                    none = x
                     )
     }
     if(wasDF)
         x <- as.data.frame(x)
     dimnames(x) <- dim.nams
     attr(x, "tran") <- method
-    return(x)
+    x
 }
 
 `tran.formula` <- function(formula, data = NULL,

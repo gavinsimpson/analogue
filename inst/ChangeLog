@@ -8,6 +8,10 @@ Version 0.16-1
 	* Stratiplot: now handles a matrix as argument `x` via an
 	S#3 method for class `"matrix"`.
 
+	* tran: add a `"none"` transformation which just returns its
+	input. This is useful if you are writing code and comparing
+	transformations and need to temporarily turn them off.
+
 Version 0.16-0
 
 	* Released to CRAN 18th November 2014
