@@ -1,9 +1,9 @@
 # analogue
 
-## Released version
+#### Released version
 [![CRAN version](http://www.r-pkg.org/badges/version/analogue)](http://cran.rstudio.com/web/packages/analogue/index.html) [![](http://cranlogs.r-pkg.org/badges/grand-total/analogue)](http://cran.rstudio.com/web/packages/analogue/index.html)
 
-## Build status
+#### Build status
 [![Build Status](https://travis-ci.org/gavinsimpson/analogue.svg?branch=master)](https://travis-ci.org/gavinsimpson/analogue)  [![Build status](https://ci.appveyor.com/api/projects/status/hc8dbxrim2nj3c1i/branch/master)](https://ci.appveyor.com/project/gavinsimpson/analogue/branch/master)
 
 ## What is analogue?
