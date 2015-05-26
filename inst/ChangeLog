@@ -3,7 +3,7 @@ analogue Change Log
 Version 0.16-1
 
 	* Fix testthat usage.
-	Reported by Handley Wickham
+	Reported by Hadley Wickham
 
 	* Stratiplot: now handles a matrix as argument `x` via an
 	S#3 method for class `"matrix"`.
