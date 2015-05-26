@@ -2,6 +2,32 @@
 \title{Latest changes to the \pkg{analogue} package}
 \encoding{UTF-8}
 
+\section{Changes in version 0.16-1}{
+  \subsection{General Summary}{
+    \itemize{
+      \item This is a bug-fix release to correct an issue with the
+      usage of the \pkg{testthat} package.
+    }
+  } % general
+
+  \subsection{New Features}{
+    \itemize{
+      \item \code{tran()} has a trivial transformation \code{"none"},
+      which returns the input untransformed.
+      
+      \item \code{Stratiplot()} can now handle an input matrix as
+      argument \code{x}.
+    }
+  }
+
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Was using deprecated function \code{library_if_available()}
+      in package tests.
+    }
+  }
+}
+
 \section{Changes in version 0.16-0}{
   \subsection{General Summary}{
     \itemize{
