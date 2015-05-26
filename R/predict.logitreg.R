@@ -6,8 +6,8 @@
 ##' @param newdata matrix of dissimilarities between training and
 ##' fossil samples. Should be an object of class \code{"distance"}.
 ##' @param group The group to plot the logit model for. Can be one or
-##' more of the group labels or ‘"Combined"’ to draw the individual
-##' logit models. Alternatively, and the default, is to use ‘"all"’,
+##' more of the group labels or \code{"Combined"} to draw the individual
+##' logit models. Alternatively, and the default, is to use \code{"all"},
 ##' which divides the plotting region into the required number of
 ##' plotting regions draws all the fitted curves.
 ##' @param k numeric; the number of close modern analogues to consider.
