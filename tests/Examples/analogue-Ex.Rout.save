@@ -1,6 +1,6 @@
 
-R version 3.1.1 Patched (2014-08-21 r66455) -- "Sock it to Me"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.2.0 Patched (2015-05-01 r68289) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -24,8 +24,8 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.2-0
-This is analogue 0.16-0
+This is vegan 2.3-0
+This is analogue 0.16-1
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -243,6 +243,7 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > ### Name: Stratiplot
 > ### Title: Palaeoecological stratigraphic diagrams
 > ### Aliases: Stratiplot Stratiplot.default Stratiplot.formula
+> ###   Stratiplot.matrix
 > ### Keywords: hplot
 > 
 > ### ** Examples
@@ -323,6 +324,10 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > ## Notice no lines are draw as there a no "sections" ithout missing
 > ## levels. If you want/desire this behaviour then you can't use formula
 > ## interface yet as there is no way to specify the na.action separately
+> 
+> ## Works with matrices
+> M <- as.matrix(V12.122)
+> Stratiplot(M, Depths, type = c("h"))
 > 
 > 
 > 
@@ -7208,7 +7213,7 @@ Eigenvalues for unconstrained axes:
 > 
 > ## Don't show: 
 > od <- options(digits = 5)
-> ## End Don't show
+> ## End(Don't show)
 > data(ImbrieKipp)
 > data(SumSST)
 > 
@@ -7405,7 +7410,7 @@ Performance:
 > 
 > ## Don't show: 
 > options(od)
-> ## End Don't show
+> ## End(Don't show)
 > 
 > 
 > 
@@ -7453,7 +7458,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  36.198 0.607 37.074 0 0 
+Time elapsed:  28.61 0.431 29.224 0 0 
 > grDevices::dev.off()
 null device 
           1 
