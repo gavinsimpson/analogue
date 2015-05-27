@@ -31,7 +31,7 @@
 Bug reports and feature requests should be filed as [issues](https://github.com/gavinsimpson/analogue/issues).
 
 ## Licence
-analogue is released under the [GNU General Public Licence Version 2](http://www.gnu.org/licenses/gpl-2.0.html).
+analogue is released under the [GNU General Public Licence Version 2](http://www.r-project.org/Licenses/GPL-2).
 
 ## Links
 
