@@ -1,7 +1,7 @@
 
-R version 3.2.0 Patched (2015-05-01 r68289) -- "Full of Ingredients"
+R version 3.2.2 Patched (2015-11-13 r69635) -- "Fire Safety"
 Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -24,8 +24,8 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.3-0
-This is analogue 0.16-3
+This is vegan 2.3-1
+analogue version 0.16-3
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -7075,9 +7075,9 @@ Ordination Output:
 Call: rda(X = X, Y = mf)
 
               Inertia Proportion Rank
-Total          0.6163     1.0000     
-Constrained    0.0974     0.1581    1
-Unconstrained  0.5189     0.8419  165
+Total         0.61631    1.00000     
+Constrained   0.09743    0.15808    1
+Unconstrained 0.51888    0.84192  165
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -7458,7 +7458,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.792 0.424 28.418 0 0 
+Time elapsed:  27.845 0.474 28.426 0 0 
 > grDevices::dev.off()
 null device 
           1 
