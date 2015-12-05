@@ -4,60 +4,137 @@ useDynLib(analogue)
 ## Imports
 ##
 ## vegan
-importFrom(vegan,
-           pasteCall, eigenvals, tolerance, scores,
-           cca, rda, vegdist, wisconsin, decostand)
+importFrom("vegan",
+           "pasteCall", "eigenvals", "tolerance", "scores",
+           "cca", "rda", "vegdist", "wisconsin", "decostand")
 ## mgcv
-importFrom(mgcv,
-           gam, s, smoothCon, mono.con, pcls, Predict.matrix)
+importFrom("mgcv",
+           "gam", "s", "smoothCon", "mono.con", "pcls", "Predict.matrix")
 ## MASS
-importFrom(MASS, dose.p)
+importFrom("MASS",
+           "dose.p")
 ## lattice
 ##   -- need here *only* those funs that we define S3 methods for
 ##      not the functions from lattice we use as they are covered
 ##      by Depends: lattice in DESCRIPTION
-importFrom(lattice,
-           densityplot,
-           dotplot,
-           histogram,
-           xyplot,
-           current.panel.limits,
-           panel.axis,
-           which.packet,
-           axis.default,
-           trellis.par.get,
-           panel.refline,
-           panel.grid,
-           panel.lines,
-           panel.points,
-           panel.polygon,
-           panel.abline)
+importFrom("lattice",
+           "densityplot",
+           "dotplot",
+           "histogram",
+           "xyplot",
+           "current.panel.limits",
+           "panel.axis",
+           "which.packet",
+           "axis.default",
+           "trellis.par.get",
+           "panel.refline",
+           "panel.grid",
+           "panel.lines",
+           "panel.points",
+           "panel.polygon",
+           "panel.abline")
 ## stats
-import(stats)
+importFrom("stats",
+           "screeplot",
+           "aggregate",
+           "approx",
+           "as.dist",
+           "binomial",
+           "coef",
+           "cor",
+           "cov.wt",
+           "density",
+           "dist",
+           "family",
+           "fitted",
+           "fivenum",
+           "gaussian",
+           "glm",
+           "loess.smooth",
+           "median",
+           "model.matrix",
+           "model.response",
+           "na.pass",
+           "napredict",
+           "naresid",
+           "predict",
+           "printCoefmat",
+           "qt",
+           "quantile",
+           "resid",
+           "residuals",
+           "rnorm",
+           "runif",
+           "sd",
+           "smooth.spline",
+           "terms",
+           "var",
+           "wilcox.test")
 ## utils
-importFrom(utils, head, tail)
+importFrom("utils",
+           "head",
+           "tail",
+           "flush.console",
+           "modifyList",
+           "setTxtProgressBar",
+           "stack",
+           "txtProgressBar")
 ## graphics
-import(graphics)
+importFrom("graphics",
+           "plot",
+           "lines",
+           "legend",
+           "abline",
+           "arrows",
+           "axis",
+           "box",
+           "dotchart",
+           "hist",
+           "layout",
+           "lines.default",
+           "mtext",
+           "panel.smooth",
+           "par",
+           "plot.default",
+           "plot.new",
+           "plot.window",
+           "points",
+           "points.default",
+           "polygon",
+           "rect",
+           "rug",
+           "segments",
+           "stripchart",
+           "strwidth",
+           "text",
+           "title")
+## grDevices
+importFrom("grDevices",
+           "dev.flush",
+           "dev.hold",
+           "dev.interactive",
+           "devAskNewPage",
+           "n2mfrow")
 ## grid
-importFrom(grid,
-           convertWidth,
-           gpar,
-           grid.layout,
-           grobWidth,
-           frameGrob,
-           placeGrob,
-           rectGrob,
-           textGrob,
-           unit,
-           unit.c)
+importFrom("grid",
+           "convertWidth",
+           "gpar",
+           "grid.layout",
+           "grobWidth",
+           "frameGrob",
+           "placeGrob",
+           "rectGrob",
+           "textGrob",
+           "unit",
+           "unit.c")
 ## brglm
-importFrom(brglm,
-           brglm,
-           brglm.control)
+importFrom("brglm",
+           "brglm",
+           "brglm.control")
 
 ## princurve
-importFrom(princurve,
-           get.lam)
+importFrom("princurve",
+           "get.lam")
 
 ## Exports
 export(
