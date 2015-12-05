@@ -18,6 +18,14 @@ check-cran: build
 	cd ..;\
 	R CMD check --as-cran analogue_$(PKGVERS).tar.gz
 
+check-devel: build
+	cd ..;\
+	R-devel CMD check analogue_$(PKGVERS).tar.gz
+
+check-devel-cran: build
+	cd ..;/
+	R-devel CMD check --as-cran analogue_$(PKGVERS).tar.gz
+
 install: build
 	cd ..;\
 	R CMD INSTALL analogue_$(PKGVERS).tar.gz
@@ -28,3 +36,5 @@ move: check
 clean:
 	cd ..;\
 	rm -r analogue.Rcheck/
+
+release: move check-cran
