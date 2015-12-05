@@ -23,7 +23,7 @@ check-devel: build
 	R-devel CMD check analogue_$(PKGVERS).tar.gz
 
 check-devel-cran: build
-	cd ..;/
+	cd ..;\
 	R-devel CMD check --as-cran analogue_$(PKGVERS).tar.gz
 
 install: build
