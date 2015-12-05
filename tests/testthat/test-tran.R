@@ -11,5 +11,5 @@ context("Testing tran()")
 data(ImbrieKipp)
 
 test_that("tran() handles bad inputs", {
-    expect_error(tran(ImbrieKipp, method = "foo")
+    expect_error(tran(ImbrieKipp, method = "foo"))
 })
