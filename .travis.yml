@@ -2,10 +2,30 @@
 
 language: r
 
+sudo: required
+
+apt_packages:
+  - qpdf
+
+r_binary_packages:
+  - testthat
+  - vegan
+  - mgcv
+  - MASS
+  - brglm
+  - princurve
+  - brglm
+
+r_github_packages:
+  - jimhester/covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
 r_build_args: " --compact-vignettes=gs+qpdf"
 r_check_args: " --as-cran"
 
 notifications:
   email:
     on_success: change
-    on_failure: change
+    on_failure: always
