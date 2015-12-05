@@ -3,7 +3,7 @@
 \alias{analog.default}
 \alias{analog.distance}
 \alias{print.analog}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Analogue matching}
 \description{
   Analogue matching is a  more general implementation of the modern
@@ -119,4 +119,5 @@ ik <- analog(d1, d2, keep.train = TRUE)
 ik
 
 }
-\keyword{multivariate}% at least one, from doc/KEYWORDS
+\keyword{multivariate}
+
