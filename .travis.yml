@@ -14,7 +14,6 @@ r_binary_packages:
   - MASS
   - brglm
   - princurve
-  - brglm
   - Rcpp
   - crayon
   - lazyeval
