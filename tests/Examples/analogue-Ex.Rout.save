@@ -268,35 +268,35 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > ## Here we choose 4 arbitrary Depths as the zone boundaries
 > set.seed(123)
 > Zones <-sample(Depths, 4)
-> (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-+                    data = V12.122, type = c("poly","g"),
-+                    zones = Zones))
+> Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
++            data = V12.122, type = c("poly","g"),
++            zones = Zones)
 > 
 > ## As before, but supplying your own zone labels
 > zone.labs <- c("A","B","C","D","E")
-> (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-+                    data = V12.122, type = c("poly","g"),
-+                    zones = Zones, zoneNames = zone.labs))
+> Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
++            data = V12.122, type = c("poly","g"),
++            zones = Zones, zoneNames = zone.labs)
 > 
 > ## Suppress the drawing of the zone legend
-> (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-+                    data = V12.122, type = c("poly","g"),
-+                    zones = Zones, drawLegend = FALSE))
+> Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
++            data = V12.122, type = c("poly","g"),
++            zones = Zones, drawLegend = FALSE)
 > 
 > ## Add zones and draw a legend, but do not label the zones
-> (plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-+                    data = V12.122, type = c("poly","g"),
-+                    zones = Zones, zoneNames = ""))
+> Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
++            data = V12.122, type = c("poly","g"),
++            zones = Zones, zoneNames = "")
 > 
 > ## Show illustration of NA handling
 > set.seed(42)
 > dat <- data.frame(Depth = 1:20, LOI = runif(20), TC = NA)
 > dat <- within(dat, TC[sample(20, 10)] <- runif(10))
 > ## default is 'na.action = "na.pass"'
-> (Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p")))
+> Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"))
 > ## to remove rows with NA, use 'na.action = "na.omit"'
-> (Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
-+             na.action = "na.omit"))
+> Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
++            na.action = "na.omit")
 > 
 > ## Example of two proxies measured on different levels of core
 > ## (Here measurements on alternate levels)
@@ -315,12 +315,12 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 3       5 0.9168758        NA
 > 
 > ## Default is to allow NA through formula, but drop them when plotting
-> (Stratiplot(Depth ~ LOI + TC, data = dat2, type = c("l","p")))
+> Stratiplot(Depth ~ LOI + TC, data = dat2, type = c("l","p"))
 > 
 > ## compare with this if we didn't suppress NA in default Stratiplot
 > ## method (can't use formula interface for this yet
-> (Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
-+             na.action = "na.pass"))
+> Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
++            na.action = "na.pass")
 > ## Notice no lines are draw as there a no "sections" ithout missing
 > ## levels. If you want/desire this behaviour then you can't use formula
 > ## interface yet as there is no way to specify the na.action separately
@@ -7458,7 +7458,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  19.522 0.28 19.789 0 0 
+Time elapsed:  25.203 0.359 25.545 0 0 
 > grDevices::dev.off()
 null device 
           1 
