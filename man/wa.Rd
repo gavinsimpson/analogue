@@ -162,7 +162,7 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
 \author{Gavin L. Simpson and Jari Oksanen}
 \seealso{\code{\link{mat}} for an alternative transfer function method.}
 \examples{
-\testonly{od <- options(digits = 5)}
+\testonly{od <- options(digits = 4)}
 data(ImbrieKipp)
 data(SumSST)
 
