@@ -1,6 +1,6 @@
 
-R version 3.2.2 Patched (2015-11-26 r69705) -- "Fire Safety"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R version 3.2.3 Patched (2016-01-03 r69846) -- "Wooden Christmas-Tree"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -24,7 +24,7 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.3-2
+This is vegan 2.3-4
 analogue version 0.16-4
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -7458,7 +7458,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.163 0.149 21.299 0 0 
+Time elapsed:  19.522 0.28 19.789 0 0 
 > grDevices::dev.off()
 null device 
           1 
