@@ -1,5 +1,19 @@
 analogue Change Log
 
+Version 0.16-4
+
+	* Specifically import all non-base functions into the package
+	NAMESPACE.
+
+Version 0.16-3
+
+	* Update reference material containing new version of analogue
+
+Version 0.16-2
+
+	* Incorrect link to GPL
+	Reported by Brian Ripley
+
 Version 0.16-1
 
 	* Fix testthat usage.
