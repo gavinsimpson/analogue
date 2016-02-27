@@ -1,2 +1,9 @@
 # analogue News
 
+## Version 1.17-0
+
+* `Stratiplot()` now draws a plot on the current device and returns a `"trellis"` object *invisibly*. This fixes #13 and prevents a blank page being drawn in devices such as `pdf()`.
+
+* `Stratiplot()` now handles a matrix as argument `x` via an S3 method for class `"matrix"`.
+
+* `tran()` add a `"none"` transformation which just returns its input. This is useful if you are writing code and comparing transformations and need to temporarily turn them off.
