@@ -50,15 +50,17 @@
         stop("Invalid 'type' specified")
     n.vars <- NCOL(x)
     ## ylabel
-    if(is.null(ylab))
+    if(is.null(ylab)) {
         ylab <- deparse(substitute(y))
-
+    }
     ## do we need to sort variables
-    if(missing(sort))
+    if(missing(sort)) {
         sort <- "none"
+    }
     sort <- match.arg(sort)
-    if((check.var <- (missing(svar) || is.null(svar))))
+    if((check.var <- (missing(svar) || is.null(svar)))) {
         svar <- y
+    }
     ord <- seq_len(n.vars)
     if(sort == "wa") {
         ## sort by
@@ -71,8 +73,9 @@
             ord <- order(svar)
         }
     }
-    if(rev.sort)
+    if (rev.sort) {
         ord <- rev(ord)
+    }
     ## apply ordering
     x <- x[, ord]
 
@@ -83,10 +86,11 @@
     ## check length of y
     if(!isTRUE(all.equal((leny <- length(y)), (nr <- nrow(sx))))) {
         ## if length(y) == nrow(sx)/n.vars, then expand
-        if(isTRUE(all.equal(leny, nr / n.vars)))
+        if(isTRUE(all.equal(leny, nr / n.vars))) {
             y <- rep(y, n.vars)
-        else
+        } else {
             stop("Ambiguous 'length(y)';\nmust be equal to 'nrow(x)' or\n'nrow(x) / number of species'.")
+        }
     }
 
     ## handle NA's, by default NA pass in here fine, but this messes
@@ -113,25 +117,29 @@
         maxLim <- max(ylim, na.rm = TRUE)
         ## add padY * range as per base graphics
         diffy <- abs(diff(c(minLim, maxLim)))
-        ylim <- if(minLim > maxLim)
-            c(minLim + (padY * diffy), maxLim - (padY * diffy))
-        else
-            c(minLim - (padY * diffy), maxLim + (padY * diffy))
+        ylim <- if(minLim > maxLim) {
+                    c(minLim + (padY * diffy), maxLim - (padY * diffy))
+                } else {
+                    c(minLim - (padY * diffy), maxLim + (padY * diffy))
+                }
     }
     ## Reverse the y-axis?
-    if(rev)
+    if (rev) {
         ylim <- rev(ylim)
+    }
     ## process the column/variable types
     ## If varTypes of length one replicate it to NCOL(x)
-    if(isTRUE(all.equal(length(varTypes), 1L)))
+    if(isTRUE(all.equal(length(varTypes), 1L))) {
         varTypes <- rep(varTypes, length = n.vars)
+    }
     ## If typeLen != 1 or NCOL shout warning
     if(length(varTypes) != n.vars) {
         warning("Length of 'varTypes' not 1 or equal to number of variables. Recycling or truncating of 'varTypes' as a result.")
     }
     ## Only allow two types of variables: "relative", "absolute"
-    if(any(!(varTypes %in% c("relative", "absolute"))))
+    if(any(!(varTypes %in% c("relative", "absolute")))) {
         stop("Ambiguous entry in 'varTypes'.\nMust be one of \"relative\", or \"absolute\"")
+    }
     ## compute max abundances per relative column, which is used
     ## to scale the panel widths layout.widths parameter)
     max.abun <- sapply(x, function(x) round(max(x, na.rm = TRUE), 1),
@@ -166,6 +174,10 @@
                    limits = xlimits))
     par.strip.text <- list(cex = 0.75)
     str.max <- 1
+
+    ## start a new grid page
+    grid.newpage()
+
     if(!isTRUE(strip)) {
         gp <- gpar()
         convWidth <- function(x, gp) {
@@ -213,20 +225,22 @@
         Legend <- NULL
     }
     ## plotting
-    xyplot(y ~ values | ind,
-           data = sx,
-           type = type,
-           ylab = ylab, xlab = xlab,
-           strip.left = FALSE, strip = strip,
-           par.strip.text = par.strip.text,
-           scales = scales,
-           ##xlim = xlimits,
-           ylim = ylim,
-           panel = "panel.Stratiplot",
-           layout = c(n.vars, 1, pages),
-           par.settings = list(layout.widths = list(panel = panelWidths),#max.abun),
-           layout.heights = list(top.padding = str.max)),
-           axis = if(isTRUE(strip)) {axis.default} else {axis.VarLabs},
-           legend = Legend,
-           ...)
+    plt <- xyplot(y ~ values | ind,
+                  data = sx,
+                  type = type,
+                  ylab = ylab, xlab = xlab,
+                  strip.left = FALSE, strip = strip,
+                  par.strip.text = par.strip.text,
+                  scales = scales,
+                  ##xlim = xlimits,
+                  ylim = ylim,
+                  panel = "panel.Stratiplot",
+                  layout = c(n.vars, 1, pages),
+                  par.settings = list(layout.widths = list(panel = panelWidths),#max.abun),
+                                      layout.heights = list(top.padding = str.max)),
+                  axis = if(isTRUE(strip)) {axis.default} else {axis.VarLabs},
+                  legend = Legend,
+                  ...)
+    plot(plt, newpage = FALSE)
+    invisible(plt)
 }

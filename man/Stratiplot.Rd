@@ -179,7 +179,10 @@ Stratiplot(x, \dots)
   illustration of how this drawing zones works. 
 }
 \value{
-  Returns a Lattice plot object of class \code{"trellis"}.
+  A side effect of calling \code{Stratiplot} is that a plot is drawn on
+  the currently active device. A Lattice plot object of class
+  \code{"trellis"} is returned invisibly. This is a change from pre
+  0.17-0 version of the package.
 }
 \author{Gavin L. Simpson.}
 \note{
@@ -210,35 +213,35 @@ spp.want <- c("O.univ","G.ruber","G.tenel","G.pacR")
 ## Here we choose 4 arbitrary Depths as the zone boundaries
 set.seed(123)
 Zones <-sample(Depths, 4)
-(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                   data = V12.122, type = c("poly","g"),
-                   zones = Zones))
+Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+           data = V12.122, type = c("poly","g"),
+           zones = Zones)
 
 ## As before, but supplying your own zone labels
 zone.labs <- c("A","B","C","D","E")
-(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                   data = V12.122, type = c("poly","g"),
-                   zones = Zones, zoneNames = zone.labs))
+Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+           data = V12.122, type = c("poly","g"),
+           zones = Zones, zoneNames = zone.labs)
 
 ## Suppress the drawing of the zone legend
-(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                   data = V12.122, type = c("poly","g"),
-                   zones = Zones, drawLegend = FALSE))
+Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+           data = V12.122, type = c("poly","g"),
+           zones = Zones, drawLegend = FALSE)
 
 ## Add zones and draw a legend, but do not label the zones
-(plt <- Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
-                   data = V12.122, type = c("poly","g"),
-                   zones = Zones, zoneNames = ""))
+Stratiplot(Depths ~ O.univ + G.ruber + G.tenel + G.pacR,
+           data = V12.122, type = c("poly","g"),
+           zones = Zones, zoneNames = "")
 
 ## Show illustration of NA handling
 set.seed(42)
 dat <- data.frame(Depth = 1:20, LOI = runif(20), TC = NA)
 dat <- within(dat, TC[sample(20, 10)] <- runif(10))
 ## default is 'na.action = "na.pass"'
-(Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p")))
+Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"))
 ## to remove rows with NA, use 'na.action = "na.omit"'
-(Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
-            na.action = "na.omit"))
+Stratiplot(Depth ~ LOI + TC, data = dat, type = c("l","p"),
+           na.action = "na.omit")
 
 ## Example of two proxies measured on different levels of core
 ## (Here measurements on alternate levels)
@@ -250,12 +253,12 @@ dat2 <- dat2[order(dat2$Depth), ]
 head(dat2)
 
 ## Default is to allow NA through formula, but drop them when plotting
-(Stratiplot(Depth ~ LOI + TC, data = dat2, type = c("l","p")))
+Stratiplot(Depth ~ LOI + TC, data = dat2, type = c("l","p"))
 
 ## compare with this if we didn't suppress NA in default Stratiplot
 ## method (can't use formula interface for this yet
-(Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
-            na.action = "na.pass"))
+Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
+           na.action = "na.pass")
 ## Notice no lines are draw as there a no "sections" ithout missing
 ## levels. If you want/desire this behaviour then you can't use formula
 ## interface yet as there is no way to specify the na.action separately
