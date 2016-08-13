@@ -1,5 +1,5 @@
 
-R version 3.2.3 Patched (2016-01-03 r69846) -- "Wooden Christmas-Tree"
+R version 3.3.1 Patched (2016-07-13 r70908) -- "Bug in Your Hair"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -24,7 +24,7 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.3-4
+This is vegan 2.4-0
 analogue version 0.17-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -328,6 +328,16 @@ Bootstrap 5 1.953 0.9133 1.726    0.9707   0.3017    5.484
 > ## Works with matrices
 > M <- as.matrix(V12.122)
 > Stratiplot(M, Depths, type = c("h"))
+> 
+> ## Custom variable labels using expressions
+> df <- data.frame(Age = 1:10, Var1 = rnorm(10), Var2 = rnorm(10),
++                  Var3 = rnorm(10))
+> ## Use a vector of expressions to label variables on plot
+> ## See ?plotmath for syntax of expressions
+> exprs <- expression(delta^{15}*N,       # label for Var1
++                     delta^{18}*O,       # label for Var2
++                     delta^{13}*C)       # label for Var3
+> Stratiplot(Age ~ ., data = df, labelValues = exprs, varTypes = "absolute")
 > 
 > 
 > 
@@ -7458,7 +7468,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.623 0.279 20.886 0 0 
+Time elapsed:  19.144 0.156 19.345 0 0 
 > grDevices::dev.off()
 null device 
           1 
