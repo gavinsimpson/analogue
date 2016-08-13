@@ -19,7 +19,7 @@ Stratiplot(x, \dots)
            svar = NULL, rev.sort = FALSE, strip = FALSE, topPad =6,
            varTypes = "relative", absoluteSize = 0.5,
            zoneNames = NULL, drawLegend = TRUE, na.action = "na.omit",
-           labelAt = NULL, labelRot = 60, yticks,
+           labelValues = NULL, labelAt = NULL, labelRot = 60, yticks,
            \dots)
 
 \method{Stratiplot}{formula}(formula, data, subset,
@@ -97,6 +97,11 @@ Stratiplot(x, \dots)
     to label the zone legend, if drawn (see argument
     \code{drawLegend}). See Details.} 
   \item{drawLegend}{logical; should a legend for the zones}
+  \item{labelValues}{a vector of labels for the variables
+    plotted. Should be equal in length to the number or variables in the
+    resulting plot. The main use for \code{labelValues} is to provide
+    non-standard labels for the variables, including a vector of
+    expressions. See Examples for an illustration of this.}
   \item{labelAt, labelRot}{these control the placement and rotation,
     respectively, of the variable labels. \code{labelAt} is the
     coordinate at which the label is drawn; currently only one value is
@@ -266,6 +271,16 @@ Stratiplot(dat2[,-1], dat2[,1], type = c("l","p"),
 ## Works with matrices
 M <- as.matrix(V12.122)
 Stratiplot(M, Depths, type = c("h"))
+
+## Custom variable labels using expressions
+df <- data.frame(Age = 1:10, Var1 = rnorm(10), Var2 = rnorm(10),
+                 Var3 = rnorm(10))
+## Use a vector of expressions to label variables on plot
+## See ?plotmath for syntax of expressions
+exprs <- expression(delta^{15}*N,       # label for Var1
+                    delta^{18}*O,       # label for Var2
+                    delta^{13}*C)       # label for Var3
+Stratiplot(Age ~ ., data = df, labelValues = exprs, varTypes = "absolute")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,3 +1,4 @@
+
 ## Stratigraphic plots using lattice
 `Stratiplot` <- function(x, ...)
     UseMethod("Stratiplot")
@@ -19,6 +20,7 @@
                                  zoneNames = NULL,
                                  drawLegend = TRUE,
                                  na.action = "na.omit",
+                                 labelValues = NULL,
                                  labelAt = NULL,
                                  labelRot = 60,
                                  yticks,
@@ -37,7 +39,7 @@
                        at = at,
                        tck = 1, line.col = "black",
                        text.col = "black",
-                       labels = levels(sx$ind)[which.packet()],
+                       labels = userLabels[which.packet()],
                        rot = labelRot)
         } else {
             axis.default(side = side, ...)
@@ -82,6 +84,15 @@
     ## stack the data
     sx <- stack(x)
     sx$ind <- factor(sx$ind, levels = colnames(x)) # add grouping variable
+    ## Set up vetor of labels to draw on the upper axis (top).
+    ## This allows user to set custom values, incl an expression vector
+    ## Scoping means that axis.VarLabs (above) can find `userLabels` when
+    ## it is called.
+    userLabels <- if (is.null(labelValues) || missing(labelValues)) {
+                      levels(sx$ind)
+                  } else {
+                      rep(labelValues, length.out = NCOL(x))
+                  }
 
     ## check length of y
     if(!isTRUE(all.equal((leny <- length(y)), (nr <- nrow(sx))))) {
