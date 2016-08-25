@@ -24,7 +24,7 @@ distance.join <- function(x, ...) {
     METHODS <- c("euclidean", "SQeuclidean", "chord", "SQchord",
                  "bray", "chi.square", "SQchi.square",
                  "information","chi.distance", "manhattan",
-                 "kendall", "gower", "alt.gower", "mixed")
+                 "kendall", "gower", "alt.gower", "mixed", "metric.mixed")
     DCOEF <- pmatch(method, METHODS)
     if(miss.y <- missing(y)) {
         dmat <- dxx(x = x, DCOEF = DCOEF, weights = weights,
@@ -57,7 +57,7 @@ distance.join <- function(x, ...) {
 
     ## some preprocessing steps required for some coefs
     ## so dealt with separately
-    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L)) {
+    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L, 15L)) {
         ## "chi.distance", "gower", "alt.gower","mixed", "kendall"
         if(DCOEF == 9L) { ## "chi.distance"
             x <- data.matrix(x)
@@ -78,7 +78,7 @@ distance.join <- function(x, ...) {
                     maxi = as.double(maxi), NAOK = as.integer(FALSE),
                     PACKAGE = "analogue")$d
         }
-        if(DCOEF == 14L) { ## "mixed"
+        if(DCOEF %in% c(14L, 15L)) { ## "mixed" or "metric.mixed"
             if(is.null(weights))
                 weights <- rep(1, nc)
             else {
@@ -94,7 +94,7 @@ distance.join <- function(x, ...) {
             }
             ## Record the variable types
             xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
-            ## save which are ordinal for rank conversion below - TODO
+            ## save which are ordinal for rank conversion below
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
             xType[xType == "logical"] <- "A"
@@ -106,10 +106,12 @@ distance.join <- function(x, ...) {
 
             ## convert to ranks
             if (any(ordinal)) {
-                x[ordinal] <- lapply(x[ordinal, drop = FALSE], rank)
+                orderedx <- x[ordinal]
+                x[ordinal] <- lapply(x[ordinal], rank)
             }
 
             ## convert to matrix, preserving factor info as numeric
+            ## ranks not affected as they are numeric at this stage
             x <- data.matrix(x)
 
             ## Compute range Rj
@@ -122,18 +124,37 @@ distance.join <- function(x, ...) {
                     stop("'R' must be of length 'ncol(x)'")
             }
 
-            ## call the C code
-            d <- .C("xx_mixed",
-                    x = as.double(x),
-                    nr = as.integer(nr),
-                    nc = as.integer(nc),
-                    d = as.double(d),
-                    diag = as.integer(FALSE),
-                    vtype = as.integer(xType),
-                    weights = as.double(weights),
-                    R = as.double(R),
-                    NAOK = as.integer(TRUE),
-                    PACKAGE = "analogue")$d
+            ## Handle non-metric version of Podani's modified Gower's mixed coefficient
+            d <- if (DCOEF == 14L) {
+                ## Pre-compute T and Trange
+                ## These equate to Ti and `(Ti,max - 1)/2 - (Ti,min - 1)/2` in Eqn 2b
+                T <- matrix(0, ncol = nc, nrow = nr)
+                Trange <- numeric(length = nc)
+                ## Only work with the ordinal columns, but T and Trange need to be of
+                ## lengths equal to x and nc respectively for the C code to work
+                if (any(ordinal)) {
+                    for (i in seq_len(sum(ordinal))) {
+                        tab <- tabulate(orderedx[, i])
+                        T[, ordinal][, i] <- tab[orderedx[, i]]
+                        tminmax <- (tab[c(1, length(tab))] - 1) / 2
+                        Trange[ordinal][i] <- tminmax[2] - tminmax[1]
+                    }
+                    T <- (T - 1) / 2    # might as well do this here than element by element in C
+                }
+
+                ## call the C code
+                .C("xx_mixed", x = as.double(x), nr = as.integer(nr), nc = as.integer(nc),
+                   d = as.double(d), diag = as.integer(FALSE),
+                   vtype = as.integer(xType), weights = as.double(weights),
+                   R = as.double(R), T = as.double(T), Trange = as.double(Trange),
+                   NAOK = as.integer(TRUE), PACKAGE = "analogue")$d
+            } else {
+                ## call the C code
+                .C("xx_metric_mixed", x = as.double(x), nr = as.integer(nr), nc = as.integer(nc),
+                   d = as.double(d), diag = as.integer(FALSE), vtype = as.integer(xType),
+                   weights = as.double(weights), R = as.double(R), NAOK = as.integer(TRUE),
+                   PACKAGE = "analogue")$d
+            }
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {
@@ -156,7 +177,7 @@ distance.join <- function(x, ...) {
                     PACKAGE = "analogue")$d
         }
     } else {
-        ## must be one of the DC's handled by xy_distance
+        ## must be one of the DC's handled by xx_distance
         x <- data.matrix(x)
         d <- .C("xx_distance", x = as.double(x),
                 nr = as.integer(nr), nc = as.integer(nc),

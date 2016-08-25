@@ -126,6 +126,11 @@ oldDistance(x, \dots)
     \eqn{s_{jki}}{s[jki]} is the similarity \cr
     \tab between samples \eqn{j} and \eqn{k} for descriptor (variable)
     \eqn{i}.
+    \cr
+    \code{metric.mixed}
+    \tab as for \code{mixed} but with ordinal variables converted to
+    ranks and handled as quantitative variables in Gower's mixed
+    coefficient.
   }
 
   Argument \code{fast} determines whether fast C versions of some of the
@@ -166,7 +171,7 @@ oldDistance(x, \dots)
   you would need to merge the two sets of samples, calculate the full
   dissimilarity matrix and then subset it to achieve similar results.
 }
-\section{warning}{
+\section{Warning}{
   For \code{method = "mixed"} it is essential that a factor in \code{x}
   and \code{y} have the same levels in the two data frames. Previous
   versions of analogue would work even if this was not the case, which
@@ -253,7 +258,11 @@ Rj <- c(1,4,2,4,1,3,2,5) # supplied ranges
 
 ## note this gives ~0.66 as Legendre & Legendre describe the
 ## coefficient as a similarity coefficient. Hence here we do
-## 1 - Dij here to get the same answer. 
+## 1 - Dij here to get the same answer.
+
+## Tortula example from Podani (1999)
+data(tortula)
+distance(tortula, method = "mixed")
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{methods}

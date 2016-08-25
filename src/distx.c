@@ -35,6 +35,7 @@
 #define GOWER 12
 #define ALTGOWER 13
 #define MIXED 14
+#define METRICMIXED 15
 
 /* Distance functions */
 
@@ -480,7 +481,121 @@ void xx_chisq_dist(double *x, int *nr, int *nc, double *d,
  * Gower's coefficient for mixed data
  *
  * Should be called separately from the underlying R code,
- * not via xy_distance.
+ * not via xx_distance.
+ *
+ * vtype  : variable type
+ *          1 == Symmetric Binary
+ *          2 == Asymmetric Binary
+ *          3 == Nominal (class/factor)
+ *          4 == Ordinal (ordered factor)
+ *          5 == Quantitative
+ * weights: variable weights
+ * R      : variable range (max - min)
+ * T      : dimensioned as x but with number of observations with
+ *          same rank as that observation. 0s everywhere other than
+ *          for ordinal variables as it's ignored elsewhere.
+ * Trange : vector of length nc with T range per variable
+ *
+ */
+double xx_MIXED(double *x, int nr, int nc, int i1, int i2, 
+		int *vtype, double *weights, double *R, 
+		double wsum, double *T, double *Trange)
+{
+  double dist, dev;
+  int count, j;
+  
+  count = 0;
+  dist = 0.0;
+  wsum = 0.0;
+  
+  for (j=0; j<nc; j++) {
+    if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+      // Symmetric binary
+      if(vtype[j] == 1) {
+	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dist += dev * weights[j];
+      }
+      // Asymmetric binary
+      if(vtype[j] == 2) {
+	if((x[i1] != 0) || (x[i2] != 0)) {
+	  // either x1 and x2 not zero for this variable
+	  dev = (x[i1] == x[i2]) ? 1 : 0;
+	  dist += dev * weights[j];
+	} else {
+	  /* set jth current weight to zero and do not
+	     increment dist as ignoring double zero
+	     We actually subtract the weight as it gets added
+	     later on.
+	  */
+	  wsum -= weights[j];
+	}
+      }
+      // Nominal
+      if(vtype[j] == 3) {
+	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dist += dev * weights[j];
+      }
+      // Ordinal (Eqns 2a and 2b in Podani 1999); x converted to ranks in R-land
+      if(vtype[j] == 4) {
+	if(x[i1] == x[i2]) {	/* Eqn 2a */
+	  dev = 1;
+	} else {		/* Eqn 2b */
+	  // T has already had the (T - 1) / 2 adjustment done in
+	  dev = 1 - ((fabs(x[i1] - x[i2]) - T[i1] - T[i2]) / (R[j] - Trange[j]));
+	}
+	dist += dev * weights[j];
+	break;
+      }
+      // Quantitative
+      if(vtype[j] == 5) {
+	dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
+	dist += dev * weights[j];
+      }
+      count++;
+      // only summing weights for non-NA comparisons
+      wsum += weights[j];
+    }
+    i1 += nr;
+    i2 += nr;
+  }
+  if (count == 0) return NA_REAL;
+  return 1 - (dist / wsum);
+}
+
+void xx_mixed(double *x, int *nr, int *nc, double *d, 
+	      int *diag, int *vtype, double *weights, double *R,
+	      double *T, double *Trange)
+{
+    int dc, i, j, k, ij;
+    double wsum;
+    
+    wsum = 0.0;
+    
+    ij = 0;
+    
+    for(k=0; k <*nc; k++) {
+        wsum += weights[k];
+    }
+
+    dc = (*diag) ? 0 : 1;
+
+    for(j=0; j < *nr; j++) {
+        for(i=j+dc; i < *nr; i++) {
+	  d[ij++] = xx_MIXED(x, *nr, *nc, i, j, vtype,
+			     weights, R, wsum, T, Trange);
+	}
+    }
+}
+
+/*
+  This is the *metric* version of Podanis' modification to Gower's mixed
+  coefficient
+*/
+/*
+ * Gower's coefficient for mixed data
+ *
+ * Should be called separately from the underlying R code,
+ * not via xx_distance.
  *
  * vtype  : variable type
  *          1 == Symmetric Binary
@@ -492,9 +607,9 @@ void xx_chisq_dist(double *x, int *nr, int *nc, double *d,
  * R      : variable range (max - min)
  *
  */
-double xx_MIXED(double *x, int nr, int nc, int i1, int i2, 
-		int *vtype, double *weights, double *R, 
-		double wsum)
+double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2, 
+		      int *vtype, double *weights, double *R, 
+		      double wsum)
 {
   double dist, dev;
   int count, j;
@@ -532,8 +647,10 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
       }
       // Ordinal
       if(vtype[j] == 4) {
-	/* ordinal data currently handled as Nominal */
-	dev = (x[i1] == x[i2]) ? 1 : 0;
+	/* ordinal data handled as metric version of Podani
+	 * which is quantitatively using ranks
+         */
+	dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
 	dist += dev * weights[j];
 	break;
       }
@@ -553,43 +670,26 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
   return 1 - (dist / wsum);
 }
 
-/*
-double xx_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2)
+void xx_metric_mixed(double *x, int *nr, int *nc, double *d, 
+		     int *diag, int *vtype, double *weights, double *R)
 {
-int k;
-double ti;
-
-ti = 0.0;
-
-for (k=0; k<nc; k++) {
-ti += (x[i1] == y[i2]) ? 1.0 : 0.0;
-i1 += nr1;
-i2 += nr2;
-}
-return ti;
-}
-*/
-
-void xx_mixed(double *x, int *nr, int *nc, double *d, 
-	      int *diag, int *vtype, double *weights, double *R)
-{
-    int dc, i, j, k, ij;
-    double wsum;
-    
-    wsum = 0.0;
-    
-    ij = 0;
-    
-    for(k=0; k <*nc; k++) {
-        wsum += weights[k];
+  int dc, i, j, k, ij;
+  double wsum;
+  
+  wsum = 0.0;
+  
+  ij = 0;
+  
+  for(k=0; k <*nc; k++) {
+    wsum += weights[k];
+  }
+  
+  dc = (*diag) ? 0 : 1;
+  
+  for(j=0; j < *nr; j++) {
+    for(i=j+dc; i < *nr; i++) {
+      d[ij++] = xx_METRICMIXED(x, *nr, *nc, i, j, vtype,
+			       weights, R, wsum);
     }
-
-    dc = (*diag) ? 0 : 1;
-
-    for(j=0; j < *nr; j++) {
-        for(i=j+dc; i < *nr; i++) {
-	  d[ij++] = xx_MIXED(x, *nr, *nc, i, j, vtype,
-			     weights, R, wsum);
-	}
-    }
+  }
 }
