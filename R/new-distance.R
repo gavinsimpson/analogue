@@ -104,6 +104,11 @@ distance.join <- function(x, ...) {
                 stop("invalid type ", xType[ina], " for column numbers ",
                      paste(which(ina), collapse = ", "))
 
+            ## convert to ranks
+            if (any(ordinal)) {
+                x[ordinal] <- lapply(x[ordinal, drop = FALSE], rank)
+            }
+
             ## convert to matrix, preserving factor info as numeric
             x <- data.matrix(x)
 
@@ -267,6 +272,12 @@ Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
                      paste(which(ina), collapse = ", "))
+
+            ## convert to ranks
+            if (any(ordinal)) {
+                x[ordinal] <- lapply(x[ordinal, drop = FALSE], rank)
+                y[ordinal] <- lapply(y[ordinal, drop = FALSE], rank)
+            }
 
             ## Convert to matrices from now on
             ## also takes care of ordinal == metric as all factors
