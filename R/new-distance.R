@@ -17,7 +17,7 @@ distance.join <- function(x, ...) {
 }
 
 `distance.default` <- function(x, y, method = "euclidean", weights = NULL,
-                               R = NULL, dist = FALSE, ...){
+                               R = NULL, dist = FALSE, double.zero = FALSE, ...){
     ## Euclid?an could be spelled variously
     if(!is.na(pmatch(method, "euclidian")))
 	method <- "euclidean"
@@ -28,10 +28,10 @@ distance.join <- function(x, ...) {
     DCOEF <- pmatch(method, METHODS)
     if(miss.y <- missing(y)) {
         dmat <- dxx(x = x, DCOEF = DCOEF, weights = weights,
-                    R = R, dist = dist, ...)
+                    R = R, dist = dist, double.zero = double.zero, ...)
     } else {
         dmat <- dxy(x = x, y = y, DCOEF = DCOEF, weights = weights,
-                    R = R, ...)
+                    R = R, double.zero = double.zero, ...)
     }
 
     ## add attributes, classes, and return
@@ -45,7 +45,7 @@ distance.join <- function(x, ...) {
 
 ## Internal, not exported, function for computing distances when
 ## only `x` is available
-`dxx` <- function(x, DCOEF, weights, R, dist = FALSE, ...) {
+`dxx` <- function(x, DCOEF, weights, R, dist = FALSE, double.zero = FALSE, ...) {
     ## variables
     nr <- nrow(x)
     nc <- ncol(x)
@@ -97,8 +97,8 @@ distance.join <- function(x, ...) {
             ## save which are ordinal for rank conversion below
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
-            xType[xType == "logical"] <- "A"
-            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType[xType == "logical"] <- if(double.zero) "S" else "A"
+            typeCodes <- c("S", "A", "N", "O", "Q", "I", "T") # what is T? From daisy()?
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
@@ -139,7 +139,7 @@ distance.join <- function(x, ...) {
                         tminmax <- (tab[c(1, length(tab))] - 1) / 2
                         Trange[ordinal][i] <- tminmax[2] - tminmax[1]
                     }
-                    T <- (T - 1) / 2    # might as well do this here than element by element in C
+                    T[,ordinal] <- (T[,ordinal] - 1) / 2
                 }
 
                 ## call the C code
@@ -210,7 +210,7 @@ distance.join <- function(x, ...) {
 
 ## Internal, not exported, function for computing distances when
 ## both `x` and `y` are available
-`dxy` <- function(x, y, DCOEF, weights, R, ...) {
+`dxy` <- function(x, y, DCOEF, weights, R, double.zero = FALSE, ...) {
     ## check x and y have same columns
     if(!isTRUE(all.equal(colnames(x), colnames(y))))
         stop("'x' and 'y' appear to have different variables.")
@@ -287,8 +287,8 @@ Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
             ## save which are ordinal for rank conversion below - TODO
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
-            xType[xType == "logical"] <- "A"
-            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType[xType == "logical"]  <- if(double.zero) "S" else "A"
+            typeCodes <- c("S", "A", "N", "O", "Q", "I", "T")
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",

@@ -10,7 +10,7 @@
 \concept{similarity}
 %- Also NEED an '\alias' for EACH other topic documented here.
 
-\title{Flexibly calculate dissimilarity or distance measures }
+\title{Flexibly calculate dissimilarity or distance measures}
 
 \description{
   Flexibly calculates distance or dissimilarity measures between a
@@ -24,7 +24,7 @@
 distance(x, \dots)
 
 \method{distance}{default}(x, y, method = "euclidean", weights = NULL,
-         R = NULL, dist = FALSE, \dots)
+         R = NULL, dist = FALSE, double.zero = FALSE, \dots)
 
 \method{distance}{join}(x, \dots)
 
@@ -51,6 +51,12 @@ oldDistance(x, \dots)
   \item{R}{numeric; vector of ranges for each descriptor.}
   \item{dist}{logical; should the dissimilarity matrix be returned as
     an object of class \code{"dist"}? Ignored if \code{y} is supplied.}
+  \item{double.zero}{logical; if \code{FALSE}, the default, double
+    zeroes are not counted in the distance calculation. If \code{TRUE},
+    absences of a variable in both samples counts as a similarity
+    between the two samples. Currently this only affects methods
+    \code{"mixed"} and \code{"metric.mixed"} forms of Gower's general
+    coefficient.}
   \item{fast}{logical; should fast versions of the dissimilarities be
     calculated? See details below.}
   \item{\dots}{arguments passed to other methods}
