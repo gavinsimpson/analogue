@@ -37,6 +37,8 @@
 #define MIXED 14
 #define METRICMIXED 15
 
+#define EPS 1e-12
+
 /* Distance functions */
 
 /* Euclidean distance */
@@ -477,6 +479,17 @@ void xx_chisq_dist(double *x, int *nr, int *nc, double *d,
     }
 }
 
+
+/*
+ * Utility function
+ */
+static int allEqual(double x1, double x2)
+{
+  double dev;
+  dev = fabs(x1 - x2);
+  return (dev < EPS);
+}
+
 /*
  * Gower's coefficient for mixed data
  *
@@ -512,14 +525,14 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
     if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
       // Symmetric binary
       if(vtype[j] == 1) {
-	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
       // Asymmetric binary
       if(vtype[j] == 2) {
 	if((x[i1] != 0) || (x[i2] != 0)) {
 	  // either x1 and x2 not zero for this variable
-	  dev = (x[i1] == x[i2]) ? 1 : 0;
+	  dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	  dist += dev * weights[j];
 	} else {
 	  /* set jth current weight to zero and do not
@@ -532,12 +545,12 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
       }
       // Nominal
       if(vtype[j] == 3) {
-	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
       // Ordinal (Eqns 2a and 2b in Podani 1999); x converted to ranks in R-land
       if(vtype[j] == 4) {
-	if(x[i1] == x[i2]) {	/* Eqn 2a */
+	if(allEqual(x[i1], x[i2])) {	/* Eqn 2a */
 	  dev = 1;
 	} else {		/* Eqn 2b */
 	  // T has already had the (T - 1) / 2 adjustment done in
@@ -588,10 +601,10 @@ void xx_mixed(double *x, int *nr, int *nc, double *d,
 }
 
 /*
-  This is the *metric* version of Podanis' modification to Gower's mixed
-  coefficient
-*/
-/*
+ * This is the *metric* version of Podanis' modification to Gower's mixed
+ * coefficient
+ *
+ *
  * Gower's coefficient for mixed data
  *
  * Should be called separately from the underlying R code,
@@ -607,6 +620,7 @@ void xx_mixed(double *x, int *nr, int *nc, double *d,
  * R      : variable range (max - min)
  *
  */
+
 double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2, 
 		      int *vtype, double *weights, double *R, 
 		      double wsum)
@@ -622,14 +636,14 @@ double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2,
     if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
       // Symmetric binary
       if(vtype[j] == 1) {
-	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
       // Asymmetric binary
       if(vtype[j] == 2) {
 	if((x[i1] != 0) || (x[i2] != 0)) {
 	  // both x1 and x2 not zero for this variables
-	  dev = (x[i1] == x[i2]) ? 1 : 0;
+	  dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	  dist += dev * weights[j];
 	} else {
 	  /* set jth current weight to zero and do not
@@ -642,7 +656,7 @@ double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2,
       }
       // Nominal
       if(vtype[j] == 3) {
-	dev = (x[i1] == x[i2]) ? 1 : 0;
+	dev = allEqual(x[i1], x[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
       // Ordinal
