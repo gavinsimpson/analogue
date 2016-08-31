@@ -137,7 +137,7 @@ distance.join <- function(x, ...) {
                         tab <- tabulate(orderedx[, i])
                         T[, ordinal][, i] <- tab[orderedx[, i]]
                         tminmax <- (tab[c(1, length(tab))] - 1) / 2
-                        Trange[ordinal][i] <- tminmax[2] - tminmax[1]
+                        Trange[ordinal][i] <- tminmax[2] + tminmax[1]
                     }
                     T[,ordinal] <- (T[,ordinal] - 1) / 2
                 }
