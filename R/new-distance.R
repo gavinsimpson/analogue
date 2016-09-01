@@ -123,6 +123,13 @@ distance.join <- function(x, ...) {
                 if(length(R) != nc)
                     stop("'R' must be of length 'ncol(x)'")
             }
+            ## check for constant variables having R==0 and giving
+            ## distance 0/0 or NaN. These will have zero-differences,
+            ## too, so give any positive R to have them in the
+            ## analysis: they will still influence sum of weights used
+            ## to divide the differences.
+            if (any(R==0))
+                R[R==0] <- 1e6
 
             ## Handle non-metric version of Podani's modified Gower's mixed coefficient
             d <- if (DCOEF == 14L) {
