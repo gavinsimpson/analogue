@@ -133,11 +133,12 @@ distance.join <- function(x, ...) {
                 ## Only work with the ordinal columns, but T and Trange need to be of
                 ## lengths equal to x and nc respectively for the C code to work
                 if (any(ordinal)) {
-                    for (i in seq_len(sum(ordinal))) {
-                        tab <- tabulate(orderedx[, i])
-                        T[, ordinal][, i] <- tab[orderedx[, i]]
+                    for (i in which(ordinal)) {
+                        tab <- tabulate(x[, i])
+                        T[, i] <- tab[x[,i]]
+                        tab <- tab[tab>0]
                         tminmax <- (tab[c(1, length(tab))] - 1) / 2
-                        Trange[ordinal][i] <- tminmax[2] + tminmax[1]
+                        Trange[i] <- tminmax[2] + tminmax[1]
                     }
                     T[,ordinal] <- (T[,ordinal] - 1) / 2
                 }
