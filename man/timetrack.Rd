@@ -62,7 +62,8 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     options are likely to be \code{1} or \code{3} where the focus is on
     the samples.}
   \item{rank}{character; see argument of same name in function
-    \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
+    \code{\link[vegan]{predict.cca}} or
+    \code{\link[vegan]{predict.rda}}.}
   \item{join}{character; the tpe of join to perform. See
     \code{\link{join}} for details of possible choices, but the default,
     \code{"left"} is most generally applicable.}
