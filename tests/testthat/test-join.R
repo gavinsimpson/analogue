@@ -17,6 +17,9 @@ OUTER <- structure(list(spp = cbind(spp, mouse = c(0,0)),
                         fos = cbind(fos[, c("cat", "dog")], fish = c(0,0),
                         mouse = fos[, "mouse"])),
                    class = "join", type = "outer")
+cn <- intersect(colnames(spp), colnames(fos))
+INNER <- structure(list(spp = spp[, cn], fos = fos[, cn]),
+                   class = "join", type = "inner")
 
 test_that("join() with type = 'left' works", {
     obj <- join(spp, fos, type = "left")
@@ -26,4 +29,9 @@ test_that("join() with type = 'left' works", {
 test_that("join() with type = 'outer' works", {
     obj <- join(spp, fos, type = "outer")
     expect_equal(OUTER, obj)
+})
+
+test_that("join() with type = 'inner' works", {
+    obj <- join(spp, fos, type = "inner")
+    expect_equal(INNER, obj)
 })
