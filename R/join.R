@@ -16,22 +16,21 @@
         colnames(joined) <- cn
         joined
     }
-    leftJoin <- function(X) {
-        cn <- unique(unlist(lapply(X, colnames)[[1]]))
+    leftJoin <- function(X, dims) {
+        cn <- colnames(X[[1L]])
         ## if more than 2 df in X, merge all bar first
-        if(length(X) > 2)
+        if(length(X) > 2) {
             dfs <- outerJoin(X[-1])
-        else
+        } else {
             dfs <- X[[2]]
+        }
         ## matched column names
         mcn <- match(colnames(dfs), cn)
-        mcn2 <- match(cn, colnames(dfs))
-        mcn <- mcn[!is.na(mcn)]
-        mcn2 <- mcn2[!is.na(mcn2)]
-        joined <- matrix(NA, ncol = dims[1,2], nrow = sum(dims[,1]))
-        joined[1:dims[1,1], ] <- data.matrix(X[[1]])
-        joined[(dims[1,1]+1):NROW(joined), mcn] <- data.matrix(dfs[, mcn2])
+        mcn <- mcn[!is.na(mcn)]         # remove NAs
+        joined <- matrix(NA, ncol = dims[1L, 2L], nrow = sum(dims[, 1L]))
         colnames(joined) <- cn
+        joined[seq_len(dims[1L, 1L]), ] <- data.matrix(X[[1L]])
+        joined[(dims[1L, 1L]+1L):NROW(joined), mcn] <- data.matrix(dfs[, cn[mcn]])
         joined
     }
     innerJoin <- function(X) {
@@ -42,21 +41,22 @@
         for(i in seq_along(joined)) {
             joined[[i]] <- data.matrix(X[[i]][, cn])
         }
-        joined <- do.call(rbind, joined)
+        joined <- do.call("rbind", joined)
         colnames(joined) <- cn
         joined
     }
     x <- list(...)
     if(any(!sapply(x, inherits, "data.frame", USE.NAMES = FALSE)))
         stop("\nall objects to be merged must be data frames.")
-    dims <- t(sapply(x, dim))
+    dims <- t(vapply(x, FUN = dim, FUN.VALUE = integer(2)))
     n.joined <- nrow(dims)
-    if(missing(type))
+    if(missing(type)) {
         type <- "outer"
+    }
     type <- match.arg(type)
     joined <- switch(type,
                      outer = outerJoin(x),
-                     left = leftJoin(x),
+                     left  = leftJoin(x, dims = dims),
                      inner = innerJoin(x))
     if(na.replace) {
         joined[is.na(joined)] <- value
@@ -64,7 +64,7 @@
     rn <- lapply(x, rownames)
     if(verbose) {
         stats <- rbind(dims, dim(joined))
-        rownames(stats) <- c(paste("Data set ", c(1:n.joined), ":", sep = ""),
+        rownames(stats) <- c(paste("Data set ", seq_len(n.joined), ":", sep = ""),
                              "Merged:")
         colnames(stats) <- c("Rows", "Cols")
         cat("\nSummary:\n\n")
