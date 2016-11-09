@@ -1,7 +1,7 @@
 # analogue
 
 #### Released version
-[![CRAN version](http://www.r-pkg.org/badges/version/analogue)](http://cran.rstudio.com/web/packages/analogue/index.html) [![](http://cranlogs.r-pkg.org/badges/grand-total/analogue)](http://cran.rstudio.com/web/packages/analogue/index.html)
+[![CRAN version](http://www.r-pkg.org/badges/version/analogue)](https://cran.r-project.org/package=analogue) [![](http://cranlogs.r-pkg.org/badges/grand-total/analogue)](https://cran.r-project.org/package=analogue)
 
 #### Build status
 
@@ -38,4 +38,4 @@ analogue is released under the [GNU General Public Licence Version 2](http://www
 
 ## Links
 
- * [CRAN page](http://cran.r-project.org/package=analogue)
+ * [CRAN page](https://cran.r-project.org/package=analogue)
