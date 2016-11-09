@@ -7,6 +7,7 @@
                         scaling = 3, rank = "full",
                         ##model = c("CCA", "CA"),
                         join = "left",
+                        correlation = FALSE, hill = FALSE,
                         ...) {
     origX <- X ## store for later
     namX <- deparse(substitute(X))
@@ -64,9 +65,11 @@
     ##model <- match.arg(model)
     ## fitted values for passive
     pred <- predict(ord, newdata = passive, type = "wa",
-                    scaling = scaling, model = "CCA", rank = rank)
+                    scaling = scaling, model = "CCA", rank = rank,
+                    correlation = correlation, hill = hill)
     pred2 <- predict(ord, newdata = passive, type = "wa",
-                     scaling = scaling, model = "CA", rank = rank)
+                     scaling = scaling, model = "CA", rank = rank,
+                     correlation = correlation, hill = hill)
     pred <- cbind(pred, pred2)
     nams <- list(X = namX, passive = namP, env = namE)
     ## return object
@@ -74,7 +77,8 @@
                 method = method, formula = formula, #type = type,
                 scaling = scaling, rank = rank, ##model = model,
                 labels = nams, call = match.call(),
-                X = origX, transform = transform)
+                X = origX, transform = transform,
+                correlation = correlation, hill = hill)
     class(res) <- "timetrack"
     res
 }

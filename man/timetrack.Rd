@@ -17,7 +17,8 @@
 \usage{
 timetrack(X, passive, env, method = c("cca", "rda"),
           transform = "none", formula, scaling = 3,
-          rank = "full", join = "left", \dots)
+          rank = "full", join = "left", correlation = FALSE,
+          hill = FALSE, \dots)
 
 \method{fitted}{timetrack}(object, which = c("passive", "ordination"),
        model = NULL, choices = 1:2, \dots)
@@ -58,9 +59,16 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     is supplied as argument \code{formula} to the ordination
     function. E.g.~\code{formula = ~ var1 + var2}. If supplied then
     \code{env} must also be supplied}
-  \item{scaling}{numeric; the ordination scaling to apply. Useful
-    options are likely to be \code{1} or \code{3} where the focus is on
-    the samples.}
+  \item{scaling}{numeric or character; the ordination scaling to
+    apply. Useful options are likely to be \code{1} or \code{3} where
+    the focus is on the samples. For \code{character}, see options in
+    \code{\link[vegan]{scores.cca}}: character version of the useful
+    scalings are \code{"sites"} and \code{"symmetric"}. See arguments
+    \code{correlation} and \code{hill}.}
+  \item{correlation, hill}{logical; additional arguments passed to
+    \code{\link[vegan]{predict.cca}} and
+    \code{\link[vegan]{predict.rda}}. See \code{\link[vegan]{scores.cca}}
+    for details.}
   \item{rank}{character; see argument of same name in function
     \code{\link[vegan]{cca}} or \code{\link[vegan]{rda}}.}
   \item{join}{character; the tpe of join to perform. See
@@ -217,6 +225,14 @@ plot(mod, type = "n", ptype = "n")
 points(mod, which = "ordination", col = "grey", pch = 19, cex = 0.7)
 points(mod3, which = "passive", col = "red")
 points(mod4, which = "passive", col = "blue")
+
+## Fit the timetrack ordination - passing scaling args
+mod <- timetrack(swapdiat, rlgh, transform = "hellinger",
+                 method = "rda", scaling = "sites",
+                 correlation = TRUE)
+mod
+plot(mod)
+
 }
 
 \keyword{methods}
