@@ -9,7 +9,8 @@
   A database of modern pollen samples from a network of sites from North
   America and Greenland, compiled by Whitmore et al. (2005). Associated
   climatic and vegetation data are also record. The version of the NAMPD
-  included here is version 1.7-2.
+  included here is latest version 1-7.3 (February 2013), as of January
+  2016.
 }
 \usage{
 data(Pollen)
