@@ -1,13 +1,18 @@
-# Modified travis.yml set-up for the new native R support on Travis CI
-
 language: r
+cache: packages
 
-sudo: required
+r:
+  - release
+  - devel
 
-apt_packages:
-  - qpdf
+sudo: false
 
-r_binary_packages:
+addons:
+  apt:
+    packages:
+      - qpdf
+
+r_packages:
   - testthat
   - vegan
   - mgcv
@@ -27,7 +32,6 @@ after_success:
   - Rscript -e 'covr::codecov()'
 
 r_build_args: " --compact-vignettes=gs+qpdf"
-r_check_args: " --as-cran"
 
 notifications:
   email:
