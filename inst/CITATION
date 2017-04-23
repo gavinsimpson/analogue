@@ -7,13 +7,13 @@ citEntry(entry="Manual",
 	author = personList(as.person("G. L. Simpson"), as.person("J. Oksanen")),
 	year = sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date),
 	note = paste("R package version", meta$Version),
-   url = "http://cran.r-project.org/package=analogue",
+   url = "https://cran.r-project.org/package=analogue",
 
 	textVersion =
-	paste("Simpson, G.L. and Oksanen, J. ", paste("(", sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date), ")."), 
+	paste("Simpson, G.L. and Oksanen, J. ", paste("(", sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date), ")."),
          "analogue: Analogue matching and Modern Analogue Technique transfer function models. (R package version",
-	      meta$Version,").", 
-	      "(http://cran.r-project.org/package=analogue).", sep=" ")
+	      meta$Version,").",
+	      "(https://cran.r-project.org/package=analogue).", sep=" ")
 )
 
 citEntry(entry="Article",
@@ -26,7 +26,7 @@ citEntry(entry="Article",
 	pages   = "1--29",
 
 	textVersion =
-	paste("Simpson, G.L. (2007).", 
+	paste("Simpson, G.L. (2007).",
               "Analogue Methods in Palaeoecology: Using the analogue Package",
 	      "Journal of Statistical Software, 22(2), 1--29")
 )
