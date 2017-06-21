@@ -142,8 +142,8 @@ pred <- predict(aber.pc2, take)
 
 \dontrun{
 ## Fit principal curve using a GAM - currently slow ~10secs
-aber.pc3 <- prcurve(abernethy2, method = "ca", trace = TRUE,
-                    vary = TRUE, smoother = smoothGAM, bs = "cr")
+aber.pc3 <- prcurve(abernethy2 / 100, method = "ca", trace = TRUE,
+                    vary = TRUE, smoother = smoothGAM, bs = "cr", family = mgcv::betar())
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
