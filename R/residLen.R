@@ -8,8 +8,10 @@
     X <- dat[[1]]
     passive <- dat[[2]]
     ## check env is same length as nrow(X)
-    if(!isTRUE(all.equal(length(env), nrow(X))))
+    ## if env is vector then NROW() will still give what we want
+    if(!isTRUE(all.equal(NROW(env), nrow(X)))) {
         stop("'X' and 'env' imply different numbers of observations")
+    }
     ## ordinate
     if(missing(method))
         method <- "cca"
