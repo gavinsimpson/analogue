@@ -6,6 +6,8 @@
 
 * `Stratiplot()` gained argument `labelValues`, which allows for custom labelling of variables in a plot. A vector of expressions can be supplied for fancy labelling such as that required for isotopes, equations, sub/superscripts, greek characters, etc.
 
+* The `Climate` data set had incorrectly-named columns and was missing some variables. The NAMPD is now updated to version 1.7-3 and the name and missing data issues have been fixed. Reported by Simon Goring in Issue #17.
+
 ## Version 1.17-0
 
 * `Stratiplot()` now draws a plot on the current device and returns a `"trellis"` object *invisibly*. This fixes #13 and prevents a blank page being drawn in devices such as `pdf()`.
