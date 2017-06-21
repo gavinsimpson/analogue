@@ -6,7 +6,7 @@
                         family = gaussian(),
                         method = "REML",
                         select = FALSE,
-                        control = list()) {
+                        control = gam.control()) {
     ## complexity is the 'k' argument -
     ## choose selects whether to use fixed complexity or allow
     ## underlying fitting function to return complexity

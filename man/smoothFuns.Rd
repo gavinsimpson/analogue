@@ -21,7 +21,7 @@ smoothSpline(lambda, x, choose = TRUE, complexity, ...,
 
 smoothGAM(lambda, x, choose = TRUE, complexity, bs = "tp", ...,
           family = gaussian(), method = "REML", select = FALSE,
-          control = list())
+          control = gam.control())
 }
 \arguments{
   \item{lambda}{the current projection function; the position that each
