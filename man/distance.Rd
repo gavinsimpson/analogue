@@ -211,14 +211,20 @@ oldDistance(x, \dots)
   Overpeck, J.T., Webb III, T. and Prentice I.C. (1985) Quantitative
   interpretation of fossil pollen spectra: dissimilarity coefficients and
   the method of modern analogues. \emph{Quaternary Research} \strong{23},
-  87--108. 
+  87--108.
+
+  Podani, J. (1999) Extending Gower’s General Coefficient of Similarity
+  to Ordinal Characters. \emph{Taxon} \strong{48}, 331--340).
   
   Prentice, I.C. (1980) Multidimensional scaling as a research tool in
   Quaternary palynology: a review of theory and methods. \emph{Review of
     Palaeobiology and Palynology} \strong{31}, 71--104.
  
 }
-\author{Gavin L. Simpson }
+\author{Gavin L. Simpson and Jari Oksanen (improvements leading to
+  method \code{"metric.mixed"} and proper handling of ordinal data via
+  Podani's (1999) modification of Gower's general coefficient in method
+  \code{"mixed"}).}
 \seealso{\code{\link[vegan]{vegdist}} in package \pkg{vegan},
   \code{\link[cluster]{daisy}} in package \pkg{cluster}, and
   \code{\link[stats]{dist}} provide comparable functionality for the
