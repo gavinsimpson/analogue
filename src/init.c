@@ -11,23 +11,25 @@ extern void WTOL(void *, void *, void *, void *, void *, void *);
 extern void xx_chisq_dist(void *, void *, void *, void *, void *, void *);
 extern void xx_distance(void *, void *, void *, void *, void *, void *);
 extern void xx_kendall(void *, void *, void *, void *, void *, void *);
-extern void xx_mixed(void *, void *, void *, void *, void *, void *, void *, void *);
+extern void xx_mixed(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void xx_metric_mixed(void *, void *, void *, void *, void *, void *, void *, void *);
 extern void xy_chisq_dist(void *, void *, void *, void *, void *, void *, void *);
 extern void xy_distance(void *, void *, void *, void *, void *, void *, void *);
 extern void xy_kendall(void *, void *, void *, void *, void *, void *, void *);
 extern void xy_mixed(void *, void *, void *, void *, void *, void *, void *, void *, void *);
 
 static const R_CMethodDef CEntries[] = {
-    {"WATpred",       (DL_FUNC) &WATpred,       7},
-    {"WTOL",          (DL_FUNC) &WTOL,          6},
-    {"xx_chisq_dist", (DL_FUNC) &xx_chisq_dist, 6},
-    {"xx_distance",   (DL_FUNC) &xx_distance,   6},
-    {"xx_kendall",    (DL_FUNC) &xx_kendall,    6},
-    {"xx_mixed",      (DL_FUNC) &xx_mixed,      8},
-    {"xy_chisq_dist", (DL_FUNC) &xy_chisq_dist, 7},
-    {"xy_distance",   (DL_FUNC) &xy_distance,   7},
-    {"xy_kendall",    (DL_FUNC) &xy_kendall,    7},
-    {"xy_mixed",      (DL_FUNC) &xy_mixed,      9},
+    {"WATpred",         (DL_FUNC) &WATpred,          7},
+    {"WTOL",            (DL_FUNC) &WTOL,             6},
+    {"xx_chisq_dist",   (DL_FUNC) &xx_chisq_dist,    6},
+    {"xx_distance",     (DL_FUNC) &xx_distance,      6},
+    {"xx_kendall",      (DL_FUNC) &xx_kendall,       6},
+    {"xx_mixed",        (DL_FUNC) &xx_mixed,        10},
+    {"xx_metric_mixed", (DL_FUNC) &xx_metric_mixed,  8},
+    {"xy_chisq_dist",   (DL_FUNC) &xy_chisq_dist,    7},
+    {"xy_distance",     (DL_FUNC) &xy_distance,      7},
+    {"xy_kendall",      (DL_FUNC) &xy_kendall,       7},
+    {"xy_mixed",        (DL_FUNC) &xy_mixed,         9},
     {NULL, NULL, 0}
 };
 
