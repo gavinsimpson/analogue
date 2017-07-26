@@ -213,7 +213,7 @@ oldDistance(x, \dots)
   the method of modern analogues. \emph{Quaternary Research} \strong{23},
   87--108.
 
-  Podani, J. (1999) Extending Gower’s General Coefficient of Similarity
+  Podani, J. (1999) Extending Gower's General Coefficient of Similarity
   to Ordinal Characters. \emph{Taxon} \strong{48}, 331--340).
   
   Prentice, I.C. (1980) Multidimensional scaling as a research tool in
