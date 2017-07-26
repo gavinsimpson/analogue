@@ -557,7 +557,6 @@ double xx_MIXED(double *x, int nr, int nc, int i1, int i2,
 	  dev = 1 - ((fabs(x[i1] - x[i2]) - T[i1] - T[i2]) / (R[j] - Trange[j]));
 	}
 	dist += dev * weights[j];
-	break;
       }
       // Quantitative
       if(vtype[j] == 5) {
@@ -627,7 +626,7 @@ double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2,
 {
   double dist, dev;
   int count, j;
-  
+
   count = 0;
   dist = 0.0;
   wsum = 0.0;
@@ -666,7 +665,6 @@ double xx_METRICMIXED(double *x, int nr, int nc, int i1, int i2,
          */
 	dev = 1 - (fabs(x[i1] - x[i2]) / R[j]);
 	dist += dev * weights[j];
-	break;
       }
       // Quantitative
       if(vtype[j] == 5) {
