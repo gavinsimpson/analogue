@@ -4,6 +4,10 @@
 
 * `distance()` gains new method `"metric.mixed"`, which is a modification of existing method `"mixed"` except that ordinal variables are now converted to ranks and handled as quantitative variables in Gower's mixed coefficient.
 
+    `distance()` method `"mixed"` now also handles ordinal data via the extensions to Gower's general distance coefficient in Podani (1999, *Taxon* **48**, 331--340).
+
+    Both changes were improved by discussions with, and new code and fixes to my buggy C code by, Jari Oksanen. See Issue #15.
+
 * `join()` had a serious bug that caused the columns to be labelled incorrectly when a `type = "left"` join was used, if the columns weren't in the same order in the data frames to be merged. Issue #16
 
 * `Stratiplot()` gained argument `labelValues`, which allows for custom labelling of variables in a plot. A vector of expressions can be supplied for fancy labelling such as that required for isotopes, equations, sub/superscripts, greek characters, etc.
