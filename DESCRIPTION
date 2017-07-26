@@ -1,8 +1,8 @@
 Package: analogue
 Type: Package
 Title: Analogue and Weighted Averaging Methods for Palaeoecology
-Version: 0.17-0
-Date: 2016-02-27
+Version: 0.17-99
+Date: 2017-07-26
 Depends: R (>= 2.15.0), vegan (>= 2.2-0)
 Imports: mgcv, MASS, stats, graphics, grid, brglm, princurve, lattice
 Suggests: testthat
