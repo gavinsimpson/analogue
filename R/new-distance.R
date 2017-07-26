@@ -17,21 +17,21 @@ distance.join <- function(x, ...) {
 }
 
 `distance.default` <- function(x, y, method = "euclidean", weights = NULL,
-                               R = NULL, dist = FALSE, ...){
+                               R = NULL, dist = FALSE, double.zero = FALSE, ...){
     ## Euclid?an could be spelled variously
     if(!is.na(pmatch(method, "euclidian")))
 	method <- "euclidean"
     METHODS <- c("euclidean", "SQeuclidean", "chord", "SQchord",
                  "bray", "chi.square", "SQchi.square",
                  "information","chi.distance", "manhattan",
-                 "kendall", "gower", "alt.gower", "mixed")
+                 "kendall", "gower", "alt.gower", "mixed", "metric.mixed")
     DCOEF <- pmatch(method, METHODS)
     if(miss.y <- missing(y)) {
         dmat <- dxx(x = x, DCOEF = DCOEF, weights = weights,
-                    R = R, dist = dist, ...)
+                    R = R, dist = dist, double.zero = double.zero, ...)
     } else {
         dmat <- dxy(x = x, y = y, DCOEF = DCOEF, weights = weights,
-                    R = R, ...)
+                    R = R, double.zero = double.zero, ...)
     }
 
     ## add attributes, classes, and return
@@ -45,7 +45,7 @@ distance.join <- function(x, ...) {
 
 ## Internal, not exported, function for computing distances when
 ## only `x` is available
-`dxx` <- function(x, DCOEF, weights, R, dist = FALSE, ...) {
+`dxx` <- function(x, DCOEF, weights, R, dist = FALSE, double.zero = FALSE, ...) {
     ## variables
     nr <- nrow(x)
     nc <- ncol(x)
@@ -57,7 +57,7 @@ distance.join <- function(x, ...) {
 
     ## some preprocessing steps required for some coefs
     ## so dealt with separately
-    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L)) {
+    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L, 15L)) {
         ## "chi.distance", "gower", "alt.gower","mixed", "kendall"
         if(DCOEF == 9L) { ## "chi.distance"
             x <- data.matrix(x)
@@ -78,7 +78,7 @@ distance.join <- function(x, ...) {
                     maxi = as.double(maxi), NAOK = as.integer(FALSE),
                     PACKAGE = "analogue")$d
         }
-        if(DCOEF == 14L) { ## "mixed"
+        if(DCOEF %in% c(14L, 15L)) { ## "mixed" or "metric.mixed"
             if(is.null(weights))
                 weights <- rep(1, nc)
             else {
@@ -94,17 +94,24 @@ distance.join <- function(x, ...) {
             }
             ## Record the variable types
             xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
-            ## save which are ordinal for rank conversion below - TODO
+            ## save which are ordinal for rank conversion below
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
-            xType[xType == "logical"] <- "A"
-            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType[xType == "logical"] <- if(double.zero) "S" else "A"
+            typeCodes <- c("S", "A", "N", "O", "Q", "I", "T") # what is T? From daisy()?
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
                      paste(which(ina), collapse = ", "))
 
+            ## convert to ranks
+            if (any(ordinal)) {
+                orderedx <- x[ordinal]
+                x[ordinal] <- lapply(x[ordinal], rank)
+            }
+
             ## convert to matrix, preserving factor info as numeric
+            ## ranks not affected as they are numeric at this stage
             x <- data.matrix(x)
 
             ## Compute range Rj
@@ -116,19 +123,46 @@ distance.join <- function(x, ...) {
                 if(length(R) != nc)
                     stop("'R' must be of length 'ncol(x)'")
             }
+            ## check for constant variables having R==0 and giving
+            ## distance 0/0 or NaN. These will have zero-differences,
+            ## too, so give any positive R to have them in the
+            ## analysis: they will still influence sum of weights used
+            ## to divide the differences.
+            if (any(R==0))
+                R[R==0] <- 1e6
 
-            ## call the C code
-            d <- .C("xx_mixed",
-                    x = as.double(x),
-                    nr = as.integer(nr),
-                    nc = as.integer(nc),
-                    d = as.double(d),
-                    diag = as.integer(FALSE),
-                    vtype = as.integer(xType),
-                    weights = as.double(weights),
-                    R = as.double(R),
-                    NAOK = as.integer(TRUE),
-                    PACKAGE = "analogue")$d
+            ## Handle non-metric version of Podani's modified Gower's mixed coefficient
+            d <- if (DCOEF == 14L) {
+                ## Pre-compute T and Trange
+                ## These equate to Ti and `(Ti,max - 1)/2 - (Ti,min - 1)/2` in Eqn 2b
+                T <- matrix(0, ncol = nc, nrow = nr)
+                Trange <- numeric(length = nc)
+                ## Only work with the ordinal columns, but T and Trange need to be of
+                ## lengths equal to x and nc respectively for the C code to work
+                if (any(ordinal)) {
+                    for (i in which(ordinal)) {
+                        tab <- tabulate(x[, i])
+                        T[, i] <- tab[x[,i]]
+                        tab <- tab[tab>0]
+                        tminmax <- (tab[c(1, length(tab))] - 1) / 2
+                        Trange[i] <- tminmax[2] + tminmax[1]
+                    }
+                    T[,ordinal] <- (T[,ordinal] - 1) / 2
+                }
+
+                ## call the C code
+                .C("xx_mixed", x = as.double(x), nr = as.integer(nr), nc = as.integer(nc),
+                   d = as.double(d), diag = as.integer(FALSE),
+                   vtype = as.integer(xType), weights = as.double(weights),
+                   R = as.double(R), T = as.double(T), Trange = as.double(Trange),
+                   NAOK = as.integer(TRUE), PACKAGE = "analogue")$d
+            } else {
+                ## call the C code
+                .C("xx_metric_mixed", x = as.double(x), nr = as.integer(nr), nc = as.integer(nc),
+                   d = as.double(d), diag = as.integer(FALSE), vtype = as.integer(xType),
+                   weights = as.double(weights), R = as.double(R), NAOK = as.integer(TRUE),
+                   PACKAGE = "analogue")$d
+            }
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {
@@ -151,7 +185,7 @@ distance.join <- function(x, ...) {
                     PACKAGE = "analogue")$d
         }
     } else {
-        ## must be one of the DC's handled by xy_distance
+        ## must be one of the DC's handled by xx_distance
         x <- data.matrix(x)
         d <- .C("xx_distance", x = as.double(x),
                 nr = as.integer(nr), nc = as.integer(nc),
@@ -184,7 +218,7 @@ distance.join <- function(x, ...) {
 
 ## Internal, not exported, function for computing distances when
 ## both `x` and `y` are available
-`dxy` <- function(x, y, DCOEF, weights, R, ...) {
+`dxy` <- function(x, y, DCOEF, weights, R, double.zero = FALSE, ...) {
     ## check x and y have same columns
     if(!isTRUE(all.equal(colnames(x), colnames(y))))
         stop("'x' and 'y' appear to have different variables.")
@@ -261,12 +295,18 @@ Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
             ## save which are ordinal for rank conversion below - TODO
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
-            xType[xType == "logical"] <- "A"
-            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
+            xType[xType == "logical"]  <- if(double.zero) "S" else "A"
+            typeCodes <- c("S", "A", "N", "O", "Q", "I", "T")
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
                      paste(which(ina), collapse = ", "))
+
+            ## convert to ranks
+            if (any(ordinal)) {
+                x[ordinal] <- lapply(x[ordinal, drop = FALSE], rank)
+                y[ordinal] <- lapply(y[ordinal, drop = FALSE], rank)
+            }
 
             ## Convert to matrices from now on
             ## also takes care of ordinal == metric as all factors

@@ -10,7 +10,7 @@
 \concept{similarity}
 %- Also NEED an '\alias' for EACH other topic documented here.
 
-\title{Flexibly calculate dissimilarity or distance measures }
+\title{Flexibly calculate dissimilarity or distance measures}
 
 \description{
   Flexibly calculates distance or dissimilarity measures between a
@@ -24,7 +24,7 @@
 distance(x, \dots)
 
 \method{distance}{default}(x, y, method = "euclidean", weights = NULL,
-         R = NULL, dist = FALSE, \dots)
+         R = NULL, dist = FALSE, double.zero = FALSE, \dots)
 
 \method{distance}{join}(x, \dots)
 
@@ -51,6 +51,12 @@ oldDistance(x, \dots)
   \item{R}{numeric; vector of ranges for each descriptor.}
   \item{dist}{logical; should the dissimilarity matrix be returned as
     an object of class \code{"dist"}? Ignored if \code{y} is supplied.}
+  \item{double.zero}{logical; if \code{FALSE}, the default, double
+    zeroes are not counted in the distance calculation. If \code{TRUE},
+    absences of a variable in both samples counts as a similarity
+    between the two samples. Currently this only affects methods
+    \code{"mixed"} and \code{"metric.mixed"} forms of Gower's general
+    coefficient.}
   \item{fast}{logical; should fast versions of the dissimilarities be
     calculated? See details below.}
   \item{\dots}{arguments passed to other methods}
@@ -126,6 +132,11 @@ oldDistance(x, \dots)
     \eqn{s_{jki}}{s[jki]} is the similarity \cr
     \tab between samples \eqn{j} and \eqn{k} for descriptor (variable)
     \eqn{i}.
+    \cr
+    \code{metric.mixed}
+    \tab as for \code{mixed} but with ordinal variables converted to
+    ranks and handled as quantitative variables in Gower's mixed
+    coefficient.
   }
 
   Argument \code{fast} determines whether fast C versions of some of the
@@ -166,7 +177,7 @@ oldDistance(x, \dots)
   you would need to merge the two sets of samples, calculate the full
   dissimilarity matrix and then subset it to achieve similar results.
 }
-\section{warning}{
+\section{Warning}{
   For \code{method = "mixed"} it is essential that a factor in \code{x}
   and \code{y} have the same levels in the two data frames. Previous
   versions of analogue would work even if this was not the case, which
@@ -253,7 +264,11 @@ Rj <- c(1,4,2,4,1,3,2,5) # supplied ranges
 
 ## note this gives ~0.66 as Legendre & Legendre describe the
 ## coefficient as a similarity coefficient. Hence here we do
-## 1 - Dij here to get the same answer. 
+## 1 - Dij here to get the same answer.
+
+## Tortula example from Podani (1999)
+data(tortula)
+distance(tortula[, -1], method = "mixed") # col 1 includes Taxon ID
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{methods}
