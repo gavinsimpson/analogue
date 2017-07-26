@@ -94,7 +94,7 @@ data(Location)
 
   \url{http://www.lpc.uottawa.ca/data/modern/index.html}
 
-  \url{http://www.geography.wisc.edu/faculty/williams/web/data.htm}
+  \url{https://williamspaleolab.github.io/datavis/}
 }
 \references{
   Whitmore, J., Gajewski, K., Sawada, M., Williams, J.W., Shuman, B.,
