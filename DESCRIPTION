@@ -1,14 +1,15 @@
 Package: analogue
 Type: Package
 Title: Analogue and Weighted Averaging Methods for Palaeoecology
-Version: 0.17-99
-Date: 2017-07-26
+Version: 0.17-999
+Date: 2017-10-12
 Depends: R (>= 2.15.0), vegan (>= 2.2-0)
 Imports: mgcv, MASS, stats, graphics, grid, brglm, princurve, lattice
 Suggests: testthat
 Authors@R: c(person(given = c("Gavin", "L."), family = "Simpson",
                     role = c("aut", "cre"),
-                    email = "ucfagls@gmail.com"),
+                    email = "ucfagls@gmail.com",
+		    comment = c(ORCID = "0000-0002-9084-8413")),
              person(given = "Jari", family = "Oksanen",
                     role = "aut"))
 Maintainer: Gavin L. Simpson <ucfagls@gmail.com>
