@@ -274,7 +274,15 @@ Rj <- c(1,4,2,4,1,3,2,5) # supplied ranges
 
 ## Tortula example from Podani (1999)
 data(tortula)
-distance(tortula[, -1], method = "mixed") # col 1 includes Taxon ID
+Dij <- distance(tortula[, -1], method = "mixed") # col 1 includes Taxon ID
+
+## Only one ordered factor
+data(mite.env, package = "vegan")
+Dij <- distance(mite.env, method = "mixed")
+
+## Some variables are constant
+data(BCI.env, package = "vegan")
+Dij <- distance(BCI.env, method = "mixed")
 }
-\keyword{multivariate}% at least one, from doc/KEYWORDS
+\keyword{multivariate}
 \keyword{methods}
