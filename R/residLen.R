@@ -7,14 +7,20 @@
     dat <- join(X, passive, type = "left") ## Think this should have type = "left" ?
     X <- dat[[1]]
     passive <- dat[[2]]
+    ## env needs to be a matrix-like object
+    if (is.null(dim(env))) {
+        envvar <- deparse(substitute(env))
+        env <- setNames(data.frame(env), envvar)
+    }
     ## check env is same length as nrow(X)
     ## if env is vector then NROW() will still give what we want
     if(!isTRUE(all.equal(NROW(env), nrow(X)))) {
         stop("'X' and 'env' imply different numbers of observations")
     }
     ## ordinate
-    if(missing(method))
+    if(missing(method)) {
         method <- "cca"
+    }
     method <- match.arg(method)
     FUN <- match.fun(method)
     ## ordinate

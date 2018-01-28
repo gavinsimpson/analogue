@@ -60,7 +60,7 @@
                        closestSamp = minDC(ana.fit <- analog(x2, y2))$minDC)
         if (!missing(env)) {
             out <- cbind(out,
-                         residLen = residLen(x, env, y,
+                         residLen = residLen(x, env = env, passive = y,
                                              method = ordination)[["passive"]])
         }
     }
