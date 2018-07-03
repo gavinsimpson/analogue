@@ -16,9 +16,13 @@
     }
 
     ## otherwise project points on to the curve
-    p <- get.lam(data.matrix(newdata), s = object$s, tag = object$tag,
-                 stretch = object$stretch)
+    p <- project_to_curve(
+      data.matrix(newdata),
+      s = object$s,
+      ord = object$tag,
+      stretch = object$stretch
+    )
     out <- p$s
-    attr(out, "tag") <- p$tag
+    attr(out, "tag") <- p$ord
     out
 }

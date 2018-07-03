@@ -121,7 +121,8 @@ prcurve <- function(X,
         ##
         dist.old <- config$dist
         ## if(fitFUN == "princurve") {
-            config <- get.lam(X, s = s, stretch = stretch)
+            config <- project_to_curve(X, s = s, stretch = stretch)
+            names(config)[[2]] <- "tag"
         ## } else {
         ##     uni.lam <- sort(unique(config$lambda))
         ##     config <- pcget.lam(X, s = s, latent = latent, stretch = stretch,
@@ -172,7 +173,8 @@ prcurve <- function(X,
             ##     fitted(sFit)
             ## }
         }
-        config <- get.lam(X, s = s, stretch = stretch)
+        config <- project_to_curve(X, s = s, stretch = stretch)
+        names(config)[[2]] <- "tag"
         class(config) <- "prcurve"
         if(plotit) {
             ## plot the iteration -- need to add some components

@@ -104,9 +104,9 @@ initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
   Gavin L. Simpson
 }
 \note{
-  The fitting function uses function \code{\link[princurve]{get.lam}} in
+  The fitting function uses function \code{\link[princurve]{project_to_curve}} in
     package \pkg{princurve} to find the projection of the data on to the
-    fitted curve. 
+    fitted curve.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
