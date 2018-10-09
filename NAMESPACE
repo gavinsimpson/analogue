@@ -136,7 +136,7 @@ importFrom("brglm",
 
 ## princurve
 importFrom("princurve",
-           "get.lam")
+           "project_to_curve")
 
 ## Exports
 export(

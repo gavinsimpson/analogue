@@ -19,24 +19,16 @@ prcurve <- function(X,
                     trace = FALSE,
                     thresh = 0.001,
                     plotit = FALSE,
-                    ## fitFUN = c("princurve","pcurve"),
-                    ## latent = FALSE,
                     ...) {
     ## X should be a matrix, attempt to coerce
     if(!isTRUE(inherits(X, "matrix")))
         X <- data.matrix(X)
     ## set/select default method for starting configuration
-    if(missing(method))
-        method <- "ca"
-    else
-        method <- match.arg(method)
-    ## ## set/select default fitting function
-    ## if(missing(fitFUN))
-    ##     fitFUN <- "princurve"
-    ## else
-    ##     fitFUN <- match.arg(fitFUN)
-    ## if(latent && fitFUN == "princurve")
-    ##     warning("Scaling PC to a latent variable not availble with fitFUN = \"princurve\".")
+    method <- if(missing(method)) {
+        "ca"
+    } else {
+        match.arg(method)
+    }
     ## data stats
     n <- NROW(X) ## number of observations
     m <- NCOL(X) ## number of variables
@@ -120,13 +112,8 @@ prcurve <- function(X,
         }
         ##
         dist.old <- config$dist
-        ## if(fitFUN == "princurve") {
-            config <- get.lam(X, s = s, stretch = stretch)
-        ## } else {
-        ##     uni.lam <- sort(unique(config$lambda))
-        ##     config <- pcget.lam(X, s = s, latent = latent, stretch = stretch,
-        ##                         uni.lam = uni.lam)
-        ## }
+        config <- project_to_curve(X, s = s, stretch = stretch)
+        names(config)[[2]] <- "tag"
         class(config) <- "prcurve"
         ## Converged?
         converged <- (abs((dist.old - config$dist)/dist.old) <=
@@ -172,7 +159,8 @@ prcurve <- function(X,
             ##     fitted(sFit)
             ## }
         }
-        config <- get.lam(X, s = s, stretch = stretch)
+        config <- config <- project_to_curve(X, s = s, stretch = stretch)
+        names(config)[[2]] <- "tag"
         class(config) <- "prcurve"
         if(plotit) {
             ## plot the iteration -- need to add some components

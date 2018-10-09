@@ -104,12 +104,10 @@ initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
   Gavin L. Simpson
 }
 \note{
-  The fitting function uses function \code{\link[princurve]{get.lam}} in
-    package \pkg{princurve} to find the projection of the data on to the
-    fitted curve. 
+  The fitting function uses function
+    \code{\link[princurve]{project_to_curve}} in package \pkg{princurve}
+    to find the projection of the data on to the fitted curve.
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
   \code{\link{smoothGAM}} and \code{\link{smoothSpline}} for the
