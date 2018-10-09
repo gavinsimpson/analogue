@@ -82,6 +82,7 @@
 }
 
 \examples{
+  \dontshow{od <- options(digits = 4)}
   ## Load Abernethy Forest data set
   data(abernethy)
 
@@ -93,13 +94,16 @@
   aber.pc <- prcurve(abernethy2, method = "ca", keep.data = TRUE)
 
   ## default "distance" residuals
-  resid(aber.pc)
+  res <- resid(aber.pc)
+  head(res)
 
   ## residuals from the underlying smooth models, also illustrates
   ## how to select specific types of residual from the individual
   ## method using argument 'type'
-  resid(aber.pc, which = "smooths", type = "deviance")
-
+  res <- resid(aber.pc, which = "smooths", type = "deviance")
+  dim(res)
+  head(res[, 1:5])		# just show a few species residuals
+  \dontshow{options(od)}
 }
 
 \keyword{ methods }
