@@ -53,6 +53,7 @@
 \examples{
 ## Imbrie and Kipp
 data(ImbrieKipp)
+ImbrieKipp <- ImbrieKipp / 100
 data(SumSST)
 ik.wa <- wa(SumSST ~ ., data = ImbrieKipp, tol.dw = TRUE,
             min.tol = 2, small.tol = "min")
