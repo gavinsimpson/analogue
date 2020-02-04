@@ -209,8 +209,10 @@ mod2
 plot(mod2)
 
 ## scores and fitted methods
+## IGNORE_RDIFF_BEGIN
 head(fitted(mod, type = "passive"))
 head(scores(mod, type = "passive"))
+## IGNORE_RDIFF_END
 
 ## predict locations in timetrack for new observations
 take <- rlgh[1:50, ]
