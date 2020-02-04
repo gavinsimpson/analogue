@@ -143,8 +143,8 @@ V12.122 <- dat[[2]] / 100
 ## analog matching between SWAP and RLGH reference samples
 (ik.ana <- analog(ImbrieKipp, V12.122, method = "chord"))
 
-## close modern analogues --- no analogues are "close"
-(ik.cma <- cma(ik.ana, cutoff = 0.91))
+## close modern analogues
+(ik.cma <- cma(ik.ana, cutoff = 0.4))
 summary(ik.cma)
 
 ## plot the results
