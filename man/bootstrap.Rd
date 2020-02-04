@@ -129,6 +129,7 @@ bootstrap(object, \dots)
 \seealso{\code{mat}, \code{plot.mat}, \code{summary.bootstrap.mat},
   \code{\link{residuals}}}
 \examples{
+\dontshow{op <- options(digits = 3)}
 ## Imbrie and Kipp example
 ## load the example data
 data(ImbrieKipp)
@@ -156,6 +157,7 @@ fitted(ik.boot)
 
 ## residuals
 resid(ik.boot) # uses abbreviated form
+\dontshow{options(op)}
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{methods}
