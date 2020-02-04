@@ -71,6 +71,7 @@ RMSEP(object, \dots)
 \seealso{\code{\link{mat}}, \code{\link{bootstrap}}, \code{\link{wa}},
   \code{\link{bootstrap.wa}}.}
 \examples{
+\dontshow{op <- options(digits = 3)}
 ## Imbrie and Kipp example
 ## load the example data
 data(ImbrieKipp)
@@ -98,6 +99,7 @@ RMSEP(ik.boot)
 
 ## Calculate the alternative formulation
 RMSEP(ik.boot, type = "standard")
+\dontshow{options(op)}
 }
 \keyword{methods}
 \keyword{utilities}
