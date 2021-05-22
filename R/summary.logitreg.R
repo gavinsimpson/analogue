@@ -18,7 +18,7 @@
 }
 
 `print.summary.logitreg` <- function(x,
-                                     digits = min(3, getOption("digits") - 4),
+                                     digits = max(3, getOption("digits") - 4),
                                      ...) {
     class(x) <- "data.frame"
     x$`p-value` <- format.pval(x$`p-value`)

@@ -1,16 +1,14 @@
 \name{summary.mat}
 \alias{summary.mat}
 \alias{print.summary.mat}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Summarise Modern Analogue Technique models}
 \description{
   \code{\link{summary}} method for class \code{"mat"}.
 }
 \usage{
 \method{summary}{mat}(object, k = 10,
-        digits = min(2, getOption("digits") - 4), ...)
+        digits = max(2, getOption("digits") - 4), ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{an object of class \code{"cma"}, usually the
     result of a call to \code{\link{cma}}.}

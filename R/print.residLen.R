@@ -1,6 +1,6 @@
 ## print method
 `print.residLen` <- function(x,
-                             digits = min(4, getOption("digits") - 4),
+                             digits = max(4, getOption("digits") - 4),
                              probs = c(0.5, 0.75, 0.9, 0.95, 0.99), ...) {
     cat("\n")
     writeLines(strwrap("Squared residual lengths",

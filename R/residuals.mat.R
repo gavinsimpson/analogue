@@ -37,7 +37,7 @@ residuals.mat <- function(object, k, weighted = FALSE, ...)
   }
 
 print.residuals.mat <- function(x,
-                                digits = min(3, getOption("digits") - 3), ...)
+                                digits = max(3, getOption("digits") - 3), ...)
   {
     k <- x$k
     cat("\n")

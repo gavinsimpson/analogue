@@ -12,7 +12,7 @@
 ##                                                                       ##
 ###########################################################################
 summary.mat <- function(object, k = 10,
-                        digits = min(2, getOption("digits") - 4),
+                        digits = max(2, getOption("digits") - 4),
                         ...)
   {
     tbl <- cbind(object$standard$rmsep[1:k], object$standard$r.squared[1:k],
@@ -53,7 +53,7 @@ summary.mat <- function(object, k = 10,
   }
 
 print.summary.mat <- function(x,
-                              digits = min(3, getOption("digits") - 4),
+                              digits = max(3, getOption("digits") - 4),
                               ...)
   {
     cat("\n")
