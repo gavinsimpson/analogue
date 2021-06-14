@@ -1,27 +1,12 @@
-###########################################################################
-##                                                                       ##
-## cma           - extracts and formats close modern analogues           ##
-##                                                                       ##
-## Created       : 27-May-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.1                                                   ##
-## Last modified : 27-May-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-## object        - object for method dispatch. Only class 'analog'.      ##
-## cutoff        - numeric. Critical value determining level above which ##
-##                 samples are defined as close modern analogues         ##
-##                                                                       ##
-###########################################################################
-cma <- function(object, ...) UseMethod("cma")
+cma <- function(object, ...) {
+    UseMethod("cma")
+}
 
-cma.default <- function(object, ...)
-  {
+cma.default <- function(object, ...) {
     stop("No default method for \"cma\"")
-  }
+}
 
-cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
-  {
+cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...) {
     if (!inherits(object, "analog"))
       stop("Use only with \"analog\" objects")
     if(missing(cutoff)) {
@@ -46,8 +31,9 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         close[[i]] <- sortByCutoff(object$analogs[, i], cutoff)
     }
     names(close) <- colnames(object$analogs)
-    if(length(close) == 0)
-      close <- vector(mode = "list", length = length(nams))
+    if(identical(length(close), 0L)) {
+        close <- vector(mode = "list", length = length(nams))
+    }
     each.analogs <- sapply(close, length, USE.NAMES = FALSE)
     names(each.analogs) <- names(close) <- nams
     .call <- match.call()
@@ -70,8 +56,9 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
     nams <- colnames(object$Dij)
     K <- !missing(k)
     CUT <- !missing(cutoff)
-    if(K && CUT)
+    if(K && CUT) {
         stop("Only one of \"k\" and \"cutoff\" may be used, not both.")
+    }
     if(!K && !CUT) {
         k <- getK(object)
         cutoff <- NULL
@@ -98,7 +85,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
     }
-    if(length(close) == 0) {
+    if(identical(length(close), 0L)) {
         close <- vector(mode = "list", length = length(nams))
         names(each.analogs) <- names(close) <- nams
     }
@@ -123,8 +110,9 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
     nams <- colnames(object$Dij)
     K <- !missing(k)
     CUT <- !missing(cutoff)
-    if(K && CUT)
+    if(K && CUT) {
         stop("Only one of \"k\" and \"cutoff\" may be used, not both.")
+    }
     if(!K && !CUT) {
         k <- getK(object)
         cutoff <- NULL
@@ -151,7 +139,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...)
         k <- NULL
         names(each.analogs) <- names(close) <- nams
     }
-    if(length(close) == 0) {
+    if(identical(length(close), 0L)) {
         close <- vector(mode = "list", length = length(nams))
         names(each.analogs) <- names(close) <- nams
     }
