@@ -269,7 +269,7 @@
                     maxi = as.double(maxi), NAOK = as.integer(FALSE),
                     PACKAGE = "analogue")$d
         }
-        if(DCOEF %in% c(14L, 15L)) { ## "mixed"
+        if(DCOEF == 14L) { ## "mixed"
             if(is.null(weights))
                 weights <- rep(1, nc)
             else {
@@ -293,25 +293,20 @@
             }
             ## x and y should have same column types
             if(!isTRUE(all.equal(xType, yType)))
-                stop("Variable types in 'x' and 'y' differ.\nDid you forget  to 'join' 'x' and 'y' before calling 'distance'?")
+                stop("Variable types in 'x' and 'y' differ.
+Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
 
             ## Record the variable types
             xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
             ## save which are ordinal for rank conversion below - TODO
             xType[(ordinal <- xType == "ordered")] <- "O"
             xType[xType == "factor"] <- "N"
-            xType[xType == "logical"]  <- if(double.zero) "S" else "A"
-            typeCodes <- c("S", "A", "N", "O", "Q", "I", "T")
+            xType[xType == "logical"] <- "A"
+            typeCodes <- c("A", "S", "N", "O", "Q", "I", "T")
             xType <- match(xType, typeCodes)
             if (any(ina <- is.na(xType)))
                 stop("invalid type ", xType[ina], " for column numbers ",
                      paste(which(ina), collapse = ", "))
-
-            ## convert to ranks
-            if (any(ordinal)) {
-                x[ordinal] <- lapply(x[ordinal, drop = FALSE], rank)
-                y[ordinal] <- lapply(y[ordinal, drop = FALSE], rank)
-            }
 
             ## Convert to matrices from now on
             ## also takes care of ordinal == metric as all factors
@@ -330,57 +325,19 @@
                     stop("'R' must be of length 'ncol(x)'")
             }
 
-            ## check for constant variables having R==0 and giving
-            ## distance 0/0 or NaN. These will have zero-differences,
-            ## too, so give any positive R to have them in the
-            ## analysis: they will still influence sum of weights used
-            ## to divide the differences.
-            if (any(R == 0)) {
-                R[R == 0] <- 1e6
-            }
-
-            ## Handle non-metric version of Podani's modified Gower's mixed coefficient
-            d <- if (DCOEF == 14L) {
-                     ## ## Pre-compute T and Trange
-                     ## ## These equate to Ti and `(Ti,max - 1)/2 - (Ti,min - 1)/2` in Eqn 2b
-                     ## T <- matrix(0, ncol = nc, nrow = nr)
-                     ## Trange <- numeric(length = nc)
-                     ## ## Only work with the ordinal columns, but T and Trange need to be of
-                     ## ## lengths equal to x and nc respectively for the C code to work
-                     ## if (any(ordinal)) { ## FIXME
-                     ##     for (i in which(ordinal)) {
-                     ##         tab <- tabulate(x[, i])
-                     ##         T[, i] <- tab[x[,i]]
-                     ##         tab <- tab[tab>0]
-                     ##         tminmax <- (tab[c(1, length(tab))] - 1) / 2
-                     ##         Trange[i] <- tminmax[2] + tminmax[1]
-                     ##     }
-                     ##     T[,ordinal] <- (T[,ordinal] - 1) / 2
-                     ## }
-
-                     ## ## call the C code
-                     ## .C("xy_mixed",
-                     ##    x = as.double(x),
-                     ##    y = as.double(y),
-                     ##    nr1 = as.integer(nrx),
-                     ##    nr2 = as.integer(nry),
-                     ##    nc = as.integer(nc),
-                     ##    d = as.double(d),
-                     ##    vtype = as.integer(xType),
-                     ##    weights = as.double(weights),
-                     ##    R = as.double(R),
-                     ##    NAOK = as.integer(TRUE),
-                     ##    PACKAGE = "analogue")$d
-                     stop("Chosen dissimilarity is not yet implement for 'x' and 'y' case.")
-                 } else {
-                     ## call the C code
-                     ## .C("xy_metric_mixed", x = as.double(x), y = as.double(y),
-                     ##    nr1 = as.integer(nrx), nr2 = as.integer(nry), nc = as.integer(nc),
-                     ##    d = as.double(d), vtype = as.integer(xType),
-                     ##    weights = as.double(weights), R = as.double(R), NAOK = as.integer(TRUE),
-                     ##    PACKAGE = "analogue")$d
-                     ## stop("Chosen dissimilarity is not yet implement for 'x' and 'y' case.")
-                 }
+            ## call the C code
+            d <- .C("xy_mixed",
+                    x = as.double(x),
+                    y = as.double(y),
+                    nr1 = as.integer(nrx),
+                    nr2 = as.integer(nry),
+                    nc = as.integer(nc),
+                    d = as.double(d),
+                    vtype = as.integer(xType),
+                    weights = as.double(weights),
+                    R = as.double(R),
+                    NAOK = as.integer(TRUE),
+                    PACKAGE = "analogue")$d
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {
