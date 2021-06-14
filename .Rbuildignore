@@ -5,3 +5,6 @@ www/
 ^appveyor\.yml$
 Makefile
 R/monoSpline.R
+^\.vscode
+^codecov\.yml$
+
