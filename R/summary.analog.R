@@ -44,8 +44,8 @@ summary.analog <- function(object, display = c("dist", "names", "quantiles"),
     summ
   }
 
-print.summary.analog <- function(x, 
-                                 digits = min(3, getOption("digits") - 4), ...)
+print.summary.analog <- function(x,
+                                 digits = max(3, getOption("digits") - 4), ...)
   {
     method <- x$method
     .call <- deparse(x$call)

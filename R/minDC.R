@@ -40,7 +40,7 @@ minDC.analog <- function(x, probs = c(0.01, 0.02, 0.05, 0.1),
   return(res)
 }
 
-print.minDC <- function(x, digits = min(3, getOption("digits") - 4), ...) {
+print.minDC <- function(x, digits = max(3, getOption("digits") - 4), ...) {
   cat("\n")
   writeLines(strwrap("Minimum dissimilarity per sample", prefix = "\t"))
   cat("\n")

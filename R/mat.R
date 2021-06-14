@@ -121,7 +121,7 @@ mat.formula <- function(formula, data, subset, na.action,
 }
 
 print.mat <- function(x, k = 10,
-                      digits = min(3, getOption("digits")),
+                      digits = max(3, getOption("digits")),
                       ...)
   {
     ##if(is.null(k))

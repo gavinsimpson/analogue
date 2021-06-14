@@ -31,7 +31,7 @@ residuals.bootstrap.mat <- function(object, which = c("model", "bootstrap"),
 
 print.residuals.bootstrap.mat <- function(x,
 #print.residuals.bootstrap <- function(x,
-                                          digits = min(3, getOption("digits") - 3),
+                                          digits = max(3, getOption("digits") - 3),
                                           ...)
   {
     cat("\n")

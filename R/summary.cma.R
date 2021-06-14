@@ -25,19 +25,18 @@ summary.cma <- function(object, ...) {
     }
     rownames(distances) <- rownames(samples) <- 1:max.analogs
     colnames(distances) <- colnames(samples) <- names(close)
-    object <- list(close = object$close,
+    structure(class = "summary.cma",
+              list(close = object$close,
                    call = object$call, cutoff = object$cutoff,
                    quant = object$quant,
                    prob = object$prob,
                    method = object$method,
                    n.analogs = object$n.analogs, distances = distances,
-                   samples = samples)
-    class(object) <- "summary.cma"
-    return(object)
+                   samples = samples))
 }
 
 print.summary.cma <- function(x,
-                              digits = min(3, getOption("digits") - 4),
+                              digits = max(3, getOption("digits") - 4),
                               ...) {
     class(x) <- "cma"
     print(x)

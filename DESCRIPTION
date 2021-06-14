@@ -2,7 +2,7 @@ Package: analogue
 Type: Package
 Title: Analogue and Weighted Averaging Methods for Palaeoecology
 Version: 0.17-9999
-Date: 2019-05-11
+Date: 2021-05-22
 Depends: R (>= 3.5.0), vegan (>= 2.2-0)
 Imports: mgcv,
   MASS,
@@ -16,14 +16,15 @@ Suggests: testthat
 Authors@R: c(person(given = c("Gavin", "L."), family = "Simpson",
                     role = c("aut", "cre"),
                     email = "ucfagls@gmail.com",
-		    comment = c(ORCID = "0000-0002-9084-8413")),
-             person(given = "Jari", family = "Oksanen",
-                    role = "aut"))
+		    comment = c(ORCID = "0000-0002-9084-8413"))
+           , person(given = "Jari", family = "Oksanen",  role = "aut")
+           , person(given = "Martin", family = "Maechler", role = "ctb")
+		    )
 Maintainer: Gavin L. Simpson <ucfagls@gmail.com>
 BugReports: https://github.com/gavinsimpson/analogue/issues
 NeedsCompilation: yes
-Description: Fits Modern Analogue Technique and Weighted Averaging transfer 
-  	     function models for prediction of environmental data from species 
+Description: Fits Modern Analogue Technique and Weighted Averaging transfer
+  	     function models for prediction of environmental data from species
 	     data, and related methods used in palaeoecology.
 License: GPL-2
 ByteCompile: true
