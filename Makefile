@@ -8,7 +8,7 @@ all: check clean
 
 build: #docs
 	cd ..;\
-	R CMD build analogue
+	R CMD build --compact-vignettes analogue
 
 check: build
 	cd ..;\
