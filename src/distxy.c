@@ -36,6 +36,9 @@
 #define GOWER 12
 #define ALTGOWER 13
 #define MIXED 14
+#define METRICMIXED 15
+
+#define EPS 1e-12
 
 /* Distance functions */
 
@@ -471,130 +474,28 @@ void xy_chisq_dist(double *x, double *y, int *nr1, int *nr2,
 }
 
 /*
- * Gower's coefficient for mixed data
- *
- * Should be called separately from the underlying R code,
- * not via xy_distance.
- *
- * vtype  : variable type
- *          1 == Symmetric Binary
- *          2 == Asymmetric Binary
- *          3 == Nominal (class/factor)
- *          4 == Ordinal (ordered factor)
- *          5 == Quantitative
- * weights: variable weights
- * R      : variable range (max - min)
- *
+ * Utility function
  */
-double xy_MIXED_new(double *x, double *y, int nr1, int nr2, 
-		    int nc, int i1, int i2, int *vtype,
-		    double *weights, double *R, int tmin, int tmax, int ord)
+/* static int allEqual(double x1, double x2)
 {
-    double dist, dev, wsum; //, *curweights;
-    int count, j;
-    
-    count = 0;
-    dist = 0.0;
-    wsum = 0.0;
-    //curweights = weights; /* current weights */
+  double dev;
+  dev = fabs(x1 - x2);
+  return (dev < EPS);
+} */
 
-    for (j=0; j<nc; j++) {
-	if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
-	    if(vtype[j] == 1) { // Symmetric binary
-		dev = (x[i1] == y[i2]) ? 1 : 0;
-		dist += dev * weights[j];
-	    }
-	    if(vtype[j] == 2) { // Asymmetric binary
-		if((x[i1] != 0) || (y[i2] != 0)) {
-		    // both x and y not zero for this variables
-		    dev = (x[i1] == y[i2]) ? 1 : 0;
-		    dist += dev * weights[j];
-		} else {
-		    /* set jth current weight to zero and do not
-		       increment dist as ignoring double zero
-		       We actually subtract the weight as it gets added
-		       later on.
-		     */
-                    wsum -= weights[j];
-		}
-	    }
-	    if(vtype[j] == 3) { // Nominal
-		dev = (x[i1] == y[i2]) ? 1 : 0;
-		dist += dev * weights[j];
-	    }
-	    if(vtype[j] == 4) { // Ordinal
-		/* ordinal data current not handled 
-		 * so don't call this yet
-		 */
-		switch(ord) {
-		case 1: { // classic gower as per nominal
-		    dev = (x[i1] == y[i2]) ? 1 : 0;
-		    dist += dev * weights[j];
-		    break;
-		}
-		case 2: { // podanis rank version
-		    if(x[i1] == y[i2]) {
-			dev = 1;
-		    } else {
-			dev = (fabs(x[i1] - y[i2])) / 
-			    (R[j] - (tmax - 1)/2 - (tmin - 1)/2);
-		    }
-		    break;
-		}
-		case 3: { // podanis metric version treat as Quantitative??
-		    dev = 1 - (fabs(x[i1] - y[i2]) / R[j]);
-		    dist += dev * weights[j];
-		    break;
-		}
-		default: {
-		    dist += 0;
-		    break;
-		}
-		}
-	    }
-	    if(vtype[j] == 5) { // Quantitative
-		dev = 1 - (fabs(x[i1] - y[i2]) / R[j]);
-		dist += dev * weights[j];
-	    }
-	    count++;
-	    // only summing weights for non-NA comparisons
-	    wsum += weights[j];
-	}
-	i1 += nr1;
-	i2 += nr2;
-    }
-    if (count == 0) return NA_REAL;
-    return 1 - (dist / wsum);
-}
 
-/*
- * Gower's coefficient for mixed data
- *
- * Should be called separately from the underlying R code,
- * not via xy_distance.
- *
- * vtype  : variable type
- *          1 == Symmetric Binary
- *          2 == Asymmetric Binary
- *          3 == Nominal (class/factor)
- *          4 == Ordinal (ordered factor)
- *          5 == Quantitative
- * weights: variable weights
- * R      : variable range (max - min)
- *
- */
-double xy_MIXED(double *x, double *y, int nr1, int nr2, 
+/* double xy_MIXED(double *x, double *y, int nr1, int nr2, 
 		int nc, int i1, int i2, int *vtype,
-		double *weights, double *R, double wsum)
+		double *weights, double *R, double wsum, double *T,
+		double *Trange)
 {
   double dist, dev;
   int count, j;
-  
+    
   count = 0;
   dist = 0.0;
   wsum = 0.0;
-  //curweights = weights; /* current weights */
-    
+
   for (j=0; j<nc; j++) {
     if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
       // Symmetric binary
@@ -609,11 +510,10 @@ double xy_MIXED(double *x, double *y, int nr1, int nr2,
 	  dev = (x[i1] == y[i2]) ? 1 : 0;
 	  dist += dev * weights[j];
 	} else {
-	  /* set jth current weight to zero and do not
-	     increment dist as ignoring double zero
-	     We actually subtract the weight as it gets added
-	     later on.
-	  */
+	  // set jth current weight to zero and do not
+	  //   increment dist as ignoring double zero
+	  //   We actually subtract the weight as it gets added
+	  //   later on.
 	  wsum -= weights[j];
 	}
       }
@@ -622,39 +522,15 @@ double xy_MIXED(double *x, double *y, int nr1, int nr2,
 	dev = (x[i1] == y[i2]) ? 1 : 0;
 	dist += dev * weights[j];
       }
-      // Ordinal
+      // Ordinal (Eqns 2a and 2b in Podani 1999); x converted to ranks in R-land
       if(vtype[j] == 4) {
-	dev = (x[i1] == y[i2]) ? 1 : 0;
+	if(allEqual(x[i1], y[i2])) {	// Eqn 2a
+	  dev = 1;
+	} else {		// Eqn 2b 
+	  // T has already had the (T - 1) / 2 adjustment done in
+	  dev = 1 - ((fabs(x[i1] - y[i2]) - T[i1] - T[i2]) / (R[j] - Trange[j]));
+	}
 	dist += dev * weights[j];
-	break;
-	/* ordinal data current not handled 
-	 * so don't call this yet
-	 */
-	/* switch(ord) {
-	   case 1: { // classic gower as per nominal
-	   dev = (x[i1] == y[i2]) ? 1 : 0;
-	   dist += dev * weights[j];
-	   break;
-	   }
-	   case 2: { // podanis rank version
-	   if(x[i1] == y[i2]) {
-	   dev = 1;
-	   } else {
-	   dev = (fabs(x[i1] - y[i2])) / 
-	   (R[j] - (tmax - 1)/2 - (tmin - 1)/2);
-	   }
-	   break;
-	   }
-	   case 3: { // podanis metric version treat as Quantitative??
-	   dev = 1 - (fabs(x[i1] - y[i2]) / R[j]);
-	   dist += dev * weights[j];
-	   break;
-	   }
-	   default: {
-	   dist += 0;
-	   break;
-	   }
-	   }*/
       }
       // Quantitative
       if(vtype[j] == 5) {
@@ -670,69 +546,167 @@ double xy_MIXED(double *x, double *y, int nr1, int nr2,
   }
   if (count == 0) return NA_REAL;
   return 1 - (dist / wsum);
-}
+} */
 
-double xy_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2)
+
+/* Gower's coefficient for mixed data
+Should be called separately from the underlying R code,
+not via xy_distance.
+
+vtype  : variable type
+         1 == Symmetric Binary
+         2 == Asymmetric Binary
+         3 == Nominal (class/factor)
+         4 == Ordinal (ordered factor)
+         5 == Quantitative
+weights: variable weights
+R      : variable range (max - min) */
+double xy_MIXED(double *x, double *y, int nr1, int nr2, 
+		int nc, int i1, int i2, int *vtype,
+		double *weights, double *R, double wsum)
 {
-    int k;
-    double ti;
-
-    ti = 0.0;
-
-    for (k=0; k<nc; k++) {
-	ti += (x[i1] == y[i2]) ? 1.0 : 0.0;
-	i1 += nr1;
-	i2 += nr2;
-    }
-    return ti;
-}
-
-void xy_mixed_new(double *x, double *y, int *nr1, int *nr2,
-		  int *nc, double *d, int *vtype, double *weights, 
-		  double *R, int tmin, int tmax, int *podani, 
-		  double *tmatx, double *tmaty)
-{
-    int i, j, ij, ord = *podani;
-    //double tmat = *d;
+  double dist, dev;
+  int count, j;
+  
+  count = 0;
+  dist = 0.0;
+  wsum = 0.0;
+  //curweights = weights; /\* current weights *\/
     
-    ij = 0;
-
-    for(j=0; j < *nr1; j++) {
-	for(i=0; i < *nr2; i++) {
-	    tmatx[ij] = xy_calcTI(x, y, *nr1, *nr2, *nc, j, i);
-	    //tmaty[ij++] = xy_calcTI(
-	}
+  for (j=0; j<nc; j++) {
+    if (R_FINITE(x[i1]) && R_FINITE(y[i2])) {
+      // Symmetric binary
+      if(vtype[j] == 1) {
+	    dev = (x[i1] == y[i2]) ? 1 : 0;
+	    dist += dev * weights[j];
+      }
+      // Asymmetric binary
+      if(vtype[j] == 2) {
+	    if((x[i1] != 0) || (y[i2] != 0)) {
+	    // both x and y not zero for this variables
+	    dev = (x[i1] == y[i2]) ? 1 : 0;
+	    dist += dev * weights[j];
+	    } else {
+	    // set jth current weight to zero and do not
+	    // increment dist as ignoring double zero
+	    // We actually subtract the weight as it gets added
+	    // later on.
+	    wsum -= weights[j];
+	    }
+      }
+      // Nominal
+      if(vtype[j] == 3) {
+	    dev = (x[i1] == y[i2]) ? 1 : 0;
+	    dist += dev * weights[j];
+      }
+      // Ordinal
+      if(vtype[j] == 4) {
+	    dev = (x[i1] == y[i2]) ? 1 : 0;
+	    dist += dev * weights[j];
+	    break;
+	    // ordinal data current not handled 
+	    // so don't call this yet
+	    /* switch(ord) {
+	    case 1: { // classic gower as per nominal
+            dev = (x[i1] == y[i2]) ? 1 : 0;
+	        dist += dev * weights[j];
+	        break;
+        }
+	    case 2: { // podanis rank version
+	        if(x[i1] == y[i2]) {
+	          dev = 1;
+	        } else {
+	          dev = (fabs(x[i1] - y[i2])) / 
+	          (R[j] - (tmax - 1)/2 - (tmin - 1)/2);
+	        }
+	    break;
+	    }
+	    case 3: { // podanis metric version treat as Quantitative??
+	        dev = 1 - (fabs(x[i1] - y[i2]) / R[j]);
+	        dist += dev * weights[j];
+	    break;
+	    }
+	    default: {
+	        dist += 0;
+	    break;
+	    }
+	    } */
+      }
+      // Quantitative
+      if(vtype[j] == 5) {
+        dev = 1 - (fabs(x[i1] - y[i2]) / R[j]);
+	    dist += dev * weights[j];
+      }
+      count++;
+      // only summing weights for non-NA comparisons
+      wsum += weights[j];
     }
-
-    ij = 0;
-
-    for(j=0; j < *nr1; j++) {
-	for(i=0; i < *nr2; i++) {
-	    d[ij++] = xy_MIXED_new(x, y, *nr1, *nr2, *nc, j, i,
-				   vtype, weights, R, tmin, tmax, ord);
-	}
-    }
+    i1 += nr1;
+    i2 += nr2;
+  }
+  if (count == 0) return NA_REAL;
+  return 1 - (dist / wsum);
 }
+
+/* double xy_calcTI(double *x, double *y, int nr1, int nr2, int nc, int i1, int i2) */
+/* { */
+/*     int k; */
+/*     double ti; */
+
+/*     ti = 0.0; */
+
+/*     for (k=0; k<nc; k++) { */
+/* 	ti += (x[i1] == y[i2]) ? 1.0 : 0.0; */
+/* 	i1 += nr1; */
+/* 	i2 += nr2; */
+/*     } */
+/*     return ti; */
+/* } */
+
+/* void xy_mixed(double *x, double *y, int *nr1, int *nr2,
+	      int *nc, double *d, int *diag, int *vtype, double *weights, 
+	      double *R, double *T, double *Trange)
+{
+  int dc, i, j, k, ij;
+  double wsum;
+
+  wsum = 0.0;
+  
+  ij = 0;
+    
+  for(k=0; k <*nc; k++) {
+    wsum += weights[k];
+  }
+
+  dc = (*diag) ? 0 : 1;
+
+  for(j=0; j < *nr1; j++) {
+    for(i=j+dc; i < *nr2; i++) {
+      d[ij++] = xy_MIXED(x, y, *nr1, *nr2, *nc, i, j, vtype, weights,
+                         R, wsum, T, Trange)
+    }
+  }
+} */
 
 void xy_mixed(double *x, double *y, int *nr1, int *nr2,
-	      int *nc, double *d, int *vtype, double *weights, 
-	      double *R)
+              int *nc, double *d, int *vtype, double *weights,
+ 	          double *R)
 {
-    int i, j, k, ij;
-    double wsum;
+     int i, j, k, ij;
+     double wsum;
     
-    wsum = 0.0;
+     wsum = 0.0;
     
-    ij = 0;
+     ij = 0;
     
-    for(k=0; k <*nc; k++) {
-	wsum += weights[k];
-    }
+     for(k=0; k <*nc; k++) {
+ 	wsum += weights[k];
+     }
     
-    for(j=0; j < *nr1; j++) {
-	for(i=0; i < *nr2; i++) {
-	    d[ij++] = xy_MIXED(x, y, *nr1, *nr2, *nc, j, i,
-			       vtype, weights, R, wsum);
-	}
-    }
+     for(j=0; j < *nr1; j++) {
+ 	for(i=0; i < *nr2; i++) {
+ 	    d[ij++] = xy_MIXED(x, y, *nr1, *nr2, *nc, j, i,
+ 			       vtype, weights, R, wsum);
+ 	}
+     }
 }
