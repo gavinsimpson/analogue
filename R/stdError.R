@@ -38,7 +38,7 @@
     wtdSD
 }
 
-`print.stdError` <- function(x, digits = max(4, getOption("digits")),
+`print.stdError` <- function(x, digits = 3,
                              ...) {
     wtd <- attr(x, "weighted")
     cat("\n")

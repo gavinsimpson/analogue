@@ -18,7 +18,7 @@
             ratio <- n.IN/n.OUT
             largest <- which.max(c(n.IN, n.OUT))
             seq.vars <- c(max.len * ratio, max.len)
-            if(largest == 1)
+            if(largest == 1L)
                 seq.vars <- rev(seq.vars)
             IN <- quantile(IN,
                            probs = seq(0, 1, length.out = seq.vars[1]))

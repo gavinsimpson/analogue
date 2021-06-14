@@ -13,12 +13,12 @@
     ##B <- coef(obj)
 
     if(identical(method, "LOO")) {
-        nr <- N-1 ## number of rows - 1 for LOO
+        nr <- N-1L ## number of rows - 1 for LOO
         ## form ncomp, as LOO we have potentially 1 less component than usual
         ncomp <- if(missing(ncomp)) {
-            min(nr - 1, M) ## uses nr which already has 1 removed
+            min(nr - 1L, M) ## uses nr which already has 1 removed
         } else {
-            if(ncomp < 1 || ncomp > (newcomp <- min(nr - 1, M))) {
+            if(ncomp < 1L || ncomp > (newcomp <- min(nr - 1L, M))) {
                 warning("'ncomp' inappropriate for LOO CV. Resetting to max possible.")
                 newcomp
             } else {
@@ -79,14 +79,14 @@
             on.exit(close(pb))
             on.exit(cat("\n"), add = TRUE)
         }
-        ind <- rep(seq_len(nfold), length = N) ## k-fold group indicator
+        ind <- as.integer(rep(seq_len(nfold), length = N)) ## k-fold group indicator
         nc <- seq_len(ncomp)
         ## this is the n in n k-fold CV, allowing n repeated k-folds
         for(i in seq_len(folds)) {
             ## do a k-fold CV
             pind <- ind[sample.int(N, N, replace = FALSE)]
             ## the main k-fold CV loop
-            for(k in seq_len(nfold)) {
+            for(k in as.integer(seq_len(nfold))) {
                 if(verbose) {
                     setTxtProgressBar(pb, ii)
                     ii <- ii + 1

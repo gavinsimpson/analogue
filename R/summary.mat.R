@@ -53,7 +53,7 @@ summary.mat <- function(object, k = 10,
   }
 
 print.summary.mat <- function(x,
-                              digits = max(3, getOption("digits") - 4),
+                              digits = 3,
                               ...)
   {
     cat("\n")

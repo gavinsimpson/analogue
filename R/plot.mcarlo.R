@@ -13,7 +13,7 @@ plot.mcarlo <-
         stop("'which' must be in 1:2")
     show <- rep(FALSE, 2)
     show[which] <- TRUE
-    one.fig <- prod(par("mfcol")) == 1
+    one.fig <- as.integer(prod(par("mfcol"))) == 1L
     if (ask) {
         op <- par(ask = TRUE)
         on.exit(par(op))

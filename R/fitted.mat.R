@@ -38,7 +38,7 @@ fitted.mat <- function(object, k, weighted = FALSE, ...)
     return(retval)
   }
 
-print.fitted.mat <- function(x, digits = max(3, getOption("digits") - 3),
+print.fitted.mat <- function(x, digits = 3,
                              ...)
   {
     k <- x$k

@@ -154,7 +154,7 @@ cma.analog <- function(object, cutoff, prob = c(0.01, 0.025, 0.05), ...) {
               class = "cma")
 }
 
-print.cma <- function(x, digits = max(3, getOption("digits") - 4), ...) {
+print.cma <- function(x, digits = 3, ...) {
     method <- x$method
     .call <- deparse(x$call)
     cat("\n")

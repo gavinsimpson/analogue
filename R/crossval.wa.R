@@ -37,14 +37,14 @@
             on.exit(close(pb))
             on.exit(cat("\n"), add = TRUE)
         }
-        ind <- rep(seq_len(nfold), length = N) ## k-fold group indicator
+        ind <- as.integer(rep(seq_len(nfold), length = N)) ## k-fold group indicator
         ## n k-fold s
         for(i in seq_len(folds)) {
             if(verbose)
                 setTxtProgressBar(pb, i)
             ## do a k-fold CV
             pind <- ind[sample.int(N, N, replace = FALSE)] ## sure this should be replace = FALSE
-            for(k in seq_len(nfold)) {
+            for(k in as.integer(seq_len(nfold))) {
                 sel <- pind == k   ## sel is samples in leave out group
                 N.oob <- sum(sel) ## N in leave out group
                 N.mod <- sum(!sel)  ## N in the model

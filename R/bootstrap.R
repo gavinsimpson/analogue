@@ -316,7 +316,7 @@ fitted.bootstrap.mat <- function(object, k, ...)
   }
 
 print.fitted.bootstrap.mat <-
-  function(x, digits = max(3, getOption("digits") - 3), ...)
+  function(x, digits = 3, ...)
   {
     k <- x$k
     cat("\n")
@@ -331,7 +331,7 @@ for the training set",
     invisible(x)
   }
 
-print.bootstrap.mat <- function(x, digits = max(3, getOption("digits") - 3),
+print.bootstrap.mat <- function(x, digits = 3,
                             ...)
   {
     msg <- "Bootstrap results for palaeoecological models"

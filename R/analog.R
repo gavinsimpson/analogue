@@ -58,7 +58,7 @@ analog.distance <- function(x, train = NULL, keep.train = TRUE, ...) {
 }
 
 print.analog <- function(x, probs = c(0.01, 0.02, 0.05, 0.1, 0.2),
-                         digits = max(3, getOption("digits") - 4), ...)
+                         digits = 3, ...)
 {
     method <- x$method
     .call <- deparse(x$call)

@@ -18,7 +18,7 @@ rownames(fossil) <- letters[1:10]
 METHODS <- c("euclidean", "SQeuclidean","chord", "SQchord",
              "bray", "chi.square", "SQchi.square", "information",
              "chi.distance", "manhattan", "kendall", "gower",
-             "alt.gower", "mixed")
+             "alt.gower")
 
 ## test methods for x and y
 test_that("distance matches compiled versions for x and y", {
@@ -35,6 +35,8 @@ test_that("distance matches compiled versions for x and y", {
     }
 
 })
+
+## METHODS <- c(METHODS, "mixed", "metric-mixed")
 
 ## test methods for x only
 test_that("distance matches compiled versions for x only", {

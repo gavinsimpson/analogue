@@ -51,7 +51,7 @@
             nc <- NCOL(X)
             nc.want <- length(want)
             for(i in seq_len(n.train)) {
-                if(verbose && ((i %% 10) == 0)) {
+                if(verbose && ((i %% 10) == 0L)) {
                     cat(paste("Leave one out sample", i, "\n"))
                     flush.console()
                 }
@@ -97,12 +97,12 @@
             nc <- NCOL(X)
             nc.want <- length(want)
             for(i in seq_len(n.boot)) {
-                if(verbose && ((i %% 100) == 0)) {
+                if(verbose && ((i %% 100) == 0L)) {
                     cat(paste("Bootstrap sample", i, "\n"))
                     flush.console()
                 }
                 ## bootstrap sample
-                sel <- sample.int(n.train, n.train, replace = TRUE)
+                sel <- as.integer(sample.int(n.train, n.train, replace = TRUE))
                 nr <- NROW(X[sel, , drop = FALSE]) ## number of samples
                 nr.oob <- NROW(X[-sel, , drop = FALSE])
                 wa.optima <- w.avg(X[sel,,drop = FALSE], ENV[sel])
@@ -144,15 +144,15 @@
             nr.new <- NROW(newdata)
             nc <- NCOL(X)
             nc.want <- length(want)
-            ind <- rep(1:nfold, length = n.train)
-            for(i in seq_len(n.boot)) {
+            ind <- as.integer(rep(1:nfold, length = n.train))
+            for(i in as.integer(seq_len(n.boot))) {
                 if(verbose && ((i %% 100) == 0)) {
                     cat(paste("n-fold sample", i, "\n"))
                     flush.console()
                 }
                 ## n-fold sample
-                pind <- sample(ind)
-                for (k in seq_len(nfold)) {
+                pind <- as.integer(sample(ind))
+                for (k in as.integer(seq_len(nfold))) {
                     sel <- pind != k
                     nr <- NROW(X[sel, , drop = FALSE]) ## number of samples
                     nr.oob <- NROW(X[-sel, , drop = FALSE])
@@ -173,30 +173,14 @@
                         pred <- WApred(X[-sel, ,drop=FALSE], wa.optima)
                     }
                     ## do the model bits
-                    #ones <- rep(1, length = length(wa.optima))
-                    #miss <- is.na(wa.optima)
-                    #ones[miss] <- 0
-                    #wa.optima[miss] <- 0
-                    #rowsum <- X[sel,] %*% ones
-                    #wa.env <- (X[sel,] %*% wa.optima) / rowsum
                     deshrink.mod <- deshrink(ENV[sel], wa.env, Dtype)
                     wa.env <- deshrink.mod$env
                     coefs <- coef(deshrink.mod) #$coef
                     ## if we want sample specific errors or
                     ## model performance stats
-                    #rowsum <- X[!sel,] %*% ones
-                    #pred <- (X[!sel,] %*% wa.optima) / rowsum
                     oob.pred[!sel,i] <- deshrinkPred(pred, coefs,
                                                      type = Dtype)
                     ## do the prediction step
-                    #want <- names(wa.optima) %in% colnames(newdata)
-                    #want <- names(wa.optima)[want]
-                    #ones <- rep(1, length = length(want))
-                    #miss <- miss[want]
-                    #ones[miss] <- 0
-                    #rowsum <- newdata[,want] %*% ones
-                    #pred <- (newdata[,want] %*% wa.optima[want]) /
-                    #    rowsum
                     pred <- if(object$tol.dw) {
                         WATpred(newdata[,want], wa.optima[want],
                                 tol[want], nr.new, nc.want)

@@ -99,7 +99,7 @@ mcarlo.analog <- function(object, nsamp = 10000,
 
 print.mcarlo <- function(x,
                          probs = c(0.01, 0.025, 0.05, 0.1, 0.9, 0.95, 0.975, 0.99),
-                         digits = max(3, getOption("digits") - 4),
+                         digits = 3,
                          ...) {
   summ <- fivenum(x)
   summ <- c(summ[1:3], mean(x), summ[4:5])

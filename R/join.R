@@ -68,7 +68,7 @@
                              "Merged:")
         colnames(stats) <- c("Rows", "Cols")
         cat("\nSummary:\n\n")
-        printCoefmat(stats, digits = max(3, getOption("digits") - 3),
+        printCoefmat(stats, digits = 3,
                      na.print = "")
         cat("\n")
     }

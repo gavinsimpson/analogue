@@ -57,7 +57,7 @@ plot.cma <- function(x, method = c("overplot", "jitter", "stack"),
         quant <- x$quant[sel]
         abline(v = quant, col = col.quant, lty = lty.quant)
         suffix <- rep("th", times = length(x$prob[sel]))
-        suffix[which(x$prob == 0.01)] <- "st"
+        suffix[which(as.character(x$prob) == "0.01")] <- "st"
         quant.title <- paste(100 * x$prob[sel], suffix, sep = "")
         axis(side = 3, at = quant, labels = quant.title)
       } else {

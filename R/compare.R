@@ -25,7 +25,7 @@
 ##' @param transform character; should a transformation be applied to the data. Ignored.
 ##' @param n2limit integer; the criterion for indicating species with potentially
 ##' poorly estimated optima. The default value of \code{5L} is one suggested by
-##' R. Telford.
+##' R. Telford. If not provided as an integer, \code{n2limit} will be coerced to one.
 ##'
 ##' @rdname compare
 ##'
@@ -39,6 +39,10 @@
     joint <- join(x, y, split = TRUE)
     x2 <- joint$x
     y2 <- joint$y
+
+    if (!is.integer(n2limit)) {
+        n2limit <- as.integer(n2limit)
+    }
 
     n2.x <- n2(x2, which = "species")
 

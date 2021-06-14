@@ -87,7 +87,7 @@ predict.mat <- function(object, newdata, k, weighted = FALSE,
     return(res)
   }
 
-print.predict.mat <- function(x, digits = max(3, getOption("digits") - 3),
+print.predict.mat <- function(x, digits = 3,
                               ...)
   {
     cat("\n")

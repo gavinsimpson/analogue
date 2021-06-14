@@ -1,16 +1,3 @@
-###########################################################################
-##                                                                       ##
-## mat - function to perform the modern analogue technique for           ##
-##       environmental reconstruction                                    ##
-##                                                                       ##
-## Created       : 17-Apr-2006                                           ##
-## Author        : Gavin Simpson                                         ##
-## Version       : 0.0-1                                                 ##
-## Last modified : 17-Apr-2006                                           ##
-##                                                                       ##
-## ARGUMENTS:                                                            ##
-##                                                                       ##
-###########################################################################
 ## x = training data, y = env var of interest
 mat <- function(x, ...) UseMethod("mat")
 
@@ -121,7 +108,7 @@ mat.formula <- function(formula, data, subset, na.action,
 }
 
 print.mat <- function(x, k = 10,
-                      digits = max(3, getOption("digits")),
+                      digits = 3,
                       ...)
   {
     ##if(is.null(k))

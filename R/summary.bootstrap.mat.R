@@ -19,7 +19,7 @@ summary.bootstrap.mat <- function(object, ...)
 
 print.summary.bootstrap.mat <- function(x,
 #print.summary.bootstrap <- function(x,
-                                        digits = max(3, getOption("digits") - 3),
+                                        digits = 3,
                                         ...)
   {
     print.bootstrap.mat(x, digits = digits, ...)

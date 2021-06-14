@@ -58,12 +58,12 @@ oldDistance.default <- function(x, y,
       }
     chi.square <- function(x, y)
       {
-        inds <- !(x == 0 & y == 0)
+        inds <- !(x == 0L & y == 0L)
         sqrt(sum(((x[inds] - y[inds])^2) / (x[inds] + y[inds])))
       }
     SQchi.square <- function(x, y)
       {
-        inds <- !(x == 0 & y == 0)
+        inds <- !(x == 0L & y == 0L)
         sum(((x[inds] - y[inds])^2) / (x[inds] + y[inds]))
       }
     information <- function(x, y)
@@ -109,7 +109,7 @@ oldDistance.default <- function(x, y,
           quant <- quant * weights[!facs]
         }
         if(any(facs)) {
-          factors <- ifelse(x[facs] == y[facs], 1, 0)
+          factors <- ifelse(x[facs] == y[facs], 1L, 0L)
           factors <- factors * weights[facs]
         }
         if(any(!facs)) {
@@ -184,11 +184,11 @@ oldDistance.default <- function(x, y,
     colsumx <- colSums(x, na.rm = NA.RM)
     colsumy <- colSums(y, na.rm = NA.RM)
     ## NO - this causes problems if you merge data
-    if (any(DROP <- (colsumx <= 0 & colsumy <= 0) & !facs.x)) {
-        ##x <- x[, (colsumx > 0 | colsumy > 0) | facs.x, drop = FALSE]
-        ##y <- y[, (colsumx > 0 | colsumy > 0) | facs.x, drop = FALSE]
-        ##warning("Some species contain no data and were removed from data matrices.\n")
-    }
+    ## if (any(DROP <- (colsumx <= 0 & colsumy <= 0) & !facs.x)) {
+    ##     ##x <- x[, (colsumx > 0 | colsumy > 0) | facs.x, drop = FALSE]
+    ##     ##y <- y[, (colsumx > 0 | colsumy > 0) | facs.x, drop = FALSE]
+    ##     ##warning("Some species contain no data and were removed from data matrices.\n")
+    ## }
     if(method == "chi.distance")
         colsum <- colSums(join(as.data.frame(x),as.data.frame(y), split = FALSE))
     if(method == "mixed") {

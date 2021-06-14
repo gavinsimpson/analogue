@@ -148,12 +148,16 @@ V12.122 <- dat[[2]] / 100
 ik.mat <- mat(ImbrieKipp, SumSST, method = "SQchord")
 
 ## bootstrap training set
+## IGNORE_RDIFF_BEGIN
 ik.boot <- bootstrap(ik.mat, n.boot = 100)
 ik.boot
 summary(ik.boot)
+## IGNORE_RDIFF_END
 
 ## Bootstrap fitted values for training set
+## IGNORE_RDIFF_BEGIN
 fitted(ik.boot)
+## IGNORE_RDIFF_END
 
 ## residuals
 resid(ik.boot) # uses abbreviated form

@@ -45,7 +45,7 @@ bayesF <- function(x, prior = rep(0.5, 2)) {
     return(retval)
 }
 
-print.bayesF <- function(x, digits = max(3, getOption("digits") - 4),
+print.bayesF <- function(x, digits = 3,
                          ...) {
     cat("\n")
     writeLines(strwrap("Bayes factors (likelihood ratios)",

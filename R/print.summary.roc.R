@@ -1,4 +1,4 @@
-`print.summary.roc` <- function(x, digits = max(3, getOption("digits") - 4),
+`print.summary.roc` <- function(x, digits = 3,
                               print.gap = 2, ...) {
     cat("\n")
     writeLines(strwrap("ROC curves of dissimilarities:"))

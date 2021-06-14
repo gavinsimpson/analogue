@@ -36,7 +36,7 @@ summary.cma <- function(object, ...) {
 }
 
 print.summary.cma <- function(x,
-                              digits = max(3, getOption("digits") - 4),
+                              digits = 3,
                               ...) {
     class(x) <- "cma"
     print(x)

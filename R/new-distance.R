@@ -4,29 +4,33 @@
     UseMethod("distance")
 }
 
-distance.join <- function(x, ...) {
-    if(!inherits(x, "join"))
+`distance.join` <- function(x, ...) {
+    if (!inherits(x, "join")) {
         stop("This method should only be used on objects of class 'join'")
-    if(inherits(x, "data.frame")) {
-        distance.default(x, ...)
-    } else {
-        if(length(x) != 2)
-            warning("Object contains more than 2 data sets.\n  Only the first 2 data sets used")
-        distance.default(x[[1]], x[[2]], ...)
     }
+    dij <- if (inherits(x, "data.frame")) {
+               distance.default(x, ...)
+           } else {
+               if(length(x) != 2) {
+                   warning("Object contains more than 2 data sets.\n  Only the first 2 data sets used")
+               }
+               distance.default(x[[1]], x[[2]], ...)
+           }
+    dij
 }
 
 `distance.default` <- function(x, y, method = "euclidean", weights = NULL,
                                R = NULL, dist = FALSE, double.zero = FALSE, ...){
     ## Euclid?an could be spelled variously
-    if(!is.na(pmatch(method, "euclidian")))
+    if(!is.na(pmatch(method, "euclidian"))) {
 	method <- "euclidean"
+    }
     METHODS <- c("euclidean", "SQeuclidean", "chord", "SQchord",
                  "bray", "chi.square", "SQchi.square",
                  "information","chi.distance", "manhattan",
                  "kendall", "gower", "alt.gower", "mixed", "metric.mixed")
     DCOEF <- pmatch(method, METHODS)
-    if(miss.y <- missing(y)) {
+    if (miss.y <- missing(y)) {
         dmat <- dxx(x = x, DCOEF = DCOEF, weights = weights,
                     R = R, dist = dist, double.zero = double.zero, ...)
     } else {
@@ -220,10 +224,12 @@ distance.join <- function(x, ...) {
 ## both `x` and `y` are available
 `dxy` <- function(x, y, DCOEF, weights, R, double.zero = FALSE, ...) {
     ## check x and y have same columns
-    if(!isTRUE(all.equal(colnames(x), colnames(y))))
+    if (!isTRUE(all.equal(colnames(x), colnames(y)))) {
         stop("'x' and 'y' appear to have different variables.")
-    if(!isTRUE(all.equal((n.vars <- ncol(x)), ncol(y))))
+    }
+    if(!isTRUE(all.equal((n.vars <- ncol(x)), ncol(y)))) {
         stop("'x' and 'y' have different numbers of columns.")
+    }
     ## variables
     nrx <- nrow(x)
     nry <- nrow(y)
@@ -238,7 +244,7 @@ distance.join <- function(x, ...) {
 
     ## some preprocessing steps required for some coefs
     ## so dealt with separately
-    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L)) {
+    if(DCOEF %in% c(9L, 11L, 12L, 13L, 14L, 15L)) {
         ## "chi.distance", "gower", "alt.gower","mixed", "kendall"
         if(DCOEF == 9L) { ## "chi.distance"
             x <- data.matrix(x)
@@ -263,7 +269,7 @@ distance.join <- function(x, ...) {
                     maxi = as.double(maxi), NAOK = as.integer(FALSE),
                     PACKAGE = "analogue")$d
         }
-        if(DCOEF == 14L) { ## "mixed"
+        if(DCOEF %in% c(14L, 15L)) { ## "mixed"
             if(is.null(weights))
                 weights <- rep(1, nc)
             else {
@@ -287,8 +293,7 @@ distance.join <- function(x, ...) {
             }
             ## x and y should have same column types
             if(!isTRUE(all.equal(xType, yType)))
-                stop("Variable types in 'x' and 'y' differ.
-Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
+                stop("Variable types in 'x' and 'y' differ.\nDid you forget  to 'join' 'x' and 'y' before calling 'distance'?")
 
             ## Record the variable types
             xType[tI <- xType %in% c("numeric", "integer")] <- "Q"
@@ -325,19 +330,57 @@ Did you forget  to 'join' 'x' and 'y' before calling 'distance'?")
                     stop("'R' must be of length 'ncol(x)'")
             }
 
-            ## call the C code
-            d <- .C("xy_mixed",
-                    x = as.double(x),
-                    y = as.double(y),
-                    nr1 = as.integer(nrx),
-                    nr2 = as.integer(nry),
-                    nc = as.integer(nc),
-                    d = as.double(d),
-                    vtype = as.integer(xType),
-                    weights = as.double(weights),
-                    R = as.double(R),
-                    NAOK = as.integer(TRUE),
-                    PACKAGE = "analogue")$d
+            ## check for constant variables having R==0 and giving
+            ## distance 0/0 or NaN. These will have zero-differences,
+            ## too, so give any positive R to have them in the
+            ## analysis: they will still influence sum of weights used
+            ## to divide the differences.
+            if (any(R == 0)) {
+                R[R == 0] <- 1e6
+            }
+
+            ## Handle non-metric version of Podani's modified Gower's mixed coefficient
+            d <- if (DCOEF == 14L) {
+                     ## ## Pre-compute T and Trange
+                     ## ## These equate to Ti and `(Ti,max - 1)/2 - (Ti,min - 1)/2` in Eqn 2b
+                     ## T <- matrix(0, ncol = nc, nrow = nr)
+                     ## Trange <- numeric(length = nc)
+                     ## ## Only work with the ordinal columns, but T and Trange need to be of
+                     ## ## lengths equal to x and nc respectively for the C code to work
+                     ## if (any(ordinal)) { ## FIXME
+                     ##     for (i in which(ordinal)) {
+                     ##         tab <- tabulate(x[, i])
+                     ##         T[, i] <- tab[x[,i]]
+                     ##         tab <- tab[tab>0]
+                     ##         tminmax <- (tab[c(1, length(tab))] - 1) / 2
+                     ##         Trange[i] <- tminmax[2] + tminmax[1]
+                     ##     }
+                     ##     T[,ordinal] <- (T[,ordinal] - 1) / 2
+                     ## }
+
+                     ## ## call the C code
+                     ## .C("xy_mixed",
+                     ##    x = as.double(x),
+                     ##    y = as.double(y),
+                     ##    nr1 = as.integer(nrx),
+                     ##    nr2 = as.integer(nry),
+                     ##    nc = as.integer(nc),
+                     ##    d = as.double(d),
+                     ##    vtype = as.integer(xType),
+                     ##    weights = as.double(weights),
+                     ##    R = as.double(R),
+                     ##    NAOK = as.integer(TRUE),
+                     ##    PACKAGE = "analogue")$d
+                     stop("Chosen dissimilarity is not yet implement for 'x' and 'y' case.")
+                 } else {
+                     ## call the C code
+                     ## .C("xy_metric_mixed", x = as.double(x), y = as.double(y),
+                     ##    nr1 = as.integer(nrx), nr2 = as.integer(nry), nc = as.integer(nc),
+                     ##    d = as.double(d), vtype = as.integer(xType),
+                     ##    weights = as.double(weights), R = as.double(R), NAOK = as.integer(TRUE),
+                     ##    PACKAGE = "analogue")$d
+                     ## stop("Chosen dissimilarity is not yet implement for 'x' and 'y' case.")
+                 }
         }
         if(DCOEF %in% c(12L, 13L)) { ## "gower", "alt.gower"
             if(is.null(R)) {

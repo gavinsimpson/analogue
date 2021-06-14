@@ -205,7 +205,7 @@ prcurve <- function(X,
     config
 }
 
-`print.prcurve` <- function(x, digits = max(3, getOption("digits") - 3),
+`print.prcurve` <- function(x, digits = 3,
                             ...) {
     cat("\n")
     writeLines(strwrap("Principal Curve Fitting", prefix = "\t"))

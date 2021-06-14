@@ -12,12 +12,12 @@
     x <- as.matrix(x)
     env <- as.numeric(env)
     ## drop species with no information
-    if(any(csum <- colSums(x) == 0)) {
+    if(any(csum <- colSums(x) == 0L)) {
         x <- x[, !csum, drop = FALSE]
         warning("Some species contained no data. These have been deleted.")
     }
     ## drop samples with no species
-    if(any(rsum <- rowSums(x) == 0)) {
+    if(any(rsum <- rowSums(x) == 0L)) {
         x <- x[!rsum, , drop = FALSE]
         env <- env[!rsum]
         warning("Some sites contained no data. These have been deleted.")
