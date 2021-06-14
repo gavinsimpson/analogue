@@ -7,7 +7,7 @@
 ###########################################################################
 summary.cma <- function(object, ...) {
     close <- lapply(object$close, function(x) {
-        if(length(x) == 0) {
+        if(identical(length(x), 0L)) {
             res <- NA
             names(res) <- "None"
             return(res)
