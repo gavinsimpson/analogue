@@ -3,6 +3,9 @@
 
 `residLen` <- function(X, env, passive,
                        method = c("cca", "rda")) {
+    if (any(tmp <- colSums(X) <= 0)) {
+        X <- X[, !tmp, drop = FALSE]
+    }
     ## merge X and passive
     dat <- join(X, passive, type = "left") ## Think this should have type = "left" ?
     X <- dat[[1]]
