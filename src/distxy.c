@@ -227,8 +227,8 @@ double xy_information(double *x, double *y, int nr1, int nr2,
     for(j=0; j<nc; j++) {
 	if(R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    XY = x[i1] + y[i2];
-	    A += x[i1] * (log((2 * x[i1]) / XY)/log(2));
-	    B += y[i2] * (log((2 * y[i2]) / XY)/log(2));
+	    A = x[i1] * (log((2 * x[i1]) / XY)/log(2));
+	    B = y[i2] * (log((2 * y[i2]) / XY)/log(2));
 	    if(R_FINITE(A)) {
 		Adist += A;
 	    }
@@ -241,7 +241,7 @@ double xy_information(double *x, double *y, int nr1, int nr2,
 	i2 += nr2;
     }
     if(count==0) return NA_REAL;
-    dist = A + B;
+    dist = Adist + Bdist;
     return dist;
 }
 
