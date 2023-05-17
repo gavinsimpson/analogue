@@ -215,25 +215,21 @@ double xy_sq_chi_square(double *x, double *y, int nr1, int nr2,
 double xy_information(double *x, double *y, int nr1, int nr2, 
 		      int nc, int i1, int i2)
 {
-    double dist, XY, A, B, Adist, Bdist;
+    double dist, XY, A, B;
     int count, j;
     
     count = 0;
     dist = 0.0;
-    Adist = 0.0;
-    Bdist = 0.0;
     A = 0.0;
     B = 0.0;
     for(j=0; j<nc; j++) {
 	if(R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    XY = x[i1] + y[i2];
-	    A += x[i1] * (log((2 * x[i1]) / XY)/log(2));
-	    B += y[i2] * (log((2 * y[i2]) / XY)/log(2));
-	    if(R_FINITE(A)) {
-		Adist += A;
+	    if (x[i1] > 0.0) {
+		 A += x[i1] * (log((2 * x[i1]) / XY)/log(2));
 	    }
-	    if(R_FINITE(B)) {
-		Bdist += B;
+	    if (y[i2] > 0.0) {
+		 B += y[i2] * (log((2 * y[i2]) / XY)/log(2));
 	    }
 	    count++;
 	}
