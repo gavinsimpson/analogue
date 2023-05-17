@@ -226,10 +226,10 @@ double xy_information(double *x, double *y, int nr1, int nr2,
 	if(R_FINITE(x[i1]) && R_FINITE(y[i2])) {
 	    XY = x[i1] + y[i2];
 	    if (x[i1] > 0.0) {
-		 A += x[i1] * (log((2 * x[i1]) / XY)/log(2));
+		 A += x[i1] * (log((2 * x[i1]) / XY) / M_LN2);
 	    }
 	    if (y[i2] > 0.0) {
-		 B += y[i2] * (log((2 * y[i2]) / XY)/log(2));
+		 B += y[i2] * (log((2 * y[i2]) / XY) / M_LN2);
 	    }
 	    count++;
 	}
