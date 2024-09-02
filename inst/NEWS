@@ -4,17 +4,39 @@
 
 * `distance()` gains new method `"metric.mixed"`, which is a modification of existing method `"mixed"` except that ordinal variables are now converted to ranks and handled as quantitative variables in Gower's mixed coefficient.
 
-    `distance()` method `"mixed"` now also handles ordinal data via the extensions to Gower's general distance coefficient in Podani (1999, *Taxon* **48**, 331--340).
+* `distance()` method `"mixed"` now also handles ordinal data via the extensions to Gower's general distance coefficient in Podani (1999, *Taxon* **48**, 331--340).
 
-    Both changes were improved by discussions with, and new code and fixes to my buggy C code by, Jari Oksanen. See Issue #15.
+* Both changes were improved by discussions with, and new code and fixes to my buggy C code by, Jari Oksanen. See Issue #15.
 
-* `join()` had a serious bug that caused the columns to be labelled incorrectly when a `type = "left"` join was used, if the columns weren't in the same order in the data frames to be merged. Issue #16
+## Version 0.17-6
 
-* `Stratiplot()` gained argument `labelValues`, which allows for custom labelling of variables in a plot. A vector of expressions can be supplied for fancy labelling such as that required for isotopes, equations, sub/superscripts, greek characters, etc.
+ * Fixes for CRAN related to digits in printed output.
 
-* `V12.122` The data were stored as proportions but treated as percentages in examples. To better match the `ImbrieKipp` training set, `V12.122` was converted to percentages. Reported by Richard Telford #22.
+## Version 0.17-5
 
-* The `Climate` data set had incorrectly-named columns and was missing some variables. The NAMPD is now updated to version 1.7-3 and the name and missing data issues have been fixed. Reported by Simon Goring in Issue #17.
+ * Fixes for CRAN
+
+## Version 0.17-4
+
+ * Fixes for CRAN
+
+## Version 0.17-3
+
+ * Fix keywords in `weightedCor()`.
+
+## Version 0.17-2
+
+ * `V12.122` The data were stored as proportions but treated as percentages in examples. To better match the `ImbrieKipp` training set, `V12.122` was converted to percentages. Reported by Richard Telford #22.
+
+## Version 0.17-1
+
+ * `prcurve` modified to use package **princurve** version >= 2.0.2.
+ 
+ * `join()` had a serious bug that caused the columns to be labelled incorrectly when a `type = "left"`join was used, if the columns weren't in the same order in the data frames to be merged. Issue #16
+
+ * `Stratiplot()` gained argument `labelValues`, which allows for custom labelling of variables in a plot. A vector of expressions can be supplied for fancy labelling such as that required for isotopes, equations, sub/superscripts, greek characters, etc.
+ 
+ * The `Climate` data set had incorrectly-named columns and was missing some variables. The NAMPD is now updated to version 1.7-3 and the name and missing data issues have been fixed. Reported by Simon Goring in Issue #17.
 
 ## Version 1.17-0
 
