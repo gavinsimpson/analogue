@@ -51,11 +51,11 @@ rankDC(g, y, dc = c("chord", "bray", "euclidean", "chi.square", "gower"),
 \value{
   A named vector of rank correlations is returned.
 }
-\author{Gavin L. Simpson, based on \code{\link{rankindex}} from the
+\author{Gavin L. Simpson, based on \code{\link[vegan]{rankindex}} from the
   vegan package.}
 
 \seealso{
-  \code{\link{rankindex}} from package vegan. For the
+  \code{\link[vegan]{rankindex}} from package vegan. For the
   \code{dotplot} method, see \code{\link[lattice]{dotplot}}. 
 }
 \examples{

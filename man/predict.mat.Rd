@@ -57,7 +57,7 @@
   \item{observed}{vector of observed environmental values.}
   \item{model}{a list containing the model or non-bootstrapped
     estimates for the training set. With the following components:
-    \itemize{
+    \describe{
       \item{\code{estimated}}{estimated values for \code{"y"}, the
 	environment.}
       \item{\code{residuals}}{model residuals.}
@@ -72,7 +72,7 @@
   }
   \item{bootstrap}{a list containing the bootstrap estimates for the
     training set. With the following components:
-    \itemize{
+    \describe{
       \item{\code{estimated}}{Bootstrap estimates for \code{"y"}.}
       \item{\code{residuals}}{Bootstrap residuals for \code{"y"}.}
       \item{\code{r.squared}}{Bootstrap derived \eqn{R^2} between observed
@@ -92,7 +92,7 @@
   }
   \item{sample.errors}{a list containing the bootstrap-derived sample
     specific errors for the training set. With the following components:
-    \itemize{
+    \describe{
       \item{\code{rmsep}}{Bootstrap derived RMSEP for the training set
 	samples.} 
       \item{\code{s1}}{Bootstrap derived S1 error component for training
@@ -109,7 +109,7 @@
   \item{predictions}{a list containing the model and
     bootstrap-derived estimates for the new data, with the following
     components:
-    \itemize{
+    \describe{
       \item{\code{observed}}{the observed values for the new samples ---
 	only if \code{newenv} is provided.}
       \item{\code{model}}{a list containing the model or

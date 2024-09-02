@@ -50,7 +50,7 @@ varExpl(object, \dots)
 %}
 
 \seealso{
-  See \code{\link{cca}} and \code{\link{prcurve}} for functions that
+  See \code{\link[vegan]{cca}} and \code{\link{prcurve}} for functions that
   produce objects that \code{varExpl()} can work with.
 }
 \examples{

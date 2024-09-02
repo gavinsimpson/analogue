@@ -94,7 +94,7 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
   tolerances are defined as a tolerance that is \eqn{<}
   \code{min.tol}. The default is to not replace small tolerances, and
   the user needs to specify suitable values of \code{min.tol}. Function
-  \code{\link{tolerance}} may be of use in computing tolerances before
+  \code{\link[vegan]{tolerance}} may be of use in computing tolerances before
   fitting the WA model.
 
   Small tolerances can be adjusted in several ways:
@@ -137,9 +137,9 @@ waFit(x, y, tol.dw, useN2, deshrink, na.tol, small.tol,
   \item{coefficients}{Deshrinking coefficients. Note that in the case of
     \code{deshrink = "monotonic"} this is a list with components \code{sm}
     (the representation of the smooth term as returned by
-    \code{\link{smoothCon}}) and \code{p} (solutions to the least squares
+    \code{\link[mgcv]{smoothCon}}) and \code{p} (solutions to the least squares
     fit with monotonic constraints, the result of a call to
-    \code{\link{pcls}}).}
+    \code{\link[mgcv]{pcls}}).}
   \item{rmse}{The RMSE of the model.}
   \item{r.squared}{The coefficient of determination of the observed and
     fitted values of the response.}

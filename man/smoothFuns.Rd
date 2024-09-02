@@ -39,7 +39,7 @@ smoothGAM(lambda, x, choose = TRUE, complexity, bs = "tp", ...,
   \item{penalty, cv, keep.data, control.spar}{arguments to
     \code{\link{smooth.spline}}.}
   \item{bs, family}{arguments to \code{\link[mgcv]{s}}.}
-  \item{method, select, control}{arguments to \code{\link{gam}}.}
+  \item{method, select, control}{arguments to \code{\link[mgcv]{gam}}.}
   \item{\dots}{arguments passed on the the underlying function
     \code{\link{smooth.spline}} and users should read that function's
     help page for further details.}

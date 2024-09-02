@@ -24,7 +24,7 @@ underlying data in a biplot.
     \code{choices} argument of the \code{\link[vegan]{scores}}
     function.}
   \item{scaling}{numeric; the scaling to use. See
-    \code{\link{scores.rda}} for the available options. The default is
+    \code{\link[vegan]{scores.rda}} for the available options. The default is
     not to scale the scores, but \code{scaling = 1} might be a useful
     alternative.}
   \item{segments}{logical; should segments be drawn between the observed

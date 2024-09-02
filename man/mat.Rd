@@ -158,7 +158,6 @@ mat(x, \dots)
   and model frame used.
   
   \code{fitted.mat} returns a list with the following components:
-  \itemize{
     \item{estimated}{numeric; a vector of fitted values.}
     \item{k}{numeric; this is the \emph{k}-closest analogue model with
       lowest apparent RMSE.}
@@ -166,12 +165,11 @@ mat(x, \dots)
       of the environment for the \emph{k}-closest analogues. If
       \code{FALSE}, the fitted values are the average of the environment
       for the \emph{k}-closest analogues.}
-  }
 }
 \note{
   The object returned by \code{mat} contains lists \code{"standard"} and
   \code{"weighted"} both with the following elements:
-  \itemize{
+  \describe{
     \item{\code{est}}{a matrix of estimated values for the training set
       samples for models using \eqn{k} analogues, where \eqn{k = 1,
 	..., n}. \eqn{n} is the number of smaples in the training

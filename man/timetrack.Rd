@@ -79,7 +79,7 @@ timetrack(X, passive, env, method = c("cca", "rda"),
   \item{which}{character; which fitted values should be returned?}
   \item{model}{character; which ordination component should be used for
     the fitted values; the constrained or unconstrained part? See
-    \code{\link{fitted.cca}} for details, but essentially, one of
+    \code{\link[vegan]{fitted.cca}} for details, but essentially, one of
     \code{"CCA"} for the constrained part and \code{"CA"} for the
     unconstrained part. If \code{NULL}, the default, \code{"CA"} is used
     unless the underlying ordination was constrained, in which case
@@ -95,7 +95,7 @@ timetrack(X, passive, env, method = c("cca", "rda"),
     ordination, the same transformation will be automatically applied to
     \code{newdata} using \code{\link{tran}}.}
   \item{display}{character; which type of sites scores to display? See
-    \code{\link{scores.cca}} for details.}
+    \code{\link[vegan]{scores.cca}} for details.}
   \item{order}{numeric; vector of indices to use to reorder the passive
     samples. Useful to get passive samples into temporal order for
     plotting with a line.}

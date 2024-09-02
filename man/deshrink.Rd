@@ -48,11 +48,11 @@ deshrinkPred(x, coef,
 \references{
   Birks, H.J.B. (1995) Quantitative environmental reconstructions. In
   \emph{Statistical modelling of Quaternary science data} (eds.~D.Maddy
-  \& J.S. Brew). Quaternary Research Association technical guide
+  & J.S. Brew). Quaternary Research Association technical guide
   5. Quaternary Research Association, Cambridge.
 }
 \author{
-  Gavin L. Simpson \& Jari Oksanen
+  Gavin L. Simpson & Jari Oksanen
 }
 %%\note{
 %%  ~~further notes~~

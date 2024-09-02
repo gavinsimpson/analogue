@@ -46,7 +46,7 @@ panel.Stratiplot(x, y,
     \code{\link[lattice]{panel.xyplot}} for further details. Note that
     \code{type "b"} is the same as \code{type "o"}.
 
-    \code{"g"} adds a reference grid using \code{panel.grid} in the
+    \code{"g"} adds a reference grid using \code{\link[lattice]{panel.grid}} in the
     background.
     
     For \code{"h"}, histogram-like bars are plotted from the
@@ -78,7 +78,7 @@ panel.Stratiplot(x, y,
   \item{lty.zones, lwd.zones}{line type and width for the zone
     markers. The defaults are obtained from \code{plot.line}.}
   \item{gridh, gridv}{numeric arguments corresponding to \code{h} and
-    \code{v} of \code{\link{panel.grid}}, which control the number of
+    \code{v} of \code{\link[lattice]{panel.grid}}, which control the number of
     grid lines drawn.}
   \item{\dots}{extra arguments passed on to the underlying panel
     functions; \code{\link[lattice]{panel.points}},

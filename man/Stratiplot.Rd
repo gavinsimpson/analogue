@@ -111,11 +111,11 @@ Stratiplot(x, \dots)
     \code{labelAt} controls the rotation of the label; it is a numeric
     value in degree.}
   \item{yticks}{This is passed to the \code{scales} argument of
-    \code{\link{xyplot}} as component \code{at}. This should be a
+    \code{\link[lattice]{xyplot}} as component \code{at}. This should be a
     numeric vector of tick locations for the y (depth/age) axis. Setting
     this to \code{NULL} or \code{FALSE} suppresses ticks on the y
     axis. The default uses \code{TRUE}, which uses the default choices
-    for \code{at} used by \code{\link{xyplot}}.}
+    for \code{at} used by \code{\link[lattice]{xyplot}}.}
   \item{\dots}{additional arguments passed to
     \code{\link{panel.Stratiplot}} and the underlying
     \code{\link[lattice]{xyplot}} function.}

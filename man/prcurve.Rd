@@ -36,7 +36,7 @@ initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
   \item{smoother}{function; the choice of smoother used to fit the
     principal curve. Currently, the only options are
     \code{smoothSpline}, which is a wrapper to
-    \code{\link{smooth.spline}}, and \code{smoothGAM}, which is a
+    \code{\link[stats]{smooth.spline}}, and \code{smoothGAM}, which is a
     wrapper to  \code{\link[mgcv]{gam}}.}
   \item{complexity}{numeric; the complexity of the fitted smooth
     functions.
@@ -93,7 +93,7 @@ initCurve(X, method = c("ca", "pca", "random", "user"), rank = FALSE,
     fitted to each variable in \code{X}.}
   \item{call}{the matched call.}
   \item{ordination}{an object of class \code{"rda"}, the result of a
-    call to \code{\link{rda}}. This is a principal components analysis
+    call to \code{\link[vegan]{rda}}. This is a principal components analysis
     of the input data \code{X}.}
   \item{data}{a copy of the data used to fit the principal curve.}
 }

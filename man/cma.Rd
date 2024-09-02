@@ -102,7 +102,7 @@ cma(object, \dots)
   
   The plot method invisibly returns a list with the following
   components:
-  \itemize{
+  \describe{
     \item{\code{distances}}{a vector of stacked distances extracted from
       \code{object}.}
     \item{\code{groups}}{a factor listing the fossil sample for which the

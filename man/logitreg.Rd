@@ -33,12 +33,12 @@ logitreg(object, groups, k = 1, ...)
     fitting.}
   \item{biasReduced}{logical; should Firth's method for bias reduced
     logistic regression be used to fit the models? If \code{TRUE}, model
-    fits are performed via \code{\link{brglm}}. The default,
+    fits are performed via \code{\link[brglm]{brglm}}. The default,
     \code{FALSE}, indicates that models will be fitted via the standard
     \code{\link{glm}} function.}
   \item{p}{probability at which to predict the dose needed.}
   \item{\dots}{arguments passed to other methods. These arguments are
-    passed on to \code{\link{glm}} or \code{\link{brglm}}. See their
+    passed on to \code{\link{glm}} or \code{\link[brglm]{brglm}}. See their
     respective helps pages for details. Note that \code{logitreg} sets
     internally the \code{formula}, \code{data}, and \code{family}
     arguments and hence can not be specified by the user.}
@@ -98,8 +98,8 @@ logitreg(object, groups, k = 1, ...)
   the reference cited therein which \strong{may} indicate problems with
   the fitted models, such as (quasi-)complete separation.
 }
-\seealso{\code{\link{roc}}, \code{\link{bayesF}}, \code{\link{glm}}, and
-  \code{\link{brglm}}.}
+\seealso{\code{\link{roc}}, \code{\link{bayesF}}, \code{\link[stats]{glm}}, and
+  \code{\link[brglm]{brglm}}.}
 \examples{
 ## load the example data
 data(swapdiat, swappH, rlgh)

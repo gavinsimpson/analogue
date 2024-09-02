@@ -78,7 +78,7 @@ caterpillar(x, ...)
 
 \seealso{
   For the underlying computations \code{\link{optima}} and
-  \code{\link{tolerance}}.
+  \code{\link[vegan]{tolerance}}.
 }
 
 \examples{

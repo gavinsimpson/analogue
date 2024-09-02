@@ -21,7 +21,7 @@ performance(object, ...)
   \code{performance} is a generic function for use with a number of
   fitted models objects in \pkg{analogue}. The available methods are:
 
-  \itemize{
+  \describe{
     \item{\code{\link{wa}} }{Weighted Averaging Models.}
     \item{\code{\link{predict.wa}} }{Predictions from a Weighted Average
       Model.}

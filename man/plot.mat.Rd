@@ -57,7 +57,7 @@
     \code{points}, \code{panel.smooth}, can be chosen by
     \code{add.smooth = TRUE}.}
   \item{add.smooth}{logical indicating if a smoother should be added to
-    fitted \& residuals plots; see also \code{panel} above.}
+    fitted & residuals plots; see also \code{panel} above.}
 }
 \details{
   This plotting function is modelled closely on \code{\link{plot.lm}}

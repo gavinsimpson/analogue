@@ -2,7 +2,7 @@
 \alias{predict.prcurve}
 \alias{fitted.prcurve}
 
-\title{Predict news locations \& fitted values on a principal curve}
+\title{Predict new locations & fitted values on a principal curve}
 \description{
   Locations on a fitted principal curve are predicted by projecting the
   new observations in \eqn{m} dimensions on to the corresponding closest

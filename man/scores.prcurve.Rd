@@ -32,7 +32,7 @@
   "dimensions"}, a matrix of coordinates for the principal curve is
   returned. The dimensions of this matrix relate to the dimensions of
   the input data; if there were \eqn{n} samples (rows) and \eqn{m}
-  variables {columns} then the matrix returned by \code{scores.prcurve}
+  variables (columns) then the matrix returned by \code{scores.prcurve}
   will have \eqn{n} rows and \eqn{m} columns.
 }
 \author{Gavin L. Simpson}
