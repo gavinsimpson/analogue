@@ -1,7 +1,7 @@
 
-R version 4.0.5 (2021-03-31) -- "Shake and Throw"
-Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-redhat-linux-gnu (64-bit)
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -24,8 +24,8 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.5-7
-analogue version 0.17-9999
+This is vegan 2.6-7
+analogue version 0.17-6
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -1061,9 +1061,9 @@ Bootstrap estimated values for training set:
   V14.61  V17.196  V18.110  V16.227   V14.47   V23.22    V2.12   V23.29 
     7.73     7.21     7.16     7.04     7.80     9.63     6.26    12.79 
   V12.43     R9.7   A157.3   V23.81   V23.82   V12.53   V23.83   V12.56 
-   13.54    13.65    15.69    15.03    14.70    17.13    14.37    20.50 
+   13.54    13.65    15.68    15.03    14.70    17.13    14.37    20.49 
  A152.84   V16.50  V22.122   V16.41    V4.32   V12.66  V19.245     V4.8 
-   21.36    18.90    16.44    23.45    23.84    21.66    21.93    23.63 
+   21.35    18.90    16.44    23.45    23.84    21.66    21.93    23.63 
  A180.15   V18.34  V20.213  V19.222  A180.39  V16.189   V12.18    V7.67 
    23.21    24.83    24.32    22.87    23.92    25.61    25.59    24.66 
  V17.165  V19.310  V16.190 A153.154  V19.308  V22.172   V10.98  V22.219 
@@ -1088,13 +1088,13 @@ V2.12    11.0  4.83 -6.1667     6.26    -4.7361 1.531 4.971  2.36
 V23.29   10.0 11.83  1.8333    12.79     2.7900 1.262 3.056  2.26
 V12.43   13.0 13.50  0.5000    13.54     0.5364 1.273 1.363  2.34
 R9.7     12.0 13.67  1.6667    13.65     1.6500 1.480 2.203  2.54
-A157.3   14.0 14.50  0.5000    15.69     1.6850 1.148 2.031  2.46
+A157.3   14.0 14.50  0.5000    15.68     1.6850 1.148 2.031  2.46
 V23.81   14.5 14.33 -0.1667    15.03     0.5275 1.233 1.327  2.60
 V23.82   15.0 14.17 -0.8333    14.70    -0.3000 1.222 1.241  2.71
-V12.53   14.5 17.00  2.5000    17.13     2.6313 1.135 2.859  2.78
+V12.53   14.5 17.00  2.5000    17.13     2.6312 1.135 2.859  2.78
 V23.83   16.0 14.50 -1.5000    14.37    -1.6341 1.039 1.930  2.85
-V12.56   18.0 20.67  2.6667    20.50     2.4950 1.294 2.803  3.06
-A152.84  20.0 22.00  2.0000    21.36     1.3550 1.454 1.974  3.23
+V12.56   18.0 20.67  2.6667    20.49     2.4950 1.294 2.803  3.06
+A152.84  20.0 22.00  2.0000    21.35     1.3550 1.454 1.974  3.23
 V16.50   18.0 17.17 -0.8333    18.90     0.9029 1.342 1.601  3.28
 V22.122  19.0 15.50 -3.5000    16.44    -2.5618 1.283 2.857  3.36
 V16.41   18.5 23.33  4.8333    23.45     4.9485 1.045 5.054  3.38
@@ -1145,8 +1145,7 @@ V12.122  28.0 27.00 -1.0000    27.03    -0.9692 0.104 0.975  7.13
 > ## IGNORE_RDIFF_BEGIN
 > fitted(ik.boot)
 
-	Modern Analogue Technique: Bootstrap fitted values for the training
-	set
+	Modern Analogue Technique: Bootstrap fitted values for the training set
 
 No. of analogues (k) : 5 
 User supplied k?     : FALSE 
@@ -1155,9 +1154,9 @@ Weighted analysis?   : FALSE
   V14.61  V17.196  V18.110  V16.227   V14.47   V23.22    V2.12   V23.29 
     7.73     7.21     7.16     7.04     7.80     9.63     6.26    12.79 
   V12.43     R9.7   A157.3   V23.81   V23.82   V12.53   V23.83   V12.56 
-   13.54    13.65    15.69    15.03    14.70    17.13    14.37    20.50 
+   13.54    13.65    15.68    15.03    14.70    17.13    14.37    20.49 
  A152.84   V16.50  V22.122   V16.41    V4.32   V12.66  V19.245     V4.8 
-   21.36    18.90    16.44    23.45    23.84    21.66    21.93    23.63 
+   21.35    18.90    16.44    23.45    23.84    21.66    21.93    23.63 
  A180.15   V18.34  V20.213  V19.222  A180.39  V16.189   V12.18    V7.67 
    23.21    24.83    24.32    22.87    23.92    25.61    25.59    24.66 
  V17.165  V19.310  V16.190 A153.154  V19.308  V22.172   V10.98  V22.219 
@@ -6737,10 +6736,15 @@ Call: timetrack(X = swapdiat, passive = rlgh, method = "rda", transform
 Ordination Output:
 Call: rda(X = X)
 
+-- Model Summary --
+
               Inertia Rank
 Total          0.6163     
 Unconstrained  0.6163  166
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8 
@@ -6771,11 +6775,16 @@ swappH), method = "rda", transform = "hellinger", formula = ~pH)
 Ordination Output:
 Call: rda(X = X, Y = mf)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         0.61631    1.00000     
 Constrained   0.09743    0.15808    1
 Unconstrained 0.51888    0.84192  165
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    RDA1 
@@ -6838,10 +6847,15 @@ Call: timetrack(X = swapdiat, passive = rlgh, method = "rda", transform
 Ordination Output:
 Call: rda(X = X)
 
+-- Model Summary --
+
               Inertia Rank
 Total          0.6163     
 Unconstrained  0.6163  166
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8 
@@ -7227,7 +7241,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.11 0.213 8.169 0 0 
+Time elapsed:  2.323 0.153 2.507 0 0 
 > grDevices::dev.off()
 null device 
           1 
