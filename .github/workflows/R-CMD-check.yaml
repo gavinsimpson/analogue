@@ -49,5 +49,9 @@ jobs:
           sudo apt-get -y install ghostscript
 
       - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          pak-version: stable
+          needs: check
 
       - uses: r-lib/actions/check-r-package@v2
