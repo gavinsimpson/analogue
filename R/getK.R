@@ -8,7 +8,7 @@ getK.default <- function(object, ...) {
 
 getK.mat <- function(object, weighted=FALSE, ...){
   ## check that this is a mat object
-  if(class(object) != "mat")
+  if(!inherits(object, "mat"))
     stop("'object' must be of class 'mat'")
   if(weighted){
     retval <- object$weighted$k
@@ -73,7 +73,7 @@ getK.predict.mat <- function(object,
 
 "setK<-.mat" <- function(object, weighted=FALSE, value) {
   ## check that this is a mat object
-  if(class(object) != "mat")
+  if(!inherits(object, "mat"))
     stop("'object' must be of class 'mat'")
   ## check that value is not NULL
   if(is.null(value))

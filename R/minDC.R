@@ -29,7 +29,7 @@ minDC.predict.mat <- function(x, ...) {
 
 minDC.analog <- function(x, probs = c(0.01, 0.02, 0.05, 0.1),
                          ...) {
-  if(class(x) != "analog")
+  if(!inherits(x, "analog"))
     stop("'x' is not of class \"analog\".")
   minDC <- apply(x$analogs, 2, min)
   quant <- NULL
