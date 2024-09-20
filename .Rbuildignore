@@ -7,4 +7,4 @@ Makefile
 R/monoSpline.R
 ^\.vscode
 ^codecov\.yml$
-
+^\.github
