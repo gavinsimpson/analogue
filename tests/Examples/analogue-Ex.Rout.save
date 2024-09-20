@@ -24,8 +24,8 @@ Type 'q()' to quit R.
 Loading required package: vegan
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.6-7
-analogue version 0.17-6
+This is vegan 2.6-8
+analogue version 0.17-7
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -7241,7 +7241,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.323 0.153 2.507 0 0 
+Time elapsed:  2.358 0.148 2.536 0 0 
 > grDevices::dev.off()
 null device 
           1 
