@@ -90,9 +90,7 @@ data(Location)
   This value is not known for all samples.
 }
 \source{
-  The database is archived electronically at two sites:
-
-  \url{http://www.lpc.uottawa.ca/data/modern/index.html}
+  The database is currently archived electronically at:
 
   \url{https://williamspaleolab.github.io/datavis/}
 }
