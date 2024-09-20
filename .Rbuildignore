@@ -8,3 +8,4 @@ R/monoSpline.R
 ^\.vscode
 ^codecov\.yml$
 ^\.github
+^cran-comments\.md
