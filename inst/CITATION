@@ -2,7 +2,7 @@ if(!exists("meta") || is.null(meta)) meta <- packageDescription("analogue")
 
 citHeader("To cite use of 'analogue' in publications use:")
 
-bibentry(entry="Manual",
+bibentry(bibtype="Manual",
 	title ="analogue: Analogue and weighted averaging methods for palaeoecology",
 	author = c(person(given = "Gavin L.", family = "Simpson",
                     comment = c(ORCID = "0000-0002-9084-8413")),
@@ -18,7 +18,7 @@ bibentry(entry="Manual",
 	      "(https://cran.r-project.org/package=analogue).", sep=" ")
 )
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title   = "Analogue Methods in Palaeoecology: Using the analogue Package",
   author  = person(given = "Gavin L.", family =  "Simpson"),
   journal = "Journal of Statistical Software",
