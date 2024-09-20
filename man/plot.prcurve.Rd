@@ -59,7 +59,7 @@ Gavin L. Simpson
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{prcurve}}; \code{\link{rda}} for the code used to perform
+\code{\link{prcurve}}; \code{\link[vegan]{rda}} for the code used to perform
 the PCA.
 }
 \examples{
