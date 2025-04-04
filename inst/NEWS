@@ -1,12 +1,19 @@
 # analogue News
 
-## Version 1.18-0 **Not yet released**
+## Version 1.18-0
 
-* `distance()` gains new method `"metric.mixed"`, which is a modification of existing method `"mixed"` except that ordinal variables are now converted to ranks and handled as quantitative variables in Gower's mixed coefficient.
+  * `distance()` gains new method `"metric.mixed"`, which is a modification of
+    existing method `"mixed"` except that ordinal variables are now converted to
+    ranks and handled as quantitative variables in Gower's mixed coefficient.
 
-* `distance()` method `"mixed"` now also handles ordinal data via the extensions to Gower's general distance coefficient in Podani (1999, *Taxon* **48**, 331--340).
+  * `distance()` method `"mixed"` now also handles ordinal data via the
+    extensions to Gower's general distance coefficient in Podani (1999, *Taxon*
+    **48**, 331--340).
 
-* Both changes were improved by discussions with, and new code and fixes to my buggy C code by, Jari Oksanen. See Issue #15.
+  * Both changes were improved by discussions with, and new code and fixes to my
+    buggy C code by, Jari Oksanen. See Issue #15.
+  
+  * Fixes to example reference output due to a vegan update.
 
 ## Version 0.17-6
 

@@ -1,8 +1,8 @@
 Package: analogue
 Type: Package
 Title: Analogue and Weighted Averaging Methods for Palaeoecology
-Version: 0.17-7
-Date: 2024-09-02
+Version: 0.18.0
+Date: 2025-04-04
 Depends: R (>= 3.5.0), vegan (>= 2.2-0)
 Imports: mgcv,
   MASS,
