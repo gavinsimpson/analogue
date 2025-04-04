@@ -9,3 +9,4 @@ R/monoSpline.R
 ^codecov\.yml$
 ^\.github
 ^cran-comments\.md
+^CRAN-SUBMISSION$
