@@ -1,6 +1,10 @@
 # analogue News
 
-## Version 1.18-0
+## Version 0.18-1
+
+  * Updated reference output for examples following release of vegan 2.7.1.
+
+## Version 0.18-0
 
   * `distance()` gains new method `"metric.mixed"`, which is a modification of
     existing method `"mixed"` except that ordinal variables are now converted to

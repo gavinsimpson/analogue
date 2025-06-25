@@ -1,6 +1,6 @@
 
-R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -23,8 +23,7 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-Loading required package: lattice
-analogue version 0.18.0
+analogue version 0.18.1
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -6733,17 +6732,14 @@ Call: timetrack(X = swapdiat, passive = rlgh, method = "rda", transform
 = "hellinger")
 
 Ordination Output:
-Call: rda(X = X)
 
--- Model Summary --
+Call: rda(X = X)
 
               Inertia Rank
 Total          0.6163     
 Unconstrained  0.6163  166
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8 
@@ -6772,9 +6768,8 @@ Call: timetrack(X = swapdiat, passive = rlgh, env = data.frame(pH =
 swappH), method = "rda", transform = "hellinger", formula = ~pH)
 
 Ordination Output:
-Call: rda(X = X, Y = mf)
 
--- Model Summary --
+Call: rda(X = X, Y = mf)
 
               Inertia Proportion Rank
 Total         0.61631    1.00000     
@@ -6782,8 +6777,6 @@ Constrained   0.09743    0.15808    1
 Unconstrained 0.51888    0.84192  165
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    RDA1 
@@ -6844,17 +6837,14 @@ Call: timetrack(X = swapdiat, passive = rlgh, method = "rda", transform
 = "hellinger", scaling = "sites", correlation = TRUE)
 
 Ordination Output:
-Call: rda(X = X)
 
--- Model Summary --
+Call: rda(X = X)
 
               Inertia Rank
 Total          0.6163     
 Unconstrained  0.6163  166
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8 
@@ -7240,7 +7230,7 @@ Correlation         : 0.437 (p = < 2.22e-16)
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.315 0.15 2.542 0 0 
+Time elapsed:  2.907 0.238 3.164 0 0 
 > grDevices::dev.off()
 null device 
           1 
