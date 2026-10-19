@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('analogue')
 Loading required package: vegan
 Loading required package: permute
-analogue version 0.18.1
+analogue version 0.18.1.9000
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')

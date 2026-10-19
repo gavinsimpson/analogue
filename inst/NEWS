@@ -1,8 +1,13 @@
 # analogue News
 
-## Development version
+## Version 0.18.1.9000 (development)
 
 ### Bug fixes
+
+  * `join()` now preserves data-frame dimensions when splitting joined
+    samples. This fixes errors for single-row inputs in left and inner
+    joins, including single passive samples in `residLen()`, and preserves
+    species names for single-column results.
 
   * `residLen()` now correctly projects passive samples onto the constrained
     ordination axes. The reconstruction was missing the square roots of

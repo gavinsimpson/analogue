@@ -77,7 +77,7 @@
         ends<- cumsum(dims[,1])
         start <- c(1, ends[-n.joined] + 1)
         for(i in seq_len(n.joined)) {
-            retval[[i]] <- as.data.frame(joined[start[i]:ends[i], ])
+            retval[[i]] <- as.data.frame(joined[start[i]:ends[i], , drop = FALSE])
             rownames(retval[[i]]) <- rn[[i]]
         }
         names(retval) <- as.character(match.call())[2:(n.joined+1)]
