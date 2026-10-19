@@ -35,3 +35,27 @@ test_that("join() with type = 'inner' works", {
     obj <- join(spp, fos, type = "inner")
     expect_equal(INNER, obj)
 })
+
+test_that("join() preserves single-row data frames when splitting", {
+    subsets <- list(list(1L, 1:2), list(1:2, 1L), list(1L, 1L))
+    for (type in c("outer", "left", "inner")) {
+        expected <- switch(type, outer = OUTER, left = LEFT, inner = INNER)
+        for (rows in subsets) {
+            x <- spp[rows[[1]], , drop = FALSE]
+            y <- fos[rows[[2]], , drop = FALSE]
+            result <- join(x, y, type = type)
+            expect_equal(result[[1]], expected[[1]][rows[[1]], , drop = FALSE])
+            expect_equal(result[[2]], expected[[2]][rows[[2]], , drop = FALSE])
+        }
+    }
+})
+
+test_that("join() preserves species names for single-column results", {
+    x <- data.frame(taxon = c(1, 2), row.names = c("t1", "t2"))
+    y <- data.frame(taxon = 3, row.names = "p1")
+    for (type in c("outer", "left", "inner")) {
+        result <- join(x, y, type = type)
+        expect_equal(result[[1]], x)
+        expect_equal(result[[2]], y)
+    }
+})

@@ -90,3 +90,13 @@ test_that("passive fits are projections onto the constrained species subspace", 
         }
     }
 })
+
+test_that("residLen() accepts a single passive sample", {
+    for (method in c("cca", "rda")) {
+        batch <- residLen(ImbrieKipp, SumSST, V12.122[1:2, ], method = method)
+        single <- residLen(ImbrieKipp, SumSST, V12.122[1, , drop = FALSE],
+                           method = method)
+        expect_equal(single$passive, batch$passive[1])
+        expect_equal(single$train, batch$train)
+    }
+})
