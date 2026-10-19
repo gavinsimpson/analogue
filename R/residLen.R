@@ -61,12 +61,16 @@ fittedY <- function(ord, newdata, colsum) {
     ##           columns as that used to fit ord
     ## colsum  = colum sums for the training
     ## species scores
-    b <- predict(ord, type = "sp")
+    b <- predict(ord, type = "sp", scaling = "none")
     ## site scores
-    xi <- predict(ord, newdata = newdata, type = "wa")
+    xi <- predict(ord, newdata = newdata, type = "wa", scaling = "none")
+    ## Restore the singular values omitted from the unscaled scores.
+    xi <- sweep(xi, 2, sqrt(ord$CCA$eig), "*")
     ## predict fitted values
     if(inherits(ord, "rda")) {
-        fik <- xi %*% t(b)
+        n <- stats::nobs(ord)
+        fik <- xi %*% t(b) * sqrt(n - 1)
+        fik <- sweep(fik, 2, colsum / n, "+")
     } else {
         fik <- sweep(1 + (xi %*% t(b)), 2,
                      colsum / sum(colsum), "*")

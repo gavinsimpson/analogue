@@ -44,6 +44,13 @@ sqrlUnimodal(Y, colsum, fitted)
   distances between the observed species data and the fitted values from
   the constrained ordination.
 
+  Passive samples are projected onto the constrained ordination axes to
+  find the closest fitted species composition, using chi-squared distance
+  for CCA and Euclidean distance for RDA. Training samples instead use
+  fitted positions determined by the environmental constraints. Hence
+  training samples supplied again as passive samples can have smaller
+  residual lengths than their training residual lengths.
+
   \code{residLen} is the main user-interface function and can be called
   with either the training data and passive samples.
 
