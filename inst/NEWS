@@ -1,5 +1,15 @@
 # analogue News
 
+## Development version
+
+### Bug fixes
+
+  * `residLen()` now correctly projects passive samples onto the constrained
+    ordination axes. The reconstruction was missing the square roots of
+    the eigenvalues for both CCA and RDA, and the training sample size
+    scaling and species means for RDA, inflating passive residual lengths.
+    Training residual lengths are unchanged. Issue #29.
+
 ## Version 0.18-1
 
   * Updated reference output for examples following release of vegan 2.7.1.
